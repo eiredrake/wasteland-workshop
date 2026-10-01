@@ -1,0 +1,67 @@
+import { useState } from 'react'
+import Datalist from '../../components/Datalist/Datalist'
+import type { Blueprint } from './Blueprint'
+import { testBlueprints } from './testBlueprints'
+import BlueprintDetails from './BlueprintDetails'
+
+const blueprintColumns: { key: keyof Blueprint; label: string }[] = [
+  { key: 'name', label: 'Blueprint' },
+  { key: 'kind', label: 'Kind'},
+  { key: 'skill', label: 'Skill' },
+  { key: 'grade', label: 'Grade' },
+]
+
+function BlueprintSearch() {
+  const [searchText, setSearchText] = useState('')
+  const [selectedBlueprint, setSelectedBlueprint] = useState<Blueprint | null>(null)
+  const normalizedSearch = searchText.trim().toLowerCase()
+
+  const handleBlueprintClick = (blueprint: Blueprint) => {
+    setSelectedBlueprint(blueprint)
+  }
+
+  const filteredBlueprints = testBlueprints.filter((blueprint) => {
+    const searchableFields = [
+      blueprint.name,
+      blueprint.kind,
+      blueprint.skill,
+      blueprint.grade,
+    ]
+  
+    return searchableFields.some((field) =>
+      field.toLowerCase().includes(normalizedSearch)
+    )
+  })
+
+  return (
+    <section>
+      <div className="blueprint-search">
+  <span className="blueprint-search-icon" aria-hidden="true">
+    🔍
+  </span>
+
+      <input
+        type="search"
+        placeholder="Search blueprints..."
+        value={searchText}
+        onChange={(event) => setSearchText(event.target.value)}
+      />
+    </div>
+
+      <Datalist<Blueprint>
+        title="Blueprints"
+        items={filteredBlueprints}
+        columns={blueprintColumns}
+        getRowKey={(blueprint) => blueprint.id}
+        showAddButton={false}
+        onRowClick={handleBlueprintClick}
+        emptyMessage="No blueprints found."
+      />
+      {selectedBlueprint && (
+        <BlueprintDetails blueprint={selectedBlueprint} />
+      )}   
+    </section>
+  )
+}
+
+export default BlueprintSearch

@@ -12,6 +12,7 @@ type DatalistProps<T> = {
   columns: DatalistColumn<T>[]
   showAddButton?: boolean
   getRowKey: (item: T) => string | number
+  onRowClick? : (item : T) => void
   onAdd?: () => void
   emptyMessage?: string
 }
@@ -22,6 +23,7 @@ function Datalist<T>({
   columns,
   showAddButton = false,
   getRowKey,
+  onRowClick,
   onAdd,
   emptyMessage = "No items Found.",
 }: DatalistProps<T>) {
@@ -91,7 +93,10 @@ function Datalist<T>({
             </tr>
           ) : (
             sortedItems.map((item) => (
-              <tr key={getRowKey(item)}>
+              <tr 
+                key={getRowKey(item)}
+                onClick={() => onRowClick?.(item)}
+              >
                 {columns.map((column) => (
                   <td key={String(column.key)}>
                     {String(item[column.key] ?? '')}
