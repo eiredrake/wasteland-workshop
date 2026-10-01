@@ -29,6 +29,8 @@ describe('calculateResourceValuations', () => {
       calculator
     )
 
+    
+
     expect(valuations).toHaveLength(2)
 
     expect(valuations[0].acquisitionMethod.name).toBe(
@@ -41,4 +43,80 @@ describe('calculateResourceValuations', () => {
     )
     expect(valuations[1].calculatedCost).toBe(7)
   })
+
+  it('returns an unknown cost when a required resource has no valuation', () => {
+    const resources = [
+      {
+        itemId: 3868,
+        acquisitionMethods: [
+          {
+            name: 'Artisan Crafting - Rare Scrap',
+            mind: 5,
+            minutes: 10,
+            materialCost: 0,
+            resolve: 0,
+            resources: [
+              {
+                itemId: 3867,
+                quantity: 3,
+              },
+            ],
+          },
+        ],
+      },
+    ]
+  
+    const valuations = calculateResourceValuations(
+      resources[0],
+      calculator,
+      resources
+    )
+  
+    expect(valuations).toHaveLength(1)
+    expect(valuations[0].calculatedCost).toBeUndefined()
+  })  
+
+  it('calculates cost through a required resource', () => {
+    const resources = [
+      {
+        itemId: 3866,
+        acquisitionMethods: [
+          {
+            name: 'Test Basic Scrap',
+            mind: 0,
+            minutes: 0,
+            materialCost: 2,
+            resolve: 0,
+          },
+        ],
+      },
+      {
+        itemId: 3867,
+        acquisitionMethods: [
+          {
+            name: 'Artisan Crafting - Uncommon Scrap',
+            mind: 5,
+            minutes: 10,
+            materialCost: 0,
+            resolve: 0,
+            resources: [
+              {
+                itemId: 3866,
+                quantity: 3,
+              },
+            ],
+          },
+        ],
+      },
+    ]
+  
+    const valuations = calculateResourceValuations(
+      resources[1],
+      calculator,
+      resources
+    )
+  
+    expect(valuations).toHaveLength(1)
+    expect(valuations[0].calculatedCost).toBe(11)
+  })  
 })

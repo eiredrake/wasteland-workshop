@@ -4,7 +4,7 @@ import type { CostCalculator } from './CostCalculator'
 export type ResourceValuation = {
   itemId: number
   acquisitionMethod: AcquisitionMethod
-  calculatedCost: number
+  calculatedCost: number | undefined
 }
 
 export function calculateResourceValuation(

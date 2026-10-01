@@ -20,28 +20,44 @@ export function calculateResourceValuations(
   nextVisitedItemIds.add(resource.itemId)
 
   return resource.acquisitionMethods.map((acquisitionMethod) => {
-    const resourceMaterialCost =
-      acquisitionMethod.resources?.reduce((total, requiredResource) => {
-        const requiredResourceEconomics = findResourceEconomics(
-          requiredResource.itemId,
-          resources
-        )
+    let resourceMaterialCost = 0
+    let hasUnknownResourceCost = false
 
-        if (!requiredResourceEconomics) {
-          return total
-        }
+    for (const requiredResource of acquisitionMethod.resources ?? []) {
+      const requiredResourceEconomics = findResourceEconomics(
+        requiredResource.itemId,
+        resources
+      )
 
-        const valuations = calculateResourceValuations(
-          requiredResourceEconomics,
-          calculator,
-          resources,
-          nextVisitedItemIds
-        )
+      if (!requiredResourceEconomics) {
+        hasUnknownResourceCost = true
+        continue
+      }
 
-        const unitCost = valuations[0]?.calculatedCost ?? 0
+      const valuations = calculateResourceValuations(
+        requiredResourceEconomics,
+        calculator,
+        resources,
+        nextVisitedItemIds
+      )
 
-        return total + unitCost * requiredResource.quantity
-      }, 0) ?? 0
+      const unitCost = valuations[0]?.calculatedCost
+
+      if (unitCost === undefined) {
+        hasUnknownResourceCost = true
+        continue
+      }
+
+      resourceMaterialCost += unitCost * requiredResource.quantity
+    }
+
+    if (hasUnknownResourceCost) {
+      return {
+        itemId: resource.itemId,
+        acquisitionMethod,
+        calculatedCost: undefined,
+      }
+    }
 
     return calculateResourceValuation(
       resource.itemId,
