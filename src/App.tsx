@@ -1,5 +1,5 @@
 import './App.css'
-import DataList from './components/DataList/DataList'
+import DataList from './components/Datalist/Datalist'
 
 type Print = {
   id: number
@@ -39,11 +39,10 @@ function App() {
       <h1>Wasteland Workshop</h1>
       <p>Dystopia Rising crafting economics and build planning.</p>
 
-      <h2>Prints</h2>
-
       <DataList<Print>
         getRowKey={(item) => item.id}
         items={testPrints}
+        title="Blueprints"
         columns={printColumns}
         showAddButton={true}
         onAdd={handleAddPrint}

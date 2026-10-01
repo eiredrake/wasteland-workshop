@@ -1,0 +1,31 @@
+:root {
+  /* Main surfaces */
+  --color-background: #181816;
+  --color-surface: #242421;
+  --color-surface-raised: #30302b;
+
+  /* Text */
+  --color-text: #e6e1d5;
+  --color-text-muted: #aaa596;
+
+  /* Wasteland accents */
+  --color-rust: #a65332;
+  --color-rust-light: #c86d46;
+  --color-hazard: #d1a72c;
+
+  /* Structure */
+  --color-border: #555147;
+  --color-border-strong: #777164;
+
+  /* Interaction */
+  --color-hover: #393831;
+  --color-focus: #e0b83f;
+
+  /* Status */
+  --color-success: #748c58;
+  --color-warning: #d1a72c;
+  --color-danger: #a84b3f;
+
+  /* Shape */
+  --border-radius: 3px;
+}

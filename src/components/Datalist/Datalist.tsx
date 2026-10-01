@@ -1,27 +1,30 @@
 import { useState } from 'react'
+import './Datalist.css'
 
-type DataListColumn<T> = {
+type DatalistColumn<T> = {
   key: keyof T
   label: string
 }
 
-type DataListProps<T> = {
+type DatalistProps<T> = {
   items: T[]
-  columns: DataListColumn<T>[]
+  title?: string
+  columns: DatalistColumn<T>[]
   showAddButton?: boolean
   getRowKey: (item: T) => string | number
   onAdd?: () => void
   emptyMessage?: string
 }
 
-function DataList<T>({
+function Datalist<T>({
   items,
+  title,
   columns,
   showAddButton = false,
   getRowKey,
   onAdd,
   emptyMessage = "No items Found.",
-}: DataListProps<T>) {
+}: DatalistProps<T>) {
   const [sortKey, setSortKey] = useState<keyof T | null>(null)
   const [sortAscending, setSortAscending] = useState(true)
 
@@ -51,14 +54,18 @@ function DataList<T>({
   })  
 
   return (
-    <section>
-      {showAddButton && (
-        <button type="button" onClick={onAdd} aria-label="Add item">
-          +
-        </button>
-      )}
+    <section className="datalist">
+        <header className="datalist-header">
+          {title && <h2>{title}</h2>}
 
-      <table>
+          {showAddButton && (
+            <button type="button" onClick={onAdd} aria-label="Add item">
+              +
+            </button>
+          )}
+        </header>
+
+        <table>
         <thead>
           <tr>
             {columns.map((column) => (
@@ -99,4 +106,4 @@ function DataList<T>({
   )
 }
 
-export default DataList
+export default Datalist
