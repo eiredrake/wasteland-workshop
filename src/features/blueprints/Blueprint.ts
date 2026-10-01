@@ -1,3 +1,7 @@
+import type { BlueprintComponent } from './BlueprintComponent'
+import type { ItemCrafting } from './ItemCrafting'
+import type { ItemMetadata } from './ItemMetadata'
+
 export type Blueprint = {
   id: number
   name: string
@@ -5,6 +9,8 @@ export type Blueprint = {
   grade: string
   mind: number
   minutes: number
-  resolve: number
   kind: string
+  components: BlueprintComponent[]
+  metadata?: ItemMetadata
+  itemCraftings?: ItemCrafting[]
 }
