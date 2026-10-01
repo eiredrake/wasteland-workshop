@@ -16,8 +16,7 @@ export class DefaultCostCalculator implements CostCalculator {
     return (
       this.calculateMindCost(input.mind) +
       this.calculateTimeCost(input.minutes) +
-      input.materialCost +
-      input.resolveCost
+      input.materialCost
     )
   }
 

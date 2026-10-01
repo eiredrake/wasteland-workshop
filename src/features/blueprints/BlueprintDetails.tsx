@@ -5,6 +5,7 @@ import {
   calculateResourceValuations,
   findResourceEconomics,
 } from '../../economics/ResourceValuationService'
+import { calculateBlueprintCost } from '../../economics/BlueprintCostService'
 
 type BlueprintDetailsProps = {
   blueprint: Blueprint
@@ -19,14 +20,6 @@ function BlueprintDetails({ blueprint }: BlueprintDetailsProps) {
 
   const mindCost = costCalculator.calculateMindCost(mind)
   const timeCost = costCalculator.calculateTimeCost(minutes)
-
-  const laborCost = costCalculator.calculateProductionCost({
-    mind: mind,
-    minutes: minutes,
-    materialCost: 0,
-    resolveCost: 0,
-  })
-  
 
   const getComponentUnitCost = (itemId: number): number | undefined => {
     const resourceEconomics = findResourceEconomics(
@@ -47,36 +40,19 @@ function BlueprintDetails({ blueprint }: BlueprintDetailsProps) {
   }
 
   const components =
-    blueprint.itemCraftings?.[0]?.craftingComponents.map(
-      (craftingComponent) => ({
-        id: craftingComponent.component.id,
-        name: craftingComponent.component.name,
-        quantity: craftingComponent.amount,
-      })
-    ) ?? []
+    crafting?.craftingComponents.map((craftingComponent) => ({
+      id: craftingComponent.component.id,
+      name: craftingComponent.component.name,
+      quantity: craftingComponent.amount,
+    })) ?? []
 
-  const materialCost = components.reduce((total, component) => {
-    const unitCost = getComponentUnitCost(component.id)
-
-    if (unitCost === undefined) {
-      return total
-    }
-
-    return total + unitCost * component.quantity
-  }, 0)
-
-  const hasUnknownComponentCosts = components.some(
-    (component) => getComponentUnitCost(component.id) === undefined
-  )
-
-  const productionCost = hasUnknownComponentCosts
-    ? undefined
-    : costCalculator.calculateProductionCost({
-        mind: mind,
-        minutes: minutes,
-        materialCost,
-        resolveCost: 0,
-      })
+  const costs = crafting
+    ? calculateBlueprintCost(
+        crafting,
+        testResourceEconomics,
+        costCalculator
+      )
+    : undefined
 
   return (
     <section>
@@ -101,7 +77,7 @@ function BlueprintDetails({ blueprint }: BlueprintDetailsProps) {
           <p>Resolve: {crafting.craftingResolveCost}</p>
           <p>Crafting Zone: {crafting.craftingZone}</p>
         </>
-      )}      
+      )}
 
       <h3>Components</h3>
 
@@ -127,19 +103,32 @@ function BlueprintDetails({ blueprint }: BlueprintDetailsProps) {
         </ul>
       )}
 
-      <p>Labor Cost: {laborCost}cr</p>
+      <p>
+        Labor Cost:{' '}
+        {costs === undefined ? 'Unknown' : `${costs.laborCost}cr`}
+      </p>
 
       <p>
         Material Cost:{' '}
-        {hasUnknownComponentCosts ? 'Unknown' : `${materialCost}cr`}
+        {costs === undefined
+          ? 'Unknown'
+          : `${costs.materialCost}cr${costs.hasUnknownComponentCosts ? '*' : ''}`}
       </p>
 
       <p>
         <strong>
           Production Cost:{' '}
-          {productionCost === undefined ? 'Unknown' : `${productionCost}cr`}
+          {costs?.productionCost === undefined
+            ? 'Unknown*'
+            : `${costs.productionCost}cr`}
         </strong>
       </p>
+
+      {costs?.hasUnknownComponentCosts && (
+        <p>
+          * Cost estimate is incomplete because one or more component values are unknown.
+        </p>
+      )}
     </section>
   )
 }

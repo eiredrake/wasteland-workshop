@@ -8,15 +8,51 @@ import {
 
 export function calculateResourceValuations(
   resource: ResourceEconomics,
-  calculator: CostCalculator
+  calculator: CostCalculator,
+  resources: ResourceEconomics[] = [],
+  visitedItemIds: Set<number> = new Set()
 ): ResourceValuation[] {
-  return resource.acquisitionMethods.map((acquisitionMethod) =>
-    calculateResourceValuation(
+  if (visitedItemIds.has(resource.itemId)) {
+    return []
+  }
+
+  const nextVisitedItemIds = new Set(visitedItemIds)
+  nextVisitedItemIds.add(resource.itemId)
+
+  return resource.acquisitionMethods.map((acquisitionMethod) => {
+    const resourceMaterialCost =
+      acquisitionMethod.resources?.reduce((total, requiredResource) => {
+        const requiredResourceEconomics = findResourceEconomics(
+          requiredResource.itemId,
+          resources
+        )
+
+        if (!requiredResourceEconomics) {
+          return total
+        }
+
+        const valuations = calculateResourceValuations(
+          requiredResourceEconomics,
+          calculator,
+          resources,
+          nextVisitedItemIds
+        )
+
+        const unitCost = valuations[0]?.calculatedCost ?? 0
+
+        return total + unitCost * requiredResource.quantity
+      }, 0) ?? 0
+
+    return calculateResourceValuation(
       resource.itemId,
-      acquisitionMethod,
+      {
+        ...acquisitionMethod,
+        materialCost:
+          acquisitionMethod.materialCost + resourceMaterialCost,
+      },
       calculator
     )
-  )
+  })
 }
 
 export function findResourceEconomics(

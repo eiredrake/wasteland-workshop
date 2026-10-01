@@ -17,7 +17,7 @@ describe('DefaultCostCalculator', () => {
       mind: 10,
       minutes: 20,
       materialCost: 27,
-      resolveCost: 0,
+      resolve: 0,
     })
 
     expect(productionCost).toBe(37)

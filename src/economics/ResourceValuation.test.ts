@@ -13,7 +13,7 @@ describe('calculateResourceValuation', () => {
         mind: 10,
         minutes: 10,
         materialCost: 0,
-        resolveCost: 0,
+        resolve: 0,
       },
       calculator
     )

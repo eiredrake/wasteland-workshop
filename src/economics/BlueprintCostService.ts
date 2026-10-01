@@ -22,7 +22,7 @@ export function calculateBlueprintCost(
     mind: crafting.craftingMindCost,
     minutes: crafting.craftingTimeInMinute,
     materialCost: 0,
-    resolveCost: 0,
+    resolve: 0,
   })
 
   let materialCost = 0
@@ -60,7 +60,7 @@ export function calculateBlueprintCost(
         mind: crafting.craftingMindCost,
         minutes: crafting.craftingTimeInMinute,
         materialCost,
-        resolveCost: 0,
+        resolve: 0,
       })
 
   return {

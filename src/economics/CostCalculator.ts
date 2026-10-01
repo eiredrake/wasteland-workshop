@@ -2,7 +2,7 @@ export type ProductionCostInput = {
   mind: number
   minutes: number
   materialCost: number
-  resolveCost: number
+  resolve: number
 }
 
 export interface CostCalculator {
