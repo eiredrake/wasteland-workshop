@@ -7,7 +7,6 @@ import BlueprintDetails from './BlueprintDetails'
 const blueprintColumns: { key: keyof Blueprint; label: string }[] = [
   { key: 'name', label: 'Blueprint' },
   { key: 'kind', label: 'Kind'},
-  { key: 'skill', label: 'Skill' },
   { key: 'grade', label: 'Grade' },
 ]
 
@@ -24,8 +23,8 @@ function BlueprintSearch() {
     const searchableFields = [
       blueprint.name,
       blueprint.kind,
-      blueprint.skill,
       blueprint.grade,
+      blueprint.itemCraftings?.[0]?.craftingSkills ?? '',
     ]
   
     return searchableFields.some((field) =>

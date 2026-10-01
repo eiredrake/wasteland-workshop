@@ -13,9 +13,9 @@ type BlueprintDetailsProps = {
 function BlueprintDetails({ blueprint }: BlueprintDetailsProps) {
   const crafting = blueprint.itemCraftings?.[0]
 
-  const mind = crafting?.craftingMindCost ?? blueprint.mind
-  const minutes = crafting?.craftingTimeInMinute ?? blueprint.minutes
-  const skills = crafting?.craftingSkills ?? blueprint.skill
+  const mind = crafting?.craftingMindCost ?? 0
+  const minutes = crafting?.craftingTimeInMinute ?? 0
+  const skills = crafting?.craftingSkills ?? 'No crafting data'
 
   const mindCost = costCalculator.calculateMindCost(mind)
   const timeCost = costCalculator.calculateTimeCost(minutes)
@@ -53,7 +53,7 @@ function BlueprintDetails({ blueprint }: BlueprintDetailsProps) {
         name: craftingComponent.component.name,
         quantity: craftingComponent.amount,
       })
-    ) ?? blueprint.components
+    ) ?? []
 
   const materialCost = components.reduce((total, component) => {
     const unitCost = getComponentUnitCost(component.id)
@@ -72,8 +72,8 @@ function BlueprintDetails({ blueprint }: BlueprintDetailsProps) {
   const productionCost = hasUnknownComponentCosts
     ? undefined
     : costCalculator.calculateProductionCost({
-        mind: blueprint.mind,
-        minutes: blueprint.minutes,
+        mind: mind,
+        minutes: minutes,
         materialCost,
         resolveCost: 0,
       })
