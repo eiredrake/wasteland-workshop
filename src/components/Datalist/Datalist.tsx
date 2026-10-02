@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import './Datalist.css'
 
 type DatalistColumn<T> = {
   key: keyof T
   label: string
+  render?: (item: T) => ReactNode
 }
 
 type DatalistProps<T> = {
@@ -12,7 +13,7 @@ type DatalistProps<T> = {
   columns: DatalistColumn<T>[]
   showAddButton?: boolean
   getRowKey: (item: T) => string | number
-  onRowClick? : (item : T) => void
+  onRowClick?: (item: T) => void
   onAdd?: () => void
   emptyMessage?: string
 }
@@ -25,7 +26,7 @@ function Datalist<T>({
   getRowKey,
   onRowClick,
   onAdd,
-  emptyMessage = "No items Found.",
+  emptyMessage = 'No items found.',
 }: DatalistProps<T>) {
   const [sortKey, setSortKey] = useState<keyof T | null>(null)
   const [sortAscending, setSortAscending] = useState(true)
@@ -43,31 +44,35 @@ function Datalist<T>({
     if (sortKey === null) {
       return 0
     }
-  
+
     const aValue = String(a[sortKey] ?? '')
     const bValue = String(b[sortKey] ?? '')
-  
+
     const comparison = aValue.localeCompare(bValue, undefined, {
       numeric: true,
       sensitivity: 'base',
     })
-  
+
     return sortAscending ? comparison : -comparison
-  })  
+  })
 
   return (
     <section className="datalist">
-        <header className="datalist-header">
-          {title && <h2>{title}</h2>}
+      <header className="datalist-header">
+        {title && <h2>{title}</h2>}
 
-          {showAddButton && (
-            <button type="button" onClick={onAdd} aria-label="Add item">
-              +
-            </button>
-          )}
-        </header>
+        {showAddButton && (
+          <button
+            type="button"
+            onClick={onAdd}
+            aria-label="Add item"
+          >
+            +
+          </button>
+        )}
+      </header>
 
-        <table>
+      <table>
         <thead>
           <tr>
             {columns.map((column) => (
@@ -77,7 +82,8 @@ function Datalist<T>({
                   onClick={() => handleSort(column.key)}
                 >
                   {column.label}
-                  {sortKey === column.key && (sortAscending ? ' ▲' : ' ▼')}
+                  {sortKey === column.key &&
+                    (sortAscending ? ' ▲' : ' ▼')}
                 </button>
               </th>
             ))}
@@ -93,13 +99,15 @@ function Datalist<T>({
             </tr>
           ) : (
             sortedItems.map((item) => (
-              <tr 
+              <tr
                 key={getRowKey(item)}
                 onClick={() => onRowClick?.(item)}
               >
                 {columns.map((column) => (
                   <td key={String(column.key)}>
-                    {String(item[column.key] ?? '')}
+                    {column.render
+                      ? column.render(item)
+                      : String(item[column.key] ?? '')}
                   </td>
                 ))}
               </tr>

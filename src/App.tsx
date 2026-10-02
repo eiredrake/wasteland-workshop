@@ -3,6 +3,7 @@ import './App.css'
 
 import BlueprintSearch from './features/blueprints/BlueprintSearch'
 import BlueprintCollectionsView from './features/blueprints/BlueprintCollectionsView'
+import WorkshopView from './features/blueprints/WorkshopView'
 import EconomicsSettingsView from './features/settings/EconomicsSettingsView'
 import AboutView from './features/help/AboutView'
 import ValuationAlgorithmView from './features/help/ValuationAlgorithmView'
@@ -33,6 +34,7 @@ import type {
 
 type AppView =
   | 'workshop'
+  | 'catalog'
   | 'collections'
   | 'settings'
   | 'about'
@@ -293,6 +295,13 @@ function App() {
 
           <button
             type="button"
+            onClick={() => navigateTo('catalog')}
+          >
+            Blueprint Catalog
+          </button>
+
+          <button
+            type="button"
             onClick={() =>
               navigateTo('collections')
             }
@@ -330,6 +339,21 @@ function App() {
       )}
 
       {currentView === 'workshop' && (
+        <WorkshopView
+          activeCollection={
+            activeBlueprintCollection
+          }
+          calculator={calculator}
+          defaultMarkupPercent={
+            economicsSettings.defaultMarkupPercent
+          }
+          onUpdateCollectionEntry={
+            updateBlueprintCollectionEntry
+          }
+        />
+      )}
+
+      {currentView === 'catalog' && (
         <BlueprintSearch
           calculator={calculator}
           defaultMarkupPercent={

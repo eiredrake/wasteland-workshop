@@ -1,0 +1,107 @@
+.workshop-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.workshop-active-collection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  border: 1px solid #d65f32;
+  border-left-width: 5px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.workshop-active-label {
+  color: #e37045;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.workshop-active-collection h2 {
+  margin: 0.25rem 0 0;
+}
+
+.workshop-active-counts {
+  display: flex;
+  gap: 1rem;
+  opacity: 0.8;
+}
+
+.workshop-no-collection,
+.workshop-empty {
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.workshop-no-collection h2,
+.workshop-empty h3 {
+  margin-top: 0;
+}
+
+.workshop-no-collection p,
+.workshop-empty p {
+  margin-bottom: 0;
+}
+
+.workshop-blueprints {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.workshop-blueprint-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.workshop-blueprint-meta {
+  margin-top: 0.2rem;
+  opacity: 0.65;
+  font-size: 0.85rem;
+}
+
+.workshop-status {
+  flex-shrink: 0;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.workshop-status-acquired {
+  color: #5f9f62;
+}
+
+.workshop-status-to-acquire {
+  color: #d6a33d;
+}
+
+@media (max-width: 600px) {
+  .workshop-active-collection {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .workshop-active-counts {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
