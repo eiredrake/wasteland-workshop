@@ -1,10 +1,6 @@
 import type { Blueprint } from './Blueprint'
 import { costCalculator } from '../../economics/calculator'
 import { testResourceEconomics } from '../../economics/testResourceEconomics'
-import {
-  calculateResourceValuations,
-  findResourceEconomics,
-} from '../../economics/ResourceValuationService'
 import { calculateBlueprintCost } from '../../economics/BlueprintCostService'
 
 type BlueprintDetailsProps = {
@@ -20,33 +16,7 @@ function BlueprintDetails({ blueprint }: BlueprintDetailsProps) {
 
   const mindCost = costCalculator.calculateMindCost(mind)
   const timeCost = costCalculator.calculateTimeCost(minutes)
-
-  const getComponentUnitCost = (itemId: number): number | undefined => {
-    const resourceEconomics = findResourceEconomics(
-      itemId,
-      testResourceEconomics
-    )
-
-    if (!resourceEconomics) {
-      return undefined
-    }
-
-    const valuations = calculateResourceValuations(
-      resourceEconomics,
-      costCalculator,
-      testResourceEconomics
-    )
-
-    return valuations[0]?.calculatedCost
-  }
-
-  const components =
-    crafting?.craftingComponents.map((craftingComponent) => ({
-      id: craftingComponent.component.id,
-      name: craftingComponent.component.name,
-      quantity: craftingComponent.amount,
-    })) ?? []
-
+  
   const costs = crafting
     ? calculateBlueprintCost(
         crafting,
@@ -82,28 +52,24 @@ function BlueprintDetails({ blueprint }: BlueprintDetailsProps) {
 
       <h3>Components</h3>
 
-      {components.length === 0 ? (
+      {!costs || costs.components.length === 0 ? (
         <p>No component data available.</p>
       ) : (
         <ul>
-          {components.map((component) => {
-            const unitCost = getComponentUnitCost(component.id)
-
-            return (
-              <li key={component.id}>
-                {component.quantity} × {component.name}
-                {unitCost !== undefined && (
+          {costs.components.map((component) => (
+            <li key={component.itemId}>
+              {component.quantity} × {component.name}
+              {component.unitCost !== undefined &&
+                component.totalCost !== undefined && (
                   <>
-                    {' '}— {unitCost}cr each —{' '}
-                    {unitCost * component.quantity}cr
+                    {' '}— {component.unitCost}cr each —{' '}
+                    {component.totalCost}cr
                   </>
                 )}
-              </li>
-            )
-          })}
+            </li>
+          ))}
         </ul>
       )}
-
       <p>
         Labor Cost:{' '}
         {costs === undefined ? 'Unknown' : `${costs.laborCost}cr`}

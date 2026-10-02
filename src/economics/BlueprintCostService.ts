@@ -6,7 +6,17 @@ import {
 } from './ResourceValuationService'
 import type { ItemCrafting } from '../features/blueprints/ItemCrafting'
 
+
+export type BlueprintComponentCost = {
+  itemId: number
+  name: string
+  quantity: number
+  unitCost: number | undefined
+  totalCost: number | undefined
+}
+
 export type BlueprintCost = {
+  components: BlueprintComponentCost[]
   laborCost: number
   materialCost: number
   productionCost: number | undefined
@@ -27,6 +37,7 @@ export function calculateBlueprintCost(
 
   let materialCost = 0
   let hasUnknownComponentCosts = false
+  const components: BlueprintComponentCost[] = []
 
   for (const craftingComponent of crafting.craftingComponents) {
     const resourceEconomics = findResourceEconomics(
@@ -36,6 +47,15 @@ export function calculateBlueprintCost(
 
     if (!resourceEconomics) {
       hasUnknownComponentCosts = true
+    
+      components.push({
+        itemId: craftingComponent.component.id,
+        name: craftingComponent.component.name,
+        quantity: craftingComponent.amount,
+        unitCost: undefined,
+        totalCost: undefined,
+      })
+    
       continue
     }
 
@@ -49,8 +69,25 @@ export function calculateBlueprintCost(
 
     if (unitCost === undefined) {
       hasUnknownComponentCosts = true
+    
+      components.push({
+        itemId: craftingComponent.component.id,
+        name: craftingComponent.component.name,
+        quantity: craftingComponent.amount,
+        unitCost: undefined,
+        totalCost: undefined,
+      })
+    
       continue
     }
+
+    components.push({
+      itemId: craftingComponent.component.id,
+      name: craftingComponent.component.name,
+      quantity: craftingComponent.amount,
+      unitCost,
+      totalCost: unitCost * craftingComponent.amount,
+    })
 
     materialCost += unitCost * craftingComponent.amount
   }
@@ -65,6 +102,7 @@ export function calculateBlueprintCost(
       })
 
   return {
+    components,
     laborCost,
     materialCost,
     productionCost,
