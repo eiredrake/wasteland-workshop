@@ -26,3 +26,228 @@ h2 {
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+
+/* Economics Settings */
+
+.settings-page {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.settings-header {
+  margin-bottom: 1.5rem;
+}
+
+.settings-header h2 {
+  margin-bottom: 0.35rem;
+}
+
+.settings-header p {
+  margin-top: 0;
+  opacity: 0.8;
+}
+
+.settings-card {
+  margin-bottom: 1rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.settings-card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.settings-row {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  min-height: 3rem;
+}
+
+.settings-row + .settings-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.settings-row > label {
+  font-weight: 600;
+}
+
+.settings-input {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.settings-input input {
+  width: 7rem;
+  box-sizing: border-box;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  font: inherit;
+}
+
+.settings-input span {
+  width: 6rem;
+  opacity: 0.75;
+  font-size: 0.9rem;
+}
+
+.settings-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.settings-actions button {
+  min-height: 2.75rem;
+  padding: 0.65rem 1rem;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-button {
+  border: 1px solid currentColor;
+}
+
+.secondary-button {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: inherit;
+}
+
+@media (max-width: 600px) {
+  .settings-page {
+    width: 100%;
+  }
+
+  .settings-card {
+    padding: 1rem;
+  }
+
+  .settings-row {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+    padding: 0.75rem 0;
+  }
+
+  .settings-input {
+    justify-content: flex-start;
+  }
+
+  .settings-input input {
+    width: 6rem;
+  }
+
+  .settings-actions {
+    flex-direction: column-reverse;
+  }
+
+  .settings-actions button {
+    width: 100%;
+  }
+}
+
+/* Primary actions */
+
+.primary-button {
+  border: 1px solid #d65f32;
+  background: #d65f32;
+  color: #151713;
+}
+
+.primary-button:hover {
+  background: #e37045;
+  border-color: #e37045;
+}
+
+.primary-button:active {
+  background: #bd4f29;
+  border-color: #bd4f29;
+}
+
+/* Application menu */
+
+.app-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.app-header h1 {
+  margin-top: 0;
+}
+
+.menu-button {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid #d65f32;
+  border-radius: 6px;
+  background: #22231f;
+  color: #f0e6d2;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.menu-button:hover {
+  background: #2d2e29;
+  border-color: #e37045;
+}
+
+.menu-button:active {
+  background: #181916;
+}
+
+.app-menu {
+  position: absolute;
+  z-index: 1000;
+  min-width: 220px;
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+  border: 1px solid #4b4b43;
+  border-radius: 6px;
+  background: #22231f;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.app-menu button {
+  display: block;
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #f0e6d2;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.app-menu button:hover {
+  background: #34352f;
+  color: #e37045;
+}
+
+.menu-heading {
+  margin: 0.4rem 0.5rem 0.25rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #4b4b43;
+  color: #aaa397;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

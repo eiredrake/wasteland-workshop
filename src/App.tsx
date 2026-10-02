@@ -7,6 +7,13 @@ import {
   defaultEconomicsSettings,
   type EconomicsSettings,
 } from './economics/EconomicsSettings'
+import ToastContainer from './components/Toast/ToastContainer'
+import type {
+  ToastMessage,
+  ToastType,
+} from './components/Toast/Toast'
+import AboutView from './features/help/AboutView'
+import ValuationAlgorithmView from './features/help/ValuationAlgorithmView'
 
 type AppView = 'workshop' | 'settings' | 'about' | 'algorithm'
 
@@ -34,12 +41,36 @@ function App() {
   const [currentView, setCurrentView] = useState<AppView>('workshop')
   const [economicsSettings, setEconomicsSettings] =
     useState<EconomicsSettings>(loadEconomicsSettings)
+  const [toasts, setToasts] = useState<ToastMessage[]>([])
 
   const calculator = new DefaultCostCalculator(economicsSettings)
 
   const navigateTo = (view: AppView) => {
     setCurrentView(view)
     setMenuOpen(false)
+  }
+
+  const dismissToast = (id: number) => {
+    setToasts((currentToasts) =>
+      currentToasts.filter((toast) => toast.id !== id)
+    )
+  }
+
+  const showToast = (message: string, type: ToastType = 'info') => {
+    const id = Date.now()
+
+    setToasts((currentToasts) => [
+      ...currentToasts,
+      {
+        id,
+        message,
+        type,
+      },
+    ])
+
+    window.setTimeout(() => {
+      dismissToast(id)
+    }, 4000)
   }
 
   const saveEconomicsSettings = (settings: EconomicsSettings) => {
@@ -49,6 +80,8 @@ function App() {
       ECONOMICS_SETTINGS_KEY,
       JSON.stringify(settings)
     )
+
+    showToast('Settings saved.', 'success')
   }
 
   return (
@@ -69,6 +102,11 @@ function App() {
           <p>Dystopia Rising crafting economics and build planning.</p>
         </div>
       </header>
+      
+      <ToastContainer
+        toasts={toasts}
+        onDismiss={dismissToast}
+      />
 
       {menuOpen && (
         <nav className="app-menu">
@@ -94,8 +132,9 @@ function App() {
 
       {currentView === 'workshop' && (
         <BlueprintSearch
-        calculator={calculator}
-        defaultMarkupPercent={economicsSettings.defaultMarkupPercent}/>
+          calculator={calculator}
+          defaultMarkupPercent={economicsSettings.defaultMarkupPercent}
+        />
       )}
 
       {currentView === 'settings' && (
@@ -105,19 +144,8 @@ function App() {
         />
       )}
 
-      {currentView === 'about' && (
-        <section>
-          <h2>About Wasteland Workshop</h2>
-          <p>About information coming soon.</p>
-        </section>
-      )}
-
-      {currentView === 'algorithm' && (
-        <section>
-          <h2>Valuation Algorithm</h2>
-          <p>Algorithm documentation coming soon.</p>
-        </section>
-      )}
+      {currentView === 'about' && <AboutView />}
+      {currentView === 'algorithm' && <ValuationAlgorithmView />}
     </main>
   )
 }

@@ -1,0 +1,97 @@
+.help-page {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.help-header {
+  margin-bottom: 1.5rem;
+}
+
+.help-header h2 {
+  margin-bottom: 0.35rem;
+}
+
+.help-header p {
+  margin-top: 0;
+  opacity: 0.8;
+}
+
+.help-card {
+  margin-bottom: 1rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.help-card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.help-card p:last-child {
+  margin-bottom: 0;
+}
+
+.about-details {
+  margin: 0;
+}
+
+.about-details div {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 1rem;
+  padding: 0.55rem 0;
+}
+
+.about-details div + div {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.about-details dt {
+  font-weight: 600;
+}
+
+.about-details dd {
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .about-details div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}
+
+.algorithm-formula {
+  margin: 1rem 0;
+  padding: 0.85rem 1rem;
+  border-left: 4px solid #d65f32;
+  background: rgba(0, 0, 0, 0.22);
+  font-family: monospace;
+}
+
+.algorithm-values {
+  margin: 1rem 0;
+}
+
+.algorithm-values div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+.algorithm-values div + div {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.algorithm-values dt {
+  font-weight: 600;
+}
+
+.algorithm-values dd {
+  margin: 0;
+}

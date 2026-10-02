@@ -4,6 +4,7 @@ import type { CostCalculator } from '../../economics/CostCalculator'
 import type { Blueprint } from './Blueprint'
 import { testBlueprints } from './testBlueprints'
 import BlueprintDetails from './BlueprintDetails'
+import './BlueprintSearch.css'
 
 const blueprintColumns: { key: keyof Blueprint; label: string }[] = [
   { key: 'name', label: 'Blueprint' },
@@ -46,9 +47,7 @@ function BlueprintSearch({
   return (
     <section>
       <div className="blueprint-search">
-        <span className="blueprint-search-icon" aria-hidden="true">
-          🔍
-        </span>
+      <span className="blueprint-search-icon" aria-hidden="true" />
 
         <input
           type="search"
