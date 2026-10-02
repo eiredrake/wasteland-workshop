@@ -5,6 +5,26 @@ import { calculateResourceValuations } from './ResourceValuationService'
 describe('calculateResourceValuations', () => {
   const calculator = new DefaultCostCalculator()
 
+  it('rounds a fractional resource valuation up to a whole credit', () => {
+    const valuations = calculateResourceValuations(
+      {
+        itemId: 3878,
+        acquisitionMethods: [
+          {
+            name: 'Basic Foraging',
+            mind: 1,
+            minutes: 0,
+            materialCost: 0,
+            resolve: 0,
+          },
+        ],
+      },
+      calculator
+    )
+  
+    expect(valuations[0].calculatedCost).toBe(1)
+  })
+
   it('calculates every acquisition method for a resource', () => {
     const valuations = calculateResourceValuations(
       {

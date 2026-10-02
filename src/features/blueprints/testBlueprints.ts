@@ -6,7 +6,7 @@ export const testBlueprints: Blueprint[] = [
     name: '.38 Caliber Privacy Pipes',
     kind: 'blueprint',
     grade: 'ungraded',
-  
+
     metadata: {
       mechanics: null,
       notes:
@@ -27,7 +27,7 @@ export const testBlueprints: Blueprint[] = [
       vehicleTurnRadius: null,
       vehicleCrewCapacity: null,
     },
-  
+
     itemCraftings: [
       {
         id: 1551,
@@ -36,7 +36,7 @@ export const testBlueprints: Blueprint[] = [
         craftingResolveCost: 0,
         craftingZone: 'Artisan Space',
         craftingSkills: 'Master Artisan',
-  
+
         craftingComponents: [
           {
             id: 3899,
@@ -72,7 +72,7 @@ export const testBlueprints: Blueprint[] = [
             amount: 1,
           },
         ],
-  
+
         craftingFinalProducts: [
           {
             id: 1510,
@@ -90,12 +90,13 @@ export const testBlueprints: Blueprint[] = [
       },
     ],
   },
+
   {
     id: 4444,
     name: 'Sagely Healing Injection',
     kind: 'blueprint',
     grade: 'ungraded',
-  
+
     metadata: {
       mechanics: null,
       notes:
@@ -116,7 +117,7 @@ export const testBlueprints: Blueprint[] = [
       vehicleTurnRadius: null,
       vehicleCrewCapacity: null,
     },
-  
+
     itemCraftings: [
       {
         id: 1398,
@@ -125,7 +126,7 @@ export const testBlueprints: Blueprint[] = [
         craftingResolveCost: 0,
         craftingZone: 'Culinary Space',
         craftingSkills: 'Proficient Culinary',
-  
+
         craftingComponents: [
           {
             id: 3531,
@@ -139,7 +140,7 @@ export const testBlueprints: Blueprint[] = [
             amount: 3,
           },
         ],
-  
+
         craftingFinalProducts: [
           {
             id: 1378,
@@ -233,6 +234,107 @@ export const testBlueprints: Blueprint[] = [
               grade: 'ungraded',
               kind: 'gizmo',
               lifetimeAmount: 0,
+              lifetimeUnit: 'month',
+            },
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 4578,
+    name: 'Sosweet Smashstick',
+    kind: 'blueprint',
+    grade: 'ungraded',
+
+    metadata: {
+      mechanics: null,
+      notes:
+        'A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.',
+      printHeader: 'Artisan Recipe',
+      requirementsToUse: null,
+      uses: null,
+      durationOfEffect: null,
+      validTargetDescription: null,
+      locationOfUse: null,
+      equipmentRequiredForUse: null,
+      durationOfRoleplay: null,
+      descriptionOfRoleplay: null,
+      activationRequirement: null,
+      vehicleArmor: null,
+      vehicleHull: null,
+      vehicleSpeed: null,
+      vehicleTurnRadius: null,
+      vehicleCrewCapacity: null,
+    },
+
+    itemCraftings: [
+      {
+        id: 1532,
+        craftingTimeInMinute: 20,
+        craftingMindCost: 15,
+        craftingResolveCost: 0,
+        craftingZone: 'Artisan Space',
+        craftingSkills: 'Master Artisan',
+
+        craftingComponents: [
+          {
+            id: 3871,
+            acceptsExpiredItemWithinDays: 0,
+            component: {
+              id: 3868,
+              name: 'Rare Scrap',
+              grade: 'ungraded',
+              kind: 'unnamed_scrap',
+            },
+            amount: 4,
+          },
+          {
+            id: 3873,
+            acceptsExpiredItemWithinDays: 0,
+            component: {
+              id: 3873,
+              name: 'Soft Metal',
+              grade: 'ungraded',
+              kind: 'metal',
+            },
+            amount: 1,
+          },
+          {
+            id: 3874,
+            acceptsExpiredItemWithinDays: 0,
+            component: {
+              id: 3886,
+              name: 'Synthetic Fibers',
+              grade: 'ungraded',
+              kind: 'trade_resource',
+            },
+            amount: 1,
+          },
+          {
+            id: 3872,
+            acceptsExpiredItemWithinDays: 0,
+            component: {
+              id: 3878,
+              name: 'Craftable Stone',
+              grade: 'ungraded',
+              kind: 'natural_resource',
+            },
+            amount: 2,
+          },
+        ],
+
+        craftingFinalProducts: [
+          {
+            id: 1499,
+            stack: 1,
+            finalProduct: {
+              id: 4148,
+              name: 'SoSweet Smashstick',
+              grade: 'ungraded',
+              kind: 'melee_two_handed',
+              lifetimeAmount: 24,
               lifetimeUnit: 'month',
             },
           },

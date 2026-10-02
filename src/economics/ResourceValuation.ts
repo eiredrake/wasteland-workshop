@@ -15,6 +15,8 @@ export function calculateResourceValuation(
   return {
     itemId,
     acquisitionMethod,
-    calculatedCost: calculator.calculateProductionCost(acquisitionMethod),
+    calculatedCost: Math.ceil(
+      calculator.calculateProductionCost(acquisitionMethod)
+    ),
   }
 }

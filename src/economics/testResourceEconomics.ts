@@ -48,7 +48,7 @@ export const testResourceEconomics: ResourceEconomics[] = [
         resolve: 0,
       },
     ],
-  },  
+  },
   {
     itemId: 3896,
     acquisitionMethods: [
@@ -60,7 +60,21 @@ export const testResourceEconomics: ResourceEconomics[] = [
         resolve: 0,
       },
     ],
-  }, 
+  },
+
+  // Scrap
+  {
+    itemId: 3866,
+    acquisitionMethods: [
+      {
+        name: 'Market Value',
+        mind: 0,
+        minutes: 0,
+        materialCost: 1,
+        resolve: 0,
+      },
+    ],
+  },
   {
     itemId: 3867,
     acquisitionMethods: [
@@ -78,7 +92,7 @@ export const testResourceEconomics: ResourceEconomics[] = [
         ],
       },
     ],
-  },  
+  },
   {
     itemId: 3868,
     acquisitionMethods: [
@@ -96,17 +110,145 @@ export const testResourceEconomics: ResourceEconomics[] = [
         ],
       },
     ],
-  },   
+  },
+
+  // Metals
   {
-    itemId: 3866,
+    itemId: 3869,
     acquisitionMethods: [
       {
-        name: 'Market Value',
-        mind: 0,
+        name: 'Artisan Crafting - Alloy Metal',
+        mind: 5,
+        minutes: 10,
+        materialCost: 0,
+        resolve: 0,
+        resources: [
+          {
+            itemId: 3866,
+            quantity: 6,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    itemId: 3870,
+    acquisitionMethods: [
+      {
+        name: 'Artisan Crafting - Conductive Metal',
+        mind: 5,
+        minutes: 10,
+        materialCost: 0,
+        resolve: 0,
+        resources: [
+          {
+            itemId: 3866,
+            quantity: 6,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    itemId: 3871,
+    acquisitionMethods: [
+      {
+        name: 'Artisan Crafting - Radioactive Metal',
+        mind: 5,
+        minutes: 10,
+        materialCost: 0,
+        resolve: 0,
+        resources: [
+          {
+            itemId: 3866,
+            quantity: 6,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    itemId: 3872,
+    acquisitionMethods: [
+      {
+        name: 'Artisan Crafting - Hard Metal',
+        mind: 5,
+        minutes: 10,
+        materialCost: 0,
+        resolve: 0,
+        resources: [
+          {
+            itemId: 3866,
+            quantity: 6,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    itemId: 3873,
+    acquisitionMethods: [
+      {
+        name: 'Artisan Crafting - Soft Metal',
+        mind: 5,
+        minutes: 10,
+        materialCost: 0,
+        resolve: 0,
+        resources: [
+          {
+            itemId: 3866,
+            quantity: 6,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    itemId: 3878,
+    acquisitionMethods: [
+      {
+        name: 'Basic Foraging',
+        mind: 1,
         minutes: 0,
-        materialCost: 1,
+        materialCost: 0,
         resolve: 0,
       },
     ],
   },
+  {
+    itemId: 3886,
+    acquisitionMethods: [
+      {
+        name: 'Master Travel',
+        mind: 10,
+        minutes: 0,
+        materialCost: 15,
+        resolve: 0,
+      },
+    ],
+  },
+  {
+    itemId: 3878,
+    acquisitionMethods: [
+      {
+        name: 'Basic Foraging',
+        mind: 1,
+        minutes: 0,
+        materialCost: 0,
+        resolve: 0,
+      },
+    ],
+  },
+  {
+    itemId: 3886,
+    acquisitionMethods: [
+      {
+        name: 'Master Travel',
+        mind: 10,
+        minutes: 0,
+        materialCost: 15,
+        resolve: 0,
+      },
+    ],
+  },  
 ]
