@@ -61,20 +61,48 @@ export const testResourceEconomics: ResourceEconomics[] = [
       },
     ],
   },
-
-  // Scrap
   {
-    itemId: 3866,
+    itemId: 3886,
     acquisitionMethods: [
       {
-        name: 'Market Value',
-        mind: 0,
+        name: 'Master Travel',
+        mind: 10,
         minutes: 0,
-        materialCost: 1,
+        materialCost: 15,
         resolve: 0,
       },
     ],
   },
+
+  // Basic Foraging
+  {
+    itemId: 3866,
+    acquisitionMethods: [
+      {
+        name: 'Basic Foraging',
+        mind: 1,
+        minutes: 0,
+        materialCost: 0,
+        resolve: 0,
+        foragingCardCost: 2,
+      },
+    ],
+  },
+  {
+    itemId: 3878,
+    acquisitionMethods: [
+      {
+        name: 'Basic Foraging',
+        mind: 1,
+        minutes: 0,
+        materialCost: 0,
+        resolve: 0,
+        foragingCardCost: 2,
+      },
+    ],
+  },
+
+  // Scrap
   {
     itemId: 3867,
     acquisitionMethods: [
@@ -203,52 +231,4 @@ export const testResourceEconomics: ResourceEconomics[] = [
       },
     ],
   },
-  {
-    itemId: 3878,
-    acquisitionMethods: [
-      {
-        name: 'Basic Foraging',
-        mind: 1,
-        minutes: 0,
-        materialCost: 0,
-        resolve: 0,
-      },
-    ],
-  },
-  {
-    itemId: 3886,
-    acquisitionMethods: [
-      {
-        name: 'Master Travel',
-        mind: 10,
-        minutes: 0,
-        materialCost: 15,
-        resolve: 0,
-      },
-    ],
-  },
-  {
-    itemId: 3878,
-    acquisitionMethods: [
-      {
-        name: 'Basic Foraging',
-        mind: 1,
-        minutes: 0,
-        materialCost: 0,
-        resolve: 0,
-      },
-    ],
-  },
-  {
-    itemId: 3886,
-    acquisitionMethods: [
-      {
-        name: 'Master Travel',
-        mind: 10,
-        minutes: 0,
-        materialCost: 15,
-        resolve: 0,
-      },
-    ],
-  },  
 ]

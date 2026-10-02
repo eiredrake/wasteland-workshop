@@ -16,7 +16,8 @@ export function calculateResourceValuation(
     itemId,
     acquisitionMethod,
     calculatedCost: Math.ceil(
-      calculator.calculateProductionCost(acquisitionMethod)
+      calculator.calculateProductionCost(acquisitionMethod) +
+        (acquisitionMethod.foragingCardCost ?? 0)
     ),
   }
 }

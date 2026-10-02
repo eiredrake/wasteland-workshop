@@ -8,4 +8,5 @@ export type AcquisitionResource = {
 export type AcquisitionMethod = ProductionCostInput & {
   name: string
   resources?: AcquisitionResource[]
+  foragingCardCost?: number
 }
