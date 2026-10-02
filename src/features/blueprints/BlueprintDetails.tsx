@@ -1,29 +1,51 @@
+import { useState } from 'react'
 import type { Blueprint } from './Blueprint'
-import { costCalculator } from '../../economics/calculator'
+import type { CostCalculator } from '../../economics/CostCalculator'
 import { testResourceEconomics } from '../../economics/testResourceEconomics'
 import { calculateBlueprintCost } from '../../economics/BlueprintCostService'
 
 type BlueprintDetailsProps = {
   blueprint: Blueprint
+  calculator: CostCalculator
+  defaultMarkupPercent: number
 }
 
-function BlueprintDetails({ blueprint }: BlueprintDetailsProps) {
+function BlueprintDetails({
+  blueprint,
+  calculator,
+  defaultMarkupPercent,
+}: BlueprintDetailsProps) {
+  const [markupPercent, setMarkupPercent] = useState(defaultMarkupPercent)
+
   const crafting = blueprint.itemCraftings?.[0]
 
   const mind = crafting?.craftingMindCost ?? 0
   const minutes = crafting?.craftingTimeInMinute ?? 0
   const skills = crafting?.craftingSkills ?? 'No crafting data'
 
-  const mindCost = costCalculator.calculateMindCost(mind)
-  const timeCost = costCalculator.calculateTimeCost(minutes)
-  
+  const mindCost = calculator.calculateMindCost(mind)
+  const timeCost = calculator.calculateTimeCost(minutes)
+
   const costs = crafting
     ? calculateBlueprintCost(
         crafting,
         testResourceEconomics,
-        costCalculator
+        calculator
       )
     : undefined
+
+  const sellingPrice =
+    costs?.productionCost === undefined
+      ? undefined
+      : calculator.calculateSellingPrice(
+          costs.productionCost,
+          markupPercent
+        )
+
+  const profit =
+    sellingPrice === undefined || costs?.productionCost === undefined
+      ? undefined
+      : sellingPrice - costs.productionCost
 
   return (
     <section>
@@ -70,6 +92,7 @@ function BlueprintDetails({ blueprint }: BlueprintDetailsProps) {
           ))}
         </ul>
       )}
+
       <p>
         Labor Cost:{' '}
         {costs === undefined ? 'Unknown' : `${costs.laborCost}cr`}
@@ -79,7 +102,9 @@ function BlueprintDetails({ blueprint }: BlueprintDetailsProps) {
         Material Cost:{' '}
         {costs === undefined
           ? 'Unknown'
-          : `${costs.materialCost}cr${costs.hasUnknownComponentCosts ? '*' : ''}`}
+          : `${costs.materialCost}cr${
+              costs.hasUnknownComponentCosts ? '*' : ''
+            }`}
       </p>
 
       <p>
@@ -91,9 +116,38 @@ function BlueprintDetails({ blueprint }: BlueprintDetailsProps) {
         </strong>
       </p>
 
+      {costs?.productionCost !== undefined && (
+        <>
+          <p>
+            <label>
+              Markup:{' '}
+              <select
+                value={markupPercent}
+                onChange={(event) =>
+                  setMarkupPercent(Number(event.target.value))
+                }
+              >
+                <option value={0}>0%</option>
+                <option value={10}>10%</option>
+                <option value={20}>20%</option>
+                <option value={25}>25%</option>
+                <option value={50}>50%</option>
+              </select>
+            </label>
+          </p>
+
+          <p>
+            <strong>Selling Price: {sellingPrice}cr</strong>
+          </p>
+
+          <p>Profit: {profit}cr</p>
+        </>
+      )}
+
       {costs?.hasUnknownComponentCosts && (
         <p>
-          * Cost estimate is incomplete because one or more component values are unknown.
+          * Cost estimate is incomplete because one or more component values
+          are unknown.
         </p>
       )}
     </section>
