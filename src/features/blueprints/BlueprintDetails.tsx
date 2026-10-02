@@ -7,6 +7,7 @@ import type {
 import type { CostCalculator } from '../../economics/CostCalculator'
 import { testResourceEconomics } from '../../economics/testResourceEconomics'
 import { calculateBlueprintCost } from '../../economics/BlueprintCostService'
+import './BlueprintDetails.css'
 
 type BlueprintDetailsProps = {
   blueprint: Blueprint
@@ -70,7 +71,7 @@ function BlueprintDetails({
       ? 'Acquired'
       : collectionEntry?.status === 'to-acquire'
         ? 'To Acquire'
-        : 'Not tracked'
+        : 'Not Tracked'
 
   const updateCollectionStatus = (
     status: BlueprintAccessStatus | undefined
@@ -83,172 +84,226 @@ function BlueprintDetails({
   }
 
   return (
-    <section>
-      <h2>{blueprint.name}</h2>
+    <section className="blueprint-details">
+      <header className="blueprint-details-header">
+        <h2>{blueprint.name}</h2>
 
-      <p>
-        {blueprint.grade} {skills}
-      </p>
+        <div className="blueprint-details-subtitle">
+          <span>{blueprint.grade}</span>
+          <span>·</span>
+          <span>{skills}</span>
+        </div>
+      </header>
 
-      <p>Kind: {blueprint.kind}</p>
+      <section className="blueprint-details-card blueprint-access-card">
+        <div className="blueprint-card-heading">
+          <h3>Blueprint Access</h3>
 
-      <h3>Blueprint Access</h3>
+          {activeCollection && (
+            <span
+              className={`blueprint-access-status blueprint-access-status-${
+                collectionEntry?.status ?? 'untracked'
+              }`}
+            >
+              {collectionStatus}
+            </span>
+          )}
+        </div>
 
-      {activeCollection ? (
-        <>
+        {activeCollection ? (
+          <>
+            <div className="blueprint-access-collection">
+              <span>Active Collection</span>
+              <strong>{activeCollection.name}</strong>
+            </div>
+
+            <div className="blueprint-access-actions">
+              {collectionEntry?.status !== 'acquired' && (
+                <button
+                  type="button"
+                  className="primary-button"
+                  onClick={() =>
+                    updateCollectionStatus('acquired')
+                  }
+                >
+                  Mark Acquired
+                </button>
+              )}
+
+              {collectionEntry?.status !== 'to-acquire' && (
+                <button
+                  type="button"
+                  className="secondary-button"
+                  onClick={() =>
+                    updateCollectionStatus('to-acquire')
+                  }
+                >
+                  To Acquire
+                </button>
+              )}
+
+              {collectionEntry && (
+                <button
+                  type="button"
+                  className="secondary-button"
+                  onClick={() =>
+                    updateCollectionStatus(undefined)
+                  }
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+          </>
+        ) : (
           <p>
-            Active Collection:{' '}
-            <strong>{activeCollection.name}</strong>
+            No active blueprint collection. Select one from Blueprint
+            Collections to track this blueprint.
           </p>
+        )}
+      </section>
 
-          <p>
-            Status: <strong>{collectionStatus}</strong>
-          </p>
+      <div className="blueprint-details-grid">
+        <section className="blueprint-details-card">
+          <h3>Crafting</h3>
 
-          <div className="blueprint-access-actions">
-            {collectionEntry?.status !== 'acquired' && (
-              <button
-                type="button"
-                className="primary-button"
-                onClick={() =>
-                  updateCollectionStatus('acquired')
-                }
-              >
-                Mark Acquired
-              </button>
+          <dl className="blueprint-stat-list">
+            <div>
+              <dt>Mind</dt>
+              <dd>
+                {mind}
+                <span>{mindCost}cr</span>
+              </dd>
+            </div>
+
+            <div>
+              <dt>Time</dt>
+              <dd>
+                {minutes} min
+                <span>{timeCost}cr</span>
+              </dd>
+            </div>
+
+            <div>
+              <dt>Resolve</dt>
+              <dd>{crafting?.craftingResolveCost ?? 0}</dd>
+            </div>
+
+            <div>
+              <dt>Zone</dt>
+              <dd>{crafting?.craftingZone ?? 'Unknown'}</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section className="blueprint-details-card">
+          <h3>Cost Summary</h3>
+
+          <dl className="blueprint-cost-list">
+            <div>
+              <dt>Labor</dt>
+              <dd>
+                {costs === undefined
+                  ? 'Unknown'
+                  : `${costs.laborCost}cr`}
+              </dd>
+            </div>
+
+            <div>
+              <dt>Materials</dt>
+              <dd>
+                {costs === undefined
+                  ? 'Unknown'
+                  : `${costs.materialCost}cr${
+                      costs.hasUnknownComponentCosts ? '*' : ''
+                    }`}
+              </dd>
+            </div>
+
+            <div className="blueprint-cost-production">
+              <dt>Production Cost</dt>
+              <dd>
+                {costs?.productionCost === undefined
+                  ? 'Unknown*'
+                  : `${costs.productionCost}cr`}
+              </dd>
+            </div>
+
+            {costs?.productionCost !== undefined && (
+              <>
+                <div>
+                  <dt>Markup</dt>
+                  <dd>
+                    <select
+                      className="blueprint-markup-select"
+                      value={markupPercent}
+                      onChange={(event) =>
+                        setMarkupPercent(
+                          Number(event.target.value)
+                        )
+                      }
+                    >
+                      <option value={0}>0%</option>
+                      <option value={10}>10%</option>
+                      <option value={20}>20%</option>
+                      <option value={25}>25%</option>
+                      <option value={50}>50%</option>
+                    </select>
+                  </dd>
+                </div>
+
+                <div className="blueprint-cost-selling">
+                  <dt>Selling Price</dt>
+                  <dd>{sellingPrice}cr</dd>
+                </div>
+
+                <div>
+                  <dt>Profit</dt>
+                  <dd>{profit}cr</dd>
+                </div>
+              </>
             )}
+          </dl>
+        </section>
+      </div>
 
-            {collectionEntry?.status !== 'to-acquire' && (
-              <button
-                type="button"
-                className="secondary-button"
-                onClick={() =>
-                  updateCollectionStatus('to-acquire')
-                }
-              >
-                To Acquire
-              </button>
-            )}
+      <section className="blueprint-details-card blueprint-components-card">
+        <h3>Components</h3>
 
-            {collectionEntry && (
-              <button
-                type="button"
-                className="secondary-button"
-                onClick={() =>
-                  updateCollectionStatus(undefined)
-                }
+        {!costs || costs.components.length === 0 ? (
+          <p>No component data available.</p>
+        ) : (
+          <div className="blueprint-components">
+            {costs.components.map((component) => (
+              <div
+                className="blueprint-component-row"
+                key={component.itemId}
               >
-                Remove
-              </button>
-            )}
+                <strong>{component.name}</strong>
+
+                <span>
+                  {component.quantity}
+                  {component.unitCost !== undefined &&
+                    ` × ${component.unitCost}cr`}
+                </span>
+
+                <strong className="blueprint-component-total">
+                  {component.totalCost === undefined
+                    ? 'Unknown'
+                    : `${component.totalCost}cr`}
+                </strong>
+              </div>
+            ))}
           </div>
-        </>
-      ) : (
-        <p>
-          No active blueprint collection. Select one from Blueprint
-          Collections to track this blueprint.
-        </p>
-      )}
+        )}
 
-      <p>
-        Mind: {mind} — {mindCost}cr
-      </p>
-
-      <p>
-        Time: {minutes} minutes — {timeCost}cr
-      </p>
-
-      {crafting && (
-        <>
-          <p>Resolve: {crafting.craftingResolveCost}</p>
-          <p>Crafting Zone: {crafting.craftingZone}</p>
-        </>
-      )}
-
-      <h3>Components</h3>
-
-      {!costs || costs.components.length === 0 ? (
-        <p>No component data available.</p>
-      ) : (
-        <ul>
-          {costs.components.map((component) => (
-            <li key={component.itemId}>
-              {component.quantity} × {component.name}
-              {component.unitCost !== undefined &&
-                component.totalCost !== undefined && (
-                  <>
-                    {' '}— {component.unitCost}cr each —{' '}
-                    {component.totalCost}cr
-                  </>
-                )}
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <p>
-        Labor Cost:{' '}
-        {costs === undefined
-          ? 'Unknown'
-          : `${costs.laborCost}cr`}
-      </p>
-
-      <p>
-        Material Cost:{' '}
-        {costs === undefined
-          ? 'Unknown'
-          : `${costs.materialCost}cr${
-              costs.hasUnknownComponentCosts ? '*' : ''
-            }`}
-      </p>
-
-      <p>
-        <strong>
-          Production Cost:{' '}
-          {costs?.productionCost === undefined
-            ? 'Unknown*'
-            : `${costs.productionCost}cr`}
-        </strong>
-      </p>
-
-      {costs?.productionCost !== undefined && (
-        <>
-          <p>
-            <label>
-              Markup:{' '}
-              <select
-                value={markupPercent}
-                onChange={(event) =>
-                  setMarkupPercent(
-                    Number(event.target.value)
-                  )
-                }
-              >
-                <option value={0}>0%</option>
-                <option value={10}>10%</option>
-                <option value={20}>20%</option>
-                <option value={25}>25%</option>
-                <option value={50}>50%</option>
-              </select>
-            </label>
+        {costs?.hasUnknownComponentCosts && (
+          <p className="blueprint-cost-warning">
+            * Cost estimate is incomplete because one or more component
+            values are unknown.
           </p>
-
-          <p>
-            <strong>
-              Selling Price: {sellingPrice}cr
-            </strong>
-          </p>
-
-          <p>Profit: {profit}cr</p>
-        </>
-      )}
-
-      {costs?.hasUnknownComponentCosts && (
-        <p>
-          * Cost estimate is incomplete because one or more component
-          values are unknown.
-        </p>
-      )}
+        )}
+      </section>
     </section>
   )
 }
