@@ -8,6 +8,12 @@ import EconomicsSettingsView from './features/settings/EconomicsSettingsView'
 import AboutView from './features/help/AboutView'
 import ValuationAlgorithmView from './features/help/ValuationAlgorithmView'
 
+import CraftTimer from './components/CraftTimer/CraftTimer'
+import {
+  createIdleCraftTimer,
+  type CraftTimerState,
+} from './features/timer/CraftTimerState'
+
 import { DefaultCostCalculator } from './economics/DefaultCostCalculator'
 import {
   defaultEconomicsSettings,
@@ -36,6 +42,7 @@ type AppView =
   | 'workshop'
   | 'catalog'
   | 'collections'
+  | 'timer'
   | 'settings'
   | 'about'
   | 'algorithm'
@@ -86,6 +93,9 @@ function App() {
     loadActiveBlueprintCollectionId
   )
 
+  const [craftTimer, setCraftTimer] =
+    useState<CraftTimerState>(createIdleCraftTimer)
+
   const calculator =
     new DefaultCostCalculator(economicsSettings)
 
@@ -126,6 +136,11 @@ function App() {
     window.setTimeout(() => {
       dismissToast(id)
     }, 4000)
+  }
+
+  const openCraftTimer = () => {
+    setCurrentView('timer')
+    setMenuOpen(false)
   }
 
   const saveEconomicsSettings = (
@@ -311,6 +326,13 @@ function App() {
 
           <button
             type="button"
+            onClick={openCraftTimer}
+          >
+            Craft Timer
+          </button>
+
+          <button
+            type="button"
             onClick={() => navigateTo('settings')}
           >
             Settings
@@ -380,6 +402,13 @@ function App() {
           onSetActiveCollection={
             setActiveBlueprintCollection
           }
+        />
+      )}
+
+      {currentView === 'timer' && (
+        <CraftTimer
+          timer={craftTimer}
+          onChange={setCraftTimer}
         />
       )}
 

@@ -1,0 +1,166 @@
+.craft-timer {
+  width: min(100%, 420px);
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 4px solid #d65f32;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.craft-timer-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.craft-timer-heading > span {
+  color: #e37045;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.craft-timer-heading > strong {
+  color: #f0e6d2;
+  font-size: 1.1rem;
+}
+
+.craft-timer-ring {
+  --timer-progress: 0deg;
+
+  display: grid;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto 1.5rem;
+  padding: 10px;
+  border-radius: 50%;
+
+  background:
+  conic-gradient(
+    #35362f 0deg,
+    #35362f calc(360deg - var(--timer-progress)),
+    var(--timer-color) calc(360deg - var(--timer-progress)),
+    var(--timer-color) 360deg
+  );
+
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 24px rgba(0, 0, 0, 0.35);
+}
+
+.craft-timer-face {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  background: #20211d;
+}
+
+.craft-timer-time {
+  color: #f0e6d2;
+  font-size: 2.2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.craft-timer-status {
+  margin-top: 0.35rem;
+  color: #aaa79f;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.craft-timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.craft-timer-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.craft-timer-controls button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d65f32;
+  border-radius: 5px;
+  background: #2b2c27;
+  color: #f0e6d2;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.craft-timer-controls button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+@media (max-width: 500px) {
+  .craft-timer {
+    padding: 1rem;
+  }
+
+  .craft-timer-ring {
+    width: 210px;
+    height: 210px;
+  }
+
+  .craft-timer-time {
+    font-size: 1.8rem;
+  }
+}
+
+.craft-timer-adjustments {
+  display: grid;
+  grid-template-columns: 64px 1fr 64px;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.craft-timer-adjustments > span {
+  color: #aaa79f;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.craft-timer-adjustments button {
+  width: 64px;
+  height: 52px;
+  padding: 0;
+  border: 1px solid #d65f32;
+  border-radius: 6px;
+  background: #2b2c27;
+  color: #f0e6d2;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+}
+
+.craft-timer-adjustments button:hover {
+  background: #373832;
+  border-color: #e37045;
+}
+
+.craft-timer-adjustments button:active {
+  transform: translateY(1px);
+  background: #41423b;
+}
