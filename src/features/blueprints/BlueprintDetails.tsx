@@ -1,5 +1,9 @@
 import { useState } from 'react'
 import type { Blueprint } from './Blueprint'
+import type {
+  BlueprintAccessStatus,
+  BlueprintCollection,
+} from './BlueprintCollection'
 import type { CostCalculator } from '../../economics/CostCalculator'
 import { testResourceEconomics } from '../../economics/testResourceEconomics'
 import { calculateBlueprintCost } from '../../economics/BlueprintCostService'
@@ -8,14 +12,23 @@ type BlueprintDetailsProps = {
   blueprint: Blueprint
   calculator: CostCalculator
   defaultMarkupPercent: number
+  activeCollection: BlueprintCollection | undefined
+  onUpdateCollectionEntry: (
+    blueprintId: number,
+    blueprintName: string,
+    status: BlueprintAccessStatus | undefined
+  ) => void
 }
 
 function BlueprintDetails({
   blueprint,
   calculator,
   defaultMarkupPercent,
+  activeCollection,
+  onUpdateCollectionEntry,
 }: BlueprintDetailsProps) {
-  const [markupPercent, setMarkupPercent] = useState(defaultMarkupPercent)
+  const [markupPercent, setMarkupPercent] =
+    useState(defaultMarkupPercent)
 
   const crafting = blueprint.itemCraftings?.[0]
 
@@ -43,9 +56,31 @@ function BlueprintDetails({
         )
 
   const profit =
-    sellingPrice === undefined || costs?.productionCost === undefined
+    sellingPrice === undefined ||
+    costs?.productionCost === undefined
       ? undefined
       : sellingPrice - costs.productionCost
+
+  const collectionEntry = activeCollection?.entries.find(
+    (entry) => entry.blueprintId === blueprint.id
+  )
+
+  const collectionStatus =
+    collectionEntry?.status === 'acquired'
+      ? 'Acquired'
+      : collectionEntry?.status === 'to-acquire'
+        ? 'To Acquire'
+        : 'Not tracked'
+
+  const updateCollectionStatus = (
+    status: BlueprintAccessStatus | undefined
+  ) => {
+    onUpdateCollectionEntry(
+      blueprint.id,
+      blueprint.name,
+      status
+    )
+  }
 
   return (
     <section>
@@ -56,6 +91,64 @@ function BlueprintDetails({
       </p>
 
       <p>Kind: {blueprint.kind}</p>
+
+      <h3>Blueprint Access</h3>
+
+      {activeCollection ? (
+        <>
+          <p>
+            Active Collection:{' '}
+            <strong>{activeCollection.name}</strong>
+          </p>
+
+          <p>
+            Status: <strong>{collectionStatus}</strong>
+          </p>
+
+          <div className="blueprint-access-actions">
+            {collectionEntry?.status !== 'acquired' && (
+              <button
+                type="button"
+                className="primary-button"
+                onClick={() =>
+                  updateCollectionStatus('acquired')
+                }
+              >
+                Mark Acquired
+              </button>
+            )}
+
+            {collectionEntry?.status !== 'to-acquire' && (
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={() =>
+                  updateCollectionStatus('to-acquire')
+                }
+              >
+                To Acquire
+              </button>
+            )}
+
+            {collectionEntry && (
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={() =>
+                  updateCollectionStatus(undefined)
+                }
+              >
+                Remove
+              </button>
+            )}
+          </div>
+        </>
+      ) : (
+        <p>
+          No active blueprint collection. Select one from Blueprint
+          Collections to track this blueprint.
+        </p>
+      )}
 
       <p>
         Mind: {mind} — {mindCost}cr
@@ -95,7 +188,9 @@ function BlueprintDetails({
 
       <p>
         Labor Cost:{' '}
-        {costs === undefined ? 'Unknown' : `${costs.laborCost}cr`}
+        {costs === undefined
+          ? 'Unknown'
+          : `${costs.laborCost}cr`}
       </p>
 
       <p>
@@ -124,7 +219,9 @@ function BlueprintDetails({
               <select
                 value={markupPercent}
                 onChange={(event) =>
-                  setMarkupPercent(Number(event.target.value))
+                  setMarkupPercent(
+                    Number(event.target.value)
+                  )
                 }
               >
                 <option value={0}>0%</option>
@@ -137,7 +234,9 @@ function BlueprintDetails({
           </p>
 
           <p>
-            <strong>Selling Price: {sellingPrice}cr</strong>
+            <strong>
+              Selling Price: {sellingPrice}cr
+            </strong>
           </p>
 
           <p>Profit: {profit}cr</p>
@@ -146,8 +245,8 @@ function BlueprintDetails({
 
       {costs?.hasUnknownComponentCosts && (
         <p>
-          * Cost estimate is incomplete because one or more component values
-          are unknown.
+          * Cost estimate is incomplete because one or more component
+          values are unknown.
         </p>
       )}
     </section>

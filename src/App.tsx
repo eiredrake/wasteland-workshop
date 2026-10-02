@@ -1,26 +1,50 @@
 import { useState } from 'react'
 import './App.css'
+
 import BlueprintSearch from './features/blueprints/BlueprintSearch'
+import BlueprintCollectionsView from './features/blueprints/BlueprintCollectionsView'
 import EconomicsSettingsView from './features/settings/EconomicsSettingsView'
+import AboutView from './features/help/AboutView'
+import ValuationAlgorithmView from './features/help/ValuationAlgorithmView'
+
 import { DefaultCostCalculator } from './economics/DefaultCostCalculator'
 import {
   defaultEconomicsSettings,
   type EconomicsSettings,
 } from './economics/EconomicsSettings'
+
+import type {
+  BlueprintAccessStatus,
+  BlueprintCollection,
+} from './features/blueprints/BlueprintCollection'
+
+import {
+  loadBlueprintCollections,
+  saveBlueprintCollections,
+  loadActiveBlueprintCollectionId,
+  saveActiveBlueprintCollectionId,
+} from './features/blueprints/BlueprintCollectionRepository'
+
 import ToastContainer from './components/Toast/ToastContainer'
 import type {
   ToastMessage,
   ToastType,
 } from './components/Toast/Toast'
-import AboutView from './features/help/AboutView'
-import ValuationAlgorithmView from './features/help/ValuationAlgorithmView'
 
-type AppView = 'workshop' | 'settings' | 'about' | 'algorithm'
+type AppView =
+  | 'workshop'
+  | 'collections'
+  | 'settings'
+  | 'about'
+  | 'algorithm'
 
-const ECONOMICS_SETTINGS_KEY = 'wasteland-workshop-economics-settings'
+const ECONOMICS_SETTINGS_KEY =
+  'wasteland-workshop-economics-settings'
 
 function loadEconomicsSettings(): EconomicsSettings {
-  const savedSettings = localStorage.getItem(ECONOMICS_SETTINGS_KEY)
+  const savedSettings = localStorage.getItem(
+    ECONOMICS_SETTINGS_KEY
+  )
 
   if (!savedSettings) {
     return { ...defaultEconomicsSettings }
@@ -38,12 +62,36 @@ function loadEconomicsSettings(): EconomicsSettings {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [currentView, setCurrentView] = useState<AppView>('workshop')
+
+  const [currentView, setCurrentView] =
+    useState<AppView>('workshop')
+
   const [economicsSettings, setEconomicsSettings] =
     useState<EconomicsSettings>(loadEconomicsSettings)
-  const [toasts, setToasts] = useState<ToastMessage[]>([])
 
-  const calculator = new DefaultCostCalculator(economicsSettings)
+  const [toasts, setToasts] =
+    useState<ToastMessage[]>([])
+
+  const [blueprintCollections, setBlueprintCollections] =
+    useState<BlueprintCollection[]>(
+      loadBlueprintCollections
+    )
+
+  const [
+    activeBlueprintCollectionId,
+    setActiveBlueprintCollectionId,
+  ] = useState<string | undefined>(
+    loadActiveBlueprintCollectionId
+  )
+
+  const calculator =
+    new DefaultCostCalculator(economicsSettings)
+
+  const activeBlueprintCollection =
+    blueprintCollections.find(
+      (collection) =>
+        collection.id === activeBlueprintCollectionId
+    )
 
   const navigateTo = (view: AppView) => {
     setCurrentView(view)
@@ -52,11 +100,16 @@ function App() {
 
   const dismissToast = (id: number) => {
     setToasts((currentToasts) =>
-      currentToasts.filter((toast) => toast.id !== id)
+      currentToasts.filter(
+        (toast) => toast.id !== id
+      )
     )
   }
 
-  const showToast = (message: string, type: ToastType = 'info') => {
+  const showToast = (
+    message: string,
+    type: ToastType = 'info'
+  ) => {
     const id = Date.now()
 
     setToasts((currentToasts) => [
@@ -73,7 +126,9 @@ function App() {
     }, 4000)
   }
 
-  const saveEconomicsSettings = (settings: EconomicsSettings) => {
+  const saveEconomicsSettings = (
+    settings: EconomicsSettings
+  ) => {
     setEconomicsSettings(settings)
 
     localStorage.setItem(
@@ -82,6 +137,126 @@ function App() {
     )
 
     showToast('Settings saved.', 'success')
+  }
+
+  const addBlueprintCollection = (name: string) => {
+    const newCollection: BlueprintCollection = {
+      id: crypto.randomUUID(),
+      name,
+      entries: [],
+    }
+
+    const updatedCollections = [
+      ...blueprintCollections,
+      newCollection,
+    ]
+
+    setBlueprintCollections(updatedCollections)
+    saveBlueprintCollections(updatedCollections)
+
+    showToast(
+      `Created blueprint collection "${name}".`,
+      'success'
+    )
+  }
+
+  const setActiveBlueprintCollection = (
+    collectionId: string
+  ) => {
+    setActiveBlueprintCollectionId(collectionId)
+    saveActiveBlueprintCollectionId(collectionId)
+
+    const collection = blueprintCollections.find(
+      (item) => item.id === collectionId
+    )
+
+    if (collection) {
+      showToast(
+        `"${collection.name}" is now the active blueprint collection.`,
+        'info'
+      )
+    }
+  }
+
+  const updateBlueprintCollectionEntry = (
+    blueprintId: number,
+    blueprintName: string,
+    status: BlueprintAccessStatus | undefined
+  ) => {
+    if (!activeBlueprintCollectionId) {
+      showToast(
+        'Select an active blueprint collection first.',
+        'warning'
+      )
+      return
+    }
+
+    const updatedCollections = blueprintCollections.map(
+      (collection) => {
+        if (
+          collection.id !== activeBlueprintCollectionId
+        ) {
+          return collection
+        }
+
+        const entriesWithoutBlueprint =
+          collection.entries.filter(
+            (entry) =>
+              entry.blueprintId !== blueprintId
+          )
+
+        if (status === undefined) {
+          return {
+            ...collection,
+            entries: entriesWithoutBlueprint,
+          }
+        }
+
+        return {
+          ...collection,
+          entries: [
+            ...entriesWithoutBlueprint,
+            {
+              blueprintId,
+              status,
+            },
+          ],
+        }
+      }
+    )
+
+    setBlueprintCollections(updatedCollections)
+    saveBlueprintCollections(updatedCollections)
+
+    const collection = blueprintCollections.find(
+      (item) =>
+        item.id === activeBlueprintCollectionId
+    )
+
+    if (!collection) {
+      return
+    }
+
+    if (status === 'acquired') {
+      showToast(
+        `"${blueprintName}" marked acquired in "${collection.name}".`,
+        'success'
+      )
+      return
+    }
+
+    if (status === 'to-acquire') {
+      showToast(
+        `"${blueprintName}" added to the "${collection.name}" wishlist.`,
+        'info'
+      )
+      return
+    }
+
+    showToast(
+      `"${blueprintName}" removed from "${collection.name}".`,
+      'info'
+    )
   }
 
   return (
@@ -99,32 +274,56 @@ function App() {
 
         <div>
           <h1>Wasteland Workshop</h1>
-          <p>Dystopia Rising crafting economics and build planning.</p>
+
+          <p>
+            Dystopia Rising crafting economics and build
+            planning.
+          </p>
         </div>
       </header>
-      
-      <ToastContainer
-        toasts={toasts}
-        onDismiss={dismissToast}
-      />
 
       {menuOpen && (
         <nav className="app-menu">
-          <button type="button" onClick={() => navigateTo('workshop')}>
+          <button
+            type="button"
+            onClick={() => navigateTo('workshop')}
+          >
             Workshop
           </button>
 
-          <button type="button" onClick={() => navigateTo('settings')}>
+          <button
+            type="button"
+            onClick={() =>
+              navigateTo('collections')
+            }
+          >
+            Blueprint Collections
+          </button>
+
+          <button
+            type="button"
+            onClick={() => navigateTo('settings')}
+          >
             Settings
           </button>
 
-          <div className="menu-heading">Help</div>
+          <div className="menu-heading">
+            Help
+          </div>
 
-          <button type="button" onClick={() => navigateTo('about')}>
+          <button
+            type="button"
+            onClick={() => navigateTo('about')}
+          >
             About
           </button>
 
-          <button type="button" onClick={() => navigateTo('algorithm')}>
+          <button
+            type="button"
+            onClick={() =>
+              navigateTo('algorithm')
+            }
+          >
             Valuation Algorithm
           </button>
         </nav>
@@ -133,7 +332,30 @@ function App() {
       {currentView === 'workshop' && (
         <BlueprintSearch
           calculator={calculator}
-          defaultMarkupPercent={economicsSettings.defaultMarkupPercent}
+          defaultMarkupPercent={
+            economicsSettings.defaultMarkupPercent
+          }
+          activeCollection={
+            activeBlueprintCollection
+          }
+          onUpdateCollectionEntry={
+            updateBlueprintCollectionEntry
+          }
+        />
+      )}
+
+      {currentView === 'collections' && (
+        <BlueprintCollectionsView
+          collections={blueprintCollections}
+          activeCollectionId={
+            activeBlueprintCollectionId
+          }
+          onAddCollection={
+            addBlueprintCollection
+          }
+          onSetActiveCollection={
+            setActiveBlueprintCollection
+          }
         />
       )}
 
@@ -144,8 +366,18 @@ function App() {
         />
       )}
 
-      {currentView === 'about' && <AboutView />}
-      {currentView === 'algorithm' && <ValuationAlgorithmView />}
+      {currentView === 'about' && (
+        <AboutView />
+      )}
+
+      {currentView === 'algorithm' && (
+        <ValuationAlgorithmView />
+      )}
+
+      <ToastContainer
+        toasts={toasts}
+        onDismiss={dismissToast}
+      />
     </main>
   )
 }

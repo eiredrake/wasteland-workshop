@@ -2,6 +2,10 @@ import { useState } from 'react'
 import Datalist from '../../components/Datalist/Datalist'
 import type { CostCalculator } from '../../economics/CostCalculator'
 import type { Blueprint } from './Blueprint'
+import type {
+  BlueprintAccessStatus,
+  BlueprintCollection,
+} from './BlueprintCollection'
 import { testBlueprints } from './testBlueprints'
 import BlueprintDetails from './BlueprintDetails'
 import './BlueprintSearch.css'
@@ -15,11 +19,19 @@ const blueprintColumns: { key: keyof Blueprint; label: string }[] = [
 type BlueprintSearchProps = {
   calculator: CostCalculator
   defaultMarkupPercent: number
+  activeCollection: BlueprintCollection | undefined
+  onUpdateCollectionEntry: (
+    blueprintId: number,
+    blueprintName: string,
+    status: BlueprintAccessStatus | undefined
+  ) => void
 }
 
 function BlueprintSearch({
   calculator,
   defaultMarkupPercent,
+  activeCollection,
+  onUpdateCollectionEntry,
 }: BlueprintSearchProps) {
   const [searchText, setSearchText] = useState('')
   const [selectedBlueprint, setSelectedBlueprint] =
@@ -47,13 +59,18 @@ function BlueprintSearch({
   return (
     <section>
       <div className="blueprint-search">
-      <span className="blueprint-search-icon" aria-hidden="true" />
+        <span
+          className="blueprint-search-icon"
+          aria-hidden="true"
+        />
 
         <input
           type="search"
           placeholder="Search blueprints..."
           value={searchText}
-          onChange={(event) => setSearchText(event.target.value)}
+          onChange={(event) =>
+            setSearchText(event.target.value)
+          }
         />
       </div>
 
@@ -69,9 +86,11 @@ function BlueprintSearch({
 
       {selectedBlueprint && (
         <BlueprintDetails
-        blueprint={selectedBlueprint}
-        calculator={calculator}
-        defaultMarkupPercent={defaultMarkupPercent}
+          blueprint={selectedBlueprint}
+          calculator={calculator}
+          defaultMarkupPercent={defaultMarkupPercent}
+          activeCollection={activeCollection}
+          onUpdateCollectionEntry={onUpdateCollectionEntry}
         />
       )}
     </section>
