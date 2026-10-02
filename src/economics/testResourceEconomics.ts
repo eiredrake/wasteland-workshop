@@ -37,6 +37,8 @@ export const testResourceEconomics: ResourceEconomics[] = [
       },
     ],
   },
+
+  // Master Travel
   {
     itemId: 3883,
     acquisitionMethods: [
@@ -75,6 +77,7 @@ export const testResourceEconomics: ResourceEconomics[] = [
   },
 
   // Basic Foraging
+  // Foraging Card opportunity cost: 2cr
   {
     itemId: 3866,
     acquisitionMethods: [
@@ -98,6 +101,51 @@ export const testResourceEconomics: ResourceEconomics[] = [
         materialCost: 0,
         resolve: 0,
         foragingCardCost: 2,
+      },
+    ],
+  },
+
+  // Proficient Foraging
+  // Foraging Card opportunity cost: 5cr
+  {
+    itemId: 3877,
+    acquisitionMethods: [
+      {
+        name: 'Proficient Foraging',
+        mind: 5,
+        minutes: 0,
+        materialCost: 0,
+        resolve: 0,
+        foragingCardCost: 5,
+      },
+    ],
+  },
+  {
+    itemId: 3880,
+    acquisitionMethods: [
+      {
+        name: 'Proficient Foraging',
+        mind: 5,
+        minutes: 0,
+        materialCost: 0,
+        resolve: 0,
+        foragingCardCost: 5,
+      },
+    ],
+  },
+
+  // Master Foraging
+  // Foraging Card opportunity cost: 9cr
+  {
+    itemId: 3881,
+    acquisitionMethods: [
+      {
+        name: 'Master Foraging',
+        mind: 10,
+        minutes: 0,
+        materialCost: 0,
+        resolve: 0,
+        foragingCardCost: 9,
       },
     ],
   },

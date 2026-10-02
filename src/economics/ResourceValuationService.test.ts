@@ -25,6 +25,48 @@ describe('calculateResourceValuations', () => {
     expect(valuations[0].calculatedCost).toBe(1)
   })
 
+  it('includes proficient foraging card cost in resource valuation', () => {
+    const valuations = calculateResourceValuations(
+      {
+        itemId: 3880,
+        acquisitionMethods: [
+          {
+            name: 'Proficient Foraging',
+            mind: 5,
+            minutes: 0,
+            materialCost: 0,
+            resolve: 0,
+            foragingCardCost: 5,
+          },
+        ],
+      },
+      calculator
+    )
+  
+    expect(valuations[0].calculatedCost).toBe(9)
+  })  
+
+  it('includes master foraging card cost in resource valuation', () => {
+    const valuations = calculateResourceValuations(
+      {
+        itemId: 3881,
+        acquisitionMethods: [
+          {
+            name: 'Master Foraging',
+            mind: 10,
+            minutes: 0,
+            materialCost: 0,
+            resolve: 0,
+            foragingCardCost: 9,
+          },
+        ],
+      },
+      calculator
+    )
+  
+    expect(valuations[0].calculatedCost).toBe(17)
+  })
+
   it('calculates every acquisition method for a resource', () => {
     const valuations = calculateResourceValuations(
       {
