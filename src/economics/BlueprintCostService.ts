@@ -41,7 +41,8 @@ export function calculateBlueprintCost(
 
     const valuations = calculateResourceValuations(
       resourceEconomics,
-      calculator
+      calculator,
+      resources
     )
 
     const unitCost = valuations[0]?.calculatedCost

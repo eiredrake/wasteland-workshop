@@ -33,7 +33,8 @@ function BlueprintDetails({ blueprint }: BlueprintDetailsProps) {
 
     const valuations = calculateResourceValuations(
       resourceEconomics,
-      costCalculator
+      costCalculator,
+      testResourceEconomics
     )
 
     return valuations[0]?.calculatedCost

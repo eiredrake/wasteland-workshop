@@ -62,6 +62,24 @@ export const testResourceEconomics: ResourceEconomics[] = [
     ],
   }, 
   {
+    itemId: 3867,
+    acquisitionMethods: [
+      {
+        name: 'Artisan Crafting - Uncommon Scrap',
+        mind: 5,
+        minutes: 10,
+        materialCost: 0,
+        resolve: 0,
+        resources: [
+          {
+            itemId: 3866,
+            quantity: 3,
+          },
+        ],
+      },
+    ],
+  },  
+  {
     itemId: 3868,
     acquisitionMethods: [
       {
@@ -79,4 +97,16 @@ export const testResourceEconomics: ResourceEconomics[] = [
       },
     ],
   },   
+  {
+    itemId: 3866,
+    acquisitionMethods: [
+      {
+        name: 'Market Value',
+        mind: 0,
+        minutes: 0,
+        materialCost: 1,
+        resolve: 0,
+      },
+    ],
+  },
 ]
