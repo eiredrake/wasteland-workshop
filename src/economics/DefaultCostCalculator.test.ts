@@ -12,6 +12,20 @@ describe('DefaultCostCalculator', () => {
     expect(calculator.calculateTimeCost(20)).toBe(2)
   })
 
+  it('uses custom economics settings', () => {
+    const customCalculator = new DefaultCostCalculator({
+      mindCostPerPoint: 1,
+      timeCostPerMinute: 0.25,
+      defaultMarkupPercent: 30,
+      basicForagingCardCost: 3,
+      proficientForagingCardCost: 6,
+      masterForagingCardCost: 10,
+    })
+  
+    expect(customCalculator.calculateMindCost(10)).toBe(10)
+    expect(customCalculator.calculateTimeCost(20)).toBe(5)
+  })
+
   it('calculates Sagely Healing Brew production cost as 37 credits', () => {
     const productionCost = calculator.calculateProductionCost({
       mind: 10,

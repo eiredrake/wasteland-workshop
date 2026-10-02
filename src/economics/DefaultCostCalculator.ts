@@ -1,15 +1,26 @@
-import type { CostCalculator, ProductionCostInput  } from './CostCalculator'
-
-const MIND_COST_PER_POINT = 0.8
-const TIME_COST_PER_MINUTE = 0.1
+import type {
+  CostCalculator,
+  ForagingTier,
+  ProductionCostInput,
+} from './CostCalculator'
+import {
+  defaultEconomicsSettings,
+  type EconomicsSettings,
+} from './EconomicsSettings'
 
 export class DefaultCostCalculator implements CostCalculator {
+  private readonly settings: EconomicsSettings
+
+  constructor(settings: EconomicsSettings = defaultEconomicsSettings) {
+    this.settings = settings
+  }
+
   calculateMindCost(mind: number): number {
-    return mind * MIND_COST_PER_POINT
+    return mind * this.settings.mindCostPerPoint
   }
 
   calculateTimeCost(minutes: number): number {
-    return minutes * TIME_COST_PER_MINUTE
+    return minutes * this.settings.timeCostPerMinute
   }
 
   calculateProductionCost(input: ProductionCostInput): number {
@@ -18,6 +29,17 @@ export class DefaultCostCalculator implements CostCalculator {
       this.calculateTimeCost(input.minutes) +
       input.materialCost
     )
+  }
+
+  calculateForagingCardCost(tier: ForagingTier): number {
+    switch (tier) {
+      case 'basic':
+        return this.settings.basicForagingCardCost
+      case 'proficient':
+        return this.settings.proficientForagingCardCost
+      case 'master':
+        return this.settings.masterForagingCardCost
+    }
   }
 
   calculateSellingPrice(

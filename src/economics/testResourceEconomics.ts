@@ -77,7 +77,6 @@ export const testResourceEconomics: ResourceEconomics[] = [
   },
 
   // Basic Foraging
-  // Foraging Card opportunity cost: 2cr
   {
     itemId: 3866,
     acquisitionMethods: [
@@ -87,7 +86,7 @@ export const testResourceEconomics: ResourceEconomics[] = [
         minutes: 0,
         materialCost: 0,
         resolve: 0,
-        foragingCardCost: 2,
+        foragingTier: 'basic',
       },
     ],
   },
@@ -100,13 +99,12 @@ export const testResourceEconomics: ResourceEconomics[] = [
         minutes: 0,
         materialCost: 0,
         resolve: 0,
-        foragingCardCost: 2,
+        foragingTier: 'basic',
       },
     ],
   },
 
   // Proficient Foraging
-  // Foraging Card opportunity cost: 5cr
   {
     itemId: 3877,
     acquisitionMethods: [
@@ -116,7 +114,7 @@ export const testResourceEconomics: ResourceEconomics[] = [
         minutes: 0,
         materialCost: 0,
         resolve: 0,
-        foragingCardCost: 5,
+        foragingTier: 'proficient',
       },
     ],
   },
@@ -129,13 +127,12 @@ export const testResourceEconomics: ResourceEconomics[] = [
         minutes: 0,
         materialCost: 0,
         resolve: 0,
-        foragingCardCost: 5,
+        foragingTier: 'proficient',
       },
     ],
   },
 
   // Master Foraging
-  // Foraging Card opportunity cost: 9cr
   {
     itemId: 3881,
     acquisitionMethods: [
@@ -145,7 +142,7 @@ export const testResourceEconomics: ResourceEconomics[] = [
         minutes: 0,
         materialCost: 0,
         resolve: 0,
-        foragingCardCost: 9,
+        foragingTier: 'master',
       },
     ],
   },

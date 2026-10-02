@@ -12,12 +12,16 @@ export function calculateResourceValuation(
   acquisitionMethod: AcquisitionMethod,
   calculator: CostCalculator
 ): ResourceValuation {
+  const foragingCardCost = acquisitionMethod.foragingTier
+    ? calculator.calculateForagingCardCost(acquisitionMethod.foragingTier)
+    : 0
+
   return {
     itemId,
     acquisitionMethod,
     calculatedCost: Math.ceil(
       calculator.calculateProductionCost(acquisitionMethod) +
-        (acquisitionMethod.foragingCardCost ?? 0)
+        foragingCardCost
     ),
   }
 }

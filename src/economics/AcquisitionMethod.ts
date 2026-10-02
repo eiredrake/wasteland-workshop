@@ -1,4 +1,7 @@
-import type { ProductionCostInput } from './CostCalculator'
+import type {
+  ForagingTier,
+  ProductionCostInput,
+} from './CostCalculator'
 
 export type AcquisitionResource = {
   itemId: number
@@ -8,5 +11,5 @@ export type AcquisitionResource = {
 export type AcquisitionMethod = ProductionCostInput & {
   name: string
   resources?: AcquisitionResource[]
-  foragingCardCost?: number
+  foragingTier?: ForagingTier
 }
