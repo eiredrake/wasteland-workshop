@@ -15,7 +15,6 @@ type WorkshopRow = {
   id: number
   name: string
   craftingSkill: string
-  grade: string
   status: BlueprintAccessStatus
   blueprint: Blueprint
 }
@@ -25,7 +24,7 @@ type WorkshopViewProps = {
   calculator: CostCalculator
   defaultMarkupPercent: number
   craftTimer: CraftTimerState
-  onOpenCraftTimer: () => void  
+  onOpenCraftTimer: () => void
   onUpdateCollectionEntry: (
     blueprintId: number,
     blueprintName: string,
@@ -47,8 +46,6 @@ function WorkshopView({
   onOpenCraftTimer,
 }: WorkshopViewProps) {
   const [searchText, setSearchText] = useState('')
-  const [selectedBlueprint, setSelectedBlueprint] =
-    useState<Blueprint | null>(null)
 
   if (!activeCollection) {
     return (
@@ -65,46 +62,47 @@ function WorkshopView({
     )
   }
 
-  const normalizedSearch = searchText.trim().toLowerCase()
+  const normalizedSearch =
+    searchText.trim().toLowerCase()
 
-  const workshopRows: WorkshopRow[] = activeCollection.entries
-    .map((entry) => {
-      const blueprint = masterBlueprints.find(
-        (item) => item.id === entry.blueprintId
+  const workshopRows: WorkshopRow[] =
+    activeCollection.entries
+      .map((entry) => {
+        const blueprint = masterBlueprints.find(
+          (item) => item.id === entry.blueprintId
+        )
+
+        if (!blueprint) {
+          return undefined
+        }
+
+        return {
+          id: blueprint.id,
+          name: blueprint.name,
+          craftingSkill:
+            blueprint.itemCraftings?.[0]
+              ?.craftingSkills ?? 'Unknown',
+          status: entry.status,
+          blueprint,
+        }
+      })
+      .filter(
+        (item): item is WorkshopRow =>
+          item !== undefined
       )
+      .filter((item) => {
+        const searchableFields = [
+          item.name,
+          item.craftingSkill,
+          item.status,
+        ]
 
-      if (!blueprint) {
-        return undefined
-      }
-
-      return {
-        id: blueprint.id,
-        name: blueprint.name,
-        craftingSkill:
-          blueprint.itemCraftings?.[0]?.craftingSkills ??
-          'Unknown',
-        status: entry.status,
-        blueprint,
-      }
-    })
-    .filter(
-      (item): item is WorkshopRow =>
-        item !== undefined
-    )
-    .filter((item) => {
-      const searchableFields = [
-        item.name,
-        item.craftingSkill,
-        item.grade,
-        item.status,
-      ]
-
-      return searchableFields.some((field) =>
-        field
-          .toLowerCase()
-          .includes(normalizedSearch)
-      )
-    })
+        return searchableFields.some((field) =>
+          field
+            .toLowerCase()
+            .includes(normalizedSearch)
+        )
+      })
 
   const workshopColumns: {
     key: keyof WorkshopRow
@@ -182,32 +180,31 @@ function WorkshopView({
         columns={workshopColumns}
         getRowKey={(item) => item.id}
         showAddButton={false}
-        onRowClick={(item) =>
-          setSelectedBlueprint(item.blueprint)
-        }
         emptyMessage={
           normalizedSearch
             ? 'No matching blueprints found.'
             : 'No blueprints in this collection.'
         }
+        backLabel={`Back to ${activeCollection.name}`}
+        renderDetails={(item) => (
+          <BlueprintDetails
+            blueprint={item.blueprint}
+            calculator={calculator}
+            defaultMarkupPercent={
+              defaultMarkupPercent
+            }
+            activeCollection={activeCollection}
+            craftTimer={craftTimer}
+            onUpdateCollectionEntry={
+              onUpdateCollectionEntry
+            }
+            onCraftBlueprint={onCraftBlueprint}
+            onOpenCraftTimer={
+              onOpenCraftTimer
+            }
+          />
+        )}
       />
-
-      {selectedBlueprint && (
-        <BlueprintDetails
-        blueprint={selectedBlueprint}
-        calculator={calculator}
-        defaultMarkupPercent={
-          defaultMarkupPercent
-        }
-        activeCollection={activeCollection}
-        craftTimer={craftTimer}
-        onUpdateCollectionEntry={
-          onUpdateCollectionEntry
-        }
-        onCraftBlueprint={onCraftBlueprint}
-        onOpenCraftTimer={onOpenCraftTimer}
-      />
-      )}
     </section>
   )
 }

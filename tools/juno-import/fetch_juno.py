@@ -3,7 +3,7 @@ import os
 import re
 import time
 
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright  # type: ignore
 
 JUNO_URL = "https://db.larp.network/dystopia-rising/blueprints"
 
@@ -106,7 +106,7 @@ def handle_response(response):
             f"*** ITEM {item_id} CAPTURED ***"
         )
 
-    except Exception as error:
+    except Exception as error:  # noqa: BLE001
         print(
             f"Could not process GraphQL response: "
             f"{error}"
@@ -161,7 +161,7 @@ def page_looks_blocked(page):
             for text in suspicious_text
         )
 
-    except Exception:
+    except Exception:  # noqa: BLE001
         return False
 
 
@@ -195,7 +195,7 @@ def return_to_blueprint_list(page):
 
 
 def find_blueprint_link(page, item_id):
-    pattern = re.compile(
+    re.compile(
         rf"/dystopia-rising/blueprints/{item_id}$"
     )
 
@@ -280,7 +280,7 @@ def collect_blueprints(page):
 
             link.first.click()
 
-        except Exception as error:
+        except Exception as error:  # noqa: BLE001
             print(
                 f"    Could not click link: {error}"
             )
@@ -405,5 +405,5 @@ with sync_playwright() as playwright:
 
             page.wait_for_timeout(1000)
 
-        except Exception:
+        except Exception:  # noqa: BLE001
             break

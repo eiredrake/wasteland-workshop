@@ -89,3 +89,25 @@
   border: none;
   font-size: 1.1rem;
 }
+
+.datalist-back {
+  margin-bottom: 1rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid #d6a33d;
+  border-radius: 6px;
+  background: transparent;
+  color: #d6a33d;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.datalist-back:hover {
+  background: rgba(214, 163, 61, 0.12);
+}
+
+.datalist-back:focus-visible {
+  outline: 2px solid #d6a33d;
+  outline-offset: 2px;
+}

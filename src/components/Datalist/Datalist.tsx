@@ -1,4 +1,8 @@
-import { useState, type ReactNode } from 'react'
+import {
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react'
 import './Datalist.css'
 
 type DatalistColumn<T> = {
@@ -16,6 +20,8 @@ type DatalistProps<T> = {
   onRowClick?: (item: T) => void
   onAdd?: () => void
   emptyMessage?: string
+  renderDetails?: (item: T) => ReactNode
+  backLabel?: string
 }
 
 function Datalist<T>({
@@ -27,9 +33,19 @@ function Datalist<T>({
   onRowClick,
   onAdd,
   emptyMessage = 'No items found.',
+  renderDetails,
+  backLabel = 'Back',
 }: DatalistProps<T>) {
-  const [sortKey, setSortKey] = useState<keyof T | null>(null)
-  const [sortAscending, setSortAscending] = useState(true)
+  const [sortKey, setSortKey] =
+    useState<keyof T | null>(null)
+
+  const [sortAscending, setSortAscending] =
+    useState(true)
+
+  const [selectedItem, setSelectedItem] =
+    useState<T | null>(null)
+
+  const scrollPosition = useRef(0)
 
   const handleSort = (key: keyof T) => {
     if (sortKey === key) {
@@ -40,6 +56,30 @@ function Datalist<T>({
     }
   }
 
+  const handleRowClick = (item: T) => {
+    if (renderDetails) {
+      scrollPosition.current = window.scrollY
+      setSelectedItem(item)
+      window.scrollTo(0, 0)
+      return
+    }
+
+    onRowClick?.(item)
+  }
+
+  const handleBack = () => {
+    setSelectedItem(null)
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        window.scrollTo(
+          0,
+          scrollPosition.current
+        )
+      })
+    })
+  }
+
   const sortedItems = [...items].sort((a, b) => {
     if (sortKey === null) {
       return 0
@@ -48,13 +88,35 @@ function Datalist<T>({
     const aValue = String(a[sortKey] ?? '')
     const bValue = String(b[sortKey] ?? '')
 
-    const comparison = aValue.localeCompare(bValue, undefined, {
-      numeric: true,
-      sensitivity: 'base',
-    })
+    const comparison = aValue.localeCompare(
+      bValue,
+      undefined,
+      {
+        numeric: true,
+        sensitivity: 'base',
+      }
+    )
 
-    return sortAscending ? comparison : -comparison
+    return sortAscending
+      ? comparison
+      : -comparison
   })
+
+  if (selectedItem && renderDetails) {
+    return (
+      <section className="datalist datalist-details">
+        <button
+          type="button"
+          className="datalist-back"
+          onClick={handleBack}
+        >
+          ← {backLabel}
+        </button>
+
+        {renderDetails(selectedItem)}
+      </section>
+    )
+  }
 
   return (
     <section className="datalist">
@@ -79,11 +141,15 @@ function Datalist<T>({
               <th key={String(column.key)}>
                 <button
                   type="button"
-                  onClick={() => handleSort(column.key)}
+                  onClick={() =>
+                    handleSort(column.key)
+                  }
                 >
                   {column.label}
                   {sortKey === column.key &&
-                    (sortAscending ? ' ▲' : ' ▼')}
+                    (sortAscending
+                      ? ' ▲'
+                      : ' ▼')}
                 </button>
               </th>
             ))}
@@ -101,13 +167,17 @@ function Datalist<T>({
             sortedItems.map((item) => (
               <tr
                 key={getRowKey(item)}
-                onClick={() => onRowClick?.(item)}
+                onClick={() =>
+                  handleRowClick(item)
+                }
               >
                 {columns.map((column) => (
                   <td key={String(column.key)}>
                     {column.render
                       ? column.render(item)
-                      : String(item[column.key] ?? '')}
+                      : String(
+                          item[column.key] ?? ''
+                        )}
                   </td>
                 ))}
               </tr>

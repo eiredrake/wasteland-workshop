@@ -81,17 +81,9 @@ function BlueprintSearch({
   onOpenCraftTimer,
 }: BlueprintSearchProps) {
   const [searchText, setSearchText] = useState('')
-  const [selectedBlueprint, setSelectedBlueprint] =
-    useState<Blueprint | null>(null)
 
   const normalizedSearch =
     searchText.trim().toLowerCase()
-
-  const handleBlueprintClick = (
-    blueprint: Blueprint
-  ) => {
-    setSelectedBlueprint(blueprint)
-  }
 
   const handleStatusClick = (
     event: React.MouseEvent,
@@ -222,26 +214,27 @@ function BlueprintSearch({
         columns={getBlueprintColumns()}
         getRowKey={(blueprint) => blueprint.id}
         showAddButton={false}
-        onRowClick={handleBlueprintClick}
         emptyMessage="No blueprints found."
+        backLabel="Back to Blueprints"
+        renderDetails={(blueprint) => (
+          <BlueprintDetails
+            blueprint={blueprint}
+            calculator={calculator}
+            defaultMarkupPercent={
+              defaultMarkupPercent
+            }
+            activeCollection={activeCollection}
+            craftTimer={craftTimer}
+            onUpdateCollectionEntry={
+              onUpdateCollectionEntry
+            }
+            onCraftBlueprint={onCraftBlueprint}
+            onOpenCraftTimer={
+              onOpenCraftTimer
+            }
+          />
+        )}
       />
-
-      {selectedBlueprint && (
-        <BlueprintDetails
-          blueprint={selectedBlueprint}
-          calculator={calculator}
-          defaultMarkupPercent={
-            defaultMarkupPercent
-          }
-          activeCollection={activeCollection}
-          craftTimer={craftTimer}
-          onUpdateCollectionEntry={
-            onUpdateCollectionEntry
-          }
-          onCraftBlueprint={onCraftBlueprint}
-          onOpenCraftTimer={onOpenCraftTimer}
-        />
-      )}
     </section>
   )
 }
