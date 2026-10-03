@@ -31,44 +31,28 @@ function getBlueprintKind(blueprint: Blueprint) {
     .join(' ')
 }
 
-const getBlueprintColumns = (
+function getBlueprintStatus(
+  blueprint: Blueprint,
   activeCollection: BlueprintCollection | undefined
-) => [
-  {
-    key: 'name' as keyof Blueprint,
-    label: 'Blueprint',
-  },
-  {
-    key: 'kind' as keyof Blueprint,
-    label: 'Kind',
-    render: (blueprint: Blueprint) =>
-      getBlueprintKind(blueprint),
-  },
-  {
-    key: 'id' as keyof Blueprint,
-    label: 'Status',
-    render: (blueprint: Blueprint) => {
-      if (!activeCollection) {
-        return '—'
-      }
+): BlueprintAccessStatus | undefined {
+  return activeCollection?.entries.find(
+    (entry) => entry.blueprintId === blueprint.id
+  )?.status
+}
 
-      const entry = activeCollection.entries.find(
-        (entry) =>
-          entry.blueprintId === blueprint.id
-      )
+function getNextStatus(
+  currentStatus: BlueprintAccessStatus | undefined
+): BlueprintAccessStatus | undefined {
+  if (currentStatus === undefined) {
+    return 'acquired'
+  }
 
-      if (entry?.status === 'acquired') {
-        return 'Acquired'
-      }
+  if (currentStatus === 'acquired') {
+    return 'to-acquire'
+  }
 
-      if (entry?.status === 'to-acquire') {
-        return 'To Acquire'
-      }
-
-      return '—'
-    },
-  },
-]
+  return undefined
+}
 
 type BlueprintSearchProps = {
   calculator: CostCalculator
@@ -99,8 +83,6 @@ function BlueprintSearch({
   const [searchText, setSearchText] = useState('')
   const [selectedBlueprint, setSelectedBlueprint] =
     useState<Blueprint | null>(null)
-  const [quickAddAcquired, setQuickAddAcquired] =
-    useState(false)
 
   const normalizedSearch =
     searchText.trim().toLowerCase()
@@ -108,28 +90,96 @@ function BlueprintSearch({
   const handleBlueprintClick = (
     blueprint: Blueprint
   ) => {
-    if (quickAddAcquired && activeCollection) {
-      const existingEntry =
-        activeCollection.entries.find(
-          (entry) =>
-            entry.blueprintId === blueprint.id
-        )
+    setSelectedBlueprint(blueprint)
+  }
 
-      if (existingEntry?.status === 'acquired') {
-        return
-      }
+  const handleStatusClick = (
+    event: React.MouseEvent,
+    blueprint: Blueprint
+  ) => {
+    event.stopPropagation()
 
-      onUpdateCollectionEntry(
-        blueprint.id,
-        blueprint.name,
-        'acquired'
-      )
-
+    if (!activeCollection) {
       return
     }
 
-    setSelectedBlueprint(blueprint)
+    const currentStatus = getBlueprintStatus(
+      blueprint,
+      activeCollection
+    )
+
+    const nextStatus =
+      getNextStatus(currentStatus)
+
+    onUpdateCollectionEntry(
+      blueprint.id,
+      blueprint.name,
+      nextStatus
+    )
   }
+
+  const getBlueprintColumns = () => [
+    {
+      key: 'name' as keyof Blueprint,
+      label: 'Blueprint',
+    },
+    {
+      key: 'kind' as keyof Blueprint,
+      label: 'Kind',
+      render: (blueprint: Blueprint) =>
+        getBlueprintKind(blueprint),
+    },
+    {
+      key: 'id' as keyof Blueprint,
+      label: 'Status',
+      render: (blueprint: Blueprint) => {
+        if (!activeCollection) {
+          return (
+            <span className="workshop-status workshop-status-none">
+              No Active Collection
+            </span>
+          )
+        }
+
+        const status = getBlueprintStatus(
+          blueprint,
+          activeCollection
+        )
+
+        let label = 'Not Acquired'
+        let className =
+          'workshop-status workshop-status-none'
+
+        if (status === 'acquired') {
+          label = 'Acquired'
+          className =
+            'workshop-status workshop-status-acquired'
+        }
+
+        if (status === 'to-acquire') {
+          label = 'To Acquire'
+          className =
+            'workshop-status workshop-status-to-acquire'
+        }
+
+        return (
+          <button
+            type="button"
+            className={className}
+            onClick={(event) =>
+              handleStatusClick(
+                event,
+                blueprint
+              )
+            }
+            title={`Change status in ${activeCollection.name}`}
+          >
+            {label}
+          </button>
+        )
+      },
+    },
+  ]
 
   const filteredBlueprints = masterBlueprints.filter(
     (blueprint) => {
@@ -150,27 +200,6 @@ function BlueprintSearch({
 
   return (
     <section>
-      {activeCollection && (
-        <div className="blueprint-quick-add">
-          <label>
-            <input
-              type="checkbox"
-              checked={quickAddAcquired}
-              onChange={(event) =>
-                setQuickAddAcquired(
-                  event.target.checked
-                )
-              }
-            />
-
-            Quick Add Acquired to{' '}
-            <strong>
-              {activeCollection.name}
-            </strong>
-          </label>
-        </div>
-      )}
-
       <div className="blueprint-search">
         <span
           className="blueprint-search-icon"
@@ -190,7 +219,7 @@ function BlueprintSearch({
       <Datalist<Blueprint>
         title={`Blueprints (${filteredBlueprints.length})`}
         items={filteredBlueprints}
-        columns={getBlueprintColumns(activeCollection)}
+        columns={getBlueprintColumns()}
         getRowKey={(blueprint) => blueprint.id}
         showAddButton={false}
         onRowClick={handleBlueprintClick}

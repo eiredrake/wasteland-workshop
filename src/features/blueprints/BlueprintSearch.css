@@ -52,3 +52,39 @@
   transform: rotate(45deg);
   transform-origin: left center;
 }
+
+.workshop-status-none {
+  color: #8f8f8f;
+  background: transparent;
+}
+
+.workshop-status {
+  flex-shrink: 0;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+button.workshop-status {
+  cursor: pointer;
+  appearance: none;
+}
+
+.workshop-status-acquired {
+  color: #5f9f62;
+}
+
+.workshop-status-to-acquire {
+  color: #d6a33d;
+}
+
+.workshop-status-none {
+  color: #8f8f8f;
+}
