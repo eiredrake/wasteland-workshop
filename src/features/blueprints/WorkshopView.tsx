@@ -6,7 +6,7 @@ import type {
   BlueprintAccessStatus,
   BlueprintCollection,
 } from './BlueprintCollection'
-import { testBlueprints } from './testBlueprints'
+import { masterBlueprints } from './blueprints'
 import BlueprintDetails from './BlueprintDetails'
 import './WorkshopView.css'
 import type { CraftTimerState } from '../timer/CraftTimerState'
@@ -69,7 +69,7 @@ function WorkshopView({
 
   const workshopRows: WorkshopRow[] = activeCollection.entries
     .map((entry) => {
-      const blueprint = testBlueprints.find(
+      const blueprint = masterBlueprints.find(
         (item) => item.id === entry.blueprintId
       )
 
@@ -118,10 +118,6 @@ function WorkshopView({
     {
       key: 'craftingSkill',
       label: 'Crafting Skill',
-    },
-    {
-      key: 'grade',
-      label: 'Grade',
     },
     {
       key: 'status',
