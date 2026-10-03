@@ -45,8 +45,17 @@ function BlueprintDetails({
 
   const mind = crafting?.craftingMindCost ?? 0
   const minutes = crafting?.craftingTimeInMinute ?? 0
-  const skills =
-    crafting?.craftingSkills ?? 'No crafting data'
+  const skills = crafting?.craftingSkills ?? 'No crafting data'
+
+  const finalProduct =
+  crafting?.craftingFinalProducts?.[0]
+    ?.finalProduct
+
+  const itemMechanics =
+    finalProduct?.metadata?.mechanics?.trim()
+
+  const specialNotes =
+    blueprint.metadata?.notes?.trim()
 
   const mindCost =
     calculator.calculateMindCost(mind)
@@ -103,11 +112,30 @@ function BlueprintDetails({
     <section className="blueprint-details">
       <header className="blueprint-details-header">
         <h2>{blueprint.name}</h2>
-
-        <div className="blueprint-details-subtitle">
-          <span>{skills}</span>
-        </div>
       </header>
+
+      {(itemMechanics || skills || specialNotes) && (
+        <section className="blueprint-details-card blueprint-mechanics-card">
+          <div className="blueprint-mechanics-section blueprint-crafting-skill">
+            <h3>Crafting Skill</h3>
+            <p>{skills}</p>
+          </div>
+
+          {itemMechanics && (
+            <div className="blueprint-mechanics-section">
+              <h3>Item Mechanics</h3>
+              <p>{itemMechanics}</p>
+            </div>
+          )}
+
+          {specialNotes && (
+            <div className="blueprint-mechanics-section">
+              <h3>Special Notes</h3>
+              <p>{specialNotes}</p>
+            </div>
+          )}
+        </section>
+      )}  
 
       <section className="blueprint-details-card blueprint-access-card">
         <div className="blueprint-card-heading">

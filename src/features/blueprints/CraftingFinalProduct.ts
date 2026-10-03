@@ -1,3 +1,5 @@
+import type { ItemMetadata } from './ItemMetadata'
+
 export type CraftingFinalProduct = {
   id: number
   stack: number
@@ -8,5 +10,6 @@ export type CraftingFinalProduct = {
     kind: string
     lifetimeAmount: number | null
     lifetimeUnit: string
+    metadata?: ItemMetadata
   }
 }
