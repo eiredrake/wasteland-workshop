@@ -1,0 +1,180 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4429,
+        "name": "Uncle Jenkin's Healing Meal",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-01-11T06:33:21Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "None",
+          "printHeader": "Culinary Recipe",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1383,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 5,
+            "craftingResolveCost": 0,
+            "craftingZone": "Culinary Space",
+            "craftingSkills": "Basic Culinary",
+            "craftingComponents": [
+              {
+                "id": 3506,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3807,
+                  "name": "Basic Herb",
+                  "grade": "ungraded",
+                  "kind": "unnamed_herb",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 3507,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3924,
+                  "name": "Meat or Eggs or Fruit ",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "childItemClassifications": [
+                    {
+                      "id": 126,
+                      "childItem": {
+                        "id": 3852,
+                        "name": "Meat",
+                        "kind": "produce",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 127,
+                      "childItem": {
+                        "id": 3848,
+                        "name": "Eggs",
+                        "kind": "produce",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 128,
+                      "childItem": {
+                        "id": 3850,
+                        "name": "Fruit",
+                        "kind": "produce",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    }
+                  ],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1363,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 4000,
+                  "name": "Uncle Jenkin's Healing Meal",
+                  "grade": "ungraded",
+                  "kind": "healing_meal",
+                  "lifetimeAmount": 3,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "Members of the Landsman Lineage regain 30 Body and 5 Mind.",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "Landsman Lineage",
+                    "uses": "1",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 28,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 28,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

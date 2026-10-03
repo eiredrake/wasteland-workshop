@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 5954,
+        "name": "Social Distancing",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-06-15T23:21:05Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "Requires 3 members of the same society and a Target of the same society of equal or lower rank. Each of the 3 members engage in a shared total of 10 minutes of roleplay condemning the Target and spending 1 Resolve each to remove a shared \"Society Membership\" from the lower or equal ranking member. ",
+          "notes": "A Guide should be present to take note of this procedure's performance and, in the case of PCs being removed from a Society, ensure that the removal is placed on the character's sheet if not present.",
+          "printHeader": "Procedure",
+          "requirementsToUse": "3 participants who share a common Society Membership and are of equal or higher rank in that Society as the Target.",
+          "uses": null,
+          "durationOfEffect": "N/A",
+          "validTargetDescription": "Lineage Target that shares a specific Society Membership with all participants.",
+          "locationOfUse": "Any",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "10 Minutes",
+          "descriptionOfRoleplay": "The condemnation of a member from an organization and their exile from its ranks takes many forms depending on the culture of the society in question. A society focused on law enforcement may hold a literal trial, potentially with the dismissed member not even present, while a less-tightly organized group may simply meet around a table and shit-talk the accused for some time. Use of this procedure for petty or personal reasons may result in higher-ups in the organization taking notice.",
+          "activationRequirement": "1 Resolve from each participant",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 991,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 991,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

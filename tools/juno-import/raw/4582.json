@@ -1,0 +1,177 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4582,
+        "name": "Angry Anchor Riot Shield",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-01-21T23:38:47Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
+          "printHeader": "Artisan Recipe",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1536,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 15,
+            "craftingResolveCost": 0,
+            "craftingZone": "Artisan Space",
+            "craftingSkills": "Master Artisan",
+            "craftingComponents": [
+              {
+                "id": 3883,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3868,
+                  "name": "Rare Scrap",
+                  "grade": "ungraded",
+                  "kind": "unnamed_scrap",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 4,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 3884,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3885,
+                  "name": "Recovered Electronics",
+                  "grade": "ungraded",
+                  "kind": "trade_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 3885,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3886,
+                  "name": "Synthetic Fibers",
+                  "grade": "ungraded",
+                  "kind": "trade_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 3886,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3879,
+                  "name": "High Grade Lumber",
+                  "grade": "ungraded",
+                  "kind": "natural_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1503,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 4152,
+                  "name": "Angry Anchor Riot Shield",
+                  "grade": "ungraded",
+                  "kind": "shield_large",
+                  "lifetimeAmount": 24,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "When expending a use of Shield Master, the user may designate up to 2 Targets (Other) within arm's distance who also benefit from the use of this skill.\n\nLarge shields must have a surface area of less than 9 square feet (see Player's Guide for specifics).",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "Shield Master",
+                    "uses": "N/A",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 171,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 171,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

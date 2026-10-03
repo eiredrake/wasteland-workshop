@@ -1,0 +1,163 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4654,
+        "name": "Blue Hue Goo",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-02-07T03:31:14Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "None",
+          "printHeader": "Necrology Brew",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1608,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 0,
+            "craftingResolveCost": 1,
+            "craftingZone": "Artisan Space",
+            "craftingSkills": "Mortuary Morsel",
+            "craftingComponents": [
+              {
+                "id": 4218,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3898,
+                  "name": "Mycelium Wiring",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4219,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3899,
+                  "name": "Mortis Extract",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4220,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3851,
+                  "name": "Infection Material",
+                  "grade": "ungraded",
+                  "kind": "produce",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1704,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 4224,
+                  "name": "Blue Hue Goo",
+                  "grade": "ungraded",
+                  "kind": "necrology_brew",
+                  "lifetimeAmount": 12,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "Applied. May self-Target. May be expended upon entering a Corrupted Morgue Space to allow the user to position themselves prior to the start of the scene subject to Guide approval (generally still near the designated entry area).",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "None",
+                    "uses": "1",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 243,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 243,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

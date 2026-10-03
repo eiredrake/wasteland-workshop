@@ -1,0 +1,163 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4657,
+        "name": "Gold-Flecked Byproduct",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-02-07T03:31:16Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "None",
+          "printHeader": "Necrology Brew",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1611,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 0,
+            "craftingResolveCost": 1,
+            "craftingZone": "Necrology Station",
+            "craftingSkills": "Mortuary Morsel",
+            "craftingComponents": [
+              {
+                "id": 4226,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3897,
+                  "name": "Imprint Crystal",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4227,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3899,
+                  "name": "Mortis Extract",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4228,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3851,
+                  "name": "Infection Material",
+                  "grade": "ungraded",
+                  "kind": "produce",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1707,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 4227,
+                  "name": "Gold-Flecked Byproduct",
+                  "grade": "ungraded",
+                  "kind": "necrology_brew",
+                  "lifetimeAmount": 12,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "Injected. Only usable in Bleedout. For the next 5 minutes the user's Bleed Out timer is paused and they may ignore it, acting as if they were at 1 Body. They cannot regain Body by any means during this time. After the duration ends, the user skips Bleed Out and dies immediately. No method can prevent Infection loss caused by such a death.",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "None",
+                    "uses": "1",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 246,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 246,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4652,
+        "name": "Bio Stabilizer Injection System",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-10-21T01:24:36Z",
+        "lifetimeAmount": 0,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "None",
+          "printHeader": "Necrology Gizmo",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1606,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 0,
+            "craftingResolveCost": 1,
+            "craftingZone": "Artisan Space",
+            "craftingSkills": "The Organic Machine",
+            "craftingComponents": [
+              {
+                "id": 4211,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3897,
+                  "name": "Imprint Crystal",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4212,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3900,
+                  "name": "Festering Crystal",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4213,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3899,
+                  "name": "Mortis Extract",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4214,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3868,
+                  "name": "Rare Scrap",
+                  "grade": "ungraded",
+                  "kind": "unnamed_scrap",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1702,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 4222,
+                  "name": "Bio Stabilizer Injection System",
+                  "grade": "ungraded",
+                  "kind": "gizmo_necrology",
+                  "lifetimeAmount": null,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "User may call \"Ripcord! Exiting Corrupted Morgue!\" to exit a Corrupted Morgue Space at any time. Gain 1 Fracture.",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "None",
+                    "uses": "1",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 241,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 241,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

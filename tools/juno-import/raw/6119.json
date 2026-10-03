@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 6119,
+        "name": "Cutting Corners",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2026-02-24T11:10:11Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "This procedure modifies the Culinary blueprints 'Crystal Candy Snack', 'Crystal Candy Extract', and 'Crystal Candy Inhalant'. \n\nCompletion of any of the above blueprints modified by this procedure produces two instances of the Drug in question, with the following line added to the Gizmo card and its expiration date set to one month:\n\n\"After use, find a Guide for a die roll. On a 1-2, gain Candor Rot at Stage 1.\"",
+          "notes": "None",
+          "printHeader": "Dubious Procedure",
+          "requirementsToUse": "Proficient Criminal Influence (Black Market 2) and Proficient Culinary",
+          "uses": null,
+          "durationOfEffect": "As per modified blueprint.",
+          "validTargetDescription": "As per modified blueprint.",
+          "locationOfUse": "Culinary Zone",
+          "equipmentRequiredForUse": "As per modified blueprint.",
+          "durationOfRoleplay": "As per modified blueprint.",
+          "descriptionOfRoleplay": "By shattering the crystals formed in the crystal candy creation process and using certain chemical contaminants to bulk them back up, a larger harvest can be guaranteed... but the contamination has a chance of causing certain uncomfortable conditions in those exposed. ",
+          "activationRequirement": "As per modified blueprint.",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 1057,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education & Basic Criminal Influence",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 1057,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

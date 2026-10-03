@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4854,
+        "name": "Voice of the Sponsor",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-12-03T00:34:12Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "At the end of the Benediction, the performer is inspired with knowledge they could not know previously, allowing them to gain local plot details, rumors, and insight into NPC secrets.",
+          "notes": "Requires 1 month written notice for preparation.",
+          "printHeader": "Benediction",
+          "requirementsToUse": "Lore: Faith - Common OR Profession Saint. Must be Inducted to Telling Visionaries",
+          "uses": null,
+          "durationOfEffect": "Instant",
+          "validTargetDescription": "Self",
+          "locationOfUse": "Consecrated Space dedicated to the Telling Visionaries",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "10 Minutes",
+          "descriptionOfRoleplay": "The Benediction requires one performer and at least 5 members of the \"viewing audience.\" Viewing audience must either be Inducted members of the Church of the Telling Visions or have paid local currency to participate. This Benediction causes the performer to enter a fugue state while chaoticly speaking in tongues in the form of nonsense 1980-1990s commercial snippits. The performer spasms, convulses, and otherwise enters physical fits during 10 minutes of Active Roleplay.  ",
+          "activationRequirement": "None",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 417,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Proficient Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 417,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

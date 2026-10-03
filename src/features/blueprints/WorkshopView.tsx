@@ -83,7 +83,6 @@ function WorkshopView({
         craftingSkill:
           blueprint.itemCraftings?.[0]?.craftingSkills ??
           'Unknown',
-        grade: blueprint.grade,
         status: entry.status,
         blueprint,
       }

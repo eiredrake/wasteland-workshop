@@ -1,0 +1,842 @@
+[
+  {
+    "id": 3857,
+    "name": "Acid Compounds Crafting Component",
+    "kind": "crafting_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3858,
+    "name": "Adhesive Crafting Component",
+    "kind": "crafting_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 3,
+    "totalRecipeUses": 3
+  },
+  {
+    "id": 3859,
+    "name": "Cooking Oil Crafting Component",
+    "kind": "crafting_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 3,
+    "totalRecipeUses": 3
+  },
+  {
+    "id": 3894,
+    "name": "Passenger Carrier",
+    "kind": "crafting_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3861,
+    "name": "Radioactive Compounds Crafting Component",
+    "kind": "crafting_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 4,
+    "totalRecipeUses": 4
+  },
+  {
+    "id": 3862,
+    "name": "Salty Crafting Component",
+    "kind": "crafting_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 4,
+    "totalRecipeUses": 4
+  },
+  {
+    "id": 3895,
+    "name": "Supply Carrier",
+    "kind": "crafting_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3863,
+    "name": "Vinegar Crafting Component",
+    "kind": "crafting_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 4,
+    "totalRecipeUses": 4
+  },
+  {
+    "id": 3896,
+    "name": "Weapons Platform",
+    "kind": "crafting_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 5558,
+    "name": "Trade Note",
+    "kind": "currency",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3864,
+    "name": "Generic Brew",
+    "kind": "generic_item",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 4874,
+    "name": "Meaty Bits",
+    "kind": "gizmo",
+    "grade": "ungraded",
+    "usedByBlueprints": 10,
+    "totalRecipeUses": 10
+  },
+  {
+    "id": 4377,
+    "name": "Mechanical Airship Framework",
+    "kind": "gizmo",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 4375,
+    "name": "Mechanical Auto Frame",
+    "kind": "gizmo",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 4378,
+    "name": "Mechanical Drive",
+    "kind": "gizmo",
+    "grade": "ungraded",
+    "usedByBlueprints": 3,
+    "totalRecipeUses": 3
+  },
+  {
+    "id": 4376,
+    "name": "Mechanical Engine",
+    "kind": "gizmo",
+    "grade": "ungraded",
+    "usedByBlueprints": 5,
+    "totalRecipeUses": 5
+  },
+  {
+    "id": 4379,
+    "name": "Mechanical Fuel System",
+    "kind": "gizmo",
+    "grade": "ungraded",
+    "usedByBlueprints": 5,
+    "totalRecipeUses": 5
+  },
+  {
+    "id": 4385,
+    "name": "Mechanical Gear System",
+    "kind": "gizmo",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 4386,
+    "name": "Mechanical Hull",
+    "kind": "gizmo",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3869,
+    "name": "Alloy Metal",
+    "kind": "metal",
+    "grade": "ungraded",
+    "usedByBlueprints": 24,
+    "totalRecipeUses": 24
+  },
+  {
+    "id": 3870,
+    "name": "Conductive Metal",
+    "kind": "metal",
+    "grade": "ungraded",
+    "usedByBlueprints": 24,
+    "totalRecipeUses": 24
+  },
+  {
+    "id": 3872,
+    "name": "Hard Metal",
+    "kind": "metal",
+    "grade": "ungraded",
+    "usedByBlueprints": 29,
+    "totalRecipeUses": 29
+  },
+  {
+    "id": 3871,
+    "name": "Radioactive Metal",
+    "kind": "metal",
+    "grade": "ungraded",
+    "usedByBlueprints": 31,
+    "totalRecipeUses": 31
+  },
+  {
+    "id": 3873,
+    "name": "Soft Metal",
+    "kind": "metal",
+    "grade": "ungraded",
+    "usedByBlueprints": 18,
+    "totalRecipeUses": 18
+  },
+  {
+    "id": 3846,
+    "name": "Ayahuasca",
+    "kind": "named_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3829,
+    "name": "Bayberry",
+    "kind": "named_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3843,
+    "name": "Cannabis",
+    "kind": "named_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3816,
+    "name": "Epazote",
+    "kind": "named_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3842,
+    "name": "Foxglove",
+    "kind": "named_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3844,
+    "name": "Jimson Weed",
+    "kind": "named_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3821,
+    "name": "Marjoram",
+    "kind": "named_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3828,
+    "name": "Peppermint",
+    "kind": "named_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3830,
+    "name": "Prairie Wildrye",
+    "kind": "named_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3847,
+    "name": "Quinine",
+    "kind": "named_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3822,
+    "name": "Salvia",
+    "kind": "named_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3839,
+    "name": "Valerian",
+    "kind": "named_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3845,
+    "name": "Viral Hemlock",
+    "kind": "named_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3823,
+    "name": "Wormwood",
+    "kind": "named_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3877,
+    "name": "Combustible Materials",
+    "kind": "natural_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 28,
+    "totalRecipeUses": 28
+  },
+  {
+    "id": 3878,
+    "name": "Craftable Stone",
+    "kind": "natural_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 19,
+    "totalRecipeUses": 19
+  },
+  {
+    "id": 3879,
+    "name": "High Grade Lumber",
+    "kind": "natural_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 35,
+    "totalRecipeUses": 35
+  },
+  {
+    "id": 3880,
+    "name": "Natural Fibers",
+    "kind": "natural_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 18,
+    "totalRecipeUses": 18
+  },
+  {
+    "id": 3881,
+    "name": "Psionic Crystal",
+    "kind": "natural_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 22,
+    "totalRecipeUses": 22
+  },
+  {
+    "id": 3900,
+    "name": "Festering Crystal",
+    "kind": "necrology_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 11,
+    "totalRecipeUses": 11
+  },
+  {
+    "id": 3901,
+    "name": "Grave Flesh",
+    "kind": "necrology_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 6,
+    "totalRecipeUses": 6
+  },
+  {
+    "id": 3897,
+    "name": "Imprint Crystal",
+    "kind": "necrology_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 9,
+    "totalRecipeUses": 9
+  },
+  {
+    "id": 3899,
+    "name": "Mortis Extract",
+    "kind": "necrology_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 8,
+    "totalRecipeUses": 8
+  },
+  {
+    "id": 3898,
+    "name": "Mycelium Wiring",
+    "kind": "necrology_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 9,
+    "totalRecipeUses": 9
+  },
+  {
+    "id": 3848,
+    "name": "Eggs",
+    "kind": "produce",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3850,
+    "name": "Fruit",
+    "kind": "produce",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3851,
+    "name": "Infection Material",
+    "kind": "produce",
+    "grade": "ungraded",
+    "usedByBlueprints": 27,
+    "totalRecipeUses": 27
+  },
+  {
+    "id": 3852,
+    "name": "Meat",
+    "kind": "produce",
+    "grade": "ungraded",
+    "usedByBlueprints": 3,
+    "totalRecipeUses": 3
+  },
+  {
+    "id": 3853,
+    "name": "Milk",
+    "kind": "produce",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3854,
+    "name": "Shellfish",
+    "kind": "produce",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3855,
+    "name": "Tree Nuts",
+    "kind": "produce",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3856,
+    "name": "Vegetables",
+    "kind": "produce",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3902,
+    "name": "Anise or Geranium",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3903,
+    "name": "Anise or Rosemary",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3940,
+    "name": "Any Herb",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3939,
+    "name": "Any Produce",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3904,
+    "name": "Aralia or Lemon Balm",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3905,
+    "name": "Basil or Cicely",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3906,
+    "name": "Basil or Marjoram",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3908,
+    "name": "Bay Leaf or Turmeric",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3909,
+    "name": "Bayberry or Ragweed",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3910,
+    "name": "Bayberry or Sage",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3911,
+    "name": "Burnet or Cicely",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3912,
+    "name": "Burnet or Turmeric",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3913,
+    "name": "Calendula or Marjoram",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3914,
+    "name": "Calendula or Rosemary",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3915,
+    "name": "Chervil or Geranium",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3916,
+    "name": "Chervil or Ragweed",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3917,
+    "name": "Dill or Parsley",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3918,
+    "name": "Epazote or Witch Hazel",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3938,
+    "name": "Expired Herbs within 3 Months Expired",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3919,
+    "name": "Fennel or Wormwood",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3920,
+    "name": "Foxglove or Viral Hemlock",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3921,
+    "name": "Hibiscus or Thyme",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3922,
+    "name": "Horehound or Valerian ",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3923,
+    "name": "Jimson Weed or Quinine",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 5559,
+    "name": "Local Currency",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 4,
+    "totalRecipeUses": 4
+  },
+  {
+    "id": 3924,
+    "name": "Meat or Eggs or Fruit ",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3925,
+    "name": "Meat or Fruit or Milk",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3926,
+    "name": "Meat or Fruit or Vegetables",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3927,
+    "name": "Meat or Vegetables or Tree Nuts",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3932,
+    "name": "Milk Thistle or Salvia",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3928,
+    "name": "Milk or Eggs or Fruit",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3929,
+    "name": "Milk or Eggs or Tree Nuts",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3931,
+    "name": "Milk or Vegetables or Tree Nuts",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3933,
+    "name": "Peppermint or Caraway",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3934,
+    "name": "Peppermint or Sage",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3935,
+    "name": "Prairie Wildrye or Lemongrass",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
+  },
+  {
+    "id": 3936,
+    "name": "Shellfish or Fish",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 18,
+    "totalRecipeUses": 18
+  },
+  {
+    "id": 3937,
+    "name": "Vegetables or Eggs or Tree Nuts",
+    "kind": "taxonomy",
+    "grade": "ungraded",
+    "usedByBlueprints": 2,
+    "totalRecipeUses": 2
+  },
+  {
+    "id": 3882,
+    "name": "Machined Components",
+    "kind": "trade_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 28,
+    "totalRecipeUses": 28
+  },
+  {
+    "id": 3883,
+    "name": "Mechanical Components",
+    "kind": "trade_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 19,
+    "totalRecipeUses": 19
+  },
+  {
+    "id": 3884,
+    "name": "Plastics",
+    "kind": "trade_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 23,
+    "totalRecipeUses": 23
+  },
+  {
+    "id": 3885,
+    "name": "Recovered Electronics",
+    "kind": "trade_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 15,
+    "totalRecipeUses": 15
+  },
+  {
+    "id": 3886,
+    "name": "Synthetic Fibers",
+    "kind": "trade_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 20,
+    "totalRecipeUses": 20
+  },
+  {
+    "id": 3807,
+    "name": "Basic Herb",
+    "kind": "unnamed_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 36,
+    "totalRecipeUses": 36
+  },
+  {
+    "id": 3809,
+    "name": "Rare Herb",
+    "kind": "unnamed_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 41,
+    "totalRecipeUses": 41
+  },
+  {
+    "id": 3808,
+    "name": "Uncommon Herb",
+    "kind": "unnamed_herb",
+    "grade": "ungraded",
+    "usedByBlueprints": 40,
+    "totalRecipeUses": 40
+  },
+  {
+    "id": 3866,
+    "name": "Basic Scrap",
+    "kind": "unnamed_scrap",
+    "grade": "ungraded",
+    "usedByBlueprints": 172,
+    "totalRecipeUses": 172
+  },
+  {
+    "id": 3868,
+    "name": "Rare Scrap",
+    "kind": "unnamed_scrap",
+    "grade": "ungraded",
+    "usedByBlueprints": 81,
+    "totalRecipeUses": 81
+  },
+  {
+    "id": 3867,
+    "name": "Uncommon Scrap",
+    "kind": "unnamed_scrap",
+    "grade": "ungraded",
+    "usedByBlueprints": 157,
+    "totalRecipeUses": 157
+  }
+]

@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 5958,
+        "name": "Infectus Copiam",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2026-08-05T02:50:51Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "This 15 minute procedure requires at least two willing or Subdued Lineage Targets to be killed without interruption during its process. Performing these Killing Blows will not interrupt the procedure. Successful completion of this procedure creates Gizmo: Bottled Infection. In lieu of two Targets, a single Lineage Target on their last Infection can be sacrificed through this procedure to create the Bottled Infection. Any method used to prevent or reduce loss of Infection on the Target(s) causes this procedure to fail.\n\nCompletion of this procedure causes rank 3 zombies to spawn somewhere on site within the next few hours, at least one per killed Lineage but often more. If a Lineage is permanently killed with this procedure, the game can optionally instead release an Apocalyptic undead threat as the slain character's final walk.",
+          "notes": "Gizmo: Bottled Infection (Exp: 12 months) - This Gizmo counts as a willing/helpless Lineage Target with 1 Infection for the use of any procedure or item that requires one (other than Infectus Copiam), such as infection transfers.",
+          "printHeader": "Dubious Procedure",
+          "requirementsToUse": "Master Criminal Influence (Black Market 3), The Living Experiment, Lore: Shady Operations, and Society Membership: The Dead Market",
+          "uses": null,
+          "durationOfEffect": "N/A",
+          "validTargetDescription": "2 Willing or Helpless Lineage Targets, or 1 Willing or Helpless Lineage Target with only 1 Infection remaining",
+          "locationOfUse": "Any",
+          "equipmentRequiredForUse": "1 Rare Scrap (expended)",
+          "durationOfRoleplay": "15 Minutes",
+          "descriptionOfRoleplay": "One of the most feared - and sought-after - services of the Dead Market is the theft and sale of Infection.  This procedure involves the murder of Lineages and the siphoning of their Infection from their bodies into a specially prepared vessel. The effects on the surrounding Mortis are often... severe.",
+          "activationRequirement": "1 Resolve per killed Target",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 996,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education & Basic Criminal Influence",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 996,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

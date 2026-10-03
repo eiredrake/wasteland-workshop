@@ -1,0 +1,191 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4669,
+        "name": "Stabilized Morgue",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-10-21T01:24:36Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "Requires 1 month prior notice before use.",
+          "printHeader": "Necrology Engineered Space",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1623,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 0,
+            "craftingResolveCost": 1,
+            "craftingZone": "Artisan Space",
+            "craftingSkills": "The Organic Machine",
+            "craftingComponents": [
+              {
+                "id": 4267,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3901,
+                  "name": "Grave Flesh",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4268,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3851,
+                  "name": "Infection Material",
+                  "grade": "ungraded",
+                  "kind": "produce",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4269,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3878,
+                  "name": "Craftable Stone",
+                  "grade": "ungraded",
+                  "kind": "natural_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 5,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4265,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3897,
+                  "name": "Imprint Crystal",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4266,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3898,
+                  "name": "Mycelium Wiring",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1719,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 4239,
+                  "name": "Stabilized Morgue",
+                  "grade": "ungraded",
+                  "kind": "engineered_space_necrology",
+                  "lifetimeAmount": 24,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "Creates a Morgue Zone of Mechanics. This can only be constructed at specific locations approved by branch directors before building. A morgue has specific prop and scene setting requirements that must be approved by branch directors before entering play.\n\n",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "None",
+                    "uses": "N/A",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 258,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 258,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

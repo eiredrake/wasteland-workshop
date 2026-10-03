@@ -1,0 +1,149 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4616,
+        "name": "Ringleader's Refuge",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-01-11T06:33:36Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
+          "printHeader": "Dubious Directions",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1570,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 15,
+            "craftingResolveCost": 0,
+            "craftingZone": "Artisan Space",
+            "craftingSkills": "Master Artisan & Master Criminal Influence (Black Market 3)",
+            "craftingComponents": [
+              {
+                "id": 4139,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3868,
+                  "name": "Rare Scrap",
+                  "grade": "ungraded",
+                  "kind": "unnamed_scrap",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 3,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4140,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3877,
+                  "name": "Combustible Materials",
+                  "grade": "ungraded",
+                  "kind": "natural_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1666,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 4186,
+                  "name": "Ringleader's Refuge",
+                  "grade": "ungraded",
+                  "kind": "gizmo",
+                  "lifetimeAmount": 12,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "When activating Never Here (either on yourself or another character if you have an item/ability that allows this), you may choose to appear at an established \"The Room Where It Happens\" by expending a use of this item. A character ineligible to enter the Room cannot be Targeted.",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "Master Criminal Influence (Black Market 3), Never Here",
+                    "uses": "5",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 205,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education & Basic Criminal Influence",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 205,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

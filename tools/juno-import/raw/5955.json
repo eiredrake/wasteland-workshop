@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 5955,
+        "name": "Burn Cycle",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-06-15T23:19:42Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "This procedure is a twenty-minute excruciating surgery that requires the practitioner to expend 1 Resolve and 1 Festering Crystal in a surgery upon a willing Target. For the remainder of the event, the Target must change all calls of the Living Flame to 'Sound of my Voice' instead of 'Area of Effect'.\n\nThe next dice re-roll related to necrology or the Mortis by any character taking place during this event is automatically the worst possible result.",
+          "notes": "After performing this procedure, inform the Public Works or a Guide. ",
+          "printHeader": "Dubious Procedure",
+          "requirementsToUse": "The Living Experiment and Society Membership: The Dead Market",
+          "uses": null,
+          "durationOfEffect": "End of Event",
+          "validTargetDescription": "Willing Lineage Target who has at least 1 use of Living Flame",
+          "locationOfUse": "Necrology Station",
+          "equipmentRequiredForUse": "1 Festering Crystal (expended)",
+          "durationOfRoleplay": "20 Minutes",
+          "descriptionOfRoleplay": "The 'Riot Doctors' and similar groups within the Dead Market promise that they can offer great power to aberrant subjects -- at a cost to the world around them. This is one such procedure, and requires a necrologist to crack open the skull of the subject and implant a Festering Crystal in a certain portion of the brain, where it enhances their pyrokinetic abilities - while destabilizing the Mortis for others who might be dabbling in related arts.",
+          "activationRequirement": "1 Resolve",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 993,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education & Basic Criminal Influence",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 993,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4554,
+        "name": "Skinner Shank",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-01-11T06:33:24Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "None",
+          "printHeader": "Artisan Recipe",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1508,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 5,
+            "craftingResolveCost": 0,
+            "craftingZone": "Artisan Space",
+            "craftingSkills": "Basic Artisan",
+            "craftingComponents": [
+              {
+                "id": 3809,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3866,
+                  "name": "Basic Scrap",
+                  "grade": "ungraded",
+                  "kind": "unnamed_scrap",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 4,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 3810,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3873,
+                  "name": "Soft Metal",
+                  "grade": "ungraded",
+                  "kind": "metal",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1992,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 4124,
+                  "name": "Skinner Shank",
+                  "grade": "ungraded",
+                  "kind": "melee_small",
+                  "lifetimeAmount": 24,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "The user may expend a use of Break to free themselves from Binds used on them.",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "Break",
+                    "uses": "N/A",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 143,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 143,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

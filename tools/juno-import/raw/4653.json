@@ -1,0 +1,163 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4653,
+        "name": "Blue Glowing Byproduct",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-02-14T19:08:26Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "None",
+          "printHeader": "Necrology Brew",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1607,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 0,
+            "craftingResolveCost": 1,
+            "craftingZone": "Necrology Station",
+            "craftingSkills": "Mortuary Morsel",
+            "craftingComponents": [
+              {
+                "id": 4215,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3897,
+                  "name": "Imprint Crystal",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4216,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3898,
+                  "name": "Mycelium Wiring",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4217,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3851,
+                  "name": "Infection Material",
+                  "grade": "ungraded",
+                  "kind": "produce",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1703,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 4223,
+                  "name": "Blue Glowing Byproduct",
+                  "grade": "ungraded",
+                  "kind": "necrology_brew",
+                  "lifetimeAmount": 12,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "Injected. When used, lose 1 Resolve. For the next 5 minutes, if the user activates an Aberrant Impact Skill, they may immediately call it again for no additional cost. After the duration expires, the user suffers \"No Aberrant Skill Use, 1 Hour\".",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "None",
+                    "uses": "1",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 242,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 242,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 5250,
+        "name": "Green Light Bioform Destabilizer",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-02-06T20:53:54Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
+          "printHeader": "Artisan Recipe",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1978,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 5,
+            "craftingResolveCost": 0,
+            "craftingZone": "Artisan Space",
+            "craftingSkills": "Basic Artisan",
+            "craftingComponents": [
+              {
+                "id": 4621,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3866,
+                  "name": "Basic Scrap",
+                  "grade": "ungraded",
+                  "kind": "unnamed_scrap",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 4,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1887,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 5251,
+                  "name": "Green Light Bioform Destabilizer",
+                  "grade": "ungraded",
+                  "kind": "gizmo",
+                  "lifetimeAmount": 12,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "When the user performs a Killing Blow on any non-Zombie Target they may regain one use of Biogenetics. This effect cannot be used by a character more than once per Impact Skill refresh regardless of the number of Greenlight Bioform Destabilizers the user possesses.",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "Biogenetics",
+                    "uses": "N/A",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 590,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": "N/A",
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 590,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

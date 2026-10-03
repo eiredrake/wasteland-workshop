@@ -1,0 +1,320 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 6383,
+        "name": "Local Currency to Trade Note Conversion",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2026-09-25T01:48:06Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": null,
+          "printHeader": null,
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 2479,
+            "craftingTimeInMinute": 0,
+            "craftingMindCost": 5,
+            "craftingResolveCost": 0,
+            "craftingZone": null,
+            "craftingSkills": null,
+            "craftingComponents": [
+              {
+                "id": 5457,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 5559,
+                  "name": "Local Currency",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "childItemClassifications": [
+                    {
+                      "id": 298,
+                      "childItem": {
+                        "id": 5557,
+                        "name": "Gold Standard",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 331,
+                      "childItem": {
+                        "id": 5601,
+                        "name": "Slag",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 332,
+                      "childItem": {
+                        "id": 5590,
+                        "name": "Stone",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 333,
+                      "childItem": {
+                        "id": 5591,
+                        "name": "Scrip",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 334,
+                      "childItem": {
+                        "id": 5593,
+                        "name": "Scrim",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 335,
+                      "childItem": {
+                        "id": 5592,
+                        "name": "Cred",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 336,
+                      "childItem": {
+                        "id": 5602,
+                        "name": "Day",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 337,
+                      "childItem": {
+                        "id": 5594,
+                        "name": "Wager",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 338,
+                      "childItem": {
+                        "id": 5595,
+                        "name": "Dollar",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 339,
+                      "childItem": {
+                        "id": 5596,
+                        "name": "Brass",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 340,
+                      "childItem": {
+                        "id": 5597,
+                        "name": "Chuck",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 341,
+                      "childItem": {
+                        "id": 5598,
+                        "name": "Lug (Retired)",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 342,
+                      "childItem": {
+                        "id": 5599,
+                        "name": "Exposure",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 343,
+                      "childItem": {
+                        "id": 5600,
+                        "name": "Film",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 344,
+                      "childItem": {
+                        "id": 5603,
+                        "name": "Shell",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 345,
+                      "childItem": {
+                        "id": 5604,
+                        "name": "Byte",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 364,
+                      "childItem": {
+                        "id": 5623,
+                        "name": "Access",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 365,
+                      "childItem": {
+                        "id": 5624,
+                        "name": "Permit",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 925,
+                      "childItem": {
+                        "id": 6151,
+                        "name": "Cheese",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 694,
+                      "childItem": {
+                        "id": 5689,
+                        "name": "Lakes",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 760,
+                      "childItem": {
+                        "id": 5788,
+                        "name": "Cassette",
+                        "kind": "currency",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    }
+                  ],
+                  "__typename": "Item"
+                },
+                "amount": 5,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 2452,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 5558,
+                  "name": "Trade Note",
+                  "grade": "ungraded",
+                  "kind": "currency",
+                  "lifetimeAmount": null,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "National Currency",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": null,
+                    "uses": null,
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

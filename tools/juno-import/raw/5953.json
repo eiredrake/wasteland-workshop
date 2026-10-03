@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 5953,
+        "name": "Shared Hands",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2026-08-03T23:48:33Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "For every two participants in this procedure who are using Basic or Proficient Agriculture to farm (all participants must use the same level of the skill), the cost of that farming is reduced by 1 Mind for every 2 participants for all involved to a to a minimum of 1.\n\nThis cannot be used during virtual events.",
+          "notes": "Only Network-level Society Memberships count for the use of this Procedure.",
+          "printHeader": "Procedure",
+          "requirementsToUse": "Basic Agriculture and Society Membership: Any",
+          "uses": null,
+          "durationOfEffect": "Length of one use of Basic or Proficient Agriculture",
+          "validTargetDescription": "Any number of Lineage Targets with at least Basic Agriculture who share the same Network Society Membership",
+          "locationOfUse": "Farming Zone",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "Length of one use of Basic or Proficient Agriculture",
+          "descriptionOfRoleplay": "Many hands make light work, and when members of a society go together out into the fields, their shared labor benefits all. The camaraderie resulting from being part of something larger than the gathered keeps morale high and ensures that those working, talking, and helping one another can get more work done before being exhausted.",
+          "activationRequirement": "None",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 992,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 992,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

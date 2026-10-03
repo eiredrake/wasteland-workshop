@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4849,
+        "name": "Scrambled Signals",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2024-10-06T05:59:44Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "Any participant can then spend 1 Mind to draw a slip from the husk of the box after a short prayer. If it is a secret, the viewer knows the secret and cannot ever be forced via Malicious Discussion to disclose where the secret came from. If the participant draws a skill they may choose to spend the required experience points to learn the skill and add it to their sheet immediately. ",
+          "notes": "Optionally, game runners may be informed up to 1 month ahead of time and may choose to add skills and secrets to the box.",
+          "printHeader": "Benediction",
+          "requirementsToUse": "Lore: Faith - Common OR Profession Saint. Must be Inducted to Telling Visonaries",
+          "uses": null,
+          "durationOfEffect": "Instant",
+          "validTargetDescription": "5+ Targets Inducted into the Telling Visionaries.",
+          "locationOfUse": "Any",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "10 Minutes",
+          "descriptionOfRoleplay": "The Scrambled Signals were the channels that the pre-fall youth were not supposed to see. This Benediction allows participants (at least 5 Inducted members of the faith) to write a secret, or spend 1 Mind to write a skill they can teach, on a slip of paper OOC and drop that paper into the husk of a Visions Box. ",
+          "activationRequirement": "None",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 412,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Proficient Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 412,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 5178,
+        "name": "Red Alert Repair Station",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-01-11T06:33:33Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
+          "printHeader": "Artisan Recipe",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1942,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 15,
+            "craftingResolveCost": 0,
+            "craftingZone": "Artisan Space",
+            "craftingSkills": "Master Artisan",
+            "craftingComponents": [
+              {
+                "id": 4561,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3868,
+                  "name": "Rare Scrap",
+                  "grade": "ungraded",
+                  "kind": "unnamed_scrap",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 4,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4563,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3873,
+                  "name": "Soft Metal",
+                  "grade": "ungraded",
+                  "kind": "metal",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4562,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3886,
+                  "name": "Synthetic Fibers",
+                  "grade": "ungraded",
+                  "kind": "trade_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 3,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4564,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3884,
+                  "name": "Plastics",
+                  "grade": "ungraded",
+                  "kind": "trade_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 3,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1851,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 5179,
+                  "name": "Red Alert Repair Station",
+                  "grade": "ungraded",
+                  "kind": "engineered_space",
+                  "lifetimeAmount": 24,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "In this area, an Artisan crafting or repair session can be assisted by two Skilled Artisan Assistants instead of just one. This does not stack with other abilities or equipment that change how Skilled Assistants work.",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "Basic Artisan",
+                    "uses": "N/A",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 554,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": "N/A",
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 554,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

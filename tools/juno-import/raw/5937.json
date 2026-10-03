@@ -1,0 +1,260 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 5937,
+        "name": "Night Terror Draught",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-10-21T01:24:42Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "At creation, must choose to create either an Applied or Ingested Poison. A Skilled Culinary Assistant helping with the creation of this item regains 2 Mind.",
+          "printHeader": "Dubious Directions",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 2280,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 5,
+            "craftingResolveCost": 0,
+            "craftingZone": "Culinary Space",
+            "craftingSkills": "Basic Culinary, Society Membership: Vices & Violence",
+            "craftingComponents": [
+              {
+                "id": 5159,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3861,
+                  "name": "Radioactive Compounds Crafting Component",
+                  "grade": "ungraded",
+                  "kind": "crafting_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 5160,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3862,
+                  "name": "Salty Crafting Component",
+                  "grade": "ungraded",
+                  "kind": "crafting_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 5161,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3807,
+                  "name": "Basic Herb",
+                  "grade": "ungraded",
+                  "kind": "unnamed_herb",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 2254,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 5933,
+                  "name": "Night Terror Draught",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "lifetimeAmount": null,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [
+                    {
+                      "id": 793,
+                      "childItem": {
+                        "id": 5934,
+                        "name": "Night Terror Draught (Applied)",
+                        "kind": "poison_applied",
+                        "lifetimeAmount": 12,
+                        "lifetimeUnit": "month",
+                        "metadata": {
+                          "mechanics": "Applied. On next attempted Strike, call \"Blinding and Nail 5 Minutes, Cannot Lose Body\". Does not stop Bleed Out. Negating any part of this effect negates all of it.",
+                          "notes": null,
+                          "printHeader": null,
+                          "requirementsToUse": "Basic Criminal Influence OR Society Membership: Arbiters of the Bond",
+                          "uses": "1",
+                          "durationOfEffect": null,
+                          "validTargetDescription": null,
+                          "locationOfUse": null,
+                          "equipmentRequiredForUse": null,
+                          "durationOfRoleplay": null,
+                          "descriptionOfRoleplay": null,
+                          "activationRequirement": null,
+                          "vehicleArmor": null,
+                          "vehicleHull": null,
+                          "vehicleSpeed": null,
+                          "vehicleTurnRadius": null,
+                          "vehicleCrewCapacity": null,
+                          "__typename": "ItemMetadata"
+                        },
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 794,
+                      "childItem": {
+                        "id": 5935,
+                        "name": "Night Terror Draught (Brew)",
+                        "kind": "poison_brew",
+                        "lifetimeAmount": 12,
+                        "lifetimeUnit": "month",
+                        "metadata": {
+                          "mechanics": "Ingested. When consumed, Target suffers 5 minute Blinding and Nail effect and cannot lose Body by any means. Does not stop Bleed Out. Negating any part of this effect negates all of it.",
+                          "notes": null,
+                          "printHeader": null,
+                          "requirementsToUse": "Basic Criminal Influence OR Society Membership: Arbiters of the Bond",
+                          "uses": "1",
+                          "durationOfEffect": null,
+                          "validTargetDescription": null,
+                          "locationOfUse": null,
+                          "equipmentRequiredForUse": null,
+                          "durationOfRoleplay": null,
+                          "descriptionOfRoleplay": null,
+                          "activationRequirement": null,
+                          "vehicleArmor": null,
+                          "vehicleHull": null,
+                          "vehicleSpeed": null,
+                          "vehicleTurnRadius": null,
+                          "vehicleCrewCapacity": null,
+                          "__typename": "ItemMetadata"
+                        },
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 795,
+                      "childItem": {
+                        "id": 5936,
+                        "name": "Night Terror Draught (Injected)",
+                        "kind": "injected_brew",
+                        "lifetimeAmount": 12,
+                        "lifetimeUnit": "month",
+                        "metadata": {
+                          "mechanics": "Injected. When used, Target suffers 5 minute Blinding and Nail effect and cannot lose Body by any means. Does not stop Bleed Out. Negating any part of this effect negates all of it.",
+                          "notes": null,
+                          "printHeader": null,
+                          "requirementsToUse": "Basic Criminal Influence OR Society Membership: Arbiters of the Bond",
+                          "uses": "1",
+                          "durationOfEffect": null,
+                          "validTargetDescription": null,
+                          "locationOfUse": null,
+                          "equipmentRequiredForUse": null,
+                          "durationOfRoleplay": null,
+                          "descriptionOfRoleplay": null,
+                          "activationRequirement": null,
+                          "vehicleArmor": null,
+                          "vehicleHull": null,
+                          "vehicleSpeed": null,
+                          "vehicleTurnRadius": null,
+                          "vehicleCrewCapacity": null,
+                          "__typename": "ItemMetadata"
+                        },
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    }
+                  ],
+                  "metadata": {
+                    "mechanics": null,
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": null,
+                    "uses": null,
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 959,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education & Basic Criminal Influence",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 959,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

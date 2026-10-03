@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4838,
+        "name": "Blessing of the Lord Commander's Armory",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2024-10-12T19:46:15Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "At the completion of the ritual, up to 5 Targets gain \"Upsurge: Armor And Weapons Are Immune To Break\".",
+          "notes": "None.",
+          "printHeader": "Benediction",
+          "requirementsToUse": "Lore: Faith - Common & Lore: Faith - Cults. Must be Inducted to Fallow Hopes",
+          "uses": null,
+          "durationOfEffect": "Instant",
+          "validTargetDescription": "Up to 5 Targets inducted into the Fallow Hopes.",
+          "locationOfUse": "Any",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "10 Minutes",
+          "descriptionOfRoleplay": "Spend 10 minutes of Active Roleplay performing a ritual that consists of inspecting the arms and armor of the assembled faithful.",
+          "activationRequirement": "None",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 401,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Proficient Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 401,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

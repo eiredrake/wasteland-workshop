@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4842,
+        "name": "Lighting of the Lanterns",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-01-24T21:06:36Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "Up to 10 Targets of this Benediction gain \"Upsurge: May expend Avoid or Enhanced Movement to replace a single use of First Aid or Drag Handle\" once complete. They may not gain uses of First Aid or Drag Handle unless they already possess those skills.",
+          "notes": "None.",
+          "printHeader": "Benediction",
+          "requirementsToUse": "Lore: Faith - Common OR Profession Saint. Must be Inducted to Sainthood of Ashes",
+          "uses": null,
+          "durationOfEffect": "Instant",
+          "validTargetDescription": "Up to 10 Targets Inducted into the Sainthood of Ashes",
+          "locationOfUse": "Any",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "10 Minutes",
+          "descriptionOfRoleplay": "This Benediction is normally performed before a scenario where the Sainthood knows there will be potential for many deaths.  Requires at least 10 minutes of Active Roleplay regarding the necessity to save life over all others.",
+          "activationRequirement": "None",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 405,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Proficient Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 405,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

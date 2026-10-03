@@ -1,0 +1,214 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4467,
+        "name": "Arsenic Poison",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-10-21T01:24:36Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "At creation, must choose to create either an Applied or Ingested Poison. A Skilled Culinary Assistant helping with the creation of this item regains 2 Mind.",
+          "printHeader": "Culinary Recipe",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1421,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 15,
+            "craftingResolveCost": 0,
+            "craftingZone": "Culinary Space",
+            "craftingSkills": "Master Culinary",
+            "craftingComponents": [
+              {
+                "id": 3647,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3809,
+                  "name": "Rare Herb",
+                  "grade": "ungraded",
+                  "kind": "unnamed_herb",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 3649,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3845,
+                  "name": "Viral Hemlock",
+                  "grade": "ungraded",
+                  "kind": "named_herb",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1298,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 4862,
+                  "name": "Arsenic Poison",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "lifetimeAmount": null,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [
+                    {
+                      "id": 267,
+                      "childItem": {
+                        "id": 4027,
+                        "name": "Arsenic Poison (Applied)",
+                        "kind": "poison_applied",
+                        "lifetimeAmount": 12,
+                        "lifetimeUnit": "month",
+                        "metadata": {
+                          "mechanics": "On next attempted Strike, call \"30 Body to Raiders\".",
+                          "notes": null,
+                          "printHeader": null,
+                          "requirementsToUse": "None",
+                          "uses": "1",
+                          "durationOfEffect": null,
+                          "validTargetDescription": null,
+                          "locationOfUse": null,
+                          "equipmentRequiredForUse": null,
+                          "durationOfRoleplay": null,
+                          "descriptionOfRoleplay": null,
+                          "activationRequirement": null,
+                          "vehicleArmor": null,
+                          "vehicleHull": null,
+                          "vehicleSpeed": null,
+                          "vehicleTurnRadius": null,
+                          "vehicleCrewCapacity": null,
+                          "__typename": "ItemMetadata"
+                        },
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 268,
+                      "childItem": {
+                        "id": 4038,
+                        "name": "Arsenic Poison (Consumed)",
+                        "kind": "poison_brew",
+                        "lifetimeAmount": 12,
+                        "lifetimeUnit": "month",
+                        "metadata": {
+                          "mechanics": "Ingested. When consumed, a Raider takes 20 Body Damage. This poison may be added to a single existing Raider Ingested brew with 10 seconds of roleplay, causing the Raider that consumes it to take the damage in addition to the brew's effects.",
+                          "notes": null,
+                          "printHeader": null,
+                          "requirementsToUse": "None",
+                          "uses": "1",
+                          "durationOfEffect": null,
+                          "validTargetDescription": null,
+                          "locationOfUse": null,
+                          "equipmentRequiredForUse": null,
+                          "durationOfRoleplay": null,
+                          "descriptionOfRoleplay": null,
+                          "activationRequirement": null,
+                          "vehicleArmor": null,
+                          "vehicleHull": null,
+                          "vehicleSpeed": null,
+                          "vehicleTurnRadius": null,
+                          "vehicleCrewCapacity": null,
+                          "__typename": "ItemMetadata"
+                        },
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    }
+                  ],
+                  "metadata": {
+                    "mechanics": null,
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": null,
+                    "uses": null,
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 55,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 55,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

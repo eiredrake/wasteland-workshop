@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 5957,
+        "name": "Prep Time",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-06-16T19:17:49Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "After completing this 15 minute procedure, its lead performer may at any time within the next two hours spend 1 Resolve while within an enclosed space no larger than 20x20, a ship or ride module space, or similar physical or online playspace and call 'All exits to this room, Master locked, one hour!'. These locks may be picked or otherwise interacted with like normal locks, but cease to exist after an hour.",
+          "notes": "None.",
+          "printHeader": "Dubious Procedure ",
+          "requirementsToUse": "At least three participants, all of whom must possess Society Membership: Adherents of Betrayal",
+          "uses": "",
+          "durationOfEffect": "Two Hours or Until Used",
+          "validTargetDescription": "See Mechanical Text",
+          "locationOfUse": "Any",
+          "equipmentRequiredForUse": "4 Basic Scrap and 1 Hard Metal (Expended)",
+          "durationOfRoleplay": "15 Minutes",
+          "descriptionOfRoleplay": "Those marked for death by the Adherents of Betrayal are often difficult to isolate or capture, so they've developed tactics and plans to get around this issue. At least three participants from the group must meet and discuss their plans to trap their prey for at least 15 minutes, usually just before heading to intercept the mark.",
+          "activationRequirement": "1 Resolve from lead performer.",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 995,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education & Basic Criminal Influence",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 995,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

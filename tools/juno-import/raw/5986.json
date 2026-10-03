@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 5986,
+        "name": "Rewm Bewm",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-08-25T23:14:34Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "This procedure can be used to damage an existing Engineered Space. This requires 30 minutes spent deconstructing the installation, after which it is considered broken and nonfunctional until repaired. Every assistant with either the Break or Basic Artisan skills reduces the time by 5 minutes, to a minimum of 10.\n\nComplete destruction of an Engineered Space instead requires 60 minutes spend destroying the installation, after which it is completely destroyed and the item card should be disposed of. Every assistant with either the Break or Basic Artisan skills reduces the time by 5 minutes, to a minimum of 30 minutes. This also requires the expenditure of 2 Combustible Materials.",
+          "notes": "If the Engineered Space belongs to another PC, this may be a CVC action. If the Engineered Space was created by a Necrology print or requires the Organic Machine to build, add Lore: Mortis Amaranthine / Infection to the requirements for use of this procedure. ",
+          "printHeader": "Procedure",
+          "requirementsToUse": "Proficient Artisan and Break",
+          "uses": "",
+          "durationOfEffect": "N/A",
+          "validTargetDescription": "An existing Engineered Space",
+          "locationOfUse": "Within the area of the Engineered Space",
+          "equipmentRequiredForUse": "See Text",
+          "durationOfRoleplay": "See Text",
+          "descriptionOfRoleplay": "Loud, active destruction of the Engineered Space should be roleplayed by the participants. Be careful not to destroy any props OOG without explicit permission from the owners.",
+          "activationRequirement": "1 Resolve from the Procedure leader, Assistants must either spend 5 Mind or expend a use of Break.",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 1024,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 1024,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

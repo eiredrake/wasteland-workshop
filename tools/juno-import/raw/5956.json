@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 5956,
+        "name": "Apocryphal Devotion",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-07-28T02:52:44Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "This Benediction only works with local faith \"cults\". At the end of 15 minutes of Active Roleplay the performer of this Benediction may induct a willing Target into their cult.  This costs 1 Resolve per Target.",
+          "notes": "The Target of any Benediction that inducts someone into a Faith may only be a valid Target for any such Benediction once every 3 months unless the Benediction states otherwise.",
+          "printHeader": "Benediction",
+          "requirementsToUse": "Any Faithful Skill",
+          "uses": null,
+          "durationOfEffect": "Minimum of 3 months",
+          "validTargetDescription": "Willing Lineage Target",
+          "locationOfUse": "Any",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "15 Minutes",
+          "descriptionOfRoleplay": "Each cult tends to have its own very distinctive manner of inducting new members, but all are highly ritualized and often involve trials of devotion or endurance in some form. The end goal is to make the inductee feel that they have 'earned' their place in the faith, by proving their belief.",
+          "activationRequirement": "1 Resolve per Target, up to a maximum of 5 Targets from one use of this Benediction.",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 994,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Proficient Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 994,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 5930,
+        "name": "Social Life Strengthener",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-06-15T23:26:19Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
+          "printHeader": "Artisan Recipe",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 2252,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 5,
+            "craftingResolveCost": 0,
+            "craftingZone": "Artisan Space",
+            "craftingSkills": "Basic Artisan and Society Membership: Any",
+            "craftingComponents": [
+              {
+                "id": 5138,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3866,
+                  "name": "Basic Scrap",
+                  "grade": "ungraded",
+                  "kind": "unnamed_scrap",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 4,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 5139,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3923,
+                  "name": "Jimson Weed or Quinine",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "childItemClassifications": [
+                    {
+                      "id": 124,
+                      "childItem": {
+                        "id": 3844,
+                        "name": "Jimson Weed",
+                        "kind": "named_herb",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 125,
+                      "childItem": {
+                        "id": 3847,
+                        "name": "Quinine",
+                        "kind": "named_herb",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    }
+                  ],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 2226,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 5931,
+                  "name": "Social Life Strengthener",
+                  "grade": "ungraded",
+                  "kind": "gizmo",
+                  "lifetimeAmount": 12,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "When expending a use of Rally Call, the user may also expend a use of this Gizmo to add \"Heal 10 Body, <Society>\". The Society Membership called must be one possessed by the user. Only one Gizmo use is expended regardless of the number of Targets for that Rally Call.",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "Rally Call and Society Membership: Any",
+                    "uses": "6",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 930,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 930,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

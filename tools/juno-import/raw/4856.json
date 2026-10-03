@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4856,
+        "name": "Necrological Transformation Procedure",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-01-11T10:16:47Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "When completed, the Target gains \"Upsurge: Immune to Bane portion of Lineage and Aberrant Bane effects\" and \"Downsurge: Affected by Zombie Bane\". If either Upsurge or Downsurge are lost by any means, both are lost.",
+          "notes": "None.",
+          "printHeader": "Necrology Procedure",
+          "requirementsToUse": "The Living Experiment",
+          "uses": null,
+          "durationOfEffect": "24 Hours",
+          "validTargetDescription": "Willing Lineage Target",
+          "locationOfUse": "Necrology Station",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "20 Minutes",
+          "descriptionOfRoleplay": "Sometimes you\u2019re better off dead \u2013 literally. This procedure simulates some of the features of a zombie through stripping off layers of a person\u2019s skin. The patient is normally strapped down on a table before being carved into. As each piece of flesh is removed, it\u2019s replaced by the donor flesh from a zombie. This zombie flesh can be temporarily incorporated into a Strain\u2019s physiology, though eventually sloughs off. The procedure is painful, and involves carefully cutting strips of flesh over large swaths of a person\u2019s body.",
+          "activationRequirement": "1 Resolve",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 419,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Proficient Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 419,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

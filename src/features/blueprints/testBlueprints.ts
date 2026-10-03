@@ -5,7 +5,6 @@ export const testBlueprints: Blueprint[] = [
     id: 4597,
     name: '.38 Caliber Privacy Pipes',
     kind: 'blueprint',
-    grade: 'ungraded',
 
     metadata: {
       mechanics: null,
@@ -95,7 +94,6 @@ export const testBlueprints: Blueprint[] = [
     id: 4444,
     name: 'Sagely Healing Injection',
     kind: 'blueprint',
-    grade: 'ungraded',
 
     metadata: {
       mechanics: null,
@@ -163,7 +161,6 @@ export const testBlueprints: Blueprint[] = [
     id: 5890,
     name: 'Falsified Papers',
     kind: 'blueprint',
-    grade: 'ungraded',
 
     // Temporary compatibility fields.
     // BlueprintDetails still uses the old flattened model.
@@ -246,7 +243,6 @@ export const testBlueprints: Blueprint[] = [
     id: 4578,
     name: 'Sosweet Smashstick',
     kind: 'blueprint',
-    grade: 'ungraded',
 
     metadata: {
       mechanics: null,

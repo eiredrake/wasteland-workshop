@@ -6,7 +6,7 @@ import type {
   BlueprintAccessStatus,
   BlueprintCollection,
 } from './BlueprintCollection'
-import { testBlueprints } from './testBlueprints'
+import { masterBlueprints } from './blueprints'
 import BlueprintDetails from './BlueprintDetails'
 import './BlueprintSearch.css'
 import type { CraftTimerState } from '../timer/CraftTimerState'
@@ -17,7 +17,6 @@ const blueprintColumns: {
 }[] = [
   { key: 'name', label: 'Blueprint' },
   { key: 'kind', label: 'Kind' },
-  { key: 'grade', label: 'Grade' },
 ]
 
 type BlueprintSearchProps = {
@@ -59,12 +58,11 @@ function BlueprintSearch({
     setSelectedBlueprint(blueprint)
   }
 
-  const filteredBlueprints = testBlueprints.filter(
+  const filteredBlueprints = masterBlueprints.filter(
     (blueprint) => {
       const searchableFields = [
         blueprint.name,
         blueprint.kind,
-        blueprint.grade,
         blueprint.itemCraftings?.[0]
           ?.craftingSkills ?? '',
       ]

@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4845,
+        "name": "Rite of Dominance",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-08-26T01:04:21Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "This rite allows for promotion through the ranks of the Final Knights. Engaging in combat with other Final Kights does not interrupt this Rite, and any Final Knight entering into Bleedout during the Rite has their Bleedout timer extended to the end of the Benediction's completion. If the performer of this Benediction is dropped into Bleedout, the Benediction ends. At the end of this Benediction, all Final Knights regain 1 Body. ",
+          "notes": "None.",
+          "printHeader": "Benediction",
+          "requirementsToUse": "Lore: Faith - Common OR Profession Saint. Must be Inducted to Final Knights",
+          "uses": null,
+          "durationOfEffect": "Instant",
+          "validTargetDescription": "Self",
+          "locationOfUse": "Consecrated Space dedicated to the Final Knights",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "10 Minutes",
+          "descriptionOfRoleplay": "This Benediction creates a hierarchy of the Damned allowing for an individual Final Knight to rise in rank. Every member is considered the lowest rank of \"Potential\" until they have successfully performed this Benediction. To rise to a higher rank, this Benediction must be performed in front of at least 3 members of the faith that are of equal or one rank lower than the performer, or 3 other Damned (a Deacon requires three Damned, a Pontifex requires three Deacons, an Unclean Saint requires three Pontifex).",
+          "activationRequirement": "None",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 408,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Proficient Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 408,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

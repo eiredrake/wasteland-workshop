@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4855,
+        "name": "Method Identity Injection",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2026-09-19T23:12:23Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "The Target is given an 'identity injection' of a new persona with artificial memories decided by the user, with their awareness of their true persona and memories blocked. They will act according to their new motivations, and any effects that would force them to answer questions may be answered from the viewpoint of the new persona. The new persona is not aware they are a 'disguise' unless that is specifically included in their new memories (which can put them at risk of discovery). Once the procedure's effects end, the Target remembers everything that happened in the new persona as though it were in a dream - cloudy, but recallable.",
+          "notes": "None.",
+          "printHeader": "Dubious Procedure",
+          "requirementsToUse": "Master Biokinesis",
+          "uses": null,
+          "durationOfEffect": "Duration of Disguise",
+          "validTargetDescription": "Willing Target with Proficient Criminal Influence",
+          "locationOfUse": "Any",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "20 Minutes",
+          "descriptionOfRoleplay": "This procedure allows the user to replace the usual mechanics of Master Biokinesis with the following effect when used on a willing, consenting Target with Proficient Criminal Influence. A disguise must be applied as per that skill immediately after the use of Master Biokinesis, and the effects of this procedure will last until that disguise either wears off or is removed by any means. This disguise can be enhanced as normal by use of other items and abilities.",
+          "activationRequirement": "1 Resolve",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 418,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Proficient Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 418,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

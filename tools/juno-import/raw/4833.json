@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4833,
+        "name": "Benediction of Heretical Devotion",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-12-18T22:32:12Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "This Benediction allows Inducted members of a Doomsday Cult or Heresy to perform the Benedictions of another faith at an added cost of 10 additional minutes and the expenditure of 1 Resolve in addition to all other required costs.  \n\nThis Benediction may be used in conjunction with another Benediction to fulfilling the Induction requirements to allow all participants of the same Doomsday Cult or Heretical Group to count as another faith for the purposes of performing said Benediction. ",
+          "notes": "None.",
+          "printHeader": "Benediction",
+          "requirementsToUse": "Lore: Faith - Cult User must be Inducted to a Doomsday Cult or Heretical Subsect.",
+          "uses": null,
+          "durationOfEffect": "As per subverted Benediction.",
+          "validTargetDescription": "Willing Target Of Same Doomsday Cult or Heretical Group",
+          "locationOfUse": "Any",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "15 Minutes",
+          "descriptionOfRoleplay": "The role-play should match the general role-play description of the Benediction it is bastardizing with the key narrative points, focuses, and role-play changed heretical or localized cult themed version of the Benediction. \n\nAs an example, the Benediction \"Opening Up the Pit\" which is normally a K&Q Court Benediction may be instead represented by a 10 minute role-play peaking with an unwilling sacrifice in the name of a Doomsday Cult to gain the same thematic intent.",
+          "activationRequirement": "None for single Target. 1 Mind per additional willing Target in a single use to a maximum of 5",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 396,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Proficient Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 396,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

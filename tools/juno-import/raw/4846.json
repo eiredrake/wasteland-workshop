@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4846,
+        "name": "Rite of the Chosen Enlightened",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-01-21T23:26:22Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "This Benediction only works for Doomsday Cults and Heretical Subsects. At the end of 15 minutes of Active Roleplay the performer of this Benediction may Induct a willing Target into their faith. You may spend 1 Mind point per additional Target up to a maximum of 5 Targets.",
+          "notes": "The Target of any Benediction that inducts someone into a Faith may only be a valid Target for any such Benediction once every 3 months unless the Benediction states otherwise. ",
+          "printHeader": "Benediction",
+          "requirementsToUse": "Lore: Faith - Cult OR Any Basic Faithful Development skill. User must be Inducted to a Doomsday Cult or Heretical Subsect",
+          "uses": null,
+          "durationOfEffect": "Minimum of 3 months",
+          "validTargetDescription": "Willing Target",
+          "locationOfUse": "Any",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "15 Minutes",
+          "descriptionOfRoleplay": "The ceremony begins with the leader calling for attention and delivering a speech that emphasizes the importance of core aspects of the faith, history of the faith, and what it means to be inducted to this specific faith. They use symbolic objects to represent the journey ahead and mark the initiates with a sign of their new beginning and connection to their faith. ",
+          "activationRequirement": "None",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 409,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Proficient Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 409,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

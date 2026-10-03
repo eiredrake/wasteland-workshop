@@ -1,0 +1,149 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 5855,
+        "name": "Radioactive Room Wipe",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-06-15T23:25:54Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
+          "printHeader": "Dubious Directions",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 2181,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 5,
+            "craftingResolveCost": 0,
+            "craftingZone": "Culinary Space",
+            "craftingSkills": "Basic Culinary & Society Membership: The Silenced Knell",
+            "craftingComponents": [
+              {
+                "id": 5060,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3877,
+                  "name": "Combustible Materials",
+                  "grade": "ungraded",
+                  "kind": "natural_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 5061,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3861,
+                  "name": "Radioactive Compounds Crafting Component",
+                  "grade": "ungraded",
+                  "kind": "crafting_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 2155,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 5854,
+                  "name": "Radioactive Room Wipe",
+                  "grade": "ungraded",
+                  "kind": "gizmo",
+                  "lifetimeAmount": 12,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "The user may expend this Gizmo and spend 10 seconds of Full Engagement Roleplay wiping down an item or a freshly-killed corpse that has not yet decayed into the Mortis. The next person to use \"Lockpicking & Security\" to attempt to investigate the item or corpse has their use of the skill countered (no effect, Mind spent) and suffers \"10 Rad Damage, Blinding\". Multiple doses may be applied to the same corpse or item to negate multiple uses of this skill. Unless activated, the Gizmo effect will last until the end of the Event or the corpse it's on sinking into the Mortis.",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "Stealth, Proficient Criminal Influence (Murder Inc 2)",
+                    "uses": "1",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 859,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education & Basic Criminal Influence",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 859,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

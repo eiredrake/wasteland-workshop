@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4860,
+        "name": "The Hunter's Secret",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-03-31T01:53:24Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "Limit 5 participants per Lineage Target. This Procedure that extends the Gorger Lineage advantage to all participants. When the Procedure is completed call \"Upsurge: Gain Basic Gorger Lineage Advantage.\" Gorgers affected instead regain 2 Body per Minute but may not enter a feeding frenzy.",
+          "notes": "None.",
+          "printHeader": "Dubious Procedure",
+          "requirementsToUse": "Basic Criminal Influence (Murder Inc 1)",
+          "uses": null,
+          "durationOfEffect": "Upsurge - 1 Hour",
+          "validTargetDescription": "",
+          "locationOfUse": "Any",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "10 Minutes",
+          "descriptionOfRoleplay": "There is a secret among Gorgers \u2013 a procedure that allows them to bestow their ability to consume large amounts of fresh meat to others. A Gorger first lacerates themselves and others before sharing their blood, allowing their Infection to mingle with others. They push a knife down each person\u2019s throat, followed by a measure of their blood. They make sure to piercing each Strain\u2019s stomach. Once this is done, they encourage each Strain to consume fresh meat \u2013 more and more of it. And as the Infection heals their stomach, so too does their stomach enlarge \u2013 at least temporarily \u2013 to be able to encompass the quantity of flesh.",
+          "activationRequirement": "None",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 423,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education & Basic Criminal Influence",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 423,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

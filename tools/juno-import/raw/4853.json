@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4853,
+        "name": "Turning of the Seasons' Wheel",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-01-11T10:16:10Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "Participants may give gifts and offerings to the Target of the ritual in the form of Mind and Body. Participants may expend Mind or Body in counts of 2 up to a maximum of 40 total. For each 2 points spent the Target receives \"Upsurge X Body/ Mind (where X equals half the total spent). The Performer of the Benediction may choose to spend 1 Resolve to increase the number of Targets to 2, but each Target is given 'gifts' separately.",
+          "notes": "None.",
+          "printHeader": "Benediction",
+          "requirementsToUse": "Lore: Faith - Common OR Profession Saint. Must be Inducted to Tribes of the Seasons",
+          "uses": null,
+          "durationOfEffect": "Instant",
+          "validTargetDescription": "1 Target(s) and 1+ Participants",
+          "locationOfUse": "Consecrated Space dedicated to the Tribes of the Seasons",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "10 Minutes",
+          "descriptionOfRoleplay": "This Benediction is normally performed at the turning of a season to mark a change in leadership or as a celebration of a member of the faith in reaching a milestone in life (adoption, promotion, bonding, funerals, etc). This Benediction requires at least 30 minutes of Active Roleplay dedicated to growth, change, and advancement found within the season.",
+          "activationRequirement": "None",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 416,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Proficient Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 416,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

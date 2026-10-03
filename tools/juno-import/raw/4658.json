@@ -1,0 +1,163 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4658,
+        "name": "Helscape Catastrophic Stabilizer",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-03-11T00:39:27Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "None",
+          "printHeader": "Necrology Engineered Item",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1612,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 0,
+            "craftingResolveCost": 1,
+            "craftingZone": "Artisan Space",
+            "craftingSkills": "The Organic Machine",
+            "craftingComponents": [
+              {
+                "id": 4229,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3897,
+                  "name": "Imprint Crystal",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4230,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3900,
+                  "name": "Festering Crystal",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 4231,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3899,
+                  "name": "Mortis Extract",
+                  "grade": "ungraded",
+                  "kind": "necrology_resource",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1708,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 4228,
+                  "name": "Helscape Catastrophic Stabilizer",
+                  "grade": "ungraded",
+                  "kind": "necrology_engineered_item",
+                  "lifetimeAmount": null,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "Carry Rate (5). Once placed, this item will remain inside the Corrupted Morgue Space until activated and may require multiple dives to activate. Requires a total expenditure of 5 Resolve and 30 minutes of cumulative Active Roleplay across all modules within the Corrupted Morgue Space deploying and activating the device. Up to 5 individuals may work on deployment together. This device nullifies a Corrupted Morgue Space for a minimum of 3 months once successfully activated.\n",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "Lore: Mortis Amaranthine/Infection OR Lore: Wasteland Science",
+                    "uses": "1",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 247,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 247,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

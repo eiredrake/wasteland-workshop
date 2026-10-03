@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4832,
+        "name": "Benediction of Grace",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2024-10-12T18:26:25Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "This Benediction must be performed over a meal table with food. Up to 5 Meals and 5 Brews within an Area of Effect may be consumed within the next 10 minutes by members of the Nuclear Family. No Body damage, Fractures, or Mind loss may occur due to effects of these meals or brews. May be used on Generic Meals and Brews to add \"Gain +2 Mind\" to each of these Meals or Brews. Expirations of these Meals or Brews is reduced to 30 minutes.",
+          "notes": "None.",
+          "printHeader": "Benediction",
+          "requirementsToUse": "Lore: Faith - Common OR Profession Saint. Must be Inducted to Nuclear Family",
+          "uses": null,
+          "durationOfEffect": "Instant",
+          "validTargetDescription": "Up to 5 Meals and 5 Brews",
+          "locationOfUse": "Any",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "10 Minutes",
+          "descriptionOfRoleplay": "This act of thanks prior to a meal is a cornerstone of the Nuclear Family. Guided by the user of this Benediction, the family members take turns standing and looking at the other Nuclear Family members and saying what they are truly thankful for. Even in the darkest of days, finding reason to be thankful for each other and life has power. The focus of unity, determination, and collective gratefulness (along with the dictations of the Benediction) can clean and make pure meals and drinks to be shared. ",
+          "activationRequirement": "None",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 395,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Proficient Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 395,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

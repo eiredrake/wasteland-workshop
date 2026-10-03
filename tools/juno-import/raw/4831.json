@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4831,
+        "name": "Act of Aristippus",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2026-02-24T11:01:33Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "This Benediction is performed over a table where Drugs have been laid out. Up to 10 Drugs within Area of Effect range are affected. If consumed by an inducted member of the Light of Hedon within the next 10 minutes, they extend any duration by an additional 10 minutes and, if the drugs have a random chance of causing a negative effect the Hedonist may re-roll on a bad result. Performing this Benediction reduces the expiration of these Drugs to 30 minutes.",
+          "notes": "None.",
+          "printHeader": "Benediction",
+          "requirementsToUse": "Lore: Faith - Common OR Profession Saint. Must be Inducted to Hedon",
+          "uses": null,
+          "durationOfEffect": "Instant",
+          "validTargetDescription": "Up to 10 Drugs",
+          "locationOfUse": "Any",
+          "equipmentRequiredForUse": "None",
+          "durationOfRoleplay": "10 Minutes",
+          "descriptionOfRoleplay": "To the Light of Hedon the body is a sacred temple. A temple that only the individual can define how it should be worshiped. This ritual requires candles, bowls of clean water, and a font that will be the \u201ccollection of impurities\u201d objects of faithful labor and recreation. This Benediction will make the injectables and brews within the area of effect cleaner and more potent but will result in them spoiling and expiring faster. The brightest candles burn the quickest. ",
+          "activationRequirement": "None",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 394,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Proficient Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 394,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

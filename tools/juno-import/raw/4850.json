@@ -1,0 +1,72 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4850,
+        "name": "Standing the Peaceful Vigil",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-01-11T10:14:34Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": "The benediction user may expend uses of Alert or Double-Tap into the lantern, and pass these skills on to the next Sainthood of Ashes that takes the lantern and call \"Upsurge (number of Alert and Double-Tap expended)\" to the next person to take the lantern for watch. Upsurged skills cannot be passed forward again, and the receiver of the lantern may not make use of Alert or Double-Tap uses if they do not already possess those skills. If the lantern or receiver moves more than 10 feet from where the Benediction was performed, all remaining uses are lost.",
+          "notes": "None.",
+          "printHeader": "Benediction",
+          "requirementsToUse": "Lore: Faith - Common OR Profession Saint. Must be Inducted to Sainthood of Ashes",
+          "uses": null,
+          "durationOfEffect": "Instant",
+          "validTargetDescription": "Self / Inducted Member of the Sainthood of Ashes",
+          "locationOfUse": "Any",
+          "equipmentRequiredForUse": "Generic Handheld Item: Lantern",
+          "durationOfRoleplay": "10 Minutes",
+          "descriptionOfRoleplay": "This Benediction is a ritual traditionally done for those taking watch. This Benediction was created originally as members of the faith took turns watching over the final grave of a fallen member to ensure they rested in peace. Requires a Generic Handheld Item: Lantern. When the Benediction is completed, the lantern must remain within 10 feet of where the Benediction was performed. ",
+          "activationRequirement": "None",
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [],
+        "itemReproductions": [
+          {
+            "id": 413,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Proficient Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 413,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

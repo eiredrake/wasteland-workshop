@@ -105,8 +105,6 @@ function BlueprintDetails({
         <h2>{blueprint.name}</h2>
 
         <div className="blueprint-details-subtitle">
-          <span>{blueprint.grade}</span>
-          <span>·</span>
           <span>{skills}</span>
         </div>
       </header>

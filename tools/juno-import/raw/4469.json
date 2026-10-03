@@ -1,0 +1,235 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4469,
+        "name": "Bitter Herb Poison",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-02-07T03:31:12Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "At creation, must choose to create either an Applied or Ingested Poison. A Skilled Culinary Assistant helping with the creation of this item regains 2 Mind.",
+          "printHeader": "Culinary Recipe",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1423,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 15,
+            "craftingResolveCost": 0,
+            "craftingZone": "Culinary Space",
+            "craftingSkills": "Master Culinary",
+            "craftingComponents": [
+              {
+                "id": 3651,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3935,
+                  "name": "Prairie Wildrye or Lemongrass",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "childItemClassifications": [
+                    {
+                      "id": 156,
+                      "childItem": {
+                        "id": 3830,
+                        "name": "Prairie Wildrye",
+                        "kind": "named_herb",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 157,
+                      "childItem": {
+                        "id": 3838,
+                        "name": "Lemongrass",
+                        "kind": "named_herb",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    }
+                  ],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 3638,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3809,
+                  "name": "Rare Herb",
+                  "grade": "ungraded",
+                  "kind": "unnamed_herb",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1300,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 4864,
+                  "name": "Bitter Herb Poison",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "lifetimeAmount": null,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [
+                    {
+                      "id": 271,
+                      "childItem": {
+                        "id": 4029,
+                        "name": "Bitter Herb Poison (Applied)",
+                        "kind": "poison_applied",
+                        "lifetimeAmount": 12,
+                        "lifetimeUnit": "month",
+                        "metadata": {
+                          "mechanics": "Applied. On next attempted Strike, call \"20 Body to Landsmen\".",
+                          "notes": null,
+                          "printHeader": null,
+                          "requirementsToUse": "None",
+                          "uses": "1",
+                          "durationOfEffect": null,
+                          "validTargetDescription": null,
+                          "locationOfUse": null,
+                          "equipmentRequiredForUse": null,
+                          "durationOfRoleplay": null,
+                          "descriptionOfRoleplay": null,
+                          "activationRequirement": null,
+                          "vehicleArmor": null,
+                          "vehicleHull": null,
+                          "vehicleSpeed": null,
+                          "vehicleTurnRadius": null,
+                          "vehicleCrewCapacity": null,
+                          "__typename": "ItemMetadata"
+                        },
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 272,
+                      "childItem": {
+                        "id": 4040,
+                        "name": "Bitter Herb Poison (Consumed)",
+                        "kind": "poison_brew",
+                        "lifetimeAmount": 12,
+                        "lifetimeUnit": "month",
+                        "metadata": {
+                          "mechanics": "Ingested. When consumed, members of the Landsmen Lineage take 10 Body Damage.",
+                          "notes": null,
+                          "printHeader": null,
+                          "requirementsToUse": "None",
+                          "uses": "1",
+                          "durationOfEffect": null,
+                          "validTargetDescription": null,
+                          "locationOfUse": null,
+                          "equipmentRequiredForUse": null,
+                          "durationOfRoleplay": null,
+                          "descriptionOfRoleplay": null,
+                          "activationRequirement": null,
+                          "vehicleArmor": null,
+                          "vehicleHull": null,
+                          "vehicleSpeed": null,
+                          "vehicleTurnRadius": null,
+                          "vehicleCrewCapacity": null,
+                          "__typename": "ItemMetadata"
+                        },
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    }
+                  ],
+                  "metadata": {
+                    "mechanics": null,
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": null,
+                    "uses": null,
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 57,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 57,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

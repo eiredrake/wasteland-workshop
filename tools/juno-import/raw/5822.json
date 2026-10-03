@@ -1,0 +1,170 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 5822,
+        "name": "Crippling Debt Injection",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-07-07T21:48:12Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": "A Skilled Culinary Assistant helping with the creation of this item regains 2 Mind.",
+          "printHeader": "Dubious Directions",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 2148,
+            "craftingTimeInMinute": 20,
+            "craftingMindCost": 5,
+            "craftingResolveCost": 0,
+            "craftingZone": "Culinary Space OR Necrology Station",
+            "craftingSkills": "Basic Culinary, Society: Mental & Social Control",
+            "craftingComponents": [
+              {
+                "id": 5027,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3920,
+                  "name": "Foxglove or Viral Hemlock",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "childItemClassifications": [
+                    {
+                      "id": 118,
+                      "childItem": {
+                        "id": 3842,
+                        "name": "Foxglove",
+                        "kind": "named_herb",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 119,
+                      "childItem": {
+                        "id": 3845,
+                        "name": "Viral Hemlock",
+                        "kind": "named_herb",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    }
+                  ],
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 5028,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3851,
+                  "name": "Infection Material",
+                  "grade": "ungraded",
+                  "kind": "produce",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 2122,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 5821,
+                  "name": "Crippling Debt Injection",
+                  "grade": "ungraded",
+                  "kind": "injected_brew",
+                  "lifetimeAmount": 6,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "This injectable can only be used in the process of agreeing to pay back a debt of a specified amount of currency, generally as part of an agreement when receiving a loan, and a Guide should be present to mark details on the character's sheet. The willing Target (self) is afflicted with Stage 1 Crippling Debt Disease.\n\nCRIPPLING DEBT DISEASE\nStages of Illness: Stage 1 has no symptoms. Every additional stage (max 5) reduces the afflicted character's max Body by 10 points, to a minimum of 1. Every stage after the first comes with lack of sleep and increasing starvation-like symptoms - dark shadows under the eyes, hollow cheeks, shaky/unsteady hands.\nDuration Between Stages: Crippling Debt progresses every month that at least half of the remaining debt is not paid back to the creditor.\nResolution: Full payment of the debt or the permanent death of the creditor cures Crippling Debt at any stage. Death does not cure Crippling Debt. \nImmunity: Contracting this illness and having it cured does not prevent future infection.\nSpecial: This disease cannot be transferred or suppressed by other mechanics.",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "None",
+                    "uses": "1",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [
+          {
+            "id": 826,
+            "reproductionTimeInMinute": 20,
+            "reproductionMindCost": 1,
+            "reproductionSkills": "Basic Education & Basic Criminal Influence",
+            "metadata": {
+              "notes": null,
+              "__typename": "ItemReproductionMetadata"
+            },
+            "itemReproductionComponents": [
+              {
+                "id": 826,
+                "item": {
+                  "id": 3940,
+                  "name": "Any Herb",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "__typename": "Item"
+                },
+                "amount": 2,
+                "__typename": "ItemReproductionComponent"
+              }
+            ],
+            "__typename": "ItemReproduction"
+          }
+        ],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}

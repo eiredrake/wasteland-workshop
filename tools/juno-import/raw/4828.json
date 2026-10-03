@@ -1,0 +1,214 @@
+{
+  "data": {
+    "organization": {
+      "id": 2,
+      "item": {
+        "id": 4828,
+        "name": "Generic Meal",
+        "kind": "blueprint",
+        "grade": "ungraded",
+        "updatedAt": "2025-02-24T06:41:31Z",
+        "lifetimeAmount": null,
+        "lifetimeUnit": "month",
+        "visibility": "publicly_visible",
+        "validFrom": null,
+        "validUntil": null,
+        "metadata": {
+          "mechanics": null,
+          "notes": null,
+          "printHeader": "Culinary Crafting Zone Blueprint",
+          "requirementsToUse": null,
+          "uses": null,
+          "durationOfEffect": null,
+          "validTargetDescription": null,
+          "locationOfUse": null,
+          "equipmentRequiredForUse": null,
+          "durationOfRoleplay": null,
+          "descriptionOfRoleplay": null,
+          "activationRequirement": null,
+          "vehicleArmor": null,
+          "vehicleHull": null,
+          "vehicleSpeed": null,
+          "vehicleTurnRadius": null,
+          "vehicleCrewCapacity": null,
+          "__typename": "ItemMetadata"
+        },
+        "blueprintForCraftings": [],
+        "childItemClassifications": [],
+        "itemCraftings": [
+          {
+            "id": 1782,
+            "craftingTimeInMinute": 10,
+            "craftingMindCost": 5,
+            "craftingResolveCost": 0,
+            "craftingZone": "Culinary Space",
+            "craftingSkills": "Basic Culinary",
+            "craftingComponents": [
+              {
+                "id": 3453,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3807,
+                  "name": "Basic Herb",
+                  "grade": "ungraded",
+                  "kind": "unnamed_herb",
+                  "childItemClassifications": [],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              },
+              {
+                "id": 3454,
+                "acceptsExpiredItemWithinDays": 0,
+                "component": {
+                  "id": 3939,
+                  "name": "Any Produce",
+                  "grade": "ungraded",
+                  "kind": "taxonomy",
+                  "childItemClassifications": [
+                    {
+                      "id": 245,
+                      "childItem": {
+                        "id": 3848,
+                        "name": "Eggs",
+                        "kind": "produce",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 246,
+                      "childItem": {
+                        "id": 3849,
+                        "name": "Fish",
+                        "kind": "produce",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 247,
+                      "childItem": {
+                        "id": 3850,
+                        "name": "Fruit",
+                        "kind": "produce",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 248,
+                      "childItem": {
+                        "id": 3851,
+                        "name": "Infection Material",
+                        "kind": "produce",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 249,
+                      "childItem": {
+                        "id": 3852,
+                        "name": "Meat",
+                        "kind": "produce",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 250,
+                      "childItem": {
+                        "id": 3853,
+                        "name": "Milk",
+                        "kind": "produce",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 251,
+                      "childItem": {
+                        "id": 3854,
+                        "name": "Shellfish",
+                        "kind": "produce",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 252,
+                      "childItem": {
+                        "id": 3855,
+                        "name": "Tree Nuts",
+                        "kind": "produce",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    },
+                    {
+                      "id": 253,
+                      "childItem": {
+                        "id": 3856,
+                        "name": "Vegetables",
+                        "kind": "produce",
+                        "__typename": "Item"
+                      },
+                      "__typename": "ItemClassification"
+                    }
+                  ],
+                  "__typename": "Item"
+                },
+                "amount": 1,
+                "__typename": "CraftingComponent"
+              }
+            ],
+            "craftingFinalProducts": [
+              {
+                "id": 1316,
+                "stack": 1,
+                "finalProduct": {
+                  "id": 3865,
+                  "name": "Generic Meal",
+                  "grade": "ungraded",
+                  "kind": "generic_item",
+                  "lifetimeAmount": 3,
+                  "lifetimeUnit": "month",
+                  "childItemClassifications": [],
+                  "metadata": {
+                    "mechanics": "Used for generic sales of food items.",
+                    "notes": null,
+                    "printHeader": null,
+                    "requirementsToUse": "None",
+                    "uses": "1",
+                    "durationOfEffect": null,
+                    "validTargetDescription": null,
+                    "locationOfUse": null,
+                    "equipmentRequiredForUse": null,
+                    "durationOfRoleplay": null,
+                    "descriptionOfRoleplay": null,
+                    "activationRequirement": null,
+                    "vehicleArmor": null,
+                    "vehicleHull": null,
+                    "vehicleSpeed": null,
+                    "vehicleTurnRadius": null,
+                    "vehicleCrewCapacity": null,
+                    "__typename": "ItemMetadata"
+                  },
+                  "__typename": "Item"
+                },
+                "__typename": "CraftingFinalProduct"
+              }
+            ],
+            "__typename": "ItemCrafting"
+          }
+        ],
+        "itemReproductions": [],
+        "parts": [],
+        "__typename": "Item"
+      },
+      "__typename": "Organization"
+    }
+  }
+}
