@@ -109,29 +109,29 @@ function App() {
   const [craftTimer, setCraftTimer] =
     useState<CraftTimerState>(createIdleCraftTimer)
 
-    const craftTimerRef = useRef(craftTimer)
+  const craftTimerRef = useRef(craftTimer)
 
-    useEffect(() => {
-      craftTimerRef.current = craftTimer
-    }, [craftTimer])
-    
-    useEffect(() => {
-      if (craftTimer.status !== 'running') {
-        return
-      }
-    
-      const intervalId = window.setInterval(() => {
-        const updatedTimer =
-          tickCraftTimer(craftTimerRef.current)
-    
-        craftTimerRef.current = updatedTimer
-        setCraftTimer(updatedTimer)
-      }, 250)
-    
-      return () => {
-        window.clearInterval(intervalId)
-      }
-    }, [craftTimer.status])    
+  useEffect(() => {
+    craftTimerRef.current = craftTimer
+  }, [craftTimer])
+
+  useEffect(() => {
+    if (craftTimer.status !== 'running') {
+      return
+    }
+
+    const intervalId = window.setInterval(() => {
+      const updatedTimer =
+        tickCraftTimer(craftTimerRef.current)
+
+      craftTimerRef.current = updatedTimer
+      setCraftTimer(updatedTimer)
+    }, 250)
+
+    return () => {
+      window.clearInterval(intervalId)
+    }
+  }, [craftTimer.status])
 
   const calculator =
     new DefaultCostCalculator(economicsSettings)
@@ -191,10 +191,10 @@ function App() {
       setCraftTimer(
         pauseCraftTimer(craftTimer)
       )
-  
+
       return
     }
-  
+
     if (
       craftTimer.label === blueprintName &&
       craftTimer.status === 'paused'
@@ -202,19 +202,19 @@ function App() {
       setCraftTimer(
         resumeCraftTimer(craftTimer)
       )
-  
+
       return
     }
-  
+
     const loadedTimer = loadCraftTimer(
       craftingMinutes,
       blueprintName
     )
-  
+
     setCraftTimer(
       beginCraftTimer(loadedTimer)
     )
-  
+
     showToast(
       `Crafting "${blueprintName}" — ${craftingMinutes} minute timer started.`,
       'success'
@@ -255,6 +255,38 @@ function App() {
     )
   }
 
+  const deleteBlueprintCollection = (
+    collectionId: string
+  ) => {
+    const collection = blueprintCollections.find(
+      (item) => item.id === collectionId
+    )
+
+    if (!collection) {
+      return
+    }
+
+    const updatedCollections =
+      blueprintCollections.filter(
+        (item) => item.id !== collectionId
+      )
+
+    setBlueprintCollections(updatedCollections)
+    saveBlueprintCollections(updatedCollections)
+
+    if (
+      activeBlueprintCollectionId === collectionId
+    ) {
+      setActiveBlueprintCollectionId(undefined)
+      saveActiveBlueprintCollectionId(undefined)
+    }
+
+    showToast(
+      `Deleted blueprint collection "${collection.name}".`,
+      'info'
+    )
+  }
+
   const setActiveBlueprintCollection = (
     collectionId: string
   ) => {
@@ -283,6 +315,7 @@ function App() {
         'Select an active blueprint collection first.',
         'warning'
       )
+
       return
     }
 
@@ -337,6 +370,7 @@ function App() {
         `"${blueprintName}" marked acquired in "${collection.name}".`,
         'success'
       )
+
       return
     }
 
@@ -345,6 +379,7 @@ function App() {
         `"${blueprintName}" added to the "${collection.name}" wishlist.`,
         'info'
       )
+
       return
     }
 
@@ -486,6 +521,9 @@ function App() {
           }
           onAddCollection={
             addBlueprintCollection
+          }
+          onDeleteCollection={
+            deleteBlueprintCollection
           }
           onSetActiveCollection={
             setActiveBlueprintCollection

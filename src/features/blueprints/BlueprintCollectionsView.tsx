@@ -7,6 +7,7 @@ type BlueprintCollectionsViewProps = {
   activeCollectionId: string | undefined
   onAddCollection: (name: string) => void
   onSetActiveCollection: (collectionId: string) => void
+  onDeleteCollection: (collectionId: string) => void
 }
 
 function BlueprintCollectionsView({
@@ -14,9 +15,13 @@ function BlueprintCollectionsView({
   activeCollectionId,
   onAddCollection,
   onSetActiveCollection,
+  onDeleteCollection,
 }: BlueprintCollectionsViewProps) {
-  const [addingCollection, setAddingCollection] = useState(false)
-  const [collectionName, setCollectionName] = useState('')
+  const [addingCollection, setAddingCollection] =
+    useState(false)
+
+  const [collectionName, setCollectionName] =
+    useState('')
 
   const handleAddCollection = () => {
     const name = collectionName.trim()
@@ -35,6 +40,60 @@ function BlueprintCollectionsView({
     setAddingCollection(false)
   }
 
+  const handleExportCollection = (
+    collection: BlueprintCollection
+  ) => {
+    const exportData = {
+      format:
+        'wasteland-workshop-blueprint-collection',
+      version: 1,
+      collection: {
+        name: collection.name,
+        entries: collection.entries,
+      },
+    }
+
+    const blob = new Blob(
+      [JSON.stringify(exportData, null, 2)],
+      {
+        type: 'application/json',
+      }
+    )
+
+    const url = URL.createObjectURL(blob)
+
+    const safeName = collection.name
+      .trim()
+      .replace(/[^a-z0-9]+/gi, '-')
+      .replace(/^-+|-+$/g, '')
+
+    const link = document.createElement('a')
+
+    link.href = url
+    link.download =
+      `${safeName || 'blueprint-collection'}.json`
+
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+
+    URL.revokeObjectURL(url)
+  }
+
+  const handleDeleteCollection = (
+    collection: BlueprintCollection
+  ) => {
+    const confirmed = window.confirm(
+      `Delete "${collection.name}"?\n\nThis cannot be undone.`
+    )
+
+    if (!confirmed) {
+      return
+    }
+
+    onDeleteCollection(collection.id)
+  }
+
   return (
     <section className="blueprint-collections-page">
       <header className="blueprint-collections-header">
@@ -42,8 +101,8 @@ function BlueprintCollectionsView({
           <h2>Blueprint Collections</h2>
 
           <p>
-            Track blueprints you have access to and blueprints you want to
-            acquire.
+            Track blueprints you have access to and
+            blueprints you want to acquire.
           </p>
         </div>
 
@@ -51,7 +110,9 @@ function BlueprintCollectionsView({
           <button
             type="button"
             className="primary-button"
-            onClick={() => setAddingCollection(true)}
+            onClick={() =>
+              setAddingCollection(true)
+            }
           >
             Add Collection
           </button>
@@ -71,7 +132,9 @@ function BlueprintCollectionsView({
             placeholder="New Collection"
             autoFocus
             onChange={(event) =>
-              setCollectionName(event.target.value)
+              setCollectionName(
+                event.target.value
+              )
             }
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
@@ -110,29 +173,37 @@ function BlueprintCollectionsView({
           <h3>No Blueprint Collections</h3>
 
           <p>
-            Create a collection for a character, shared library, or any other
-            group of blueprints you want to track.
+            Create a collection for a character,
+            shared library, or any other group of
+            blueprints you want to track.
           </p>
         </div>
       ) : (
         <div className="blueprint-collections-list">
           {collections.map((collection) => {
-            const acquiredCount = collection.entries.filter(
-              (entry) => entry.status === 'acquired'
-            ).length
+            const acquiredCount =
+              collection.entries.filter(
+                (entry) =>
+                  entry.status === 'acquired'
+              ).length
 
-            const wantedCount = collection.entries.filter(
-              (entry) => entry.status === 'to-acquire'
-            ).length
+            const wantedCount =
+              collection.entries.filter(
+                (entry) =>
+                  entry.status === 'to-acquire'
+              ).length
 
             const isActive =
-              collection.id === activeCollectionId
+              collection.id ===
+              activeCollectionId
 
             return (
               <div
                 key={collection.id}
                 className={`blueprint-collection-card${
-                  isActive ? ' blueprint-collection-card-active' : ''
+                  isActive
+                    ? ' blueprint-collection-card-active'
+                    : ''
                 }`}
               >
                 <div className="blueprint-collection-card-header">
@@ -140,7 +211,8 @@ function BlueprintCollectionsView({
                     <h3>{collection.name}</h3>
 
                     <p>
-                      {acquiredCount} acquired · {wantedCount} to acquire
+                      {acquiredCount} acquired ·{' '}
+                      {wantedCount} to acquire
                     </p>
                   </div>
 
@@ -151,17 +223,45 @@ function BlueprintCollectionsView({
                   )}
                 </div>
 
-                {!isActive && (
+                <div className="blueprint-collection-card-actions">
+                  {!isActive && (
+                    <button
+                      type="button"
+                      className="secondary-button"
+                      onClick={() =>
+                        onSetActiveCollection(
+                          collection.id
+                        )
+                      }
+                    >
+                      Set Active
+                    </button>
+                  )}
+
                   <button
                     type="button"
                     className="secondary-button"
                     onClick={() =>
-                      onSetActiveCollection(collection.id)
+                      handleExportCollection(
+                        collection
+                      )
                     }
                   >
-                    Set Active
+                    Export
                   </button>
-                )}
+
+                  <button
+                    type="button"
+                    className="secondary-button"
+                    onClick={() =>
+                      handleDeleteCollection(
+                        collection
+                      )
+                    }
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             )
           })}

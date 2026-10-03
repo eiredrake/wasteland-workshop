@@ -132,3 +132,9 @@
     width: 100%;
   }
 }
+
+.blueprint-collection-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
