@@ -36,6 +36,7 @@ import {
 import type {
   BlueprintAccessStatus,
   BlueprintCollection,
+  BlueprintCollectionEntry,
 } from './features/blueprints/BlueprintCollection'
 
 import {
@@ -89,15 +90,19 @@ function App() {
     useState<AppView>('workshop')
 
   const [economicsSettings, setEconomicsSettings] =
-    useState<EconomicsSettings>(loadEconomicsSettings)
+    useState<EconomicsSettings>(
+      loadEconomicsSettings
+    )
 
   const [toasts, setToasts] =
     useState<ToastMessage[]>([])
 
-  const [blueprintCollections, setBlueprintCollections] =
-    useState<BlueprintCollection[]>(
-      loadBlueprintCollections
-    )
+  const [
+    blueprintCollections,
+    setBlueprintCollections,
+  ] = useState<BlueprintCollection[]>(
+    loadBlueprintCollections
+  )
 
   const [
     activeBlueprintCollectionId,
@@ -107,7 +112,9 @@ function App() {
   )
 
   const [craftTimer, setCraftTimer] =
-    useState<CraftTimerState>(createIdleCraftTimer)
+    useState<CraftTimerState>(
+      createIdleCraftTimer
+    )
 
   const craftTimerRef = useRef(craftTimer)
 
@@ -120,13 +127,18 @@ function App() {
       return
     }
 
-    const intervalId = window.setInterval(() => {
-      const updatedTimer =
-        tickCraftTimer(craftTimerRef.current)
+    const intervalId =
+      window.setInterval(() => {
+        const updatedTimer =
+          tickCraftTimer(
+            craftTimerRef.current
+          )
 
-      craftTimerRef.current = updatedTimer
-      setCraftTimer(updatedTimer)
-    }, 250)
+        craftTimerRef.current =
+          updatedTimer
+
+        setCraftTimer(updatedTimer)
+      }, 250)
 
     return () => {
       window.clearInterval(intervalId)
@@ -134,20 +146,27 @@ function App() {
   }, [craftTimer.status])
 
   const calculator =
-    new DefaultCostCalculator(economicsSettings)
+    new DefaultCostCalculator(
+      economicsSettings
+    )
 
   const activeBlueprintCollection =
     blueprintCollections.find(
       (collection) =>
-        collection.id === activeBlueprintCollectionId
+        collection.id ===
+        activeBlueprintCollectionId
     )
 
-  const navigateTo = (view: AppView) => {
+  const navigateTo = (
+    view: AppView
+  ) => {
     setCurrentView(view)
     setMenuOpen(false)
   }
 
-  const dismissToast = (id: number) => {
+  const dismissToast = (
+    id: number
+  ) => {
     setToasts((currentToasts) =>
       currentToasts.filter(
         (toast) => toast.id !== id
@@ -185,7 +204,8 @@ function App() {
     craftingMinutes: number
   ) => {
     if (
-      craftTimer.label === blueprintName &&
+      craftTimer.label ===
+        blueprintName &&
       craftTimer.status === 'running'
     ) {
       setCraftTimer(
@@ -196,7 +216,8 @@ function App() {
     }
 
     if (
-      craftTimer.label === blueprintName &&
+      craftTimer.label ===
+        blueprintName &&
       craftTimer.status === 'paused'
     ) {
       setCraftTimer(
@@ -206,10 +227,11 @@ function App() {
       return
     }
 
-    const loadedTimer = loadCraftTimer(
-      craftingMinutes,
-      blueprintName
-    )
+    const loadedTimer =
+      loadCraftTimer(
+        craftingMinutes,
+        blueprintName
+      )
 
     setCraftTimer(
       beginCraftTimer(loadedTimer)
@@ -231,23 +253,34 @@ function App() {
       JSON.stringify(settings)
     )
 
-    showToast('Settings saved.', 'success')
+    showToast(
+      'Settings saved.',
+      'success'
+    )
   }
 
-  const addBlueprintCollection = (name: string) => {
-    const newCollection: BlueprintCollection = {
-      id: crypto.randomUUID(),
-      name,
-      entries: [],
-    }
+  const addBlueprintCollection = (
+    name: string
+  ) => {
+    const newCollection:
+      BlueprintCollection = {
+        id: crypto.randomUUID(),
+        name,
+        entries: [],
+      }
 
     const updatedCollections = [
       ...blueprintCollections,
       newCollection,
     ]
 
-    setBlueprintCollections(updatedCollections)
-    saveBlueprintCollections(updatedCollections)
+    setBlueprintCollections(
+      updatedCollections
+    )
+
+    saveBlueprintCollections(
+      updatedCollections
+    )
 
     showToast(
       `Created blueprint collection "${name}".`,
@@ -255,12 +288,44 @@ function App() {
     )
   }
 
+  const importBlueprintCollection = (
+    name: string,
+    entries: BlueprintCollectionEntry[]
+  ) => {
+    const newCollection:
+      BlueprintCollection = {
+        id: crypto.randomUUID(),
+        name,
+        entries,
+      }
+
+    const updatedCollections = [
+      ...blueprintCollections,
+      newCollection,
+    ]
+
+    setBlueprintCollections(
+      updatedCollections
+    )
+
+    saveBlueprintCollections(
+      updatedCollections
+    )
+
+    showToast(
+      `Imported blueprint collection "${name}" with ${entries.length} blueprints.`,
+      'success'
+    )
+  }
+
   const deleteBlueprintCollection = (
     collectionId: string
   ) => {
-    const collection = blueprintCollections.find(
-      (item) => item.id === collectionId
-    )
+    const collection =
+      blueprintCollections.find(
+        (item) =>
+          item.id === collectionId
+      )
 
     if (!collection) {
       return
@@ -268,17 +333,29 @@ function App() {
 
     const updatedCollections =
       blueprintCollections.filter(
-        (item) => item.id !== collectionId
+        (item) =>
+          item.id !== collectionId
       )
 
-    setBlueprintCollections(updatedCollections)
-    saveBlueprintCollections(updatedCollections)
+    setBlueprintCollections(
+      updatedCollections
+    )
+
+    saveBlueprintCollections(
+      updatedCollections
+    )
 
     if (
-      activeBlueprintCollectionId === collectionId
+      activeBlueprintCollectionId ===
+      collectionId
     ) {
-      setActiveBlueprintCollectionId(undefined)
-      saveActiveBlueprintCollectionId(undefined)
+      setActiveBlueprintCollectionId(
+        undefined
+      )
+
+      saveActiveBlueprintCollectionId(
+        undefined
+      )
     }
 
     showToast(
@@ -290,12 +367,19 @@ function App() {
   const setActiveBlueprintCollection = (
     collectionId: string
   ) => {
-    setActiveBlueprintCollectionId(collectionId)
-    saveActiveBlueprintCollectionId(collectionId)
-
-    const collection = blueprintCollections.find(
-      (item) => item.id === collectionId
+    setActiveBlueprintCollectionId(
+      collectionId
     )
+
+    saveActiveBlueprintCollectionId(
+      collectionId
+    )
+
+    const collection =
+      blueprintCollections.find(
+        (item) =>
+          item.id === collectionId
+      )
 
     if (collection) {
       showToast(
@@ -308,9 +392,13 @@ function App() {
   const updateBlueprintCollectionEntry = (
     blueprintId: number,
     blueprintName: string,
-    status: BlueprintAccessStatus | undefined
+    status:
+      | BlueprintAccessStatus
+      | undefined
   ) => {
-    if (!activeBlueprintCollectionId) {
+    if (
+      !activeBlueprintCollectionId
+    ) {
       showToast(
         'Select an active blueprint collection first.',
         'warning'
@@ -320,46 +408,59 @@ function App() {
     }
 
     const updatedCollections =
-      blueprintCollections.map((collection) => {
-        if (
-          collection.id !==
-          activeBlueprintCollectionId
-        ) {
-          return collection
-        }
+      blueprintCollections.map(
+        (collection) => {
+          if (
+            collection.id !==
+            activeBlueprintCollectionId
+          ) {
+            return collection
+          }
 
-        const entriesWithoutBlueprint =
-          collection.entries.filter(
-            (entry) =>
-              entry.blueprintId !== blueprintId
-          )
+          const entriesWithoutBlueprint =
+            collection.entries.filter(
+              (entry) =>
+                entry.blueprintId !==
+                blueprintId
+            )
 
-        if (status === undefined) {
+          if (
+            status === undefined
+          ) {
+            return {
+              ...collection,
+              entries:
+                entriesWithoutBlueprint,
+            }
+          }
+
           return {
             ...collection,
-            entries: entriesWithoutBlueprint,
+            entries: [
+              ...entriesWithoutBlueprint,
+              {
+                blueprintId,
+                status,
+              },
+            ],
           }
         }
+      )
 
-        return {
-          ...collection,
-          entries: [
-            ...entriesWithoutBlueprint,
-            {
-              blueprintId,
-              status,
-            },
-          ],
-        }
-      })
-
-    setBlueprintCollections(updatedCollections)
-    saveBlueprintCollections(updatedCollections)
-
-    const collection = blueprintCollections.find(
-      (item) =>
-        item.id === activeBlueprintCollectionId
+    setBlueprintCollections(
+      updatedCollections
     )
+
+    saveBlueprintCollections(
+      updatedCollections
+    )
+
+    const collection =
+      blueprintCollections.find(
+        (item) =>
+          item.id ===
+          activeBlueprintCollectionId
+      )
 
     if (!collection) {
       return
@@ -374,7 +475,9 @@ function App() {
       return
     }
 
-    if (status === 'to-acquire') {
+    if (
+      status === 'to-acquire'
+    ) {
       showToast(
         `"${blueprintName}" added to the "${collection.name}" wishlist.`,
         'info'
@@ -397,17 +500,21 @@ function App() {
           type="button"
           aria-label="Open menu"
           aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(!menuOpen)}
+          onClick={() =>
+            setMenuOpen(!menuOpen)
+          }
         >
           ☰
         </button>
 
         <div>
-          <h1>Wasteland Workshop</h1>
+          <h1>
+            Wasteland Workshop
+          </h1>
 
           <p>
-            Dystopia Rising crafting economics and build
-            planning.
+            Dystopia Rising crafting
+            economics and build planning.
           </p>
         </div>
       </header>
@@ -416,14 +523,18 @@ function App() {
         <nav className="app-menu">
           <button
             type="button"
-            onClick={() => navigateTo('workshop')}
+            onClick={() =>
+              navigateTo('workshop')
+            }
           >
             Workshop
           </button>
 
           <button
             type="button"
-            onClick={() => navigateTo('catalog')}
+            onClick={() =>
+              navigateTo('catalog')
+            }
           >
             Blueprint Catalog
           </button>
@@ -431,7 +542,9 @@ function App() {
           <button
             type="button"
             onClick={() =>
-              navigateTo('collections')
+              navigateTo(
+                'collections'
+              )
             }
           >
             Blueprint Collections
@@ -446,7 +559,9 @@ function App() {
 
           <button
             type="button"
-            onClick={() => navigateTo('settings')}
+            onClick={() =>
+              navigateTo('settings')
+            }
           >
             Settings
           </button>
@@ -457,7 +572,9 @@ function App() {
 
           <button
             type="button"
-            onClick={() => navigateTo('about')}
+            onClick={() =>
+              navigateTo('about')
+            }
           >
             About
           </button>
@@ -473,14 +590,16 @@ function App() {
         </nav>
       )}
 
-      {currentView === 'workshop' && (
+      {currentView ===
+        'workshop' && (
         <WorkshopView
           activeCollection={
             activeBlueprintCollection
           }
           calculator={calculator}
           defaultMarkupPercent={
-            economicsSettings.defaultMarkupPercent
+            economicsSettings
+              .defaultMarkupPercent
           }
           craftTimer={craftTimer}
           onUpdateCollectionEntry={
@@ -489,15 +608,19 @@ function App() {
           onCraftBlueprint={
             loadBlueprintIntoCraftTimer
           }
-          onOpenCraftTimer={openCraftTimer}
+          onOpenCraftTimer={
+            openCraftTimer
+          }
         />
       )}
 
-      {currentView === 'catalog' && (
+      {currentView ===
+        'catalog' && (
         <BlueprintSearch
           calculator={calculator}
           defaultMarkupPercent={
-            economicsSettings.defaultMarkupPercent
+            economicsSettings
+              .defaultMarkupPercent
           }
           activeCollection={
             activeBlueprintCollection
@@ -509,18 +632,26 @@ function App() {
           onCraftBlueprint={
             loadBlueprintIntoCraftTimer
           }
-          onOpenCraftTimer={openCraftTimer}
+          onOpenCraftTimer={
+            openCraftTimer
+          }
         />
       )}
 
-      {currentView === 'collections' && (
+      {currentView ===
+        'collections' && (
         <BlueprintCollectionsView
-          collections={blueprintCollections}
+          collections={
+            blueprintCollections
+          }
           activeCollectionId={
             activeBlueprintCollectionId
           }
           onAddCollection={
             addBlueprintCollection
+          }
+          onImportCollection={
+            importBlueprintCollection
           }
           onDeleteCollection={
             deleteBlueprintCollection
@@ -531,25 +662,33 @@ function App() {
         />
       )}
 
-      {currentView === 'timer' && (
+      {currentView ===
+        'timer' && (
         <CraftTimer
           timer={craftTimer}
           onChange={setCraftTimer}
         />
       )}
 
-      {currentView === 'settings' && (
+      {currentView ===
+        'settings' && (
         <EconomicsSettingsView
-          currentSettings={economicsSettings}
-          onSave={saveEconomicsSettings}
+          currentSettings={
+            economicsSettings
+          }
+          onSave={
+            saveEconomicsSettings
+          }
         />
       )}
 
-      {currentView === 'about' && (
+      {currentView ===
+        'about' && (
         <AboutView />
       )}
 
-      {currentView === 'algorithm' && (
+      {currentView ===
+        'algorithm' && (
         <ValuationAlgorithmView />
       )}
 

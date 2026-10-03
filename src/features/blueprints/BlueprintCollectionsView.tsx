@@ -1,6 +1,23 @@
-import { useState } from 'react'
-import type { BlueprintCollection } from './BlueprintCollection'
+import {
+  useRef,
+  useState,
+} from 'react'
+import type {
+  BlueprintAccessStatus,
+  BlueprintCollection,
+  BlueprintCollectionEntry,
+} from './BlueprintCollection'
 import './BlueprintCollectionsView.css'
+
+type BlueprintCollectionImport = {
+  format: 'wasteland-workshop-blueprint-collection'
+  version: 1
+  entries: BlueprintCollectionEntry[]
+}
+
+type PendingImport = {
+  entries: BlueprintCollectionEntry[]
+}
 
 type BlueprintCollectionsViewProps = {
   collections: BlueprintCollection[]
@@ -8,6 +25,10 @@ type BlueprintCollectionsViewProps = {
   onAddCollection: (name: string) => void
   onSetActiveCollection: (collectionId: string) => void
   onDeleteCollection: (collectionId: string) => void
+  onImportCollection: (
+    name: string,
+    entries: BlueprintCollectionEntry[]
+  ) => void
 }
 
 function BlueprintCollectionsView({
@@ -16,12 +37,22 @@ function BlueprintCollectionsView({
   onAddCollection,
   onSetActiveCollection,
   onDeleteCollection,
+  onImportCollection,
 }: BlueprintCollectionsViewProps) {
   const [addingCollection, setAddingCollection] =
     useState(false)
 
   const [collectionName, setCollectionName] =
     useState('')
+
+  const [pendingImport, setPendingImport] =
+    useState<PendingImport | null>(null)
+
+  const [importName, setImportName] =
+    useState('')
+
+  const fileInputRef =
+    useRef<HTMLInputElement>(null)
 
   const handleAddCollection = () => {
     const name = collectionName.trim()
@@ -43,14 +74,11 @@ function BlueprintCollectionsView({
   const handleExportCollection = (
     collection: BlueprintCollection
   ) => {
-    const exportData = {
+    const exportData: BlueprintCollectionImport = {
       format:
         'wasteland-workshop-blueprint-collection',
       version: 1,
-      collection: {
-        name: collection.name,
-        entries: collection.entries,
-      },
+      entries: collection.entries,
     }
 
     const blob = new Blob(
@@ -94,6 +122,102 @@ function BlueprintCollectionsView({
     onDeleteCollection(collection.id)
   }
 
+  const isBlueprintAccessStatus = (
+    value: unknown
+  ): value is BlueprintAccessStatus =>
+    value === 'acquired' ||
+    value === 'to-acquire'
+
+  const isImportEntry = (
+    value: unknown
+  ): value is BlueprintCollectionEntry => {
+    if (
+      typeof value !== 'object' ||
+      value === null
+    ) {
+      return false
+    }
+
+    const entry = value as {
+      blueprintId?: unknown
+      status?: unknown
+    }
+
+    return (
+      typeof entry.blueprintId === 'number' &&
+      Number.isInteger(entry.blueprintId) &&
+      isBlueprintAccessStatus(entry.status)
+    )
+  }
+
+  const handleImportFile = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0]
+
+    event.target.value = ''
+
+    if (!file) {
+      return
+    }
+
+    try {
+      const text = await file.text()
+      const data: unknown = JSON.parse(text)
+
+      if (
+        typeof data !== 'object' ||
+        data === null
+      ) {
+        throw new Error('Invalid import file.')
+      }
+
+      const imported =
+        data as Partial<BlueprintCollectionImport>
+
+      if (
+        imported.format !==
+          'wasteland-workshop-blueprint-collection' ||
+        imported.version !== 1 ||
+        !Array.isArray(imported.entries) ||
+        !imported.entries.every(isImportEntry)
+      ) {
+        throw new Error('Invalid import file.')
+      }
+
+      setPendingImport({
+        entries: imported.entries,
+      })
+
+      setImportName('')
+    } catch {
+      window.alert(
+        'That file is not a valid Wasteland Workshop blueprint collection.'
+      )
+    }
+  }
+
+  const handleSaveImport = () => {
+    const name = importName.trim()
+
+    if (!name || !pendingImport) {
+      return
+    }
+
+    onImportCollection(
+      name,
+      pendingImport.entries
+    )
+
+    setPendingImport(null)
+    setImportName('')
+  }
+
+  const handleCancelImport = () => {
+    setPendingImport(null)
+    setImportName('')
+  }
+
   return (
     <section className="blueprint-collections-page">
       <header className="blueprint-collections-header">
@@ -106,18 +230,96 @@ function BlueprintCollectionsView({
           </p>
         </div>
 
-        {!addingCollection && (
-          <button
-            type="button"
-            className="primary-button"
-            onClick={() =>
-              setAddingCollection(true)
-            }
-          >
-            Add Collection
-          </button>
-        )}
+        <div className="blueprint-collection-header-actions">
+          {!addingCollection && !pendingImport && (
+            <>
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={() =>
+                  fileInputRef.current?.click()
+                }
+              >
+                Import Collection
+              </button>
+
+              <button
+                type="button"
+                className="primary-button"
+                onClick={() =>
+                  setAddingCollection(true)
+                }
+              >
+                Add Collection
+              </button>
+            </>
+          )}
+
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json,application/json"
+            hidden
+            onChange={handleImportFile}
+          />
+        </div>
       </header>
+
+      {pendingImport && (
+        <div className="blueprint-collection-add">
+          <label htmlFor="import-collection-name">
+            Imported Collection Name
+          </label>
+
+          <input
+            id="import-collection-name"
+            type="text"
+            value={importName}
+            placeholder="Collection Name"
+            autoFocus
+            onChange={(event) =>
+              setImportName(event.target.value)
+            }
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                handleSaveImport()
+              }
+
+              if (event.key === 'Escape') {
+                handleCancelImport()
+              }
+            }}
+          />
+
+          <p>
+            {pendingImport.entries.length}{' '}
+            blueprint
+            {pendingImport.entries.length === 1
+              ? ''
+              : 's'}{' '}
+            found in import.
+          </p>
+
+          <div className="blueprint-collection-add-actions">
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={handleCancelImport}
+            >
+              Cancel
+            </button>
+
+            <button
+              type="button"
+              className="primary-button"
+              disabled={!importName.trim()}
+              onClick={handleSaveImport}
+            >
+              Import Collection
+            </button>
+          </div>
+        </div>
+      )}
 
       {addingCollection && (
         <div className="blueprint-collection-add">
