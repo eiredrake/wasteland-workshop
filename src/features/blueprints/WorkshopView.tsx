@@ -9,6 +9,7 @@ import type {
 import { testBlueprints } from './testBlueprints'
 import BlueprintDetails from './BlueprintDetails'
 import './WorkshopView.css'
+import type { CraftTimerState } from '../timer/CraftTimerState'
 
 type WorkshopRow = {
   id: number
@@ -23,10 +24,16 @@ type WorkshopViewProps = {
   activeCollection: BlueprintCollection | undefined
   calculator: CostCalculator
   defaultMarkupPercent: number
+  craftTimer: CraftTimerState
+  onOpenCraftTimer: () => void  
   onUpdateCollectionEntry: (
     blueprintId: number,
     blueprintName: string,
     status: BlueprintAccessStatus | undefined
+  ) => void
+  onCraftBlueprint: (
+    blueprintName: string,
+    craftingMinutes: number
   ) => void
 }
 
@@ -34,7 +41,10 @@ function WorkshopView({
   activeCollection,
   calculator,
   defaultMarkupPercent,
+  craftTimer,
   onUpdateCollectionEntry,
+  onCraftBlueprint,
+  onOpenCraftTimer,
 }: WorkshopViewProps) {
   const [searchText, setSearchText] = useState('')
   const [selectedBlueprint, setSelectedBlueprint] =
@@ -78,7 +88,10 @@ function WorkshopView({
         blueprint,
       }
     })
-    .filter((item): item is WorkshopRow => item !== undefined)
+    .filter(
+      (item): item is WorkshopRow =>
+        item !== undefined
+    )
     .filter((item) => {
       const searchableFields = [
         item.name,
@@ -88,7 +101,9 @@ function WorkshopView({
       ]
 
       return searchableFields.some((field) =>
-        field.toLowerCase().includes(normalizedSearch)
+        field
+          .toLowerCase()
+          .includes(normalizedSearch)
       )
     })
 
@@ -124,13 +139,15 @@ function WorkshopView({
     },
   ]
 
-  const acquiredCount = activeCollection.entries.filter(
-    (entry) => entry.status === 'acquired'
-  ).length
+  const acquiredCount =
+    activeCollection.entries.filter(
+      (entry) => entry.status === 'acquired'
+    ).length
 
-  const toAcquireCount = activeCollection.entries.filter(
-    (entry) => entry.status === 'to-acquire'
-  ).length
+  const toAcquireCount =
+    activeCollection.entries.filter(
+      (entry) => entry.status === 'to-acquire'
+    ).length
 
   return (
     <section className="workshop-page">
@@ -182,12 +199,19 @@ function WorkshopView({
 
       {selectedBlueprint && (
         <BlueprintDetails
-          blueprint={selectedBlueprint}
-          calculator={calculator}
-          defaultMarkupPercent={defaultMarkupPercent}
-          activeCollection={activeCollection}
-          onUpdateCollectionEntry={onUpdateCollectionEntry}
-        />
+        blueprint={selectedBlueprint}
+        calculator={calculator}
+        defaultMarkupPercent={
+          defaultMarkupPercent
+        }
+        activeCollection={activeCollection}
+        craftTimer={craftTimer}
+        onUpdateCollectionEntry={
+          onUpdateCollectionEntry
+        }
+        onCraftBlueprint={onCraftBlueprint}
+        onOpenCraftTimer={onOpenCraftTimer}
+      />
       )}
     </section>
   )

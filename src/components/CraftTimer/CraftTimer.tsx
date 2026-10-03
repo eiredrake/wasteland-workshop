@@ -10,7 +10,6 @@ import {
   pauseCraftTimer,
   resetCraftTimer,
   resumeCraftTimer,
-  tickCraftTimer,
 } from '../../features/timer/CraftTimerEngine'
 import './CraftTimer.css'
 
@@ -63,22 +62,6 @@ function CraftTimer({
   useEffect(() => {
     onChangeRef.current = onChange
   }, [onChange])
-
-  useEffect(() => {
-    if (timer.status !== 'running') {
-      return
-    }
-
-    const intervalId = window.setInterval(() => {
-      onChangeRef.current(
-        tickCraftTimer(timerRef.current)
-      )
-    }, 250)
-
-    return () => {
-      window.clearInterval(intervalId)
-    }
-  }, [timer.status])
 
   useEffect(() => {
     return () => {

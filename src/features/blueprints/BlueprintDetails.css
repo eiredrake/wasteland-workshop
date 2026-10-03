@@ -221,3 +221,26 @@
     flex-direction: column;
   }
 }
+
+.blueprint-access-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.blueprint-access-info {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 650px) {
+  .blueprint-access-content {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .blueprint-craft-timer {
+    align-self: center;
+  }
+}

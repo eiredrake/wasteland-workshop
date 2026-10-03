@@ -1,0 +1,89 @@
+.blueprint-craft-timer {
+  width: 126px;
+  height: 126px;
+  flex: 0 0 126px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.blueprint-craft-timer-ring {
+  --timer-progress: 0deg;
+
+  display: grid;
+  width: 112px;
+  height: 112px;
+  margin: 7px;
+  padding: 7px;
+  box-sizing: border-box;
+  border-radius: 50%;
+
+  background:
+    conic-gradient(
+      #35362f 0deg,
+      #35362f calc(360deg - var(--timer-progress)),
+      var(--timer-color) calc(360deg - var(--timer-progress)),
+      var(--timer-color) 360deg
+    );
+
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 18px rgba(0, 0, 0, 0.3);
+}
+
+.blueprint-craft-timer-face {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+
+  background: #20211d;
+}
+
+.blueprint-craft-timer-time {
+  color: #f0e6d2;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.blueprint-craft-timer-start {
+  margin-top: 0.25rem;
+
+  color: #d9a03d;
+
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.blueprint-craft-timer:hover
+  .blueprint-craft-timer-face {
+  background: #292a25;
+}
+
+.blueprint-craft-timer:active {
+  transform: scale(0.97);
+}
+
+.blueprint-craft-timer:focus-visible {
+  outline: 2px solid #e37045;
+  outline-offset: 3px;
+}
+
+@media (max-width: 650px) {
+  .blueprint-craft-timer {
+    align-self: center;
+  }
+}

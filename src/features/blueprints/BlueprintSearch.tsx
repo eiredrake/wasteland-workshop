@@ -9,8 +9,12 @@ import type {
 import { testBlueprints } from './testBlueprints'
 import BlueprintDetails from './BlueprintDetails'
 import './BlueprintSearch.css'
+import type { CraftTimerState } from '../timer/CraftTimerState'
 
-const blueprintColumns: { key: keyof Blueprint; label: string }[] = [
+const blueprintColumns: {
+  key: keyof Blueprint
+  label: string
+}[] = [
   { key: 'name', label: 'Blueprint' },
   { key: 'kind', label: 'Kind' },
   { key: 'grade', label: 'Grade' },
@@ -19,11 +23,17 @@ const blueprintColumns: { key: keyof Blueprint; label: string }[] = [
 type BlueprintSearchProps = {
   calculator: CostCalculator
   defaultMarkupPercent: number
+  craftTimer: CraftTimerState
+  onOpenCraftTimer: () => void  
   activeCollection: BlueprintCollection | undefined
   onUpdateCollectionEntry: (
     blueprintId: number,
     blueprintName: string,
     status: BlueprintAccessStatus | undefined
+  ) => void
+  onCraftBlueprint: (
+    blueprintName: string,
+    craftingMinutes: number
   ) => void
 }
 
@@ -31,30 +41,41 @@ function BlueprintSearch({
   calculator,
   defaultMarkupPercent,
   activeCollection,
+  craftTimer,
   onUpdateCollectionEntry,
+  onCraftBlueprint,
+  onOpenCraftTimer,
 }: BlueprintSearchProps) {
   const [searchText, setSearchText] = useState('')
   const [selectedBlueprint, setSelectedBlueprint] =
     useState<Blueprint | null>(null)
 
-  const normalizedSearch = searchText.trim().toLowerCase()
+  const normalizedSearch =
+    searchText.trim().toLowerCase()
 
-  const handleBlueprintClick = (blueprint: Blueprint) => {
+  const handleBlueprintClick = (
+    blueprint: Blueprint
+  ) => {
     setSelectedBlueprint(blueprint)
   }
 
-  const filteredBlueprints = testBlueprints.filter((blueprint) => {
-    const searchableFields = [
-      blueprint.name,
-      blueprint.kind,
-      blueprint.grade,
-      blueprint.itemCraftings?.[0]?.craftingSkills ?? '',
-    ]
+  const filteredBlueprints = testBlueprints.filter(
+    (blueprint) => {
+      const searchableFields = [
+        blueprint.name,
+        blueprint.kind,
+        blueprint.grade,
+        blueprint.itemCraftings?.[0]
+          ?.craftingSkills ?? '',
+      ]
 
-    return searchableFields.some((field) =>
-      field.toLowerCase().includes(normalizedSearch)
-    )
-  })
+      return searchableFields.some((field) =>
+        field
+          .toLowerCase()
+          .includes(normalizedSearch)
+      )
+    }
+  )
 
   return (
     <section>
@@ -86,12 +107,19 @@ function BlueprintSearch({
 
       {selectedBlueprint && (
         <BlueprintDetails
-          blueprint={selectedBlueprint}
-          calculator={calculator}
-          defaultMarkupPercent={defaultMarkupPercent}
-          activeCollection={activeCollection}
-          onUpdateCollectionEntry={onUpdateCollectionEntry}
-        />
+        blueprint={selectedBlueprint}
+        calculator={calculator}
+        defaultMarkupPercent={
+          defaultMarkupPercent
+        }
+        activeCollection={activeCollection}
+        craftTimer={craftTimer}
+        onUpdateCollectionEntry={
+          onUpdateCollectionEntry
+        }
+        onCraftBlueprint={onCraftBlueprint}
+        onOpenCraftTimer={onOpenCraftTimer}
+      />
       )}
     </section>
   )

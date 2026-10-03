@@ -66,6 +66,23 @@ export function tickCraftTimer(
   }
 }
 
+export function loadCraftTimer(
+  durationMinutes: number,
+  label?: string
+): CraftTimerState {
+  const durationMs = Math.max(
+    0,
+    durationMinutes * MINUTE_MS
+  )
+
+  return {
+    label,
+    originalDurationMs: durationMs,
+    remainingMs: durationMs,
+    status: 'idle',
+  }
+}
+
 export function beginCraftTimer(
   timer: CraftTimerState,
   nowMs = Date.now()

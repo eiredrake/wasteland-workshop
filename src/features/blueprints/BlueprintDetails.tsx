@@ -5,8 +5,10 @@ import type {
   BlueprintCollection,
 } from './BlueprintCollection'
 import type { CostCalculator } from '../../economics/CostCalculator'
+import type { CraftTimerState } from '../timer/CraftTimerState'
 import { testResourceEconomics } from '../../economics/testResourceEconomics'
 import { calculateBlueprintCost } from '../../economics/BlueprintCostService'
+import BlueprintCraftTimer from '../../components/CraftTimer/BlueprintCraftTimer'
 import './BlueprintDetails.css'
 
 type BlueprintDetailsProps = {
@@ -14,11 +16,17 @@ type BlueprintDetailsProps = {
   calculator: CostCalculator
   defaultMarkupPercent: number
   activeCollection: BlueprintCollection | undefined
+  craftTimer: CraftTimerState
   onUpdateCollectionEntry: (
     blueprintId: number,
     blueprintName: string,
     status: BlueprintAccessStatus | undefined
   ) => void
+  onCraftBlueprint: (
+    blueprintName: string,
+    craftingMinutes: number
+  ) => void
+  onOpenCraftTimer: () => void
 }
 
 function BlueprintDetails({
@@ -26,7 +34,9 @@ function BlueprintDetails({
   calculator,
   defaultMarkupPercent,
   activeCollection,
+  craftTimer,
   onUpdateCollectionEntry,
+  onCraftBlueprint,
 }: BlueprintDetailsProps) {
   const [markupPercent, setMarkupPercent] =
     useState(defaultMarkupPercent)
@@ -35,10 +45,14 @@ function BlueprintDetails({
 
   const mind = crafting?.craftingMindCost ?? 0
   const minutes = crafting?.craftingTimeInMinute ?? 0
-  const skills = crafting?.craftingSkills ?? 'No crafting data'
+  const skills =
+    crafting?.craftingSkills ?? 'No crafting data'
 
-  const mindCost = calculator.calculateMindCost(mind)
-  const timeCost = calculator.calculateTimeCost(minutes)
+  const mindCost =
+    calculator.calculateMindCost(mind)
+
+  const timeCost =
+    calculator.calculateTimeCost(minutes)
 
   const costs = crafting
     ? calculateBlueprintCost(
@@ -62,9 +76,11 @@ function BlueprintDetails({
       ? undefined
       : sellingPrice - costs.productionCost
 
-  const collectionEntry = activeCollection?.entries.find(
-    (entry) => entry.blueprintId === blueprint.id
-  )
+  const collectionEntry =
+    activeCollection?.entries.find(
+      (entry) =>
+        entry.blueprintId === blueprint.id
+    )
 
   const collectionStatus =
     collectionEntry?.status === 'acquired'
@@ -111,54 +127,82 @@ function BlueprintDetails({
         </div>
 
         {activeCollection ? (
-          <>
-            <div className="blueprint-access-collection">
-              <span>Active Collection</span>
-              <strong>{activeCollection.name}</strong>
+          <div className="blueprint-access-content">
+            <div className="blueprint-access-info">
+              <div className="blueprint-access-collection">
+                <span>Active Collection</span>
+
+                <strong>
+                  {activeCollection.name}
+                </strong>
+              </div>
+
+              <div className="blueprint-access-actions">
+                {collectionEntry?.status !==
+                  'acquired' && (
+                  <button
+                    type="button"
+                    className="primary-button"
+                    onClick={() =>
+                      updateCollectionStatus(
+                        'acquired'
+                      )
+                    }
+                  >
+                    Mark Acquired
+                  </button>
+                )}
+
+                {collectionEntry?.status !==
+                  'to-acquire' && (
+                  <button
+                    type="button"
+                    className="secondary-button"
+                    onClick={() =>
+                      updateCollectionStatus(
+                        'to-acquire'
+                      )
+                    }
+                  >
+                    To Acquire
+                  </button>
+                )}
+
+                {collectionEntry && (
+                  <button
+                    type="button"
+                    className="secondary-button"
+                    onClick={() =>
+                      updateCollectionStatus(
+                        undefined
+                      )
+                    }
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
             </div>
 
-            <div className="blueprint-access-actions">
-              {collectionEntry?.status !== 'acquired' && (
-                <button
-                  type="button"
-                  className="primary-button"
-                  onClick={() =>
-                    updateCollectionStatus('acquired')
-                  }
-                >
-                  Mark Acquired
-                </button>
-              )}
-
-              {collectionEntry?.status !== 'to-acquire' && (
-                <button
-                  type="button"
-                  className="secondary-button"
-                  onClick={() =>
-                    updateCollectionStatus('to-acquire')
-                  }
-                >
-                  To Acquire
-                </button>
-              )}
-
-              {collectionEntry && (
-                <button
-                  type="button"
-                  className="secondary-button"
-                  onClick={() =>
-                    updateCollectionStatus(undefined)
-                  }
-                >
-                  Remove
-                </button>
-              )}
-            </div>
-          </>
+            {minutes > 0 && (
+              <BlueprintCraftTimer
+                blueprintName={blueprint.name}
+                minutes={minutes}
+                timer={craftTimer}
+                onStart={() =>
+                  onCraftBlueprint(
+                    blueprint.name,
+                    minutes
+                  )
+                }
+              />
+            )}
+          </div>
         ) : (
           <p>
-            No active blueprint collection. Select one from Blueprint
-            Collections to track this blueprint.
+            No active blueprint collection. Select
+            one from Blueprint Collections to track
+            this blueprint.
           </p>
         )}
       </section>
@@ -186,12 +230,16 @@ function BlueprintDetails({
 
             <div>
               <dt>Resolve</dt>
-              <dd>{crafting?.craftingResolveCost ?? 0}</dd>
+              <dd>
+                {crafting?.craftingResolveCost ?? 0}
+              </dd>
             </div>
 
             <div>
               <dt>Zone</dt>
-              <dd>{crafting?.craftingZone ?? 'Unknown'}</dd>
+              <dd>
+                {crafting?.craftingZone ?? 'Unknown'}
+              </dd>
             </div>
           </dl>
         </section>
@@ -215,7 +263,9 @@ function BlueprintDetails({
                 {costs === undefined
                   ? 'Unknown'
                   : `${costs.materialCost}cr${
-                      costs.hasUnknownComponentCosts ? '*' : ''
+                      costs.hasUnknownComponentCosts
+                        ? '*'
+                        : ''
                     }`}
               </dd>
             </div>
@@ -239,7 +289,9 @@ function BlueprintDetails({
                       value={markupPercent}
                       onChange={(event) =>
                         setMarkupPercent(
-                          Number(event.target.value)
+                          Number(
+                            event.target.value
+                          )
                         )
                       }
                     >
@@ -270,37 +322,45 @@ function BlueprintDetails({
       <section className="blueprint-details-card blueprint-components-card">
         <h3>Components</h3>
 
-        {!costs || costs.components.length === 0 ? (
+        {!costs ||
+        costs.components.length === 0 ? (
           <p>No component data available.</p>
         ) : (
           <div className="blueprint-components">
-            {costs.components.map((component) => (
-              <div
-                className="blueprint-component-row"
-                key={component.itemId}
-              >
-                <strong>{component.name}</strong>
+            {costs.components.map(
+              (component) => (
+                <div
+                  className="blueprint-component-row"
+                  key={component.itemId}
+                >
+                  <strong>
+                    {component.name}
+                  </strong>
 
-                <span>
-                  {component.quantity}
-                  {component.unitCost !== undefined &&
-                    ` × ${component.unitCost}cr`}
-                </span>
+                  <span>
+                    {component.quantity}
+                    {component.unitCost !==
+                      undefined &&
+                      ` × ${component.unitCost}cr`}
+                  </span>
 
-                <strong className="blueprint-component-total">
-                  {component.totalCost === undefined
-                    ? 'Unknown'
-                    : `${component.totalCost}cr`}
-                </strong>
-              </div>
-            ))}
+                  <strong className="blueprint-component-total">
+                    {component.totalCost ===
+                    undefined
+                      ? 'Unknown'
+                      : `${component.totalCost}cr`}
+                  </strong>
+                </div>
+              )
+            )}
           </div>
         )}
 
         {costs?.hasUnknownComponentCosts && (
           <p className="blueprint-cost-warning">
-            * Cost estimate is incomplete because one or more component
-            values are unknown.
+            * Cost estimate is incomplete because
+            one or more component values are
+            unknown.
           </p>
         )}
       </section>

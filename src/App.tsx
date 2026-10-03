@@ -1,4 +1,9 @@
-import { useState } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
+
 import './App.css'
 
 import BlueprintSearch from './features/blueprints/BlueprintSearch'
@@ -13,6 +18,14 @@ import {
   createIdleCraftTimer,
   type CraftTimerState,
 } from './features/timer/CraftTimerState'
+
+import {
+  beginCraftTimer,
+  loadCraftTimer,
+  pauseCraftTimer,
+  resumeCraftTimer,
+  tickCraftTimer,
+} from './features/timer/CraftTimerEngine'
 
 import { DefaultCostCalculator } from './economics/DefaultCostCalculator'
 import {
@@ -96,6 +109,30 @@ function App() {
   const [craftTimer, setCraftTimer] =
     useState<CraftTimerState>(createIdleCraftTimer)
 
+    const craftTimerRef = useRef(craftTimer)
+
+    useEffect(() => {
+      craftTimerRef.current = craftTimer
+    }, [craftTimer])
+    
+    useEffect(() => {
+      if (craftTimer.status !== 'running') {
+        return
+      }
+    
+      const intervalId = window.setInterval(() => {
+        const updatedTimer =
+          tickCraftTimer(craftTimerRef.current)
+    
+        craftTimerRef.current = updatedTimer
+        setCraftTimer(updatedTimer)
+      }, 250)
+    
+      return () => {
+        window.clearInterval(intervalId)
+      }
+    }, [craftTimer.status])    
+
   const calculator =
     new DefaultCostCalculator(economicsSettings)
 
@@ -141,6 +178,47 @@ function App() {
   const openCraftTimer = () => {
     setCurrentView('timer')
     setMenuOpen(false)
+  }
+
+  const loadBlueprintIntoCraftTimer = (
+    blueprintName: string,
+    craftingMinutes: number
+  ) => {
+    if (
+      craftTimer.label === blueprintName &&
+      craftTimer.status === 'running'
+    ) {
+      setCraftTimer(
+        pauseCraftTimer(craftTimer)
+      )
+  
+      return
+    }
+  
+    if (
+      craftTimer.label === blueprintName &&
+      craftTimer.status === 'paused'
+    ) {
+      setCraftTimer(
+        resumeCraftTimer(craftTimer)
+      )
+  
+      return
+    }
+  
+    const loadedTimer = loadCraftTimer(
+      craftingMinutes,
+      blueprintName
+    )
+  
+    setCraftTimer(
+      beginCraftTimer(loadedTimer)
+    )
+  
+    showToast(
+      `Crafting "${blueprintName}" — ${craftingMinutes} minute timer started.`,
+      'success'
+    )
   }
 
   const saveEconomicsSettings = (
@@ -208,10 +286,11 @@ function App() {
       return
     }
 
-    const updatedCollections = blueprintCollections.map(
-      (collection) => {
+    const updatedCollections =
+      blueprintCollections.map((collection) => {
         if (
-          collection.id !== activeBlueprintCollectionId
+          collection.id !==
+          activeBlueprintCollectionId
         ) {
           return collection
         }
@@ -239,8 +318,7 @@ function App() {
             },
           ],
         }
-      }
-    )
+      })
 
     setBlueprintCollections(updatedCollections)
     saveBlueprintCollections(updatedCollections)
@@ -369,9 +447,14 @@ function App() {
           defaultMarkupPercent={
             economicsSettings.defaultMarkupPercent
           }
+          craftTimer={craftTimer}
           onUpdateCollectionEntry={
             updateBlueprintCollectionEntry
           }
+          onCraftBlueprint={
+            loadBlueprintIntoCraftTimer
+          }
+          onOpenCraftTimer={openCraftTimer}
         />
       )}
 
@@ -384,9 +467,14 @@ function App() {
           activeCollection={
             activeBlueprintCollection
           }
+          craftTimer={craftTimer}
           onUpdateCollectionEntry={
             updateBlueprintCollectionEntry
           }
+          onCraftBlueprint={
+            loadBlueprintIntoCraftTimer
+          }
+          onOpenCraftTimer={openCraftTimer}
         />
       )}
 
