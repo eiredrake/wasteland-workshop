@@ -106,3 +106,38 @@
     gap: 0.25rem;
   }
 }
+
+.workshop-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 0.75rem;
+}
+
+.workshop-filter {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #55564e;
+  border-radius: 999px;
+  background: transparent;
+  color: #aaa79f;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.workshop-filter:hover {
+  border-color: #d6a33d;
+  color: #f0e6d2;
+}
+
+.workshop-filter.active {
+  border-color: #d6a33d;
+  background: rgba(214, 163, 61, 0.12);
+  color: #d6a33d;
+}
+
+.workshop-filter:focus-visible {
+  outline: 2px solid #d6a33d;
+  outline-offset: 2px;
+}

@@ -46,6 +46,9 @@ function WorkshopView({
   onOpenCraftTimer,
 }: WorkshopViewProps) {
   const [searchText, setSearchText] = useState('')
+  const [statusFilter, setStatusFilter] = useState<
+  'all' | BlueprintAccessStatus
+>('all')
 
   if (!activeCollection) {
     return (
@@ -104,6 +107,12 @@ function WorkshopView({
         )
       })
 
+      .filter((item) =>
+        statusFilter === 'all'
+          ? true
+          : item.status === statusFilter
+      )      
+
   const workshopColumns: {
     key: keyof WorkshopRow
     label: string
@@ -158,6 +167,44 @@ function WorkshopView({
           <span>{toAcquireCount} to acquire</span>
         </div>
       </header>
+
+      <div className="workshop-filters">
+        <button
+          type="button"
+          className={
+            statusFilter === 'all'
+              ? 'workshop-filter active'
+              : 'workshop-filter'
+          }
+          onClick={() => setStatusFilter('all')}
+        >
+          All ({activeCollection.entries.length})
+        </button>
+
+        <button
+          type="button"
+          className={
+            statusFilter === 'acquired'
+              ? 'workshop-filter active'
+              : 'workshop-filter'
+          }
+          onClick={() => setStatusFilter('acquired')}
+        >
+          Acquired ({acquiredCount})
+        </button>
+
+        <button
+          type="button"
+          className={
+            statusFilter === 'to-acquire'
+              ? 'workshop-filter active'
+              : 'workshop-filter'
+          }
+          onClick={() => setStatusFilter('to-acquire')}
+        >
+          To Acquire ({toAcquireCount})
+        </button>
+      </div>      
 
       <div className="blueprint-search">
         <span
