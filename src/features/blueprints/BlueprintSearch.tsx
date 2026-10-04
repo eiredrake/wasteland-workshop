@@ -31,6 +31,15 @@ function getBlueprintKind(blueprint: Blueprint) {
     .join(' ')
 }
 
+function getBlueprintCraftingSkill(
+  blueprint: Blueprint
+) {
+  return (
+    blueprint.itemCraftings?.[0]
+      ?.craftingSkills ?? 'Unknown'
+  )
+}
+
 function getBlueprintStatus(
   blueprint: Blueprint,
   activeCollection: BlueprintCollection | undefined
@@ -116,10 +125,26 @@ function BlueprintSearch({
       label: 'Blueprint',
     },
     {
+      key: 'itemCraftings' as keyof Blueprint,
+      label: 'Crafting Skill',
+      sortValue: (blueprint: Blueprint) =>
+        getBlueprintCraftingSkill(blueprint),
+      render: (blueprint: Blueprint) => (
+        <span className="blueprint-crafting-skill">
+          {getBlueprintCraftingSkill(blueprint)}
+        </span>
+      ),
+    },
+    {
       key: 'kind' as keyof Blueprint,
       label: 'Kind',
-      render: (blueprint: Blueprint) =>
+      sortValue: (blueprint: Blueprint) =>
         getBlueprintKind(blueprint),
+      render: (blueprint: Blueprint) => (
+        <span className="blueprint-kind">
+          {getBlueprintKind(blueprint)}
+        </span>
+      ),
     },
     {
       key: 'id' as keyof Blueprint,
@@ -173,13 +198,12 @@ function BlueprintSearch({
     },
   ]
 
-  const filteredBlueprints = masterBlueprints.filter(
-    (blueprint) => {
+  const filteredBlueprints =
+    masterBlueprints.filter((blueprint) => {
       const searchableFields = [
         blueprint.name,
+        getBlueprintCraftingSkill(blueprint),
         getBlueprintKind(blueprint),
-        blueprint.itemCraftings?.[0]
-          ?.craftingSkills ?? '',
       ]
 
       return searchableFields.some((field) =>
@@ -187,8 +211,7 @@ function BlueprintSearch({
           .toLowerCase()
           .includes(normalizedSearch)
       )
-    }
-  )
+    })
 
   return (
     <section>

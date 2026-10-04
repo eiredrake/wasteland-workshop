@@ -88,3 +88,17 @@ button.workshop-status {
 .workshop-status-none {
   color: #8f8f8f;
 }
+
+.blueprint-crafting-skill {
+  display: block;
+  max-width: 22rem;
+  white-space: normal;
+  overflow-wrap: break-word;
+  line-height: 1.3;
+}
+
+.blueprint-kind {
+  display: block;
+  min-width: 7rem;
+  white-space: nowrap;
+}

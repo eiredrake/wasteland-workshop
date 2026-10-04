@@ -9,6 +9,7 @@ type DatalistColumn<T> = {
   key: keyof T
   label: string
   render?: (item: T) => ReactNode
+  sortValue?: (item: T) => string | number
 }
 
 type DatalistProps<T> = {
@@ -85,11 +86,20 @@ function Datalist<T>({
       return 0
     }
 
-    const aValue = String(a[sortKey] ?? '')
-    const bValue = String(b[sortKey] ?? '')
+    const sortColumn = columns.find(
+      (column) => column.key === sortKey
+    )
 
-    const comparison = aValue.localeCompare(
-      bValue,
+    const aValue = sortColumn?.sortValue
+      ? sortColumn.sortValue(a)
+      : a[sortKey]
+
+    const bValue = sortColumn?.sortValue
+      ? sortColumn.sortValue(b)
+      : b[sortKey]
+
+    const comparison = String(aValue ?? '').localeCompare(
+      String(bValue ?? ''),
       undefined,
       {
         numeric: true,

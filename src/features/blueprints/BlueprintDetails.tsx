@@ -54,6 +54,26 @@ function BlueprintDetails({
   const itemMechanics =
     finalProduct?.metadata?.mechanics?.trim()
 
+    const uses = finalProduct?.metadata?.uses
+
+    const requirementsToUse = finalProduct?.metadata?.requirementsToUse
+
+  const lifetimeAmount =
+    finalProduct?.lifetimeAmount
+
+  const lifetimeUnit =
+    finalProduct?.lifetimeUnit
+
+  const expiration =
+    lifetimeAmount && lifetimeUnit
+      ? `${lifetimeAmount} ${lifetimeUnit}${
+          lifetimeAmount === 1 ? '' : 's'
+        }`
+      : undefined    
+
+  const durationOfEffect =
+    finalProduct?.metadata?.durationOfEffect
+
   const specialNotes =
     blueprint.metadata?.notes?.trim()
 
@@ -120,6 +140,34 @@ function BlueprintDetails({
             <h3>Crafting Skill</h3>
             <p>{skills}</p>
           </div>
+
+            {uses !== undefined && uses !== null && (
+              <div className="blueprint-mechanics-section">
+                <h3>Uses</h3>
+                <p>{uses}</p>
+              </div>
+            )}
+
+            {requirementsToUse && (
+              <div className="blueprint-mechanics-section">
+                <h3>Requirements To Use</h3>
+                <p>{requirementsToUse}</p>
+              </div>
+            )}            
+
+            {expiration && (
+              <div className="blueprint-mechanics-section">
+                <h3>Expiration</h3>
+                <p>{expiration}</p>
+              </div>
+            )}          
+
+            {durationOfEffect && (
+              <div className="blueprint-mechanics-section">
+                <h3>Duration of Effect</h3>
+                <p>{durationOfEffect}</p>
+              </div>
+            )}            
 
           {itemMechanics && (
             <div className="blueprint-mechanics-section">

@@ -15,6 +15,7 @@ type WorkshopRow = {
   id: number
   name: string
   craftingSkill: string
+  kind: string
   status: BlueprintAccessStatus
   blueprint: Blueprint
 }
@@ -34,6 +35,21 @@ type WorkshopViewProps = {
     blueprintName: string,
     craftingMinutes: number
   ) => void
+}
+
+function formatKind(kind: string | undefined) {
+  if (!kind) {
+    return 'Unknown'
+  }
+
+  return kind
+    .split('_')
+    .map(
+      (word) =>
+        word.charAt(0).toUpperCase() +
+        word.slice(1)
+    )
+    .join(' ')
 }
 
 function WorkshopView({
@@ -85,6 +101,11 @@ function WorkshopView({
           craftingSkill:
             blueprint.itemCraftings?.[0]
               ?.craftingSkills ?? 'Unknown',
+          kind: formatKind(
+            blueprint.itemCraftings?.[0]
+              ?.craftingFinalProducts?.[0]
+              ?.finalProduct.kind
+          ),
           status: entry.status,
           blueprint,
         }
@@ -97,6 +118,7 @@ function WorkshopView({
         const searchableFields = [
           item.name,
           item.craftingSkill,
+          item.kind,
           item.status,
         ]
 
@@ -125,6 +147,20 @@ function WorkshopView({
     {
       key: 'craftingSkill',
       label: 'Crafting Skill',
+      render: (item) => (
+        <span className="workshop-crafting-skill">
+          {item.craftingSkill}
+        </span>
+      )
+    },
+    {
+      key: 'kind',
+      label: 'Kind',
+      render: (item) => (
+        <span className="workshop-kind">
+          {item.kind}
+        </span>
+      )      
     },
     {
       key: 'status',
