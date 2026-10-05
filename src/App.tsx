@@ -274,16 +274,6 @@ function App() {
     setBlueprintCollections(updatedCollections)
     saveBlueprintCollections(updatedCollections)
   
-    console.log('COLLECTION CREATE DEBUG', {
-      collectionCountBeforeCreate:
-        blueprintCollections.length,
-      activeIdBeforeCreate:
-        activeBlueprintCollectionId,
-      newCollectionId:
-        newCollection.id,
-    })
-
-
     if (blueprintCollections.length === 0) {
       setActiveBlueprintCollectionId(
         newCollection.id
