@@ -5,7 +5,7 @@ Open wasteland-workshop as the VS Code workspace. The installed Tentacles Contro
 - Run DEV: Vite at http://localhost:5173, with no version change.
 - Build DEV: TypeScript checks and Vite production bundle, with no version change.
 - Run Tests: Vitest plus isolated release/deploy tooling checks.
-- Release: prompts for a newer MAJOR.MINOR.PATCH version. Requires clean main matching origin/main. Installs locked dependencies, updates package.json/package-lock.json, tests, lints, builds the bundle and local versioned Docker image, then commits, creates an annotated vVERSION tag and atomically pushes main and that tag to origin. Does not deploy.
+- Release: prompts for a newer MAJOR.MINOR.PATCH version. Requires clean main matching origin/main. Uses existing local dependencies (Docker installs locked dependencies independently), updates package.json/package-lock.json, tests, lints, builds the bundle and local versioned Docker image, then commits, creates an annotated vVERSION tag and atomically pushes main and that tag to origin. Does not deploy.
 - Deploy: prompts for an existing local release version. Validates the image label, Compose target and external proxy-tier network, updates only the app without building/pulling, then verifies the served version and running image at port 805. Supports first deployment.
 
 package.json is the authoritative version. The lockfile is synchronized automatically. Vite embeds it in the header and emits dist/version.json. Docker images use wasteland-workshop:vVERSION and a matching version label. Release does not increment in CI and does not publish a registry image. Run Release and Deploy against the same Docker daemon.

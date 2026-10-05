@@ -17,6 +17,9 @@ try {
     Set-Content "$fixtureRepo/scripts/run-all-tests.ps1" '# App tests mocked in this fixture'
     Set-Content "$fixtureRepo/package.json" '{"version":"0.1.0"}'
     Set-Content "$fixtureRepo/package-lock.json" '{"version":"0.1.0","packages":{"":{"version":"0.1.0"}}}'
+    Set-Content "$fixtureRepo/.gitignore" 'node_modules/'
+    New-Item -ItemType Directory -Path "$fixtureRepo/node_modules/.bin" -Force | Out-Null
+    Set-Content "$fixtureRepo/node_modules/.bin/vite.cmd" '@echo off'
     Test-Git init --bare $fixtureRemote
     Test-Git -C $fixtureRepo init -b main
     Test-Git -C $fixtureRepo config user.name 'Workshop Test'

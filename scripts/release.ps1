@@ -23,7 +23,11 @@ Write-Host "Release ${tag}: validate, build local Docker image, commit, tag, and
 if ($Preview) { Write-Host 'Preview only. No changes made.'; return }
 Push-Location $repo
 try {
-    Invoke-Checked npm.cmd @('ci')
+    # Keep the development server's loaded native modules intact.
+    # Docker performs its own clean, locked npm ci inside the build image.
+    if (!(Test-Path (Join-Path $repo 'node_modules/.bin/vite.cmd'))) {
+        throw 'Dependencies are missing. Stop Run DEV, run npm ci once, then retry Release.'
+    }
     Invoke-Checked npm.cmd @('version', $number, '--no-git-tag-version', '--ignore-scripts')
     & "$PSScriptRoot/run-all-tests.ps1"
     Invoke-Checked npm.cmd @('run', 'lint')
