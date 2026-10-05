@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "Tentacles: Run DEV", "type": "shell", "command": "${env:SystemRoot}/System32/WindowsPowerShell/v1.0/powershell.exe", "args": ["-NoProfile", "-File", "${workspaceFolder}/scripts/dev-run.ps1"], "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": [] },
+    { "label": "Tentacles: Build DEV", "type": "shell", "command": "${env:SystemRoot}/System32/WindowsPowerShell/v1.0/powershell.exe", "args": ["-NoProfile", "-File", "${workspaceFolder}/scripts/dev-build.ps1"], "options": { "cwd": "${workspaceFolder}" }, "group": "build", "problemMatcher": [] },
+    { "label": "Tentacles: Run Tests", "type": "shell", "command": "${env:SystemRoot}/System32/WindowsPowerShell/v1.0/powershell.exe", "args": ["-NoProfile", "-File", "${workspaceFolder}/scripts/run-all-tests.ps1"], "options": { "cwd": "${workspaceFolder}" }, "group": "test", "problemMatcher": [] },
+    { "label": "Tentacles: Release", "type": "shell", "command": "${env:SystemRoot}/System32/WindowsPowerShell/v1.0/powershell.exe", "args": ["-NoProfile", "-File", "${workspaceFolder}/scripts/release.ps1", "-Version", "${input:workshopVersion}"], "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": [] },
+    { "label": "Tentacles: Deploy", "type": "shell", "command": "${env:SystemRoot}/System32/WindowsPowerShell/v1.0/powershell.exe", "args": ["-NoProfile", "-File", "${workspaceFolder}/scripts/deploy.ps1", "-Version", "${input:workshopVersion}"], "options": { "cwd": "${workspaceFolder}" }, "problemMatcher": [] }
+  ],
+  "inputs": [{ "id": "workshopVersion", "type": "promptString", "description": "Workshop version (example: 0.1.0; Deploy must use an already released local image)" }]
+}

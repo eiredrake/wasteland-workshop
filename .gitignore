@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Shared toolbar task bindings
+!.vscode/tasks.json

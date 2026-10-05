@@ -259,29 +259,30 @@ function App() {
     )
   }
 
-  const addBlueprintCollection = (
-    name: string
-  ) => {
-    const newCollection:
-      BlueprintCollection = {
-        id: crypto.randomUUID(),
-        name,
-        entries: [],
-      }
-
+  const addBlueprintCollection = (name: string) => {
+    const newCollection: BlueprintCollection = {
+      id: crypto.randomUUID(),
+      name,
+      entries: [],
+    }
+  
     const updatedCollections = [
       ...blueprintCollections,
       newCollection,
     ]
-
-    setBlueprintCollections(
-      updatedCollections
-    )
-
-    saveBlueprintCollections(
-      updatedCollections
-    )
-
+  
+    setBlueprintCollections(updatedCollections)
+    saveBlueprintCollections(updatedCollections)
+  
+    if (!activeBlueprintCollection) {
+      setActiveBlueprintCollectionId(
+        newCollection.id
+      )
+      saveActiveBlueprintCollectionId(
+        newCollection.id
+      )
+    }
+  
     showToast(
       `Created blueprint collection "${name}".`,
       'success'
@@ -509,13 +510,11 @@ function App() {
 
         <div>
           <h1>
-            Wasteland Workshop
+          Wasteland Workshop
+          <span className="app-version">
+            v{__APP_VERSION__}
+          </span>
           </h1>
-
-          <p>
-            Dystopia Rising crafting
-            economics and build planning.
-          </p>
         </div>
       </header>
 

@@ -1,18 +1,13 @@
 services:
   wasteland-workshop:
     container_name: wasteland-workshop
-
     build:
       context: .
       dockerfile: Dockerfile
-
     ports:
-      - "805:80"         
-
-    image: wasteland-workshop:latest
-
+      - "805:80"
+    image: wasteland-workshop:${WORKSHOP_VERSION:-latest}
     restart: unless-stopped
-
     networks:
       - proxy-tier
 
