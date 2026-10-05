@@ -274,7 +274,17 @@ function App() {
     setBlueprintCollections(updatedCollections)
     saveBlueprintCollections(updatedCollections)
   
-    if (!activeBlueprintCollection) {
+    console.log('COLLECTION CREATE DEBUG', {
+      collectionCountBeforeCreate:
+        blueprintCollections.length,
+      activeIdBeforeCreate:
+        activeBlueprintCollectionId,
+      newCollectionId:
+        newCollection.id,
+    })
+
+
+    if (blueprintCollections.length === 0) {
       setActiveBlueprintCollectionId(
         newCollection.id
       )
@@ -312,6 +322,16 @@ function App() {
     saveBlueprintCollections(
       updatedCollections
     )
+
+    if (blueprintCollections.length === 0) {
+      setActiveBlueprintCollectionId(
+        newCollection.id
+      )
+    
+      saveActiveBlueprintCollectionId(
+        newCollection.id
+      )
+    }    
 
     showToast(
       `Imported blueprint collection "${name}" with ${entries.length} blueprints.`,
