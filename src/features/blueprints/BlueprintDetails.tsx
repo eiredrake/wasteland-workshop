@@ -48,8 +48,18 @@ function BlueprintDetails({
   const skills = crafting?.craftingSkills ?? 'No crafting data'
 
   const finalProduct =
-  crafting?.craftingFinalProducts?.[0]
-    ?.finalProduct
+  crafting?.craftingFinalProducts?.[0]?.finalProduct
+
+    const itemType = finalProduct?.kind
+    ? finalProduct.kind
+        .split('_')
+        .map(
+          (word) =>
+            word.charAt(0).toUpperCase() +
+            word.slice(1)
+        )
+        .join(' ')
+    : 'Unknown'    
 
   const itemMechanics =
     finalProduct?.metadata?.mechanics?.trim()
@@ -140,6 +150,11 @@ function BlueprintDetails({
             <h3>Crafting Skill</h3>
             <p>{skills}</p>
           </div>
+
+          <div className="blueprint-mechanics-section">
+            <h3>Item Type</h3>
+            <p>{itemType}</p>
+          </div>          
 
             {uses !== undefined && uses !== null && (
               <div className="blueprint-mechanics-section">

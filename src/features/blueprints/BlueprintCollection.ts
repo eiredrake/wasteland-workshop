@@ -1,4 +1,7 @@
-export type BlueprintAccessStatus = 'acquired' | 'to-acquire'
+export type BlueprintAccessStatus =
+  | 'acquired'
+  | 'to-acquire'
+  | 'sell'
 
 export type BlueprintCollectionEntry = {
   blueprintId: number
