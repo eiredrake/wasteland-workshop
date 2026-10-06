@@ -39,25 +39,54 @@
 }
 
 .blueprint-access-status {
+  appearance: none;
+  align-self: flex-start;
+  width: auto;
+  margin: 0.5rem 0 0;
   padding: 0.3rem 0.65rem;
+
   border: 1px solid currentColor;
   border-radius: 999px;
+
+  background: transparent;
+
+  font: inherit;
   font-size: 0.75rem;
   font-weight: 700;
+  line-height: 1.2;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+
+  cursor: pointer;
 }
 
 .blueprint-access-status-acquired {
+  background: rgba(95, 159, 98, 0.18);
   color: #5f9f62;
 }
 
 .blueprint-access-status-to-acquire {
+  background: rgba(214, 163, 61, 0.18);
   color: #d6a33d;
 }
 
 .blueprint-access-status-untracked {
+  background: rgba(170, 167, 159, 0.12);
   color: #aaa79f;
+}
+
+.blueprint-access-status-sell {
+  background: rgba(34, 211, 238, 0.16);
+  color: #22d3ee;
+}
+
+.blueprint-access-status:hover {
+  filter: brightness(1.2);
+}
+
+.blueprint-access-status:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 .blueprint-access-collection {
