@@ -21,7 +21,8 @@ type WorkshopRow = {
 }
 
 type WorkshopViewProps = {
-  activeCollection: BlueprintCollection | undefined
+  activeCollection:
+    BlueprintCollection | undefined
   calculator: CostCalculator
   defaultMarkupPercent: number
   craftTimer: CraftTimerState
@@ -29,7 +30,9 @@ type WorkshopViewProps = {
   onUpdateCollectionEntry: (
     blueprintId: number,
     blueprintName: string,
-    status: BlueprintAccessStatus | undefined
+    status:
+      | BlueprintAccessStatus
+      | undefined
   ) => void
   onCraftBlueprint: (
     blueprintName: string,
@@ -37,7 +40,23 @@ type WorkshopViewProps = {
   ) => void
 }
 
-function formatKind(kind: string | undefined) {
+type WorkshopColumn = {
+  key: keyof WorkshopRow
+  label: string
+  render?: (
+    item: WorkshopRow
+  ) => ReactNode
+  sortValue?: (
+    item: WorkshopRow
+  ) => string | number
+  protected?: boolean
+  priority?: number
+  minWidth?: number
+}
+
+function formatKind(
+  kind: string | undefined
+) {
   if (!kind) {
     return 'Unknown'
   }
@@ -52,6 +71,38 @@ function formatKind(kind: string | undefined) {
     .join(' ')
 }
 
+function getNextCollectionStatus(
+  currentStatus: BlueprintAccessStatus
+): BlueprintAccessStatus {
+  if (currentStatus === 'acquired') {
+    return 'to-acquire'
+  }
+
+  if (
+    currentStatus === 'to-acquire'
+  ) {
+    return 'sell'
+  }
+
+  return 'acquired'
+}
+
+function getStatusLabel(
+  status: BlueprintAccessStatus
+) {
+  if (status === 'acquired') {
+    return 'Acquired'
+  }
+
+  if (
+    status === 'to-acquire'
+  ) {
+    return 'Not Acquired'
+  }
+
+  return 'To Sell'
+}
+
 function WorkshopView({
   activeCollection,
   calculator,
@@ -61,20 +112,28 @@ function WorkshopView({
   onCraftBlueprint,
   onOpenCraftTimer,
 }: WorkshopViewProps) {
-  const [searchText, setSearchText] = useState('')
-  const [statusFilter, setStatusFilter] = useState<
-  'all' | BlueprintAccessStatus
->('all')
+  const [searchText, setSearchText] =
+    useState('')
+
+  const [
+    statusFilter,
+    setStatusFilter,
+  ] = useState<
+    'all' | BlueprintAccessStatus
+  >('all')
 
   if (!activeCollection) {
     return (
       <section className="workshop-page">
         <div className="workshop-no-collection">
-          <h2>No Active Blueprint Collection</h2>
+          <h2>
+            No Active Blueprint Collection
+          </h2>
 
           <p>
-            Select an active collection from Blueprint Collections to view
-            its blueprints here.
+            Select an active collection
+            from Blueprint Collections to
+            view its blueprints here.
           </p>
         </div>
       </section>
@@ -82,14 +141,19 @@ function WorkshopView({
   }
 
   const normalizedSearch =
-    searchText.trim().toLowerCase()
+    searchText
+      .trim()
+      .toLowerCase()
 
   const workshopRows: WorkshopRow[] =
     activeCollection.entries
       .map((entry) => {
-        const blueprint = masterBlueprints.find(
-          (item) => item.id === entry.blueprintId
-        )
+        const blueprint =
+          masterBlueprints.find(
+            (item) =>
+              item.id ===
+              entry.blueprintId
+          )
 
         if (!blueprint) {
           return undefined
@@ -99,10 +163,13 @@ function WorkshopView({
           id: blueprint.id,
           name: blueprint.name,
           craftingSkill:
-            blueprint.itemCraftings?.[0]
-              ?.craftingSkills ?? 'Unknown',
+            blueprint
+              .itemCraftings?.[0]
+              ?.craftingSkills ??
+            'Unknown',
           kind: formatKind(
-            blueprint.itemCraftings?.[0]
+            blueprint
+              .itemCraftings?.[0]
               ?.craftingFinalProducts?.[0]
               ?.finalProduct.kind
           ),
@@ -111,7 +178,9 @@ function WorkshopView({
         }
       })
       .filter(
-        (item): item is WorkshopRow =>
+        (
+          item
+        ): item is WorkshopRow =>
           item !== undefined
       )
       .filter((item) => {
@@ -120,58 +189,82 @@ function WorkshopView({
           item.craftingSkill,
           item.kind,
           item.status,
+          getStatusLabel(
+            item.status
+          ),
         ]
 
-        return searchableFields.some((field) =>
-          field
-            .toLowerCase()
-            .includes(normalizedSearch)
+        return searchableFields.some(
+          (field) =>
+            field
+              .toLowerCase()
+              .includes(
+                normalizedSearch
+              )
         )
       })
-
       .filter((item) =>
         statusFilter === 'all'
           ? true
-          : item.status === statusFilter
-      )      
+          : item.status ===
+            statusFilter
+      )
 
-  const workshopColumns: {
-    key: keyof WorkshopRow
-    label: string
-    render?: (item: WorkshopRow) => ReactNode
-  }[] = [
+  const workshopColumns:
+    WorkshopColumn[] = [
+    {
+      key: 'status',
+      label: 'Status',
+      protected: true,
+      minWidth: 120,
+      render: (item) => (
+        <button
+          type="button"
+          className={`workshop-status workshop-status-${item.status}`}
+          onClick={(event) => {
+            event.stopPropagation()
+
+            onUpdateCollectionEntry(
+              item.blueprint.id,
+              item.blueprint.name,
+              getNextCollectionStatus(
+                item.status
+              )
+            )
+          }}
+          title={`Change status in ${activeCollection.name}`}
+        >
+          {getStatusLabel(
+            item.status
+          )}
+        </button>
+      ),
+    },
     {
       key: 'name',
       label: 'Blueprint',
+      protected: true,
+      minWidth: 170,
     },
     {
       key: 'craftingSkill',
       label: 'Crafting Skill',
+      priority: 1,
+      minWidth: 210,
       render: (item) => (
         <span className="workshop-crafting-skill">
           {item.craftingSkill}
         </span>
-      )
+      ),
     },
     {
       key: 'kind',
       label: 'Kind',
+      priority: 2,
+      minWidth: 160,
       render: (item) => (
         <span className="workshop-kind">
           {item.kind}
-        </span>
-      )      
-    },
-    {
-      key: 'status',
-      label: 'Status',
-      render: (item) => (
-        <span
-          className={`workshop-status workshop-status-${item.status}`}
-        >
-          {item.status === 'acquired'
-            ? 'Acquired'
-            : 'To Acquire'}
         </span>
       ),
     },
@@ -179,12 +272,22 @@ function WorkshopView({
 
   const acquiredCount =
     activeCollection.entries.filter(
-      (entry) => entry.status === 'acquired'
+      (entry) =>
+        entry.status ===
+        'acquired'
     ).length
 
-  const toAcquireCount =
+  const notAcquiredCount =
     activeCollection.entries.filter(
-      (entry) => entry.status === 'to-acquire'
+      (entry) =>
+        entry.status ===
+        'to-acquire'
+    ).length
+
+  const toSellCount =
+    activeCollection.entries.filter(
+      (entry) =>
+        entry.status === 'sell'
     ).length
 
   return (
@@ -195,12 +298,24 @@ function WorkshopView({
             Active Collection
           </span>
 
-          <h2>{activeCollection.name}</h2>
+          <h2>
+            {activeCollection.name}
+          </h2>
         </div>
 
         <div className="workshop-active-counts">
-          <span>{acquiredCount} acquired</span>
-          <span>{toAcquireCount} to acquire</span>
+          <span>
+            {acquiredCount} acquired
+          </span>
+
+          <span>
+            {notAcquiredCount}{' '}
+            not acquired
+          </span>
+
+          <span>
+            {toSellCount} to sell
+          </span>
         </div>
       </header>
 
@@ -212,35 +327,68 @@ function WorkshopView({
               ? 'workshop-filter active'
               : 'workshop-filter'
           }
-          onClick={() => setStatusFilter('all')}
+          onClick={() =>
+            setStatusFilter('all')
+          }
         >
-          All ({activeCollection.entries.length})
+          All (
+          {
+            activeCollection
+              .entries.length
+          }
+          )
         </button>
 
         <button
           type="button"
           className={
-            statusFilter === 'acquired'
+            statusFilter ===
+            'acquired'
               ? 'workshop-filter active'
               : 'workshop-filter'
           }
-          onClick={() => setStatusFilter('acquired')}
+          onClick={() =>
+            setStatusFilter(
+              'acquired'
+            )
+          }
         >
-          Acquired ({acquiredCount})
+          Acquired (
+          {acquiredCount})
         </button>
 
         <button
           type="button"
           className={
-            statusFilter === 'to-acquire'
+            statusFilter ===
+            'to-acquire'
               ? 'workshop-filter active'
               : 'workshop-filter'
           }
-          onClick={() => setStatusFilter('to-acquire')}
+          onClick={() =>
+            setStatusFilter(
+              'to-acquire'
+            )
+          }
         >
-          To Acquire ({toAcquireCount})
+          Not Acquired (
+          {notAcquiredCount})
         </button>
-      </div>      
+
+        <button
+          type="button"
+          className={
+            statusFilter === 'sell'
+              ? 'workshop-filter active'
+              : 'workshop-filter'
+          }
+          onClick={() =>
+            setStatusFilter('sell')
+          }
+        >
+          To Sell ({toSellCount})
+        </button>
+      </div>
 
       <div className="blueprint-search">
         <span
@@ -253,7 +401,9 @@ function WorkshopView({
           placeholder={`Search ${activeCollection.name}...`}
           value={searchText}
           onChange={(event) =>
-            setSearchText(event.target.value)
+            setSearchText(
+              event.target.value
+            )
           }
         />
       </div>
@@ -261,7 +411,9 @@ function WorkshopView({
       <Datalist<WorkshopRow>
         items={workshopRows}
         columns={workshopColumns}
-        getRowKey={(item) => item.id}
+        getRowKey={(item) =>
+          item.id
+        }
         showAddButton={false}
         emptyMessage={
           normalizedSearch
@@ -271,17 +423,27 @@ function WorkshopView({
         backLabel={`Back to ${activeCollection.name}`}
         renderDetails={(item) => (
           <BlueprintDetails
-            blueprint={item.blueprint}
-            calculator={calculator}
+            blueprint={
+              item.blueprint
+            }
+            calculator={
+              calculator
+            }
             defaultMarkupPercent={
               defaultMarkupPercent
             }
-            activeCollection={activeCollection}
-            craftTimer={craftTimer}
+            activeCollection={
+              activeCollection
+            }
+            craftTimer={
+              craftTimer
+            }
             onUpdateCollectionEntry={
               onUpdateCollectionEntry
             }
-            onCraftBlueprint={onCraftBlueprint}
+            onCraftBlueprint={
+              onCraftBlueprint
+            }
             onOpenCraftTimer={
               onOpenCraftTimer
             }

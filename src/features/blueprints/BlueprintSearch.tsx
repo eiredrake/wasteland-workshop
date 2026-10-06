@@ -11,7 +11,9 @@ import BlueprintDetails from './BlueprintDetails'
 import './BlueprintSearch.css'
 import type { CraftTimerState } from '../timer/CraftTimerState'
 
-function getBlueprintKind(blueprint: Blueprint) {
+function getBlueprintKind(
+  blueprint: Blueprint
+) {
   const kind =
     blueprint.itemCraftings?.[0]
       ?.craftingFinalProducts?.[0]
@@ -42,15 +44,19 @@ function getBlueprintCraftingSkill(
 
 function getBlueprintStatus(
   blueprint: Blueprint,
-  activeCollection: BlueprintCollection | undefined
+  activeCollection:
+    BlueprintCollection | undefined
 ): BlueprintAccessStatus | undefined {
   return activeCollection?.entries.find(
-    (entry) => entry.blueprintId === blueprint.id
+    (entry) =>
+      entry.blueprintId === blueprint.id
   )?.status
 }
 
 function getNextStatus(
-  currentStatus: BlueprintAccessStatus | undefined
+  currentStatus:
+    | BlueprintAccessStatus
+    | undefined
 ): BlueprintAccessStatus | undefined {
   if (currentStatus === undefined) {
     return 'acquired'
@@ -60,7 +66,16 @@ function getNextStatus(
     return 'to-acquire'
   }
 
-  return undefined
+  if (currentStatus === 'to-acquire') {
+    return undefined
+  }
+
+  /*
+   * A blueprint already marked To Sell belongs
+   * to the collection, so clicking it from the
+   * Catalog returns it to Acquired.
+   */
+  return 'acquired'
 }
 
 type BlueprintSearchProps = {
@@ -68,11 +83,14 @@ type BlueprintSearchProps = {
   defaultMarkupPercent: number
   craftTimer: CraftTimerState
   onOpenCraftTimer: () => void
-  activeCollection: BlueprintCollection | undefined
+  activeCollection:
+    BlueprintCollection | undefined
   onUpdateCollectionEntry: (
     blueprintId: number,
     blueprintName: string,
-    status: BlueprintAccessStatus | undefined
+    status:
+      | BlueprintAccessStatus
+      | undefined
   ) => void
   onCraftBlueprint: (
     blueprintName: string,
@@ -89,10 +107,13 @@ function BlueprintSearch({
   onCraftBlueprint,
   onOpenCraftTimer,
 }: BlueprintSearchProps) {
-  const [searchText, setSearchText] = useState('')
+  const [searchText, setSearchText] =
+    useState('')
 
   const normalizedSearch =
-    searchText.trim().toLowerCase()
+    searchText
+      .trim()
+      .toLowerCase()
 
   const handleStatusClick = (
     event: React.MouseEvent,
@@ -104,10 +125,11 @@ function BlueprintSearch({
       return
     }
 
-    const currentStatus = getBlueprintStatus(
-      blueprint,
-      activeCollection
-    )
+    const currentStatus =
+      getBlueprintStatus(
+        blueprint,
+        activeCollection
+      )
 
     const nextStatus =
       getNextStatus(currentStatus)
@@ -121,34 +143,10 @@ function BlueprintSearch({
 
   const getBlueprintColumns = () => [
     {
-      key: 'name' as keyof Blueprint,
-      label: 'Blueprint',
-    },
-    {
-      key: 'itemCraftings' as keyof Blueprint,
-      label: 'Crafting Skill',
-      sortValue: (blueprint: Blueprint) =>
-        getBlueprintCraftingSkill(blueprint),
-      render: (blueprint: Blueprint) => (
-        <span className="blueprint-crafting-skill">
-          {getBlueprintCraftingSkill(blueprint)}
-        </span>
-      ),
-    },
-    {
-      key: 'kind' as keyof Blueprint,
-      label: 'Kind',
-      sortValue: (blueprint: Blueprint) =>
-        getBlueprintKind(blueprint),
-      render: (blueprint: Blueprint) => (
-        <span className="blueprint-kind">
-          {getBlueprintKind(blueprint)}
-        </span>
-      ),
-    },
-    {
       key: 'id' as keyof Blueprint,
       label: 'Status',
+      protected: true,
+      minWidth: 120,
       render: (blueprint: Blueprint) => {
         if (!activeCollection) {
           return (
@@ -158,10 +156,11 @@ function BlueprintSearch({
           )
         }
 
-        const status = getBlueprintStatus(
-          blueprint,
-          activeCollection
-        )
+        const status =
+          getBlueprintStatus(
+            blueprint,
+            activeCollection
+          )
 
         let label = 'Not Acquired'
         let className =
@@ -174,9 +173,15 @@ function BlueprintSearch({
         }
 
         if (status === 'to-acquire') {
-          label = 'To Acquire'
+          label = 'Not Acquired'
           className =
             'workshop-status workshop-status-to-acquire'
+        }
+
+        if (status === 'sell') {
+          label = 'To Sell'
+          className =
+            'workshop-status workshop-status-sell'
         }
 
         return (
@@ -196,22 +201,76 @@ function BlueprintSearch({
         )
       },
     },
+    {
+      key: 'name' as keyof Blueprint,
+      label: 'Blueprint',
+      protected: true,
+      minWidth: 170,
+    },
+    {
+      key:
+        'itemCraftings' as keyof Blueprint,
+      label: 'Crafting Skill',
+      priority: 1,
+      minWidth: 210,
+      sortValue: (
+        blueprint: Blueprint
+      ) =>
+        getBlueprintCraftingSkill(
+          blueprint
+        ),
+      render: (
+        blueprint: Blueprint
+      ) => (
+        <span className="blueprint-crafting-skill">
+          {getBlueprintCraftingSkill(
+            blueprint
+          )}
+        </span>
+      ),
+    },
+    {
+      key: 'kind' as keyof Blueprint,
+      label: 'Kind',
+      priority: 2,
+      minWidth: 160,
+      sortValue: (
+        blueprint: Blueprint
+      ) =>
+        getBlueprintKind(blueprint),
+      render: (
+        blueprint: Blueprint
+      ) => (
+        <span className="blueprint-kind">
+          {getBlueprintKind(
+            blueprint
+          )}
+        </span>
+      ),
+    },
   ]
 
   const filteredBlueprints =
-    masterBlueprints.filter((blueprint) => {
-      const searchableFields = [
-        blueprint.name,
-        getBlueprintCraftingSkill(blueprint),
-        getBlueprintKind(blueprint),
-      ]
+    masterBlueprints.filter(
+      (blueprint) => {
+        const searchableFields = [
+          blueprint.name,
+          getBlueprintCraftingSkill(
+            blueprint
+          ),
+          getBlueprintKind(blueprint),
+        ]
 
-      return searchableFields.some((field) =>
-        field
-          .toLowerCase()
-          .includes(normalizedSearch)
-      )
-    })
+        return searchableFields.some(
+          (field) =>
+            field
+              .toLowerCase()
+              .includes(
+                normalizedSearch
+              )
+        )
+      }
+    )
 
   return (
     <section>
@@ -226,7 +285,9 @@ function BlueprintSearch({
           placeholder="Search blueprints..."
           value={searchText}
           onChange={(event) =>
-            setSearchText(event.target.value)
+            setSearchText(
+              event.target.value
+            )
           }
         />
       </div>
@@ -234,8 +295,12 @@ function BlueprintSearch({
       <Datalist<Blueprint>
         title={`Blueprints (${filteredBlueprints.length})`}
         items={filteredBlueprints}
-        columns={getBlueprintColumns()}
-        getRowKey={(blueprint) => blueprint.id}
+        columns={
+          getBlueprintColumns()
+        }
+        getRowKey={(blueprint) =>
+          blueprint.id
+        }
         showAddButton={false}
         emptyMessage="No blueprints found."
         backLabel="Back to Blueprints"
@@ -246,12 +311,16 @@ function BlueprintSearch({
             defaultMarkupPercent={
               defaultMarkupPercent
             }
-            activeCollection={activeCollection}
+            activeCollection={
+              activeCollection
+            }
             craftTimer={craftTimer}
             onUpdateCollectionEntry={
               onUpdateCollectionEntry
             }
-            onCraftBlueprint={onCraftBlueprint}
+            onCraftBlueprint={
+              onCraftBlueprint
+            }
             onOpenCraftTimer={
               onOpenCraftTimer
             }

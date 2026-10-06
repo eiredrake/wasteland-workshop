@@ -45,12 +45,14 @@ function BlueprintDetails({
 
   const mind = crafting?.craftingMindCost ?? 0
   const minutes = crafting?.craftingTimeInMinute ?? 0
-  const skills = crafting?.craftingSkills ?? 'No crafting data'
+  const skills =
+    crafting?.craftingSkills ?? 'No crafting data'
 
   const finalProduct =
-  crafting?.craftingFinalProducts?.[0]?.finalProduct
+    crafting?.craftingFinalProducts?.[0]
+      ?.finalProduct
 
-    const itemType = finalProduct?.kind
+  const itemType = finalProduct?.kind
     ? finalProduct.kind
         .split('_')
         .map(
@@ -59,14 +61,16 @@ function BlueprintDetails({
             word.slice(1)
         )
         .join(' ')
-    : 'Unknown'    
+    : 'Unknown'
 
   const itemMechanics =
     finalProduct?.metadata?.mechanics?.trim()
 
-    const uses = finalProduct?.metadata?.uses
+  const uses =
+    finalProduct?.metadata?.uses
 
-    const requirementsToUse = finalProduct?.metadata?.requirementsToUse
+  const requirementsToUse =
+    finalProduct?.metadata?.requirementsToUse
 
   const lifetimeAmount =
     finalProduct?.lifetimeAmount
@@ -79,7 +83,7 @@ function BlueprintDetails({
       ? `${lifetimeAmount} ${lifetimeUnit}${
           lifetimeAmount === 1 ? '' : 's'
         }`
-      : undefined    
+      : undefined
 
   const durationOfEffect =
     finalProduct?.metadata?.durationOfEffect
@@ -124,9 +128,12 @@ function BlueprintDetails({
   const collectionStatus =
     collectionEntry?.status === 'acquired'
       ? 'Acquired'
-      : collectionEntry?.status === 'to-acquire'
-        ? 'To Acquire'
-        : 'Not Tracked'
+      : collectionEntry?.status ===
+          'to-acquire'
+        ? 'Not Acquired'
+        : collectionEntry?.status === 'sell'
+          ? 'To Sell'
+          : 'Not Tracked'
 
   const updateCollectionStatus = (
     status: BlueprintAccessStatus | undefined
@@ -138,13 +145,36 @@ function BlueprintDetails({
     )
   }
 
+  const cycleCollectionStatus = () => {
+    if (!collectionEntry) {
+      updateCollectionStatus('acquired')
+      return
+    }
+
+    if (collectionEntry.status === 'acquired') {
+      updateCollectionStatus('to-acquire')
+      return
+    }
+
+    if (
+      collectionEntry.status === 'to-acquire'
+    ) {
+      updateCollectionStatus('sell')
+      return
+    }
+
+    updateCollectionStatus('acquired')
+  }
+
   return (
     <section className="blueprint-details">
       <header className="blueprint-details-header">
         <h2>{blueprint.name}</h2>
       </header>
 
-      {(itemMechanics || skills || specialNotes) && (
+      {(itemMechanics ||
+        skills ||
+        specialNotes) && (
         <section className="blueprint-details-card blueprint-mechanics-card">
           <div className="blueprint-mechanics-section blueprint-crafting-skill">
             <h3>Crafting Skill</h3>
@@ -154,35 +184,36 @@ function BlueprintDetails({
           <div className="blueprint-mechanics-section">
             <h3>Item Type</h3>
             <p>{itemType}</p>
-          </div>          
+          </div>
 
-            {uses !== undefined && uses !== null && (
+          {uses !== undefined &&
+            uses !== null && (
               <div className="blueprint-mechanics-section">
                 <h3>Uses</h3>
                 <p>{uses}</p>
               </div>
             )}
 
-            {requirementsToUse && (
-              <div className="blueprint-mechanics-section">
-                <h3>Requirements To Use</h3>
-                <p>{requirementsToUse}</p>
-              </div>
-            )}            
+          {requirementsToUse && (
+            <div className="blueprint-mechanics-section">
+              <h3>Requirements To Use</h3>
+              <p>{requirementsToUse}</p>
+            </div>
+          )}
 
-            {expiration && (
-              <div className="blueprint-mechanics-section">
-                <h3>Expiration</h3>
-                <p>{expiration}</p>
-              </div>
-            )}          
+          {expiration && (
+            <div className="blueprint-mechanics-section">
+              <h3>Expiration</h3>
+              <p>{expiration}</p>
+            </div>
+          )}
 
-            {durationOfEffect && (
-              <div className="blueprint-mechanics-section">
-                <h3>Duration of Effect</h3>
-                <p>{durationOfEffect}</p>
-              </div>
-            )}            
+          {durationOfEffect && (
+            <div className="blueprint-mechanics-section">
+              <h3>Duration of Effect</h3>
+              <p>{durationOfEffect}</p>
+            </div>
+          )}
 
           {itemMechanics && (
             <div className="blueprint-mechanics-section">
@@ -198,21 +229,11 @@ function BlueprintDetails({
             </div>
           )}
         </section>
-      )}  
+      )}
 
       <section className="blueprint-details-card blueprint-access-card">
         <div className="blueprint-card-heading">
           <h3>Blueprint Access</h3>
-
-          {activeCollection && (
-            <span
-              className={`blueprint-access-status blueprint-access-status-${
-                collectionEntry?.status ?? 'untracked'
-              }`}
-            >
-              {collectionStatus}
-            </span>
-          )}
         </div>
 
         {activeCollection ? (
@@ -224,58 +245,28 @@ function BlueprintDetails({
                 <strong>
                   {activeCollection.name}
                 </strong>
-              </div>
 
-              <div className="blueprint-access-actions">
-                {collectionEntry?.status !==
-                  'acquired' && (
-                  <button
-                    type="button"
-                    className="primary-button"
-                    onClick={() =>
-                      updateCollectionStatus(
-                        'acquired'
-                      )
-                    }
-                  >
-                    Mark Acquired
-                  </button>
-                )}
-
-                {collectionEntry?.status !==
-                  'to-acquire' && (
-                  <button
-                    type="button"
-                    className="secondary-button"
-                    onClick={() =>
-                      updateCollectionStatus(
-                        'to-acquire'
-                      )
-                    }
-                  >
-                    To Acquire
-                  </button>
-                )}
-
-                {collectionEntry && (
-                  <button
-                    type="button"
-                    className="secondary-button"
-                    onClick={() =>
-                      updateCollectionStatus(
-                        undefined
-                      )
-                    }
-                  >
-                    Remove
-                  </button>
-                )}
+                <button
+                  type="button"
+                  className={`blueprint-access-status blueprint-access-status-${
+                    collectionEntry?.status ??
+                    'untracked'
+                  }`}
+                  onClick={
+                    cycleCollectionStatus
+                  }
+                  title={`Change status in ${activeCollection.name}`}
+                >
+                  {collectionStatus}
+                </button>
               </div>
             </div>
 
             {minutes > 0 && (
               <BlueprintCraftTimer
-                blueprintName={blueprint.name}
+                blueprintName={
+                  blueprint.name
+                }
                 minutes={minutes}
                 timer={craftTimer}
                 onStart={() =>
@@ -289,9 +280,10 @@ function BlueprintDetails({
           </div>
         ) : (
           <p>
-            No active blueprint collection. Select
-            one from Blueprint Collections to track
-            this blueprint.
+            No active blueprint collection.
+            Select one from Blueprint
+            Collections to track this
+            blueprint.
           </p>
         )}
       </section>
@@ -320,14 +312,16 @@ function BlueprintDetails({
             <div>
               <dt>Resolve</dt>
               <dd>
-                {crafting?.craftingResolveCost ?? 0}
+                {crafting
+                  ?.craftingResolveCost ?? 0}
               </dd>
             </div>
 
             <div>
               <dt>Zone</dt>
               <dd>
-                {crafting?.craftingZone ?? 'Unknown'}
+                {crafting?.craftingZone ??
+                  'Unknown'}
               </dd>
             </div>
           </dl>
@@ -362,13 +356,15 @@ function BlueprintDetails({
             <div className="blueprint-cost-production">
               <dt>Production Cost</dt>
               <dd>
-                {costs?.productionCost === undefined
+                {costs?.productionCost ===
+                undefined
                   ? 'Unknown*'
                   : `${costs.productionCost}cr`}
               </dd>
             </div>
 
-            {costs?.productionCost !== undefined && (
+            {costs?.productionCost !==
+              undefined && (
               <>
                 <div>
                   <dt>Markup</dt>
@@ -379,23 +375,36 @@ function BlueprintDetails({
                       onChange={(event) =>
                         setMarkupPercent(
                           Number(
-                            event.target.value
+                            event.target
+                              .value
                           )
                         )
                       }
                     >
-                      <option value={0}>0%</option>
-                      <option value={10}>10%</option>
-                      <option value={20}>20%</option>
-                      <option value={25}>25%</option>
-                      <option value={50}>50%</option>
+                      <option value={0}>
+                        0%
+                      </option>
+                      <option value={10}>
+                        10%
+                      </option>
+                      <option value={20}>
+                        20%
+                      </option>
+                      <option value={25}>
+                        25%
+                      </option>
+                      <option value={50}>
+                        50%
+                      </option>
                     </select>
                   </dd>
                 </div>
 
                 <div className="blueprint-cost-selling">
                   <dt>Selling Price</dt>
-                  <dd>{sellingPrice}cr</dd>
+                  <dd>
+                    {sellingPrice}cr
+                  </dd>
                 </div>
 
                 <div>
@@ -413,7 +422,9 @@ function BlueprintDetails({
 
         {!costs ||
         costs.components.length === 0 ? (
-          <p>No component data available.</p>
+          <p>
+            No component data available.
+          </p>
         ) : (
           <div className="blueprint-components">
             {costs.components.map(
@@ -447,9 +458,9 @@ function BlueprintDetails({
 
         {costs?.hasUnknownComponentCosts && (
           <p className="blueprint-cost-warning">
-            * Cost estimate is incomplete because
-            one or more component values are
-            unknown.
+            * Cost estimate is incomplete
+            because one or more component
+            values are unknown.
           </p>
         )}
       </section>
