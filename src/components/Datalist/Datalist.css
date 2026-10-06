@@ -7,9 +7,15 @@
   min-width: 0;
 }
 
-.datalist th:first-child,
-.datalist td:first-child {
-  white-space: nowrap;
+.datalist th,
+.datalist td {
+  min-width: 0;
+  padding-right: 1rem;
+}
+
+.datalist th:last-child,
+.datalist td:last-child {
+  padding-right: 0;
 }
 
 @media (max-width: 600px) {

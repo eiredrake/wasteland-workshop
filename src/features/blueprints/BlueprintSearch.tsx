@@ -42,6 +42,18 @@ function getBlueprintCraftingSkill(
   )
 }
 
+function getBlueprintUpdatedDate(
+  blueprint: Blueprint
+) {
+  if (!blueprint.updatedAt) {
+    return 'Unknown'
+  }
+
+  return new Date(
+    blueprint.updatedAt
+  ).toLocaleDateString()
+}
+
 function getBlueprintStatus(
   blueprint: Blueprint,
   activeCollection:
@@ -265,6 +277,25 @@ function BlueprintSearch({
         </span>
       ),
     },
+    {
+      key: 'updatedAt' as keyof Blueprint,
+      label: 'Last Updated',
+      priority: 3,
+      minWidth: 140,
+      sortValue: (
+        blueprint: Blueprint
+      ) =>
+        blueprint.updatedAt ?? '',
+      render: (
+        blueprint: Blueprint
+      ) => (
+        <span className="blueprint-updated">
+          {getBlueprintUpdatedDate(
+            blueprint
+          )}
+        </span>
+      ),
+    },    
   ]
 
   const filteredBlueprints =
@@ -276,6 +307,9 @@ function BlueprintSearch({
             blueprint
           ),
           getBlueprintKind(blueprint),
+          getBlueprintUpdatedDate(
+            blueprint
+          ),
         ]
 
         return searchableFields.some(

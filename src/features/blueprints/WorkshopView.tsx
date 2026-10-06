@@ -16,6 +16,7 @@ type WorkshopRow = {
   name: string
   craftingSkill: string
   kind: string
+  updatedAt: string | undefined
   status: BlueprintAccessStatus
   blueprint: Blueprint
 }
@@ -70,6 +71,18 @@ function formatKind(
         word.slice(1)
     )
     .join(' ')
+}
+
+function formatUpdatedDate(
+  updatedAt: string | undefined
+) {
+  if (!updatedAt) {
+    return 'Unknown'
+  }
+
+  return new Date(
+    updatedAt
+  ).toLocaleDateString()
 }
 
 function getNextCollectionStatus(
@@ -170,6 +183,8 @@ function WorkshopView({
               ?.craftingFinalProducts?.[0]
               ?.finalProduct.kind
           ),
+          updatedAt:
+            blueprint.updatedAt,
           status: entry.status,
           blueprint,
         }
@@ -185,6 +200,9 @@ function WorkshopView({
           item.name,
           item.craftingSkill,
           item.kind,
+          formatUpdatedDate(
+            item.updatedAt
+          ),
           item.status,
           getStatusLabel(
             item.status
@@ -231,13 +249,17 @@ function WorkshopView({
           }}
           title={`Change status in ${activeCollection.name}`}
         >
-        {compact
-        ? item.status === 'acquired'
-          ? '✓'
-          : item.status === 'to-acquire'
-            ? '—'
-            : '$'
-        : getStatusLabel(item.status)}
+          {compact
+            ? item.status ===
+              'acquired'
+              ? '✓'
+              : item.status ===
+                  'to-acquire'
+                ? '★'
+                : '$'
+            : getStatusLabel(
+                item.status
+              )}
         </button>
       ),
     },
@@ -269,6 +291,21 @@ function WorkshopView({
         </span>
       ),
     },
+    {
+      key: 'updatedAt',
+      label: 'Last Updated',
+      priority: 3,
+      minWidth: 140,
+      sortValue: (item) =>
+        item.updatedAt ?? '',
+      render: (item) => (
+        <span className="workshop-updated">
+          {formatUpdatedDate(
+            item.updatedAt
+          )}
+        </span>
+      ),
+    },
   ]
 
   const acquiredCount =
@@ -278,7 +315,7 @@ function WorkshopView({
         'acquired'
     ).length
 
-  const notAcquiredCount =
+  const toAcquireCount =
     activeCollection.entries.filter(
       (entry) =>
         entry.status ===
@@ -310,8 +347,8 @@ function WorkshopView({
           </span>
 
           <span>
-            {notAcquiredCount}{' '}
-            not acquired
+            {toAcquireCount}{' '}
+            to acquire
           </span>
 
           <span>
@@ -372,8 +409,8 @@ function WorkshopView({
             )
           }
         >
-          Not Acquired (
-          {notAcquiredCount})
+          To Acquire (
+          {toAcquireCount})
         </button>
 
         <button
@@ -427,9 +464,7 @@ function WorkshopView({
             blueprint={
               item.blueprint
             }
-
             mode="collection"
-
             calculator={
               calculator
             }

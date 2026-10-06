@@ -25,3 +25,4 @@ dist-ssr
 
 # Shared toolbar task bindings
 !.vscode/tasks.json
+tools\juno-import\raw\*

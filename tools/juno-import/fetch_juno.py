@@ -2,6 +2,7 @@ import json
 import os
 import re
 import time
+import argparse
 
 from playwright.sync_api import sync_playwright  # type: ignore
 
@@ -14,8 +15,20 @@ BLUEPRINT_LIST_FILE = os.path.join(
     "blueprint-list.json",
 )
 
-DELAY_BETWEEN_BLUEPRINTS_SECONDS = 10
+DELAY_BETWEEN_BLUEPRINTS_SECONDS = .5
 ITEM_TIMEOUT_SECONDS = 30
+
+parser = argparse.ArgumentParser(
+    description="Fetch Dystopia Rising blueprints from Project Juno."
+)
+
+parser.add_argument(
+    "--refresh-all",
+    action="store_true",
+    help="Fetch every blueprint and overwrite existing raw files.",
+)
+
+args = parser.parse_args()
 
 blueprint_list_captured = False
 captured_item_ids = set()
@@ -251,12 +264,15 @@ def collect_blueprints(page):
         if not item_id:
             continue
 
-        if item_already_exists(item_id):
-            print(
-                f"[{index}/{total}] "
-                f"Already have {item_id} - {name}"
-            )
-            continue
+        if (
+                not args.refresh_all
+                and item_already_exists(item_id)
+            ):
+                print(
+                    f"[{index}/{total}] "
+                    f"Already have {item_id} - {name}"
+                )
+                continue
 
         print(
             f"[{index}/{total}] "
