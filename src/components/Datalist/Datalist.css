@@ -65,7 +65,7 @@
 
 .datalist-back:hover {
   background: var(--color-accent);
-  color: var(--color-background);
+  color: #ffffff;
 }
 
 .datalist-back:focus-visible {

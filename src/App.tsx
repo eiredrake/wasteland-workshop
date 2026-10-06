@@ -89,10 +89,12 @@ function App() {
   const [currentView, setCurrentView] =
     useState<AppView>('workshop')
 
-  const [economicsSettings, setEconomicsSettings] =
-    useState<EconomicsSettings>(
-      loadEconomicsSettings
-    )
+  const [
+    economicsSettings,
+    setEconomicsSettings,
+  ] = useState<EconomicsSettings>(
+    loadEconomicsSettings
+  )
 
   const [toasts, setToasts] =
     useState<ToastMessage[]>([])
@@ -259,30 +261,41 @@ function App() {
     )
   }
 
-  const addBlueprintCollection = (name: string) => {
-    const newCollection: BlueprintCollection = {
-      id: crypto.randomUUID(),
-      name,
-      entries: [],
-    }
-  
+  const addBlueprintCollection = (
+    name: string
+  ) => {
+    const newCollection:
+      BlueprintCollection = {
+        id: crypto.randomUUID(),
+        name,
+        entries: [],
+      }
+
     const updatedCollections = [
       ...blueprintCollections,
       newCollection,
     ]
-  
-    setBlueprintCollections(updatedCollections)
-    saveBlueprintCollections(updatedCollections)
-  
-    if (blueprintCollections.length === 0) {
+
+    setBlueprintCollections(
+      updatedCollections
+    )
+
+    saveBlueprintCollections(
+      updatedCollections
+    )
+
+    if (
+      blueprintCollections.length === 0
+    ) {
       setActiveBlueprintCollectionId(
         newCollection.id
       )
+
       saveActiveBlueprintCollectionId(
         newCollection.id
       )
     }
-  
+
     showToast(
       `Created blueprint collection "${name}".`,
       'success'
@@ -313,15 +326,17 @@ function App() {
       updatedCollections
     )
 
-    if (blueprintCollections.length === 0) {
+    if (
+      blueprintCollections.length === 0
+    ) {
       setActiveBlueprintCollectionId(
         newCollection.id
       )
-    
+
       saveActiveBlueprintCollectionId(
         newCollection.id
       )
-    }    
+    }
 
     showToast(
       `Imported blueprint collection "${name}" with ${entries.length} blueprints.`,
@@ -407,9 +422,7 @@ function App() {
       | BlueprintAccessStatus
       | undefined
   ) => {
-    if (
-      !activeBlueprintCollectionId
-    ) {
+    if (!activeBlueprintCollectionId) {
       showToast(
         'Select an active blueprint collection first.',
         'warning'
@@ -435,9 +448,7 @@ function App() {
                 blueprintId
             )
 
-          if (
-            status === undefined
-          ) {
+          if (status === undefined) {
             return {
               ...collection,
               entries:
@@ -486,11 +497,18 @@ function App() {
       return
     }
 
-    if (
-      status === 'to-acquire'
-    ) {
+    if (status === 'to-acquire') {
       showToast(
         `"${blueprintName}" added to the "${collection.name}" wishlist.`,
+        'info'
+      )
+
+      return
+    }
+
+    if (status === 'sell') {
+      showToast(
+        `"${blueprintName}" added to the "${collection.name}" sell list.`,
         'info'
       )
 
@@ -520,10 +538,10 @@ function App() {
 
         <div>
           <h1>
-          Wasteland Workshop
-          <span className="app-version">
-            v{__APP_VERSION__}
-          </span>
+            Wasteland Workshop
+            <span className="app-version">
+              v{__APP_VERSION__}
+            </span>
           </h1>
         </div>
       </header>

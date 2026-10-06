@@ -74,18 +74,16 @@ function formatKind(
 
 function getNextCollectionStatus(
   currentStatus: BlueprintAccessStatus
-): BlueprintAccessStatus {
+): BlueprintAccessStatus | undefined {
   if (currentStatus === 'acquired') {
     return 'to-acquire'
   }
 
-  if (
-    currentStatus === 'to-acquire'
-  ) {
+  if (currentStatus === 'to-acquire') {
     return 'sell'
   }
 
-  return 'acquired'
+  return undefined
 }
 
 function getStatusLabel(
@@ -95,10 +93,8 @@ function getStatusLabel(
     return 'Acquired'
   }
 
-  if (
-    status === 'to-acquire'
-  ) {
-    return 'Not Acquired'
+  if (status === 'to-acquire') {
+    return 'To Acquire'
   }
 
   return 'To Sell'
@@ -431,6 +427,9 @@ function WorkshopView({
             blueprint={
               item.blueprint
             }
+
+            mode="collection"
+
             calculator={
               calculator
             }

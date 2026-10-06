@@ -324,6 +324,7 @@ function BlueprintSearch({
         renderDetails={(blueprint) => (
           <BlueprintDetails
             blueprint={blueprint}
+            mode="catalog"
             calculator={calculator}
             defaultMarkupPercent={
               defaultMarkupPercent

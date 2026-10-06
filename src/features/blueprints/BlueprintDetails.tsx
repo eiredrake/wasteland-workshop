@@ -13,6 +13,7 @@ import './BlueprintDetails.css'
 
 type BlueprintDetailsProps = {
   blueprint: Blueprint
+  mode: 'catalog' | 'collection'
   calculator: CostCalculator
   defaultMarkupPercent: number
   activeCollection: BlueprintCollection | undefined
@@ -31,6 +32,7 @@ type BlueprintDetailsProps = {
 
 function BlueprintDetails({
   blueprint,
+  mode,
   calculator,
   defaultMarkupPercent,
   activeCollection,
@@ -44,9 +46,11 @@ function BlueprintDetails({
   const crafting = blueprint.itemCraftings?.[0]
 
   const mind = crafting?.craftingMindCost ?? 0
-  const minutes = crafting?.craftingTimeInMinute ?? 0
+  const minutes =
+    crafting?.craftingTimeInMinute ?? 0
   const skills =
-    crafting?.craftingSkills ?? 'No crafting data'
+    crafting?.craftingSkills ??
+    'No crafting data'
 
   const finalProduct =
     crafting?.craftingFinalProducts?.[0]
@@ -125,18 +129,27 @@ function BlueprintDetails({
         entry.blueprintId === blueprint.id
     )
 
-  const collectionStatus =
-    collectionEntry?.status === 'acquired'
-      ? 'Acquired'
-      : collectionEntry?.status ===
-          'to-acquire'
-        ? 'Not Acquired'
-        : collectionEntry?.status === 'sell'
-          ? 'To Sell'
-          : 'Not Tracked'
+    const collectionStatus = (() => {
+      if (!collectionEntry) {
+        return 'To Acquire'
+      }
+    
+      if (collectionEntry.status === 'acquired') {
+        return 'Acquired'
+      }
+    
+      if (collectionEntry.status === 'to-acquire') {
+        return 'To Acquire'
+      }
+    
+      return 'To Sell'
+    })()
+
 
   const updateCollectionStatus = (
-    status: BlueprintAccessStatus | undefined
+    status:
+      | BlueprintAccessStatus
+      | undefined
   ) => {
     onUpdateCollectionEntry(
       blueprint.id,
@@ -146,18 +159,57 @@ function BlueprintDetails({
   }
 
   const cycleCollectionStatus = () => {
+    if (mode === 'catalog') {
+      if (!collectionEntry) {
+        updateCollectionStatus(
+          'to-acquire'
+        )
+        return
+      }
+
+      if (
+        collectionEntry.status ===
+        'to-acquire'
+      ) {
+        updateCollectionStatus(
+          'acquired'
+        )
+        return
+      }
+
+      if (
+        collectionEntry.status ===
+        'acquired'
+      ) {
+        updateCollectionStatus(undefined)
+        return
+      }
+
+      /*
+       * To Sell cannot be entered from the
+       * Master Catalog. An existing To Sell
+       * entry returns to Acquired.
+       */
+      updateCollectionStatus('acquired')
+      return
+    }
+
     if (!collectionEntry) {
       updateCollectionStatus('acquired')
       return
     }
 
-    if (collectionEntry.status === 'acquired') {
+    if (
+      collectionEntry.status ===
+      'acquired'
+    ) {
       updateCollectionStatus('to-acquire')
       return
     }
 
     if (
-      collectionEntry.status === 'to-acquire'
+      collectionEntry.status ===
+      'to-acquire'
     ) {
       updateCollectionStatus('sell')
       return
@@ -196,7 +248,9 @@ function BlueprintDetails({
 
           {requirementsToUse && (
             <div className="blueprint-mechanics-section">
-              <h3>Requirements To Use</h3>
+              <h3>
+                Requirements To Use
+              </h3>
               <p>{requirementsToUse}</p>
             </div>
           )}
@@ -210,7 +264,9 @@ function BlueprintDetails({
 
           {durationOfEffect && (
             <div className="blueprint-mechanics-section">
-              <h3>Duration of Effect</h3>
+              <h3>
+                Duration of Effect
+              </h3>
               <p>{durationOfEffect}</p>
             </div>
           )}
@@ -240,7 +296,9 @@ function BlueprintDetails({
           <div className="blueprint-access-content">
             <div className="blueprint-access-info">
               <div className="blueprint-access-collection">
-                <span>Active Collection</span>
+                <span>
+                  Active Collection
+                </span>
 
                 <strong>
                   {activeCollection.name}
@@ -249,7 +307,8 @@ function BlueprintDetails({
                 <button
                   type="button"
                   className={`blueprint-access-status blueprint-access-status-${
-                    collectionEntry?.status ??
+                    collectionEntry
+                      ?.status ??
                     'untracked'
                   }`}
                   onClick={
@@ -313,14 +372,16 @@ function BlueprintDetails({
               <dt>Resolve</dt>
               <dd>
                 {crafting
-                  ?.craftingResolveCost ?? 0}
+                  ?.craftingResolveCost ??
+                  0}
               </dd>
             </div>
 
             <div>
               <dt>Zone</dt>
               <dd>
-                {crafting?.craftingZone ??
+                {crafting
+                  ?.craftingZone ??
                   'Unknown'}
               </dd>
             </div>
@@ -371,8 +432,12 @@ function BlueprintDetails({
                   <dd>
                     <select
                       className="blueprint-markup-select"
-                      value={markupPercent}
-                      onChange={(event) =>
+                      value={
+                        markupPercent
+                      }
+                      onChange={(
+                        event
+                      ) =>
                         setMarkupPercent(
                           Number(
                             event.target
@@ -401,7 +466,9 @@ function BlueprintDetails({
                 </div>
 
                 <div className="blueprint-cost-selling">
-                  <dt>Selling Price</dt>
+                  <dt>
+                    Selling Price
+                  </dt>
                   <dd>
                     {sellingPrice}cr
                   </dd>
@@ -431,7 +498,9 @@ function BlueprintDetails({
               (component) => (
                 <div
                   className="blueprint-component-row"
-                  key={component.itemId}
+                  key={
+                    component.itemId
+                  }
                 >
                   <strong>
                     {component.name}
