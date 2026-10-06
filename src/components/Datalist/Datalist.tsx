@@ -11,24 +11,8 @@ type DatalistColumn<T> = {
   label: string
   render?: (item: T) => ReactNode
   sortValue?: (item: T) => string | number
-
-  /*
-   * Protected columns are always displayed.
-   * Optional columns are displayed when enough
-   * horizontal space is available.
-   */
   protected?: boolean
-
-  /*
-   * Lower priority numbers are displayed first.
-   * Only applies to optional columns.
-   */
   priority?: number
-
-  /*
-   * Approximate minimum width needed for this
-   * column when deciding whether it fits.
-   */
   minWidth?: number
 }
 
@@ -138,15 +122,6 @@ function Datalist<T>({
     })
   }
 
-  /*
-   * Protected columns always survive.
-   *
-   * Optional columns are considered in priority
-   * order and included while room remains.
-   *
-   * Columns without minWidth receive a sensible
-   * default estimate.
-   */
   const protectedColumns =
     columns.filter(
       (column) => column.protected
@@ -171,12 +146,7 @@ function Datalist<T>({
       0
     )
 
-  /*
-   * A little room is reserved for borders,
-   * padding and rounding differences between
-   * browsers.
-   */
-  let remainingWidth =
+  const optionalWidthBudget =
     Math.max(
       0,
       availableWidth -
@@ -186,27 +156,25 @@ function Datalist<T>({
 
   const visibleOptionalColumns =
     optionalColumns.filter(
-      (column) => {
-        const columnWidth =
-          column.minWidth ?? 140
+      (_column, index) => {
+        const widthRequired =
+          optionalColumns
+            .slice(0, index + 1)
+            .reduce(
+              (total, candidate) =>
+                total +
+                (candidate.minWidth ??
+                  140),
+              0
+            )
 
-        if (
-          remainingWidth <
-          columnWidth
-        ) {
-          return false
-        }
-
-        remainingWidth -= columnWidth
-
-        return true
+        return (
+          widthRequired <=
+          optionalWidthBudget
+        )
       }
     )
 
-  /*
-   * Preserve the original column order rather
-   * than rendering protected columns first.
-   */
   const visibleColumns =
     columns.filter(
       (column) =>
@@ -216,8 +184,8 @@ function Datalist<T>({
         )
     )
 
-  const sortedItems = [...items].sort(
-    (a, b) => {
+  const sortedItems =
+    [...items].sort((a, b) => {
       if (sortKey === null) {
         return 0
       }
@@ -238,22 +206,22 @@ function Datalist<T>({
           ? sortColumn.sortValue(b)
           : b[sortKey]
 
-      const comparison = String(
-        aValue ?? ''
-      ).localeCompare(
-        String(bValue ?? ''),
-        undefined,
-        {
-          numeric: true,
-          sensitivity: 'base',
-        }
-      )
+      const comparison =
+        String(
+          aValue ?? ''
+        ).localeCompare(
+          String(bValue ?? ''),
+          undefined,
+          {
+            numeric: true,
+            sensitivity: 'base',
+          }
+        )
 
       return sortAscending
         ? comparison
         : -comparison
-    }
-  )
+    })
 
   if (
     selectedItem &&
