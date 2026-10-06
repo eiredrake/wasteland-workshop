@@ -147,7 +147,9 @@ function BlueprintSearch({
       label: 'Status',
       protected: true,
       minWidth: 120,
-      render: (blueprint: Blueprint) => {
+      render: (
+        blueprint: Blueprint,
+        compact: boolean) => {
         if (!activeCollection) {
           return (
             <span className="workshop-status workshop-status-none">
@@ -184,6 +186,20 @@ function BlueprintSearch({
             'workshop-status workshop-status-sell'
         }
 
+        let compactLabel = '—'
+
+        if (status === 'acquired') {
+          compactLabel = '✓'
+        }
+        
+        if (status === 'to-acquire') {
+          compactLabel = '★'
+        }
+        
+        if (status === 'sell') {
+          compactLabel = '$'
+        }        
+
         return (
           <button
             type="button"
@@ -196,7 +212,7 @@ function BlueprintSearch({
             }
             title={`Change status in ${activeCollection.name}`}
           >
-            {label}
+            {compact ? compactLabel : label}
           </button>
         )
       },
