@@ -44,7 +44,8 @@ type WorkshopColumn = {
   key: keyof WorkshopRow
   label: string
   render?: (
-    item: WorkshopRow
+    item: WorkshopRow,
+    compact: boolean
   ) => ReactNode
   sortValue?: (
     item: WorkshopRow
@@ -217,7 +218,7 @@ function WorkshopView({
       label: 'Status',
       protected: true,
       minWidth: 120,
-      render: (item) => (
+      render: (item, compact) => (
         <button
           type="button"
           className={`workshop-status workshop-status-${item.status}`}
@@ -234,9 +235,13 @@ function WorkshopView({
           }}
           title={`Change status in ${activeCollection.name}`}
         >
-          {getStatusLabel(
-            item.status
-          )}
+        {compact
+        ? item.status === 'acquired'
+          ? '✓'
+          : item.status === 'to-acquire'
+            ? '—'
+            : '$'
+        : getStatusLabel(item.status)}
         </button>
       ),
     },
