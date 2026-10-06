@@ -9,7 +9,10 @@ import './Datalist.css'
 type DatalistColumn<T> = {
   key: keyof T
   label: string
-  render?: (item: T) => ReactNode
+  render?: (
+    item: T,
+    compact: boolean
+  ) => ReactNode
   sortValue?: (item: T) => string | number
   protected?: boolean
   priority?: number
@@ -184,6 +187,10 @@ function Datalist<T>({
         )
     )
 
+    const compact =
+      availableWidth > 0 &&
+      availableWidth < 500    
+
   const sortedItems =
     [...items].sort((a, b) => {
       if (sortKey === null) {
@@ -321,7 +328,8 @@ function Datalist<T>({
                     >
                       {column.render
                         ? column.render(
-                            item
+                            item,
+                            compact
                           )
                         : String(
                             item[
