@@ -11,13 +11,25 @@ type BlueprintDatastore = {
   blueprints: Blueprint[]
 }
 
-const datastore = blueprintData as BlueprintDatastore
+const datastore =
+  blueprintData as BlueprintDatastore
 
 export const allBlueprints: Blueprint[] =
   datastore.blueprints
 
-export const masterBlueprints: Blueprint[] =
-  allBlueprints.filter(
-    (blueprint) =>
-      (blueprint.itemCraftings?.length ?? 0) > 0
-  )
+  export const masterBlueprints: Blueprint[] =
+  allBlueprints.filter((blueprint) => {
+    if (
+      (blueprint.itemCraftings?.length ?? 0) ===
+      0
+    ) {
+      return false
+    }
+
+    const finalProductKind =
+      blueprint.itemCraftings?.[0]
+        ?.craftingFinalProducts?.[0]
+        ?.finalProduct.kind
+
+    return finalProductKind !== 'taxonomy'
+  })
