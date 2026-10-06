@@ -59,21 +59,22 @@ function getNextStatus(
     | undefined
 ): BlueprintAccessStatus | undefined {
   if (currentStatus === undefined) {
-    return 'acquired'
-  }
-
-  if (currentStatus === 'acquired') {
     return 'to-acquire'
   }
 
   if (currentStatus === 'to-acquire') {
+    return 'acquired'
+  }
+
+  if (currentStatus === 'acquired') {
     return undefined
   }
 
   /*
-   * A blueprint already marked To Sell belongs
-   * to the collection, so clicking it from the
-   * Catalog returns it to Acquired.
+   * To Sell cannot be entered from the
+   * Master Catalog. If an existing collection
+   * entry is already To Sell, return it to
+   * Acquired when clicked here.
    */
   return 'acquired'
 }
@@ -175,7 +176,7 @@ function BlueprintSearch({
         }
 
         if (status === 'to-acquire') {
-          label = 'Not Acquired'
+          label = 'To Acquire'
           className =
             'workshop-status workshop-status-to-acquire'
         }
