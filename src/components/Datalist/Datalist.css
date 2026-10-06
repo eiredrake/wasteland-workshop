@@ -18,3 +18,26 @@
     padding: 0.65rem 0.5rem;
   }
 }
+
+.datalist th button {
+  appearance: none;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.datalist th button:hover {
+  color: var(--color-accent);
+}
+
+.datalist th button:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 3px;
+}
