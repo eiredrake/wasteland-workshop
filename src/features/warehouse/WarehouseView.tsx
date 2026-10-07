@@ -13,8 +13,8 @@ export default function WarehouseView({warehouse,apply,error,warningDays=DEFAULT
 }) {
   const today=useCalendarDay()
   const [expirationDate,setExpirationDate]=useState(''), [sort,setSort]=useState('Name')
-  const [selected,setSelected]=useState<InventoryItem>(), [quantity,setQuantity]=useState('1'), [credits,setCredits]=useState(''), [search,setSearch]=useState(''), [category,setCategory]=useState('All')
-  const rows=warehouse.entries.map(entry=>({...entry,item:inventoryItemById.get(entry.itemId)!})).filter(row => (category==='All'||row.item.category===category)&&row.item.name.toLowerCase().includes(search.trim().toLowerCase())).sort((a,b)=>{
+  const [selected,setSelected]=useState<InventoryItem>(), [quantity,setQuantity]=useState('1'), [credits,setCredits]=useState(''), [search,setSearch]=useState(''), [category,setCategory]=useState('All'), [expirationFilter,setExpirationFilter]=useState('Unexpired')
+  const rows=warehouse.entries.map(entry=>({...entry,item:inventoryItemById.get(entry.itemId)!})).filter(row => (category==='All'||row.item.category===category)&&(expirationFilter==='All'||(expirationFilter==='Expired'?expirationStatus(row.itemId,row.expirationDate,warningDays,today)==='expired':expirationStatus(row.itemId,row.expirationDate,warningDays,today)!=='expired'))&&row.item.name.toLowerCase().includes(search.trim().toLowerCase())).sort((a,b)=>{
     const name=a.item.name.localeCompare(b.item.name)
     if(sort==='Name')return name||(a.expirationDate??'9999-99-99').localeCompare(b.expirationDate??'9999-99-99')
     if(!a.expirationDate)return b.expirationDate?1:name
@@ -44,7 +44,8 @@ export default function WarehouseView({warehouse,apply,error,warningDays=DEFAULT
         <button className="primary-button" type="submit" disabled={!selected||!quantity.trim()||Number(quantity)<=0||(selected.kind!=='currency'&&!expirationDate)}>Add to Warehouse</button>
       </form>
       <div className="warehouse-filters"><div><label htmlFor="warehouse-search">Search inventory</label><input id="warehouse-search" type="search" value={search} onChange={event=>setSearch(event.target.value)} placeholder="Find what you own…" /></div>
-        <div><label htmlFor="warehouse-category">Show</label><select id="warehouse-category" value={category} onChange={event=>setCategory(event.target.value)}><option>All</option><option>Resources</option><option>Items</option></select></div>
+        <div><label htmlFor="warehouse-expiration-filter">Expiration</label><select id="warehouse-expiration-filter" value={expirationFilter} onChange={event=>setExpirationFilter(event.target.value)}><option>Unexpired</option><option>Expired</option><option>All</option></select></div>
+        <div><label htmlFor="warehouse-category">Type</label><select id="warehouse-category" value={category} onChange={event=>setCategory(event.target.value)}><option value="All">All types</option><option>Resources</option><option>Items</option></select></div>
         <div><label htmlFor="warehouse-sort">Sort by</label><select id="warehouse-sort" value={sort} onChange={event=>setSort(event.target.value)}><option>Name</option><option>Expiration: soonest first</option><option>Expiration: latest first</option></select></div>
       </div>
       <p>{warehouse.entries.length} inventory lots</p>
@@ -55,8 +56,8 @@ export default function WarehouseView({warehouse,apply,error,warningDays=DEFAULT
         <div className="warehouse-quantity"><label htmlFor={'warehouse-quantity-'+lotKey(row.itemId,row.expirationDate)}>On hand</label><input key={row.quantity} id={'warehouse-quantity-'+lotKey(row.itemId,row.expirationDate)} aria-label={'Quantity on hand: '+row.item.name+' ('+(row.expirationDate??'undated')+')'} type="number" min="0" step="any" inputMode="decimal" defaultValue={row.quantity}
           onKeyDown={event=>{if(event.key==='Enter'){event.preventDefault();event.currentTarget.blur()}}}
           onBlur={event=>{const value=event.currentTarget.value;if(!value.trim()||!apply(current=>setInventoryQuantity(current,row.itemId,Number(value),row.expirationDate))) event.currentTarget.value=String(row.quantity)}} /></div>
-        <div className="warehouse-actions"><button type="button" className="secondary-button" aria-label={'Subtract one '+row.item.name+' ('+(row.expirationDate??'undated')+')'} disabled={row.quantity<1} onClick={()=>apply(current=>subtractInventoryQuantity(current,row.itemId,1,row.expirationDate))}>−1</button>
-          <button type="button" className="secondary-button" aria-label={'Add one '+row.item.name+' ('+(row.expirationDate??'undated')+')'} onClick={()=>apply(current=>addInventoryQuantity(current,row.itemId,1,row.expirationDate))}>+1</button>
+        <div className="warehouse-actions"><button type="button" className="blueprint-access-status blueprint-access-status-acquired warehouse-remove" aria-label={'Subtract one '+row.item.name+' ('+(row.expirationDate??'undated')+')'} disabled={row.quantity<1} onClick={()=>apply(current=>subtractInventoryQuantity(current,row.itemId,1,row.expirationDate))}>−1</button>
+          <button type="button" className="blueprint-access-status blueprint-access-status-acquired warehouse-remove" aria-label={'Add one '+row.item.name+' ('+(row.expirationDate??'undated')+')'} onClick={()=>apply(current=>addInventoryQuantity(current,row.itemId,1,row.expirationDate))}>+1</button>
           <button type="button" className="blueprint-access-status blueprint-access-status-untracked warehouse-remove" aria-label={'Remove '+row.item.name+' ('+(row.expirationDate??'undated')+')'} onClick={()=>apply(current=>setInventoryQuantity(current,row.itemId,0,row.expirationDate))}>X</button></div>
       </li>)}</ul>
       {!rows.length&&<p>{warehouse.entries.length?'No matching inventory.':'Your Warehouse is empty. Add what you own above.'}</p>}
