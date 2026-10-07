@@ -78,6 +78,17 @@ h2 {
   font-weight: 600;
 }
 
+.settings-row select {
+  min-height: 44px;
+  min-width: 5rem;
+  padding: 0.5rem;
+  font: inherit;
+  color: var(--color-text);
+  background: var(--color-background);
+  border: 1px solid var(--color-rust);
+  border-radius: 5px;
+}
+
 .settings-input {
   display: flex;
   align-items: center;

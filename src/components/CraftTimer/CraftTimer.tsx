@@ -255,6 +255,10 @@ function CraftTimer({
           Reset
         </button>
       </div>
+      <p className="craft-timer-alarm-note">
+        Keep this app visible and your screen awake to receive alarms.
+        Check sound and vibration with Test Alarm in Settings.
+      </p>
     </section>
   )
 }

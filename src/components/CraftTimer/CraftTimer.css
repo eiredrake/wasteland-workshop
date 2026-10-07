@@ -164,3 +164,9 @@
   transform: translateY(1px);
   background: #41423b;
 }
+.craft-timer-alarm-note {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: center;
+}

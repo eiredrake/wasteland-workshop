@@ -13,6 +13,10 @@ import EconomicsSettingsView from './features/settings/EconomicsSettingsView'
 import AboutView from './features/help/AboutView'
 import ValuationAlgorithmView from './features/help/ValuationAlgorithmView'
 
+import AlarmSettingsView from './features/settings/AlarmSettingsView'
+import { loadAlarmSettings, saveAlarmSettings } from './features/timer/AlarmSettings'
+import { createCompletionTracker, playAlarm, prepareAlarmAudio } from './features/timer/CraftAlarm'
+
 import CraftTimer from './components/CraftTimer/CraftTimer'
 import {
   createIdleCraftTimer,
@@ -118,6 +122,26 @@ function App() {
       createIdleCraftTimer
     )
 
+  const [alarmSettings, setAlarmSettings] = useState(loadAlarmSettings)
+  const [completionTracker] = useState(() => createCompletionTracker(craftTimer.status))
+
+  useEffect(() => {
+    if (completionTracker(craftTimer.status)) {
+      void playAlarm(alarmSettings)
+    }
+  }, [craftTimer.status, alarmSettings, completionTracker])
+
+  useEffect(() => {
+    if (!alarmSettings.sound) return
+    const prepare = () => { void prepareAlarmAudio() }
+    document.addEventListener('pointerdown', prepare)
+    document.addEventListener('keydown', prepare)
+    return () => {
+      document.removeEventListener('pointerdown', prepare)
+      document.removeEventListener('keydown', prepare)
+    }
+  }, [alarmSettings.sound])
+
   const craftTimerRef = useRef(craftTimer)
 
   useEffect(() => {
@@ -129,21 +153,19 @@ function App() {
       return
     }
 
-    const intervalId =
-      window.setInterval(() => {
-        const updatedTimer =
-          tickCraftTimer(
-            craftTimerRef.current
-          )
-
-        craftTimerRef.current =
-          updatedTimer
-
-        setCraftTimer(updatedTimer)
-      }, 250)
-
+    const update = () => {
+      const updatedTimer = tickCraftTimer(craftTimerRef.current)
+      craftTimerRef.current = updatedTimer
+      setCraftTimer(updatedTimer)
+    }
+    const visible = () => { if (document.visibilityState === 'visible') update() }
+    const intervalId = window.setInterval(update, 250)
+    document.addEventListener('visibilitychange', visible)
+    window.addEventListener('pageshow', update)
     return () => {
       window.clearInterval(intervalId)
+      document.removeEventListener('visibilitychange', visible)
+      window.removeEventListener('pageshow', update)
     }
   }, [craftTimer.status])
 
@@ -699,6 +721,15 @@ function App() {
 
       {currentView ===
         'settings' && (
+        <>
+        <AlarmSettingsView settings={alarmSettings} onChange={settings => {
+          try {
+            saveAlarmSettings(settings)
+            setAlarmSettings(settings)
+          } catch {
+            showToast('Alarm settings could not be saved.', 'error')
+          }
+        }} />
         <EconomicsSettingsView
           currentSettings={
             economicsSettings
@@ -707,6 +738,7 @@ function App() {
             saveEconomicsSettings
           }
         />
+        </>
       )}
 
       {currentView ===
