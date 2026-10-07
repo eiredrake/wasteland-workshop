@@ -6,6 +6,13 @@ import {
 
 import './App.css'
 
+import ShoppingListsView from './features/shopping/ShoppingListsView'
+import type { BlueprintShoppingProps } from './features/shopping/BlueprintShoppingAction'
+import type { Blueprint } from './features/blueprints/Blueprint'
+import { loadShoppingLists, saveShoppingLists } from './features/shopping/ShoppingListRepository'
+import type { ShoppingListState } from './features/shopping/ShoppingList'
+import { addBlueprintComponents, replaceShoppingList, selectShoppingList } from './features/shopping/ShoppingListService'
+
 import BlueprintSearch from './features/blueprints/BlueprintSearch'
 import BlueprintCollectionsView from './features/blueprints/BlueprintCollectionsView'
 import WorkshopView from './features/blueprints/WorkshopView'
@@ -60,6 +67,7 @@ type AppView =
   | 'workshop'
   | 'catalog'
   | 'collections'
+  | 'shopping'
   | 'timer'
   | 'settings'
   | 'about'
@@ -116,6 +124,8 @@ function App() {
   ] = useState<string | undefined>(
     loadActiveBlueprintCollectionId
   )
+
+  const [shoppingState, setShoppingState] = useState(loadShoppingLists)
 
   const [craftTimer, setCraftTimer] =
     useState<CraftTimerState>(
@@ -543,6 +553,42 @@ function App() {
     )
   }
 
+  const updateShoppingState = (next: ShoppingListState): boolean => {
+    try {
+      saveShoppingLists(next)
+      setShoppingState(next)
+      return true
+    } catch {
+      showToast('Shopping list could not be saved. Your previous list was kept.', 'error')
+      return false
+    }
+  }
+
+  const addComponentsToShoppingList = (blueprint: Blueprint, listId: string): boolean => {
+    const list = shoppingState.lists.find(item => item.id === listId)
+    const components = blueprint.itemCraftings?.[0]?.craftingComponents
+    if (!list || !components?.length) {
+      showToast('Select a shopping list and a blueprint with components.', 'warning')
+      return false
+    }
+    try {
+      const next = selectShoppingList(replaceShoppingList(shoppingState, addBlueprintComponents(list, components)), listId)
+      if (!updateShoppingState(next)) return false
+      showToast(`Added all components for "${blueprint.name}" to "${list.name}".`, 'success')
+      return true
+    } catch (error) {
+      showToast(error instanceof Error ? error.message : 'Components could not be added.', 'error')
+      return false
+    }
+  }
+
+  const shopping: BlueprintShoppingProps = {
+    lists: shoppingState.lists,
+    activeListId: shoppingState.activeListId,
+    onAddComponents: addComponentsToShoppingList,
+    onOpenLists: () => navigateTo('shopping'),
+  }
+
   return (
     <main>
       <header className="app-header">
@@ -599,6 +645,10 @@ function App() {
             Blueprint Collections
           </button>
 
+          <button type="button" onClick={() => navigateTo('shopping')}>
+            Shopping Lists
+          </button>
+
           <button
             type="button"
             onClick={openCraftTimer}
@@ -642,6 +692,7 @@ function App() {
       {currentView ===
         'workshop' && (
         <WorkshopView
+          shopping={shopping}
           activeCollection={
             activeBlueprintCollection
           }
@@ -666,6 +717,7 @@ function App() {
       {currentView ===
         'catalog' && (
         <BlueprintSearch
+          shopping={shopping}
           calculator={calculator}
           defaultMarkupPercent={
             economicsSettings
@@ -709,6 +761,13 @@ function App() {
             setActiveBlueprintCollection
           }
         />
+      )}
+
+      {currentView === 'shopping' && (
+        <ShoppingListsView state={shoppingState} onChange={updateShoppingState}
+          calculator={calculator} activeCollection={activeBlueprintCollection}
+          onUpdateBlueprint={updateBlueprintCollectionEntry}
+          notify={(message, error) => showToast(message, error ? 'error' : 'success')} />
       )}
 
       {currentView ===

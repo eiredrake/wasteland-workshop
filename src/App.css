@@ -271,3 +271,8 @@ h2 {
   opacity: 0.6;
   text-transform: none;
 }
+
+/* Keep the shared header inside narrow field-tool screens. */
+.app-header > div { min-width: 0; }
+.app-header h1 { overflow-wrap: anywhere; }
+.app-version { display: inline-block; }

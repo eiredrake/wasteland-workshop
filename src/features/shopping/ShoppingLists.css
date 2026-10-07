@@ -1,0 +1,35 @@
+.shopping-page { min-width: 0; }
+.shopping-page h3, .shopping-page strong { overflow-wrap: anywhere; }
+.shopping-list-cards { margin-bottom: 1.5rem; }
+.shopping-page button, .shopping-blueprint-action button { min-height: 44px; }
+.shopping-page select, .shopping-blueprint-action select {
+  box-sizing: border-box; width: 100%; min-width: 0; min-height: 44px;
+  padding: 0.65rem; border: 1px solid var(--color-border); border-radius: 6px;
+  background: var(--color-surface); color: var(--color-text); font: inherit;
+}
+.shopping-summary { padding: 1rem; border-left: 4px solid var(--color-rust); background: var(--color-surface); margin-bottom: 1rem; }
+.shopping-summary p, .shopping-hint { color: var(--color-text-muted); font-size: 0.85rem; line-height: 1.5; }
+.shopping-summary p { margin-bottom: 0; }
+.shopping-quantity-input { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+.shopping-quantity-input input { width: 6rem; flex: 0 1 6rem; }
+.shopping-add-resource p { margin: 0; }
+.shopping-resource-value { display: block; color: var(--color-text-muted); font-size: 0.85rem; line-height: 1.5; margin-top: 0.3rem; }
+.shopping-resource-acquired > strong { color: var(--color-success); }
+.shopping-row-actions { display: flex; flex-direction: column; gap: 0.25rem; align-items: flex-start; }
+.shopping-row-actions .blueprint-access-status { margin: 0; min-height: 44px; touch-action: pan-y; user-select: none; }
+.shopping-remove { background: transparent; border: 0; color: var(--color-text-muted); text-decoration: underline; padding: 0.4rem 0.2rem; font: inherit; font-size: 0.8rem; cursor: pointer; }
+.shopping-page table { width: 100%; table-layout: fixed; }
+.shopping-page th:last-child, .shopping-page td:last-child { width: 6.5rem; }
+.shopping-page td { white-space: normal; vertical-align: top; }
+.shopping-page td:first-child { overflow-wrap: anywhere; }
+.shopping-blueprints { margin-top: 2rem; }
+.shopping-blueprints p { color: var(--color-text-muted); line-height: 1.5; }
+.shopping-blueprint-action { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem; }
+.shopping-blueprint-action h3, .shopping-blueprint-action p { margin: 0; }
+.shopping-blueprint-action p { color: var(--color-text-muted); line-height: 1.5; }
+@media (max-width: 400px) {
+  .shopping-page .blueprint-collection-card, .shopping-page .blueprint-collection-add { padding: 0.85rem; }
+  .shopping-page .blueprint-collections-header { gap: 0.5rem; }
+  .shopping-quantity-input button { flex: 1 1 100%; }
+  .shopping-page th:last-child, .shopping-page td:last-child { width: 5.8rem; }
+}

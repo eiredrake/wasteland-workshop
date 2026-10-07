@@ -10,8 +10,10 @@ import { testResourceEconomics } from '../../economics/testResourceEconomics'
 import { calculateBlueprintCost } from '../../economics/BlueprintCostService'
 import BlueprintCraftTimer from '../../components/CraftTimer/BlueprintCraftTimer'
 import './BlueprintDetails.css'
+import BlueprintShoppingAction, { type BlueprintShoppingProps } from '../shopping/BlueprintShoppingAction'
 
 type BlueprintDetailsProps = {
+  shopping: BlueprintShoppingProps
   blueprint: Blueprint
   mode: 'catalog' | 'collection'
   calculator: CostCalculator
@@ -31,6 +33,7 @@ type BlueprintDetailsProps = {
 }
 
 function BlueprintDetails({
+  shopping,
   blueprint,
   mode,
   calculator,
@@ -346,6 +349,8 @@ function BlueprintDetails({
           </p>
         )}
       </section>
+
+      <BlueprintShoppingAction blueprint={blueprint} shopping={shopping} />
 
       <div className="blueprint-details-grid">
         <section className="blueprint-details-card">

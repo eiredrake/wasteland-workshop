@@ -8,6 +8,7 @@ import type {
 } from './BlueprintCollection'
 import { masterBlueprints } from './blueprints'
 import BlueprintDetails from './BlueprintDetails'
+import type { BlueprintShoppingProps } from '../shopping/BlueprintShoppingAction'
 import './WorkshopView.css'
 import type { CraftTimerState } from '../timer/CraftTimerState'
 
@@ -22,6 +23,7 @@ type WorkshopRow = {
 }
 
 type WorkshopViewProps = {
+  shopping: BlueprintShoppingProps
   activeCollection:
     BlueprintCollection | undefined
   calculator: CostCalculator
@@ -114,6 +116,7 @@ function getStatusLabel(
 }
 
 function WorkshopView({
+  shopping,
   activeCollection,
   calculator,
   defaultMarkupPercent,
@@ -461,6 +464,7 @@ function WorkshopView({
         backLabel={`Back to ${activeCollection.name}`}
         renderDetails={(item) => (
           <BlueprintDetails
+            shopping={shopping}
             blueprint={
               item.blueprint
             }

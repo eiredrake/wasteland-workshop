@@ -8,6 +8,7 @@ import type {
 } from './BlueprintCollection'
 import { masterBlueprints } from './blueprints'
 import BlueprintDetails from './BlueprintDetails'
+import type { BlueprintShoppingProps } from '../shopping/BlueprintShoppingAction'
 import './BlueprintSearch.css'
 import type { CraftTimerState } from '../timer/CraftTimerState'
 
@@ -92,6 +93,7 @@ function getNextStatus(
 }
 
 type BlueprintSearchProps = {
+  shopping: BlueprintShoppingProps
   calculator: CostCalculator
   defaultMarkupPercent: number
   craftTimer: CraftTimerState
@@ -112,6 +114,7 @@ type BlueprintSearchProps = {
 }
 
 function BlueprintSearch({
+  shopping,
   calculator,
   defaultMarkupPercent,
   activeCollection,
@@ -357,6 +360,7 @@ function BlueprintSearch({
         backLabel="Back to Blueprints"
         renderDetails={(blueprint) => (
           <BlueprintDetails
+            shopping={shopping}
             blueprint={blueprint}
             mode="catalog"
             calculator={calculator}
