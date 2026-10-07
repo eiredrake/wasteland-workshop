@@ -4,10 +4,24 @@ import { defaultEconomicsSettings, resolveEconomicsSettings, validEconomicValue,
 import { getEconomicResourceDefinitions } from '../../economics/EconomicResourceCatalog'
 import { getEffectiveResourceValue } from '../../economics/ResourceValuationService'
 import { DefaultCostCalculator } from '../../economics/DefaultCostCalculator'
+import { ingredientItems } from '../blueprints/IngredientCatalog'
 import { allBlueprints } from '../blueprints/blueprints'
 import './EconomicsSettingsView.css'
 
 const definitions = getEconomicResourceDefinitions(allBlueprints)
+const valuationGroups = [
+  { title: 'Currency', key: 'currency' },
+  { title: 'Herbs', key: 'herbs' },
+  { title: 'Scrap', key: 'scrap' },
+  { title: 'Other Resources', key: 'other' },
+]
+function valuationGroup(itemId: number) {
+  const kind = ingredientItems.get(itemId)?.kind
+  if (kind === 'currency') return 'currency'
+  if (kind === 'named_herb' || kind === 'unnamed_herb') return 'herbs'
+  if (kind === 'unnamed_scrap') return 'scrap'
+  return 'other'
+}
 const formatValue = (value: number | undefined) => value === undefined ? 'Unknown' : value.toLocaleString(undefined, { maximumFractionDigits: 4 })
 const groups: { title: string; fields: { key: EconomicSetting; label: string; unit: string }[] }[] = [
   { title: 'Labor', fields: [
@@ -74,14 +88,21 @@ export default function EconomicsSettingsView({ currentOverrides, onSave }: {
         {group.fields.map(({ key, label, unit }) => field(key, label, unit, defaultEconomicsSettings[key], effective[key]))}
         {group.title === 'Acquisition Resources' && <p className="economics-note">One card value applies to every foraging tier. Tier-specific acquisition methods are retained.</p>}
       </div>)}
-      <div className="settings-card"><h3>Resource Valuations</h3>
+      <div className="economics-resource-valuations"><h3>Resource Valuations</h3>
         <p className="economics-note">Ayden’s Econtism defaults are fixed resource values used for blueprint materials and shopping estimates. Acquisition costs are separate. Save an override to use your value throughout the app; reset it to restore the application default. Unmapped resources remain unknown.</p>
         <label htmlFor="economic-resource-filter">Find a resource value</label>
         <input className="economics-resource-filter" id="economic-resource-filter" type="search" value={filter}
           placeholder="Herbs, scrap, crystals…" onChange={event => setFilter(event.target.value)} />
-        {definitions.filter(resource => resource.name.toLowerCase().includes(filter.trim().toLowerCase()))
-          .map(resource => field(`resource-${resource.itemId}`, resource.name, 'cr / unit', resource.defaultValue,
-            getEffectiveResourceValue(resource.itemId, calculator)))}
+        {valuationGroups.map(group => {
+          const resources = definitions.filter(resource => valuationGroup(resource.itemId) === group.key
+            && resource.name.toLowerCase().includes(filter.trim().toLowerCase()))
+          if (!resources.length) return null
+          return <section className={`settings-card economics-resource-group economics-resource-group-${group.key}`} key={group.key}>
+            <h3>{group.title}</h3>
+            {resources.map(resource => field(`resource-${resource.itemId}`, resource.name, 'cr / unit', resource.defaultValue,
+              getEffectiveResourceValue(resource.itemId, calculator)))}
+          </section>
+        })}
         {!definitions.some(resource => resource.name.toLowerCase().includes(filter.trim().toLowerCase())) && <p>No matching resources.</p>}
       </div>
       <div className="settings-actions">

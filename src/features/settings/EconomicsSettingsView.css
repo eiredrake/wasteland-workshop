@@ -8,3 +8,7 @@
 .economics-override-input input[aria-invalid="true"] { border-color: var(--color-danger); }
 .economics-resource-filter { box-sizing: border-box; width: 100%; min-height: 44px; margin: 0.5rem 0 1rem; padding: 0.65rem; background: var(--color-surface); color: var(--color-text); border: 1px solid var(--color-border); border-radius: 5px; font: inherit; }
 .economics-settings-page input:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+.economics-resource-group-currency { border-left: 3px solid #d6a33d; }
+.economics-resource-group-herbs { border-left: 3px solid #72a866; }
+.economics-resource-group-scrap { border-left: 3px solid var(--color-rust); }

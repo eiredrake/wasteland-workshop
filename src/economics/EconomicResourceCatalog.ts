@@ -1,5 +1,5 @@
 import { concreteIngredients } from '../features/blueprints/IngredientRequirement'
-import { isSelectorId } from '../features/blueprints/IngredientCatalog'
+import { ingredientItems, isSelectorId } from '../features/blueprints/IngredientCatalog'
 import type { Blueprint } from '../features/blueprints/Blueprint'
 import { applicationResourceDefinitions, applicationResourceDefaults } from './ApplicationResourceDefaults'
 
@@ -7,7 +7,7 @@ export type EconomicResourceDefinition = {
   itemId: number
   name: string
   defaultValue: number | undefined
-  source: 'ayden' | 'unknown'
+  source: 'ayden' | 'currency' | 'unknown'
 }
 
 export function getEconomicResourceDefinitions(blueprints: Blueprint[]): EconomicResourceDefinition[] {
@@ -19,6 +19,6 @@ export function getEconomicResourceDefinitions(blueprints: Blueprint[]): Economi
   }
   return [...names].filter(([id]) => !isSelectorId(id)).map(([itemId, name]) => ({ itemId, name,
     defaultValue: applicationResourceDefaults[itemId],
-    source: applicationResourceDefaults[itemId] === undefined ? 'unknown' as const : 'ayden' as const,
+    source: ingredientItems.get(itemId)?.kind === 'currency' ? 'currency' as const : applicationResourceDefaults[itemId] === undefined ? 'unknown' as const : 'ayden' as const,
   })).sort((a, b) => a.name.localeCompare(b.name))
 }

@@ -79,9 +79,9 @@ describe('Concrete ingredients and structured selectors', () => {
   it.each([[3866,3],[3868,7],[3873,21]])('keeps existing concrete resource %i unchanged', (id,value) => {
     expect(new DefaultCostCalculator().getEffectiveResourceValue(id)).toBe(value)
   })
-  it('keeps unvalued concrete currency Unknown instead of copying the Local Currency price', () => {
-    expect(definitions.find(item => item.itemId === 5557)).toMatchObject({name:'Gold Standard',defaultValue:undefined,source:'unknown'})
-    expect(new DefaultCostCalculator().getEffectiveResourceValue(5557)).toBeUndefined()
+  it('uses the explicit concrete currency default without valuing the Local Currency selector', () => {
+    expect(definitions.find(item => item.itemId === 5557)).toMatchObject({name:'Gold Standard',defaultValue:1,source:'currency'})
+    expect(new DefaultCostCalculator().getEffectiveResourceValue(5557)).toBe(1)
   })
 })
 describe('Unresolved Shopping List ingredients', () => {

@@ -9,6 +9,7 @@ import { calculateResourceValuation } from './ResourceValuation'
 import { calculateBlueprintCost } from './BlueprintCostService'
 import { getEconomicResourceDefinitions } from './EconomicResourceCatalog'
 import { testResourceEconomics } from './testResourceEconomics'
+import { ingredientItems } from '../features/blueprints/IngredientCatalog'
 import { allBlueprints } from '../features/blueprints/blueprints'
 import { valueShoppingList } from '../features/shopping/ShoppingListService'
 import type { ItemCrafting } from '../features/blueprints/ItemCrafting'
@@ -25,6 +26,12 @@ function storage(initial?: unknown) {
 }
 
 describe('Ayden configured defaults', () => {
+  it('values every canonical currency at one credit except Trade Notes and preserves overrides', () => {
+    const currencies = [...ingredientItems.values()].filter(item => item.kind === 'currency')
+    expect(currencies.length).toBeGreaterThan(0)
+    for (const item of currencies) expect(value(item.id)).toBe(item.id === 5558 ? 5 : 1)
+    expect(value(5596, { resourceValues: { 5596: 2 } })).toBe(2)
+  })
   it('uses the supplied global assumptions and one card price', () => {
     expect(defaultEconomicsSettings).toEqual({ mindCostPerPoint: 0.4, timeCostPerMinute: 0.1,
       resolveCostPerPoint: 15, foragingCardCost: 4, defaultMarkupPercent: 25 })
