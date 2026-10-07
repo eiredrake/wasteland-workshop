@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState, type PointerEvent } from 'react'
+import ShoppingConfirmationDialog from './ShoppingConfirmationDialog'
+import SearchablePicker from '../../components/SearchablePicker/SearchablePicker'
 import Datalist from '../../components/Datalist/Datalist'
 import type { CostCalculator } from '../../economics/CostCalculator'
 import { testResourceEconomics } from '../../economics/testResourceEconomics'
 import { allBlueprints } from '../blueprints/blueprints'
 import type { BlueprintAccessStatus, BlueprintCollection } from '../blueprints/BlueprintCollection'
-import type { ResourceShoppingItem, ShoppingListState } from './ShoppingList'
+import type { BlueprintAcquisitionItem, ResourceShoppingItem, ShoppingListState } from './ShoppingList'
 import { exportShoppingList, parseShoppingListImport } from './ShoppingListRepository'
 import { addResources, addShoppingList, deleteShoppingList, getBlueprintAcquisitions, getResourceCatalog, removeResource, renameShoppingList, replaceShoppingList, selectShoppingList, toggleResource, valueShoppingList, type ValuedResource } from './ShoppingListService'
 import '../blueprints/BlueprintCollectionsView.css'
@@ -28,7 +30,7 @@ function AcquisitionControl({ item, onToggle, onRemove }: {
     origin.current = { x: event.clientX, y: event.clientY }
     hold.current = setTimeout(() => { held.current = true; onRemove() }, 650)
   }
-  return <div className="shopping-row-actions">
+  return <div className="shopping-row-actions shopping-status-badges">
     <button type="button" className={`blueprint-access-status blueprint-access-status-${item.acquired ? 'acquired' : 'to-acquire'}`}
       aria-label={`${item.acquired ? 'Acquired' : 'Needed'}: ${item.name}. Tap to toggle; hold to remove.`} aria-pressed={item.acquired}
       onPointerDown={start} onPointerUp={cancel} onPointerCancel={cancel} onPointerLeave={cancel}
@@ -37,7 +39,7 @@ function AcquisitionControl({ item, onToggle, onRemove }: {
       onClick={() => { if (!held.current) onToggle(); held.current = false }}>
       {item.acquired ? 'Acquired' : 'Needed'}
     </button>
-    <button className="shopping-remove" type="button" aria-label={`Remove ${item.name}`} onClick={onRemove}>Remove</button>
+    <button className="blueprint-access-status blueprint-access-status-untracked shopping-remove-badge" type="button" aria-label={`Remove ${item.name}`} title="Remove resource from this shopping list" onClick={onRemove}>X</button>
   </div>
 }
 
@@ -49,18 +51,18 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
   onUpdateBlueprint: (id: number, name: string, status: BlueprintAccessStatus | undefined) => void
   notify: (message: string, error?: boolean) => void
 }) {
+  const [pendingResource, setPendingResource] = useState<{ item: ResourceShoppingItem; listId: string }>()
+  const [pendingBlueprint, setPendingBlueprint] = useState<BlueprintAcquisitionItem>()
   const [adding, setAdding] = useState(false)
   const [name, setName] = useState('')
   const [renameId, setRenameId] = useState<string>()
   const [pendingImport, setPendingImport] = useState<ReturnType<typeof parseShoppingListImport>>()
   const [resourceId, setResourceId] = useState('')
-  const [query, setQuery] = useState('')
   const [quantity, setQuantity] = useState('1')
   const input = useRef<HTMLInputElement>(null)
   const active = state.lists.find(list => list.id === state.activeListId)
   const valued = active ? valueShoppingList(active, testResourceEconomics, calculator) : undefined
   const blueprints = getBlueprintAcquisitions(activeCollection, allBlueprints)
-  const choices = resourceCatalog.filter(resource => resource.name.toLowerCase().includes(query.trim().toLowerCase()))
 
   const commit = (next: ShoppingListState, message: string) => {
     if (!onChange(next)) return false
@@ -75,9 +77,7 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
     } catch (error) { notify(error instanceof Error ? error.message : 'Unable to save list.', true) }
   }
   const remove = (item: ResourceShoppingItem) => {
-    if (active && window.confirm(`Remove "${item.name}" from "${active.name}"?`)) {
-      commit(replaceShoppingList(state, removeResource(active, item.resourceId)), 'Resource removed.')
-    }
+    if (active) setPendingResource({ item, listId: active.id })
   }
 
   return <section className="blueprint-collections-page shopping-page">
@@ -148,16 +148,12 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
           if (commit(replaceShoppingList(state, next), `Added ${quantity} × ${resource.name}.`)) setQuantity('1')
         } catch (error) { notify(error instanceof Error ? error.message : 'Unable to add resource.', true) }
       }}>
-        <label htmlFor="resource-search">Find a Resource</label>
-        <input id="resource-search" type="search" value={query} placeholder="Scrap, herbs, metals…" onChange={event => { setQuery(event.target.value); setResourceId('') }} />
-        <label htmlFor="shopping-resource">Resource</label>
-        <select id="shopping-resource" required value={resourceId} onChange={event => setResourceId(event.target.value)}>
-          <option value="">Choose a resource ({choices.length})</option>
-          {choices.map(resource => <option key={resource.resourceId} value={resource.resourceId}>{resource.name}</option>)}
-        </select>
+        <SearchablePicker label="Find a Resource" options={resourceCatalog} required
+          getOptionKey={resource => resource.resourceId} getOptionLabel={resource => resource.name}
+          placeholder="Scrap, herbs, metals…" onChange={resource => setResourceId(resource ? String(resource.resourceId) : '')} />
         <div className="shopping-quantity-input"><label htmlFor="shopping-quantity">Quantity</label>
           <input id="shopping-quantity" type="number" inputMode="decimal" min="0.000001" step="any" required value={quantity} onChange={event => setQuantity(event.target.value)} />
-          <button type="submit" className="primary-button">Add Resource</button>
+          <button type="submit" className="primary-button" disabled={!resourceId}>Add Resource</button>
         </div>
         <p className="shopping-hint">Duplicates merge. Adding to an acquired row marks the combined quantity Needed again.</p>
       </form>
@@ -170,7 +166,7 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
           { key: 'acquired', label: 'Status', protected: true, minWidth: 90, render: item => <AcquisitionControl item={item}
             onToggle={() => commit(replaceShoppingList(state, toggleResource(active, item.resourceId)), `${item.name} marked ${item.acquired ? 'Needed' : 'Acquired'}.`)} onRemove={() => remove(item)} /> },
         ]} /></div>
-      <p className="shopping-hint">Tap a status to toggle Needed/Acquired. Hold it to remove, or use Remove.</p>
+      <p className="shopping-hint">Tap a status to toggle Needed/Acquired. Hold it to remove, or tap X.</p>
     </>}
 
     <section className="shopping-blueprints"><h3>Blueprints to Acquire</h3>
@@ -178,14 +174,29 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
       <Datalist items={blueprints} getRowKey={item => item.blueprintId} emptyMessage="No blueprints to acquire in the active collection."
         columns={[
           { key: 'name', label: 'Blueprint / Print', protected: true, render: item => <strong>{item.name}</strong> },
-          { key: 'blueprintId', label: 'Acquisition', protected: true, render: item => <div className="shopping-row-actions">
+          { key: 'blueprintId', label: 'Acquisition', protected: true, render: item => <div className="shopping-row-actions shopping-status-badges">
             <button type="button" className="blueprint-access-status blueprint-access-status-to-acquire" aria-label={`Mark ${item.name} acquired`}
               onClick={() => onUpdateBlueprint(item.blueprintId, item.name, 'acquired')}>To Acquire</button>
-            <button type="button" className="shopping-remove" aria-label={`Stop tracking ${item.name}`} onClick={() => {
-              if (window.confirm(`Remove "${item.name}" from the active Blueprint Collection?`)) onUpdateBlueprint(item.blueprintId, item.name, undefined)
-            }}>Remove</button>
+            <button type="button" className="blueprint-access-status blueprint-access-status-untracked shopping-remove-badge"
+              aria-label={`Stop tracking ${item.name}`} title="Remove from the active Blueprint Collection"
+              onClick={() => setPendingBlueprint(item)}>X</button>
           </div> },
         ]} />
     </section>
+    {pendingResource && <ShoppingConfirmationDialog title="Remove resource?"
+      message={`Remove "${pendingResource.item.name}" from "${state.lists.find(list => list.id === pendingResource.listId)?.name ?? 'this shopping list'}"?`}
+      onCancel={() => setPendingResource(undefined)} onConfirm={() => {
+        const list = state.lists.find(list => list.id === pendingResource.listId)
+        if (list && !commit(replaceShoppingList(state, removeResource(list, pendingResource.item.resourceId)), 'Resource removed.')) return
+        setPendingResource(undefined)
+      }} />}
+    {pendingBlueprint && <ShoppingConfirmationDialog title="Remove blueprint?"
+      message={`Remove "${pendingBlueprint.name}" from "${activeCollection?.name ?? 'the active Blueprint Collection'}"? This also removes it from Blueprints to Acquire.`}
+      onCancel={() => setPendingBlueprint(undefined)} onConfirm={() => {
+        if (activeCollection?.id === pendingBlueprint.collectionId) {
+          onUpdateBlueprint(pendingBlueprint.blueprintId, pendingBlueprint.name, undefined)
+        }
+        setPendingBlueprint(undefined)
+      }} />}
   </section>
 }
