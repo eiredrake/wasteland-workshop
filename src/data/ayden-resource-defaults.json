@@ -1,0 +1,3229 @@
+{
+  "source": {
+    "title": "Econtism 2.1",
+    "url": "https://docs.google.com/spreadsheets/d/1o0Ovtq8fzaaSSWMuwH64eP_w9X5bxKr2VPRUv4QNrU4/edit#gid=0",
+    "capturedOn": "2026-10-07",
+    "primarySheet": "Ingredient Lookup",
+    "secondarySheet": "Ingredient Lookup2"
+  },
+  "globalDefaults": {
+    "mindCostPerPoint": 0.4,
+    "timeCostPerMinute": 0.1,
+    "resolveCostPerPoint": 15,
+    "foragingCardCost": 4
+  },
+  "entries": [
+    {
+      "itemId": 3857,
+      "name": "Acid Compounds Crafting Component",
+      "value": 13.8,
+      "sourceName": "Acid Compounds Crafting Component",
+      "sourceCell": "Ingredient Lookup!O2",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3858,
+      "name": "Adhesive Crafting Component",
+      "value": 13.8,
+      "sourceName": "Adhesive Crafting Component",
+      "sourceCell": "Ingredient Lookup!O3",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3869,
+      "name": "Alloy Metal",
+      "value": 21,
+      "sourceName": "Alloy Metal",
+      "sourceCell": "Ingredient Lookup!O80",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3939,
+      "name": "Any Produce",
+      "value": 5.4,
+      "sourceName": "Any Produce",
+      "sourceCell": "Ingredient Lookup!J:K / M:N",
+      "mapping": "Exact ingredient-input name and consistent explicit unit value"
+    },
+    {
+      "itemId": 3846,
+      "name": "Ayahuasca",
+      "value": 7,
+      "sourceName": "Ayahuasca",
+      "sourceCell": "Ingredient Lookup!O44",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3807,
+      "name": "Basic Herb",
+      "value": 3,
+      "sourceName": "Basic Herb",
+      "sourceCell": "Ingredient Lookup!O39",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3866,
+      "name": "Basic Scrap",
+      "value": 3,
+      "sourceName": "Basic Scrap",
+      "sourceCell": "Ingredient Lookup!O103",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3829,
+      "name": "Bayberry",
+      "value": 7,
+      "sourceName": "Bayberry",
+      "sourceCell": "Ingredient Lookup!O47",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3843,
+      "name": "Cannabis",
+      "value": 7,
+      "sourceName": "Cannabis",
+      "sourceCell": "Ingredient Lookup!O50",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3877,
+      "name": "Combustible Materials",
+      "value": 6,
+      "sourceName": "Combustible Materials",
+      "sourceCell": "Ingredient Lookup!O114",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3870,
+      "name": "Conductive Metal",
+      "value": 21,
+      "sourceName": "Conductive Metal",
+      "sourceCell": "Ingredient Lookup!O81",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3859,
+      "name": "Cooking Oil Crafting Component",
+      "value": 13.8,
+      "sourceName": "Cooking Oil Crafting Component",
+      "sourceCell": "Ingredient Lookup!O4",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3878,
+      "name": "Craftable Stone",
+      "value": 4.4,
+      "sourceName": "Craftable Stone",
+      "sourceCell": "Ingredient Lookup!O112",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3848,
+      "name": "Eggs",
+      "value": 5.4,
+      "sourceName": "Eggs",
+      "sourceCell": "Ingredient Lookup!O92",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3816,
+      "name": "Epazote",
+      "value": 7,
+      "sourceName": "Epazote",
+      "sourceCell": "Ingredient Lookup!O55",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3900,
+      "name": "Festering Crystal",
+      "value": 15,
+      "sourceName": "Festering Crystal",
+      "sourceCell": "Ingredient Lookup!O87",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3842,
+      "name": "Foxglove",
+      "value": 7,
+      "sourceName": "Foxglove",
+      "sourceCell": "Ingredient Lookup!O57",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3850,
+      "name": "Fruit",
+      "value": 5.4,
+      "sourceName": "Fruit",
+      "sourceCell": "Ingredient Lookup!O93",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3864,
+      "name": "Generic Brew",
+      "value": 9,
+      "sourceName": "Generic Brew",
+      "sourceCell": "Ingredient Lookup!O9",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3876,
+      "name": "Generic Engineered Item",
+      "value": 24,
+      "sourceName": "Generic Engineered Item",
+      "sourceCell": "Ingredient Lookup!O10",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3875,
+      "name": "Generic Genre Motorized Item",
+      "value": 18,
+      "sourceName": "Generic Genre Motorized Item",
+      "sourceCell": "Ingredient Lookup!O11",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3874,
+      "name": "Generic Handheld Item",
+      "value": 15,
+      "sourceName": "Generic Handheld Item",
+      "sourceCell": "Ingredient Lookup!O12",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3865,
+      "name": "Generic Meal",
+      "value": 11.4,
+      "sourceName": "Generic Meal",
+      "sourceCell": "Ingredient Lookup!O13",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3901,
+      "name": "Grave Flesh",
+      "value": 18,
+      "sourceName": "Grave Flesh",
+      "sourceCell": "Ingredient Lookup!O90",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3872,
+      "name": "Hard Metal",
+      "value": 21,
+      "sourceName": "Hard Metal",
+      "sourceCell": "Ingredient Lookup!O82",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3879,
+      "name": "High Grade Lumber",
+      "value": 4.4,
+      "sourceName": "High Grade Lumber",
+      "sourceCell": "Ingredient Lookup!O113",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3897,
+      "name": "Imprint Crystal",
+      "value": 15,
+      "sourceName": "Imprint Crystal",
+      "sourceCell": "Ingredient Lookup!O91",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3851,
+      "name": "Infection Material",
+      "value": 19,
+      "sourceName": "Infection Material",
+      "sourceCell": "Ingredient Lookup!O100",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3844,
+      "name": "Jimson Weed",
+      "value": 7,
+      "sourceName": "Jimson Weed",
+      "sourceCell": "Ingredient Lookup!O61",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 5559,
+      "name": "Local Currency",
+      "value": 1,
+      "sourceName": "Local Currency",
+      "sourceCell": "Ingredient Lookup!J:K / M:N",
+      "mapping": "Exact ingredient-input name and consistent explicit unit value"
+    },
+    {
+      "itemId": 3882,
+      "name": "Machined Components",
+      "value": 12,
+      "sourceName": "Machined Component",
+      "sourceCell": "Ingredient Lookup!O117",
+      "mapping": "Reviewed singular/plural name alias"
+    },
+    {
+      "itemId": 3821,
+      "name": "Marjoram",
+      "value": 7,
+      "sourceName": "Marjoram",
+      "sourceCell": "Ingredient Lookup!O64",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3852,
+      "name": "Meat",
+      "value": 5.4,
+      "sourceName": "Meat",
+      "sourceCell": "Ingredient Lookup!O94",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 4874,
+      "name": "Meaty Bits",
+      "value": 4,
+      "sourceName": "Meaty Bits",
+      "sourceCell": "Ingredient Lookup!O21",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 4377,
+      "name": "Mechanical Airship Framework",
+      "value": 19,
+      "sourceName": "Mechanical Airship Framework",
+      "sourceCell": "Ingredient Lookup!O29",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 4375,
+      "name": "Mechanical Auto Frame",
+      "value": 12,
+      "sourceName": "Mechanical Auto Frame",
+      "sourceCell": "Ingredient Lookup!O30",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3883,
+      "name": "Mechanical Components",
+      "value": 19,
+      "sourceName": "Mechanical Components",
+      "sourceCell": "Ingredient Lookup!O119",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 4378,
+      "name": "Mechanical Drive",
+      "value": 5.4,
+      "sourceName": "Mechanical Drive",
+      "sourceCell": "Ingredient Lookup!O31",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 4376,
+      "name": "Mechanical Engine",
+      "value": 12,
+      "sourceName": "Mechanical Engine",
+      "sourceCell": "Ingredient Lookup!O32",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 4379,
+      "name": "Mechanical Fuel System",
+      "value": 12,
+      "sourceName": "Mechanical Fuel System",
+      "sourceCell": "Ingredient Lookup!O33",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 4385,
+      "name": "Mechanical Gear System",
+      "value": 5.4,
+      "sourceName": "Mechanical Gear System",
+      "sourceCell": "Ingredient Lookup!O34",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 4386,
+      "name": "Mechanical Hull",
+      "value": 12,
+      "sourceName": "Mechanical Hull",
+      "sourceCell": "Ingredient Lookup!O35",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3853,
+      "name": "Milk",
+      "value": 5.4,
+      "sourceName": "Milk",
+      "sourceCell": "Ingredient Lookup!O95",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3899,
+      "name": "Mortis Extract",
+      "value": 45,
+      "sourceName": "Mortis Extract",
+      "sourceCell": "Ingredient Lookup!O89",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3898,
+      "name": "Mycelium Wiring",
+      "value": 45,
+      "sourceName": "Mycelium Wiring",
+      "sourceCell": "Ingredient Lookup!O88",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3880,
+      "name": "Natural Fibers",
+      "value": 6,
+      "sourceName": "Natural Fibers",
+      "sourceCell": "Ingredient Lookup!O115",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3860,
+      "name": "Pain Killer Crafting Component",
+      "value": 19,
+      "sourceName": "Pain Killer Crafting Component",
+      "sourceCell": "Ingredient Lookup!O5",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3894,
+      "name": "Passenger Carrier",
+      "value": 19,
+      "sourceName": "Passenger Carrier",
+      "sourceCell": "Ingredient Lookup!O36",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3828,
+      "name": "Peppermint",
+      "value": 7,
+      "sourceName": "Peppermint",
+      "sourceCell": "Ingredient Lookup!O67",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3884,
+      "name": "Plastics",
+      "value": 12,
+      "sourceName": "Plastics",
+      "sourceCell": "Ingredient Lookup!O118",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3830,
+      "name": "Prairie Wildrye",
+      "value": 7,
+      "sourceName": "Prairie Wildrye",
+      "sourceCell": "Ingredient Lookup!O68",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3881,
+      "name": "Psionic Crystal",
+      "value": 8,
+      "sourceName": "Psionic Crystal",
+      "sourceCell": "Ingredient Lookup!O116",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3847,
+      "name": "Quinine",
+      "value": 7,
+      "sourceName": "Quinine",
+      "sourceCell": "Ingredient Lookup!O69",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3861,
+      "name": "Radioactive Compounds Crafting Component",
+      "value": 33,
+      "sourceName": "Radioactive Compounds Crafting Component",
+      "sourceCell": "Ingredient Lookup!O6",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3871,
+      "name": "Radioactive Metal",
+      "value": 21,
+      "sourceName": "Radioactive Metal",
+      "sourceCell": "Ingredient Lookup!O83",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3809,
+      "name": "Rare Herb",
+      "value": 7,
+      "sourceName": "Rare Herb",
+      "sourceCell": "Ingredient Lookup!O41",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3868,
+      "name": "Rare Scrap",
+      "value": 7,
+      "sourceName": "Rare Scrap",
+      "sourceCell": "Ingredient Lookup!O111",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3885,
+      "name": "Recovered Electronics",
+      "value": 19,
+      "sourceName": "Recovered Electronics",
+      "sourceCell": "Ingredient Lookup!O120",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3862,
+      "name": "Salty Crafting Component",
+      "value": 15,
+      "sourceName": "Salty Crafting Component",
+      "sourceCell": "Ingredient Lookup!O7",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3822,
+      "name": "Salvia",
+      "value": 7,
+      "sourceName": "Salvia",
+      "sourceCell": "Ingredient Lookup!O73",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3854,
+      "name": "Shellfish",
+      "value": 12,
+      "sourceName": "Shellfish",
+      "sourceCell": "Ingredient Lookup!O99",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3873,
+      "name": "Soft Metal",
+      "value": 21,
+      "sourceName": "Soft Metal",
+      "sourceCell": "Ingredient Lookup!O84",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3895,
+      "name": "Supply Carrier",
+      "value": 19,
+      "sourceName": "Supply Carrier",
+      "sourceCell": "Ingredient Lookup!O37",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3886,
+      "name": "Synthetic Fibers",
+      "value": 19,
+      "sourceName": "Synthetic Fibers",
+      "sourceCell": "Ingredient Lookup!O121",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3855,
+      "name": "Tree Nuts",
+      "value": 5.4,
+      "sourceName": "Tree Nuts",
+      "sourceCell": "Ingredient Lookup!O96",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3808,
+      "name": "Uncommon Herb",
+      "value": 5,
+      "sourceName": "Uncommon Herb",
+      "sourceCell": "Ingredient Lookup!O40",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3867,
+      "name": "Uncommon Scrap",
+      "value": 5,
+      "sourceName": "Uncommon Scrap",
+      "sourceCell": "Ingredient Lookup!O107",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3839,
+      "name": "Valerian",
+      "value": 7,
+      "sourceName": "Valerian",
+      "sourceCell": "Ingredient Lookup!O76",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3856,
+      "name": "Vegetables",
+      "value": 5.4,
+      "sourceName": "Vegetables",
+      "sourceCell": "Ingredient Lookup!O97",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3863,
+      "name": "Vinegar Crafting Component",
+      "value": 13.8,
+      "sourceName": "Vinegar Crafting Component",
+      "sourceCell": "Ingredient Lookup!O8",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3845,
+      "name": "Viral Hemlock",
+      "value": 7,
+      "sourceName": "Viral Hemlock",
+      "sourceCell": "Ingredient Lookup!O77",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3896,
+      "name": "Weapons Platform",
+      "value": 19,
+      "sourceName": "Weapons Platform",
+      "sourceCell": "Ingredient Lookup!O38",
+      "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3823,
+      "name": "Wormwood",
+      "value": 7,
+      "sourceName": "Wormwood",
+      "sourceCell": "Ingredient Lookup!O79",
+      "mapping": "Exact name and unique ID"
+    }
+  ],
+  "unmapped": [
+    {
+      "name": "Mechanical Airship Framework - Artisan",
+      "value": 23,
+      "sourceRow": 14,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Mechanical Auto Frame - Artisan",
+      "value": 15,
+      "sourceRow": 15,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Mechanical Drive - Artisan",
+      "value": 18,
+      "sourceRow": 16,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Mechanical Engine - Artisan",
+      "value": 15,
+      "sourceRow": 17,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Mechanical Fuel System - Artisan",
+      "value": 18,
+      "sourceRow": 18,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Mechanical Gear System - Artisan",
+      "value": 18,
+      "sourceRow": 19,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Mechanical Hull - Artisan",
+      "value": 18,
+      "sourceRow": 20,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Mechanical Airship Framework - Travel",
+      "value": 19,
+      "sourceRow": 22,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Mechanical Auto Frame - Travel",
+      "value": 12,
+      "sourceRow": 23,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Mechanical Drive - Travel",
+      "value": 5.4,
+      "sourceRow": 24,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Mechanical Engine - Travel",
+      "value": 12,
+      "sourceRow": 25,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Mechanical Fuel System - Travel",
+      "value": 12,
+      "sourceRow": 26,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Mechanical Gear System - Travel",
+      "value": 5.4,
+      "sourceRow": 27,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Mechanical Hull - Travel",
+      "value": 12,
+      "sourceRow": 28,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Anise",
+      "value": 7,
+      "sourceRow": 42,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Aralia",
+      "value": 7,
+      "sourceRow": 43,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Basil",
+      "value": 7,
+      "sourceRow": 45,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Bay Leaf",
+      "value": 7,
+      "sourceRow": 46,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Burnet",
+      "value": 7,
+      "sourceRow": 48,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Calendula",
+      "value": 7,
+      "sourceRow": 49,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Caraway",
+      "value": 7,
+      "sourceRow": 51,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Chervil",
+      "value": 7,
+      "sourceRow": 52,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Cicely",
+      "value": 7,
+      "sourceRow": 53,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Dill",
+      "value": 7,
+      "sourceRow": 54,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Fennel",
+      "value": 7,
+      "sourceRow": 56,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Geranium",
+      "value": 7,
+      "sourceRow": 58,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Hibiscus",
+      "value": 7,
+      "sourceRow": 59,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Horehound",
+      "value": 7,
+      "sourceRow": 60,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Lemon Balm",
+      "value": 7,
+      "sourceRow": 62,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Lemongrass",
+      "value": 7,
+      "sourceRow": 63,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Milk Thistle",
+      "value": 7,
+      "sourceRow": 65,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Parsley",
+      "value": 7,
+      "sourceRow": 66,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Ragweed",
+      "value": 7,
+      "sourceRow": 70,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Rosemary",
+      "value": 7,
+      "sourceRow": 71,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Sage",
+      "value": 7,
+      "sourceRow": 72,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Thyme",
+      "value": 7,
+      "sourceRow": 74,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Turmeric",
+      "value": 7,
+      "sourceRow": 75,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Witch Hazel",
+      "value": 7,
+      "sourceRow": 78,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Festering Crystal - The Wheels of Commerce",
+      "value": 45,
+      "sourceRow": 85,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Festering Crystal - Dead Market Harvest",
+      "value": 15,
+      "sourceRow": 86,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Fish",
+      "value": 12,
+      "sourceRow": 98,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Basic Scrap - Foraging",
+      "value": 4.4,
+      "sourceRow": 101,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Basic Scrap - Helscape Mine",
+      "value": 3,
+      "sourceRow": 102,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Uncommon Scrap - Artisan",
+      "value": 12,
+      "sourceRow": 104,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Uncommon Scrap - Dirt Engineer's Toolkit",
+      "value": 6,
+      "sourceRow": 105,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Uncommon Scrap - Helscape Mine",
+      "value": 5,
+      "sourceRow": 106,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Rare Scrap - Artisan",
+      "value": 18,
+      "sourceRow": 108,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Rare Scrap - Dirt Engineer's Toolkit",
+      "value": 6,
+      "sourceRow": 109,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Rare Scrap - Helscape Mine",
+      "value": 7,
+      "sourceRow": 110,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Foraging Card - Vaguely Trustworthy Map Set",
+      "value": 5,
+      "sourceRow": 122,
+      "reason": "No matching standalone Juno item ID"
+    },
+    {
+      "name": "Foraging Card",
+      "value": 5,
+      "sourceRow": 123,
+      "reason": "No matching standalone Juno item ID"
+    }
+  ],
+  "unmappedDependencies": [
+    {
+      "name": "Corpse",
+      "values": [
+        0
+      ],
+      "reason": "No standalone Juno ID; price retained in source data only"
+    }
+  ],
+  "dependencyValues": [
+    {
+      "name": "Fruit",
+      "values": [
+        5.4
+      ]
+    },
+    {
+      "name": "Eggs",
+      "values": [
+        5.4
+      ]
+    },
+    {
+      "name": "Tree Nuts",
+      "values": [
+        5.4
+      ]
+    },
+    {
+      "name": "Cannabis",
+      "values": [
+        7
+      ]
+    },
+    {
+      "name": "Generic Brew",
+      "values": [
+        9
+      ]
+    },
+    {
+      "name": "Radioactive Metal",
+      "values": [
+        21
+      ]
+    },
+    {
+      "name": "Shellfish",
+      "values": [
+        12
+      ]
+    },
+    {
+      "name": "Vegetables",
+      "values": [
+        5.4
+      ]
+    },
+    {
+      "name": "Basic Herb",
+      "values": [
+        3
+      ]
+    },
+    {
+      "name": "Rare Scrap",
+      "values": [
+        7
+      ]
+    },
+    {
+      "name": "Uncommon Scrap",
+      "values": [
+        5
+      ]
+    },
+    {
+      "name": "Basic Scrap",
+      "values": [
+        3
+      ]
+    },
+    {
+      "name": "Any Produce",
+      "values": [
+        5.4
+      ]
+    },
+    {
+      "name": "Corpse",
+      "values": [
+        0
+      ]
+    },
+    {
+      "name": "Local Currency",
+      "values": [
+        1
+      ]
+    },
+    {
+      "name": "Foraging Card",
+      "values": [
+        4
+      ]
+    }
+  ],
+  "acquisitionRows": [
+    {
+      "row": 2,
+      "name": "Acid Compounds Crafting Component",
+      "type": "Crafting Resource",
+      "value": 13.8,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Culinary",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 2,
+          "name": "Fruit",
+          "value": 5.4
+        }
+      ]
+    },
+    {
+      "row": 3,
+      "name": "Adhesive Crafting Component",
+      "type": "Crafting Resource",
+      "value": 13.8,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Culinary",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 2,
+          "name": "Eggs",
+          "value": 5.4
+        }
+      ]
+    },
+    {
+      "row": 4,
+      "name": "Cooking Oil Crafting Component",
+      "type": "Crafting Resource",
+      "value": 13.8,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Culinary",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 2,
+          "name": "Tree Nuts",
+          "value": 5.4
+        }
+      ]
+    },
+    {
+      "row": 5,
+      "name": "Pain Killer Crafting Component",
+      "type": "Crafting Resource",
+      "value": 19,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Culinary",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Cannabis",
+          "value": 7
+        },
+        {
+          "quantity": 1,
+          "name": "Generic Brew",
+          "value": 9
+        }
+      ]
+    },
+    {
+      "row": 6,
+      "name": "Radioactive Compounds Crafting Component",
+      "type": "Crafting Resource",
+      "value": 33,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Culinary",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Radioactive Metal",
+          "value": 21
+        },
+        {
+          "quantity": 1,
+          "name": "Generic Brew",
+          "value": 9
+        }
+      ]
+    },
+    {
+      "row": 7,
+      "name": "Salty Crafting Component",
+      "type": "Crafting Resource",
+      "value": 15,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Culinary",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Shellfish",
+          "value": 12
+        }
+      ]
+    },
+    {
+      "row": 8,
+      "name": "Vinegar Crafting Component",
+      "type": "Crafting Resource",
+      "value": 13.8,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Culinary",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 2,
+          "name": "Vegetables",
+          "value": 5.4
+        }
+      ]
+    },
+    {
+      "row": 9,
+      "name": "Generic Brew",
+      "type": "Generic Item",
+      "value": 9,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Culinary",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 2,
+          "name": "Basic Herb",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "row": 10,
+      "name": "Generic Engineered Item",
+      "type": "Generic Item",
+      "value": 24,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 3,
+          "name": "Rare Scrap",
+          "value": 7
+        }
+      ]
+    },
+    {
+      "row": 11,
+      "name": "Generic Genre Motorized Item",
+      "type": "Generic Item",
+      "value": 18,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 3,
+          "name": "Uncommon Scrap",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "row": 12,
+      "name": "Generic Handheld Item",
+      "type": "Generic Item",
+      "value": 15,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 4,
+          "name": "Basic Scrap",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "row": 13,
+      "name": "Generic Meal",
+      "type": "Generic Item",
+      "value": 11.4,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Culinary",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Basic Herb",
+          "value": 3
+        },
+        {
+          "quantity": 1,
+          "name": "Any Produce",
+          "value": 5.4
+        }
+      ]
+    },
+    {
+      "row": 14,
+      "name": "Mechanical Airship Framework - Artisan",
+      "type": "Gizmo",
+      "value": 23,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 4,
+          "name": "Uncommon Scrap",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "row": 15,
+      "name": "Mechanical Auto Frame - Artisan",
+      "type": "Gizmo",
+      "value": 15,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 4,
+          "name": "Basic Scrap",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "row": 16,
+      "name": "Mechanical Drive - Artisan",
+      "type": "Gizmo",
+      "value": 18,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 3,
+          "name": "Uncommon Scrap",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "row": 17,
+      "name": "Mechanical Engine - Artisan",
+      "type": "Gizmo",
+      "value": 15,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 4,
+          "name": "Basic Scrap",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "row": 18,
+      "name": "Mechanical Fuel System - Artisan",
+      "type": "Gizmo",
+      "value": 18,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 3,
+          "name": "Uncommon Scrap",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "row": 19,
+      "name": "Mechanical Gear System - Artisan",
+      "type": "Gizmo",
+      "value": 18,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 3,
+          "name": "Uncommon Scrap",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "row": 20,
+      "name": "Mechanical Hull - Artisan",
+      "type": "Gizmo",
+      "value": 18,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 3,
+          "name": "Uncommon Scrap",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "row": 21,
+      "name": "Meaty Bits",
+      "type": "Gizmo",
+      "value": 4,
+      "minutes": 0,
+      "mind": 10,
+      "resolve": 0,
+      "skill": "Criminal Influince",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Corpse",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 22,
+      "name": "Mechanical Airship Framework - Travel",
+      "type": "Gizmo",
+      "value": 19,
+      "minutes": 0,
+      "mind": 10,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 15,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 23,
+      "name": "Mechanical Auto Frame - Travel",
+      "type": "Gizmo",
+      "value": 12,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 10,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 24,
+      "name": "Mechanical Drive - Travel",
+      "type": "Gizmo",
+      "value": 5.4,
+      "minutes": 0,
+      "mind": 1,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 5,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 25,
+      "name": "Mechanical Engine - Travel",
+      "type": "Gizmo",
+      "value": 12,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 10,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 26,
+      "name": "Mechanical Fuel System - Travel",
+      "type": "Gizmo",
+      "value": 12,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 10,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 27,
+      "name": "Mechanical Gear System - Travel",
+      "type": "Gizmo",
+      "value": 5.4,
+      "minutes": 0,
+      "mind": 1,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 5,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 28,
+      "name": "Mechanical Hull - Travel",
+      "type": "Gizmo",
+      "value": 12,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 10,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 29,
+      "name": "Mechanical Airship Framework",
+      "type": "Gizmo",
+      "value": 19,
+      "minutes": 0,
+      "mind": 10,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 15,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 30,
+      "name": "Mechanical Auto Frame",
+      "type": "Gizmo",
+      "value": 12,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 10,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 31,
+      "name": "Mechanical Drive",
+      "type": "Gizmo",
+      "value": 5.4,
+      "minutes": 0,
+      "mind": 1,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 5,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 32,
+      "name": "Mechanical Engine",
+      "type": "Gizmo",
+      "value": 12,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 10,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 33,
+      "name": "Mechanical Fuel System",
+      "type": "Gizmo",
+      "value": 12,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 10,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 34,
+      "name": "Mechanical Gear System",
+      "type": "Gizmo",
+      "value": 5.4,
+      "minutes": 0,
+      "mind": 1,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 5,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 35,
+      "name": "Mechanical Hull",
+      "type": "Gizmo",
+      "value": 12,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 10,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 36,
+      "name": "Passenger Carrier",
+      "type": "Gizmo",
+      "value": 19,
+      "minutes": 0,
+      "mind": 10,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 15,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 37,
+      "name": "Supply Carrier",
+      "type": "Gizmo",
+      "value": 19,
+      "minutes": 0,
+      "mind": 10,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 15,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 38,
+      "name": "Weapons Platform",
+      "type": "Gizmo",
+      "value": 19,
+      "minutes": 0,
+      "mind": 10,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 15,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 39,
+      "name": "Basic Herb",
+      "type": "Herb",
+      "value": 3,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 40,
+      "name": "Uncommon Herb",
+      "type": "Herb",
+      "value": 5,
+      "minutes": 10,
+      "mind": 10,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 41,
+      "name": "Rare Herb",
+      "type": "Herb",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 42,
+      "name": "Anise",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 43,
+      "name": "Aralia",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 44,
+      "name": "Ayahuasca",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 45,
+      "name": "Basil",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 46,
+      "name": "Bay Leaf",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 47,
+      "name": "Bayberry",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 48,
+      "name": "Burnet",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 49,
+      "name": "Calendula",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 50,
+      "name": "Cannabis",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 51,
+      "name": "Caraway",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 52,
+      "name": "Chervil",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 53,
+      "name": "Cicely",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 54,
+      "name": "Dill",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 55,
+      "name": "Epazote",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 56,
+      "name": "Fennel",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 57,
+      "name": "Foxglove",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 58,
+      "name": "Geranium",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 59,
+      "name": "Hibiscus",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 60,
+      "name": "Horehound",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 61,
+      "name": "Jimson Weed",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 62,
+      "name": "Lemon Balm",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 63,
+      "name": "Lemongrass",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 64,
+      "name": "Marjoram",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 65,
+      "name": "Milk Thistle",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 66,
+      "name": "Parsley",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 67,
+      "name": "Peppermint",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 68,
+      "name": "Prairie Wildrye",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 69,
+      "name": "Quinine",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 70,
+      "name": "Ragweed",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 71,
+      "name": "Rosemary",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 72,
+      "name": "Sage",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 73,
+      "name": "Salvia",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 74,
+      "name": "Thyme",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 75,
+      "name": "Turmeric",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 76,
+      "name": "Valerian",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 77,
+      "name": "Viral Hemlock",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 78,
+      "name": "Witch Hazel",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 79,
+      "name": "Wormwood",
+      "type": "Herb (Named)",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Agricultural",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 80,
+      "name": "Alloy Metal",
+      "type": "Metal",
+      "value": 21,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 6,
+          "name": "Basic Scrap",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "row": 81,
+      "name": "Conductive Metal",
+      "type": "Metal",
+      "value": 21,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 6,
+          "name": "Basic Scrap",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "row": 82,
+      "name": "Hard Metal",
+      "type": "Metal",
+      "value": 21,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 6,
+          "name": "Basic Scrap",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "row": 83,
+      "name": "Radioactive Metal",
+      "type": "Metal",
+      "value": 21,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 6,
+          "name": "Basic Scrap",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "row": 84,
+      "name": "Soft Metal",
+      "type": "Metal",
+      "value": 21,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 6,
+          "name": "Basic Scrap",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "row": 85,
+      "name": "Festering Crystal - The Wheels of Commerce",
+      "type": "Necrology Resource",
+      "value": 45,
+      "minutes": 0,
+      "mind": 0,
+      "resolve": 1,
+      "skill": "The Wheels of Commerce",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 30,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 86,
+      "name": "Festering Crystal - Dead Market Harvest",
+      "type": "Necrology Resource",
+      "value": 15,
+      "minutes": 0,
+      "mind": 0,
+      "resolve": 1,
+      "skill": "Dead Market Harvest",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Corpse",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 87,
+      "name": "Festering Crystal",
+      "type": "Necrology Resource",
+      "value": 15,
+      "minutes": 0,
+      "mind": 0,
+      "resolve": 1,
+      "skill": "Dead Market Harvest",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Corpse",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 88,
+      "name": "Mycelium Wiring",
+      "type": "Necrology Resource",
+      "value": 45,
+      "minutes": 0,
+      "mind": 0,
+      "resolve": 1,
+      "skill": "The Wheels of Commerce",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 30,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 89,
+      "name": "Mortis Extract",
+      "type": "Necrology Resource",
+      "value": 45,
+      "minutes": 0,
+      "mind": 0,
+      "resolve": 1,
+      "skill": "The Wheels of Commerce",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 30,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 90,
+      "name": "Grave Flesh",
+      "type": "Necrology Resource",
+      "value": 18,
+      "minutes": 30,
+      "mind": 0,
+      "resolve": 1,
+      "skill": "Farming Unto Death",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 91,
+      "name": "Imprint Crystal",
+      "type": "Necrology Resource",
+      "value": 15,
+      "minutes": 0,
+      "mind": 0,
+      "resolve": 1,
+      "skill": "Dead Market Harvest",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Corpse",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 92,
+      "name": "Eggs",
+      "type": "Produce",
+      "value": 5.4,
+      "minutes": 0,
+      "mind": 1,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 5,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 93,
+      "name": "Fruit",
+      "type": "Produce",
+      "value": 5.4,
+      "minutes": 0,
+      "mind": 1,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 5,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 94,
+      "name": "Meat",
+      "type": "Produce",
+      "value": 5.4,
+      "minutes": 0,
+      "mind": 1,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 5,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 95,
+      "name": "Milk",
+      "type": "Produce",
+      "value": 5.4,
+      "minutes": 0,
+      "mind": 1,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 5,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 96,
+      "name": "Tree Nuts",
+      "type": "Produce",
+      "value": 5.4,
+      "minutes": 0,
+      "mind": 1,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 5,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 97,
+      "name": "Vegetables",
+      "type": "Produce",
+      "value": 5.4,
+      "minutes": 0,
+      "mind": 1,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 5,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 98,
+      "name": "Fish",
+      "type": "Produce",
+      "value": 12,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 10,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 99,
+      "name": "Shellfish",
+      "type": "Produce",
+      "value": 12,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 10,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 100,
+      "name": "Infection Material",
+      "type": "Produce",
+      "value": 19,
+      "minutes": 0,
+      "mind": 10,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 15,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 101,
+      "name": "Basic Scrap - Foraging",
+      "type": "Scrap",
+      "value": 4.4,
+      "minutes": 0,
+      "mind": 1,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Foraging Card",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "row": 102,
+      "name": "Basic Scrap - Helscape Mine",
+      "type": "Scrap",
+      "value": 3,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 103,
+      "name": "Basic Scrap",
+      "type": "Scrap",
+      "value": 3,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 104,
+      "name": "Uncommon Scrap - Artisan",
+      "type": "Scrap",
+      "value": 12,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 3,
+          "name": "Basic Scrap",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "row": 105,
+      "name": "Uncommon Scrap - Dirt Engineer's Toolkit",
+      "type": "Scrap",
+      "value": 6,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Foraging Card",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "row": 106,
+      "name": "Uncommon Scrap - Helscape Mine",
+      "type": "Scrap",
+      "value": 5,
+      "minutes": 10,
+      "mind": 10,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 107,
+      "name": "Uncommon Scrap",
+      "type": "Scrap",
+      "value": 5,
+      "minutes": 10,
+      "mind": 10,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 108,
+      "name": "Rare Scrap - Artisan",
+      "type": "Scrap",
+      "value": 18,
+      "minutes": 10,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Artisan",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 3,
+          "name": "Uncommon Scrap",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "row": 109,
+      "name": "Rare Scrap - Dirt Engineer's Toolkit",
+      "type": "Scrap",
+      "value": 6,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Foraging Card",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "row": 110,
+      "name": "Rare Scrap - Helscape Mine",
+      "type": "Scrap",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 111,
+      "name": "Rare Scrap",
+      "type": "Scrap",
+      "value": 7,
+      "minutes": 10,
+      "mind": 15,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 112,
+      "name": "Craftable Stone",
+      "type": "Scrap (Named)",
+      "value": 4.4,
+      "minutes": 0,
+      "mind": 1,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Foraging Card",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "row": 113,
+      "name": "High Grade Lumber",
+      "type": "Scrap (Named)",
+      "value": 4.4,
+      "minutes": 0,
+      "mind": 1,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 1,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Foraging Card",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "row": 114,
+      "name": "Combustible Materials",
+      "type": "Scrap (Named)",
+      "value": 6,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Foraging Card",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "row": 115,
+      "name": "Natural Fibers",
+      "type": "Scrap (Named)",
+      "value": 6,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Foraging Card",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "row": 116,
+      "name": "Psionic Crystal",
+      "type": "Scrap (Named)",
+      "value": 8,
+      "minutes": 0,
+      "mind": 10,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 1,
+          "name": "Foraging Card",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "row": 117,
+      "name": "Machined Component",
+      "type": "Trade Resource",
+      "value": 12,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 10,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 118,
+      "name": "Plastics",
+      "type": "Trade Resource",
+      "value": 12,
+      "minutes": 0,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 10,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 119,
+      "name": "Mechanical Components",
+      "type": "Trade Resource",
+      "value": 19,
+      "minutes": 0,
+      "mind": 10,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 15,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 120,
+      "name": "Recovered Electronics",
+      "type": "Trade Resource",
+      "value": 19,
+      "minutes": 0,
+      "mind": 10,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 15,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 121,
+      "name": "Synthetic Fibers",
+      "type": "Trade Resource",
+      "value": 19,
+      "minutes": 0,
+      "mind": 10,
+      "resolve": 0,
+      "skill": "Travel",
+      "level": 3,
+      "inputs": [
+        {
+          "quantity": 15,
+          "name": "Local Currency",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "row": 122,
+      "name": "Foraging Card - Vaguely Trustworthy Map Set",
+      "type": "Foraging Card",
+      "value": 5,
+      "minutes": 30,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "row": 123,
+      "name": "Foraging Card",
+      "type": "Foraging Card",
+      "value": 5,
+      "minutes": 30,
+      "mind": 5,
+      "resolve": 0,
+      "skill": "Foraging",
+      "level": 2,
+      "inputs": [
+        {
+          "quantity": 0,
+          "name": "-",
+          "value": 0
+        }
+      ]
+    }
+  ]
+}

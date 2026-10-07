@@ -11,7 +11,9 @@ export interface CostCalculator {
   calculateMindCost(mind: number): number
   calculateTimeCost(minutes: number): number
   calculateProductionCost(input: ProductionCostInput): number
-  calculateForagingCardCost(tier: ForagingTier): number
+  calculateForagingCardCost(): number
+  calculateResolveCost(resolve: number): number
+  getEffectiveResourceValue(itemId: number): number | undefined
   calculateSellingPrice(
     productionCost: number,
     markupPercent: number

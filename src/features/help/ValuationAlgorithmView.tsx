@@ -42,7 +42,7 @@ function ValuationAlgorithmView() {
         </div>
 
         <p>
-          The default value is <strong>0.8cr per Mind</strong>. This value can
+          The default value is <strong>0.4cr per Mind</strong>. This value can
           be changed in Economics Settings.
         </p>
       </div>
@@ -66,16 +66,14 @@ function ValuationAlgorithmView() {
 
       <div className="help-card">
         <h3>Resource Cost</h3>
+        <p>Resolve spent in a recipe is valued at 15cr per point by default. Global Settings may override labor, Resolve, the card value, and base resource values. Resetting an override restores the application default; resources without a configured value remain unknown.</p>
 
         <p>
-          Resources are valued according to the cost of acquiring or producing
-          them. When one resource is crafted from other resources, Wasteland
-          Workshop recursively calculates the value of those components.
+          Material costs use each resource’s configured value: your saved Settings override, or Ayden’s imported application default. These values stay independent of acquisition or manufacturing costs.
         </p>
 
         <p>
-          This means changes to the value of a basic resource can propagate
-          through every item that ultimately depends on that resource.
+          Changing a resource value changes the material estimate of blueprints and shopping lists that consume that resource. It does not silently recalculate other configured resource prices.
         </p>
       </div>
 
@@ -89,47 +87,23 @@ function ValuationAlgorithmView() {
           is required.
         </p>
 
-        <dl className="algorithm-values">
-          <div>
-            <dt>Basic Foraging</dt>
-            <dd>2cr</dd>
-          </div>
-
-          <div>
-            <dt>Proficient Foraging</dt>
-            <dd>5cr</dd>
-          </div>
-
-          <div>
-            <dt>Master Foraging</dt>
-            <dd>9cr</dd>
-          </div>
-        </dl>
-
-        <p>
-          These are default assumptions and can be changed in Economics
-          Settings.
-        </p>
+        <p>There is one Foraging Card, valued at <strong>4cr by default</strong>. Every tier uses the same card value; acquisition methods and their yields remain distinct. Change the value in Economics Settings.</p>
       </div>
 
       <div className="help-card">
         <h3>Production Cost</h3>
 
         <div className="algorithm-formula">
-          Production Cost = Mind Cost + Time Cost + Material Cost
+          Production Cost = Mind Cost + Time Cost + Resolve Cost + Material Cost
         </div>
 
         <p>
-          Material Cost includes the calculated value of all required
-          components. Those components may themselves contain labor, resources,
-          and foraging costs.
+          Material Cost includes the configured value of all required
+          components. Acquisition calculations remain separate from configured material values.
         </p>
 
         <p>
-          When a fractional credit is produced by the calculation, the final
-          value is rounded up to the next whole credit. Dystopia Rising does
-          not use fractional credits, and a cost greater than zero therefore
-          has a minimum practical value of one credit.
+          Configured material values keep their fractional credits, such as Craftable Stone at 4.4cr. The suggested selling price is rounded up to a whole credit. The existing acquisition-cost estimator also rounds its calculated unit costs up.
         </p>
       </div>
 

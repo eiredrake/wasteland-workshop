@@ -1,8 +1,6 @@
 import type { CostCalculator } from './CostCalculator'
-import type { ResourceEconomics } from './ResourceEconomics'
 import {
-  calculateResourceValuations,
-  findResourceEconomics,
+  getEffectiveResourceValue,
 } from './ResourceValuationService'
 import type { ItemCrafting } from '../features/blueprints/ItemCrafting'
 
@@ -18,6 +16,7 @@ export type BlueprintComponentCost = {
 export type BlueprintCost = {
   components: BlueprintComponentCost[]
   laborCost: number
+  resolveCost: number
   materialCost: number
   productionCost: number | undefined
   hasUnknownComponentCosts: boolean
@@ -25,7 +24,6 @@ export type BlueprintCost = {
 
 export function calculateBlueprintCost(
   crafting: ItemCrafting,
-  resources: ResourceEconomics[],
   calculator: CostCalculator
 ): BlueprintCost {
   const laborCost = calculator.calculateProductionCost({
@@ -35,37 +33,13 @@ export function calculateBlueprintCost(
     resolve: 0,
   })
 
+  const resolveCost = calculator.calculateResolveCost(crafting.craftingResolveCost ?? 0)
   let materialCost = 0
   let hasUnknownComponentCosts = false
   const components: BlueprintComponentCost[] = []
 
   for (const craftingComponent of crafting.craftingComponents) {
-    const resourceEconomics = findResourceEconomics(
-      craftingComponent.component.id,
-      resources
-    )
-
-    if (!resourceEconomics) {
-      hasUnknownComponentCosts = true
-    
-      components.push({
-        itemId: craftingComponent.component.id,
-        name: craftingComponent.component.name,
-        quantity: craftingComponent.amount,
-        unitCost: undefined,
-        totalCost: undefined,
-      })
-    
-      continue
-    }
-
-    const valuations = calculateResourceValuations(
-      resourceEconomics,
-      calculator,
-      resources
-    )
-
-    const unitCost = valuations[0]?.calculatedCost
+    const unitCost = getEffectiveResourceValue(craftingComponent.component.id, calculator)
 
     if (unitCost === undefined) {
       hasUnknownComponentCosts = true
@@ -98,12 +72,13 @@ export function calculateBlueprintCost(
         mind: crafting.craftingMindCost,
         minutes: crafting.craftingTimeInMinute,
         materialCost,
-        resolve: 0,
+        resolve: crafting.craftingResolveCost ?? 0,
       })
 
   return {
     components,
     laborCost,
+    resolveCost,
     materialCost,
     productionCost,
     hasUnknownComponentCosts,

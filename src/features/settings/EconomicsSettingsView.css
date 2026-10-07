@@ -1,0 +1,10 @@
+.economics-value-row { padding: 0.75rem 0; }
+.economics-value-row label { font-weight: 600; overflow-wrap: anywhere; }
+.economics-value-summary, .economics-note { color: var(--color-text-muted); font-size: 0.85rem; line-height: 1.5; }
+.economics-value-summary { margin: 0.35rem 0 0; }
+.economics-override-input { flex-wrap: wrap; }
+.economics-override-input input { background: var(--color-surface); color: var(--color-text); min-height: 44px; }
+.economics-override-input button { min-height: 44px; padding: 0.5rem 0.75rem; }
+.economics-override-input input[aria-invalid="true"] { border-color: var(--color-danger); }
+.economics-resource-filter { box-sizing: border-box; width: 100%; min-height: 44px; margin: 0.5rem 0 1rem; padding: 0.65rem; background: var(--color-surface); color: var(--color-text); border: 1px solid var(--color-border); border-radius: 5px; font: inherit; }
+.economics-settings-page input:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }

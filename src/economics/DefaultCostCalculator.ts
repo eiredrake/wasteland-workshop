@@ -1,51 +1,23 @@
-import type {
-  CostCalculator,
-  ForagingTier,
-  ProductionCostInput,
-} from './CostCalculator'
-import {
-  defaultEconomicsSettings,
-  type EconomicsSettings,
-} from './EconomicsSettings'
+import type { CostCalculator, ProductionCostInput } from './CostCalculator'
+import { resolveEconomicsSettings, type EconomicsOverrides, type EconomicsSettings } from './EconomicsSettings'
 
 export class DefaultCostCalculator implements CostCalculator {
   private readonly settings: EconomicsSettings
 
-  constructor(settings: EconomicsSettings = defaultEconomicsSettings) {
-    this.settings = settings
+  constructor(overrides: EconomicsOverrides = {}) {
+    this.settings = resolveEconomicsSettings(overrides)
   }
 
-  calculateMindCost(mind: number): number {
-    return mind * this.settings.mindCostPerPoint
-  }
-
-  calculateTimeCost(minutes: number): number {
-    return minutes * this.settings.timeCostPerMinute
-  }
-
+  calculateMindCost(mind: number): number { return mind * this.settings.mindCostPerPoint }
+  calculateTimeCost(minutes: number): number { return minutes * this.settings.timeCostPerMinute }
+  calculateResolveCost(resolve: number): number { return resolve * this.settings.resolveCostPerPoint }
   calculateProductionCost(input: ProductionCostInput): number {
-    return (
-      this.calculateMindCost(input.mind) +
-      this.calculateTimeCost(input.minutes) +
-      input.materialCost
-    )
+    return this.calculateMindCost(input.mind) + this.calculateTimeCost(input.minutes)
+      + this.calculateResolveCost(input.resolve) + input.materialCost
   }
-
-  calculateForagingCardCost(tier: ForagingTier): number {
-    switch (tier) {
-      case 'basic':
-        return this.settings.basicForagingCardCost
-      case 'proficient':
-        return this.settings.proficientForagingCardCost
-      case 'master':
-        return this.settings.masterForagingCardCost
-    }
-  }
-
-  calculateSellingPrice(
-    productionCost: number,
-    markupPercent: number
-  ): number {
+  calculateForagingCardCost(): number { return this.settings.foragingCardCost }
+  getEffectiveResourceValue(itemId: number): number | undefined { return this.settings.resourceValues[itemId] }
+  calculateSellingPrice(productionCost: number, markupPercent: number): number {
     return Math.ceil(productionCost * (1 + markupPercent / 100))
   }
 }

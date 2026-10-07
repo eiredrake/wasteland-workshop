@@ -6,7 +6,7 @@ import {
   type ResourceValuation,
 } from './ResourceValuation'
 
-export function calculateResourceValuations(
+export function calculateResourceAcquisitionCosts(
   resource: ResourceEconomics,
   calculator: CostCalculator,
   resources: ResourceEconomics[] = [],
@@ -29,13 +29,8 @@ export function calculateResourceValuations(
         resources
       )
 
-      if (!requiredResourceEconomics) {
-        hasUnknownResourceCost = true
-        continue
-      }
-
-      const valuations = calculateResourceValuations(
-        requiredResourceEconomics,
+      const valuations = calculateResourceAcquisitionCosts(
+        requiredResourceEconomics ?? { itemId: requiredResource.itemId, acquisitionMethods: [] },
         calculator,
         resources,
         nextVisitedItemIds
@@ -76,4 +71,8 @@ export function findResourceEconomics(
   resources: ResourceEconomics[]
 ): ResourceEconomics | undefined {
   return resources.find((resource) => resource.itemId === itemId)
+}
+// Configured value lookup intentionally never falls back to an acquisition calculation.
+export function getEffectiveResourceValue(itemId: number, calculator: CostCalculator): number | undefined {
+  return calculator.getEffectiveResourceValue(itemId)
 }

@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import { DefaultCostCalculator } from './DefaultCostCalculator'
-import { calculateResourceValuations } from './ResourceValuationService'
+import { calculateResourceAcquisitionCosts } from './ResourceValuationService'
 
-describe('calculateResourceValuations', () => {
+describe('calculateResourceAcquisitionCosts', () => {
   const calculator = new DefaultCostCalculator()
 
   it('rounds a fractional resource valuation up to a whole credit', () => {
-    const valuations = calculateResourceValuations(
+    const valuations = calculateResourceAcquisitionCosts(
       {
         itemId: 3878,
         acquisitionMethods: [
@@ -26,7 +26,7 @@ describe('calculateResourceValuations', () => {
   })
 
   it('includes proficient foraging card cost in resource valuation', () => {
-    const valuations = calculateResourceValuations(
+    const valuations = calculateResourceAcquisitionCosts(
       {
         itemId: 3880,
         acquisitionMethods: [
@@ -43,11 +43,11 @@ describe('calculateResourceValuations', () => {
       calculator
     )
   
-    expect(valuations[0].calculatedCost).toBe(9)
+    expect(valuations[0].calculatedCost).toBe(6)
   })  
 
   it('includes master foraging card cost in resource valuation', () => {
-    const valuations = calculateResourceValuations(
+    const valuations = calculateResourceAcquisitionCosts(
       {
         itemId: 3881,
         acquisitionMethods: [
@@ -64,11 +64,11 @@ describe('calculateResourceValuations', () => {
       calculator
     )
   
-    expect(valuations[0].calculatedCost).toBe(17)
+    expect(valuations[0].calculatedCost).toBe(8)
   })
 
   it('calculates every acquisition method for a resource', () => {
-    const valuations = calculateResourceValuations(
+    const valuations = calculateResourceAcquisitionCosts(
       {
         itemId: 1234,
         acquisitionMethods: [
@@ -98,12 +98,12 @@ describe('calculateResourceValuations', () => {
     expect(valuations[0].acquisitionMethod.name).toBe(
       'Proficient Agriculture'
     )
-    expect(valuations[0].calculatedCost).toBe(9)
+    expect(valuations[0].calculatedCost).toBe(5)
 
     expect(valuations[1].acquisitionMethod.name).toBe(
       'Alternative Method'
     )
-    expect(valuations[1].calculatedCost).toBe(7)
+    expect(valuations[1].calculatedCost).toBe(5)
   })
 
   it('returns an unknown cost when a required resource has no valuation', () => {
@@ -128,7 +128,7 @@ describe('calculateResourceValuations', () => {
       },
     ]
   
-    const valuations = calculateResourceValuations(
+    const valuations = calculateResourceAcquisitionCosts(
       resources[0],
       calculator,
       resources
@@ -172,13 +172,13 @@ describe('calculateResourceValuations', () => {
       },
     ]
   
-    const valuations = calculateResourceValuations(
+    const valuations = calculateResourceAcquisitionCosts(
       resources[1],
       calculator,
       resources
     )
   
     expect(valuations).toHaveLength(1)
-    expect(valuations[0].calculatedCost).toBe(11)
+    expect(valuations[0].calculatedCost).toBe(9)
   })  
 })

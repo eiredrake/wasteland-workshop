@@ -2,8 +2,9 @@ import type { Blueprint } from '../blueprints/Blueprint'
 import type { BlueprintCollection } from '../blueprints/BlueprintCollection'
 import type { CraftingComponent } from '../blueprints/CraftingComponent'
 import type { CostCalculator } from '../../economics/CostCalculator'
+import { applicationResourceDefinitions } from '../../economics/ApplicationResourceDefaults'
 import type { ResourceEconomics } from '../../economics/ResourceEconomics'
-import { calculateResourceValuations, findResourceEconomics } from '../../economics/ResourceValuationService'
+import { getEffectiveResourceValue } from '../../economics/ResourceValuationService'
 import { newShoppingListId, type BlueprintAcquisitionItem, type ResourceShoppingItem, type ShoppingList, type ShoppingListState } from './ShoppingList'
 
 export function validQuantity(quantity: number): boolean {
@@ -84,13 +85,11 @@ export function getBlueprintAcquisitions(collection: BlueprintCollection | undef
 }
 
 export type ValuedResource = ResourceShoppingItem & { unitValue?: number; totalValue?: number }
-export function valueShoppingList(list: ShoppingList, resources: ResourceEconomics[], calculator: CostCalculator) {
+export function valueShoppingList(list: ShoppingList, calculator: CostCalculator) {
   let remainingValue = 0
   let unknownNeeded = 0
   const items: ValuedResource[] = list.items.map(item => {
-    const economics = findResourceEconomics(item.resourceId, resources)
-    // Same first acquisition method as BlueprintCostService, no new pricing rule.
-    const unitValue = economics ? calculateResourceValuations(economics, calculator, resources)[0]?.calculatedCost : undefined
+    const unitValue = getEffectiveResourceValue(item.resourceId, calculator)
     const totalValue = unitValue === undefined ? undefined : unitValue * item.quantity
     if (!item.acquired) {
       if (totalValue === undefined) unknownNeeded++
@@ -114,7 +113,8 @@ export function getResourceCatalog(blueprints: Blueprint[], resources: ResourceE
       for (const product of crafting.craftingFinalProducts) names.set(product.finalProduct.id, product.finalProduct.name)
     }
   }
-  const ids = new Set([...componentIds, ...resources.map(resource => resource.itemId)])
+  for (const resource of applicationResourceDefinitions) names.set(resource.itemId, resource.name)
+  const ids = new Set([...componentIds, ...resources.map(resource => resource.itemId), ...applicationResourceDefinitions.map(resource => resource.itemId)])
   return [...ids].map(resourceId => ({ resourceId, name: names.get(resourceId) ?? `Resource #${resourceId}` }))
     .sort((a, b) => a.name.localeCompare(b.name))
 }

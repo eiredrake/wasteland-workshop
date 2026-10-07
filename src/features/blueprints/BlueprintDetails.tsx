@@ -6,11 +6,12 @@ import type {
 } from './BlueprintCollection'
 import type { CostCalculator } from '../../economics/CostCalculator'
 import type { CraftTimerState } from '../timer/CraftTimerState'
-import { testResourceEconomics } from '../../economics/testResourceEconomics'
 import { calculateBlueprintCost } from '../../economics/BlueprintCostService'
 import BlueprintCraftTimer from '../../components/CraftTimer/BlueprintCraftTimer'
 import './BlueprintDetails.css'
 import BlueprintShoppingAction, { type BlueprintShoppingProps } from '../shopping/BlueprintShoppingAction'
+
+const formatCredits = (value: number | undefined) => value === undefined ? 'Unknown' : value.toLocaleString(undefined, { maximumFractionDigits: 4 })
 
 type BlueprintDetailsProps = {
   shopping: BlueprintShoppingProps
@@ -101,13 +102,14 @@ function BlueprintDetails({
   const mindCost =
     calculator.calculateMindCost(mind)
 
+  const resolveCost = calculator.calculateResolveCost(crafting?.craftingResolveCost ?? 0)
+
   const timeCost =
     calculator.calculateTimeCost(minutes)
 
   const costs = crafting
     ? calculateBlueprintCost(
         crafting,
-        testResourceEconomics,
         calculator
       )
     : undefined
@@ -361,7 +363,7 @@ function BlueprintDetails({
               <dt>Mind</dt>
               <dd>
                 {mind}
-                <span>{mindCost}cr</span>
+                <span>{formatCredits(mindCost)}cr</span>
               </dd>
             </div>
 
@@ -369,7 +371,7 @@ function BlueprintDetails({
               <dt>Time</dt>
               <dd>
                 {minutes} min
-                <span>{timeCost}cr</span>
+                <span>{formatCredits(timeCost)}cr</span>
               </dd>
             </div>
 
@@ -398,11 +400,15 @@ function BlueprintDetails({
 
           <dl className="blueprint-cost-list">
             <div>
+              <dt>Resolve ({crafting?.craftingResolveCost ?? 0})</dt>
+              <dd>{formatCredits(resolveCost)}cr</dd>
+            </div>
+            <div>
               <dt>Labor</dt>
               <dd>
                 {costs === undefined
                   ? 'Unknown'
-                  : `${costs.laborCost}cr`}
+                  : `${formatCredits(costs.laborCost)}cr`}
               </dd>
             </div>
 
@@ -411,7 +417,7 @@ function BlueprintDetails({
               <dd>
                 {costs === undefined
                   ? 'Unknown'
-                  : `${costs.materialCost}cr${
+                  : `${formatCredits(costs.materialCost)}cr${
                       costs.hasUnknownComponentCosts
                         ? '*'
                         : ''
@@ -425,7 +431,7 @@ function BlueprintDetails({
                 {costs?.productionCost ===
                 undefined
                   ? 'Unknown*'
-                  : `${costs.productionCost}cr`}
+                  : `${formatCredits(costs.productionCost)}cr`}
               </dd>
             </div>
 
@@ -475,13 +481,13 @@ function BlueprintDetails({
                     Selling Price
                   </dt>
                   <dd>
-                    {sellingPrice}cr
+                    {formatCredits(sellingPrice)}cr
                   </dd>
                 </div>
 
                 <div>
                   <dt>Profit</dt>
-                  <dd>{profit}cr</dd>
+                  <dd>{formatCredits(profit)}cr</dd>
                 </div>
               </>
             )}
@@ -515,14 +521,14 @@ function BlueprintDetails({
                     {component.quantity}
                     {component.unitCost !==
                       undefined &&
-                      ` × ${component.unitCost}cr`}
+                      ` × ${formatCredits(component.unitCost)}cr`}
                   </span>
 
                   <strong className="blueprint-component-total">
                     {component.totalCost ===
                     undefined
                       ? 'Unknown'
-                      : `${component.totalCost}cr`}
+                      : `${formatCredits(component.totalCost)}cr`}
                   </strong>
                 </div>
               )

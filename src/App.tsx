@@ -40,9 +40,10 @@ import {
 
 import { DefaultCostCalculator } from './economics/DefaultCostCalculator'
 import {
-  defaultEconomicsSettings,
-  type EconomicsSettings,
+  resolveEconomicsSettings,
+  type EconomicsOverrides,
 } from './economics/EconomicsSettings'
+import { loadEconomicsOverrides, saveEconomicsOverrides } from './economics/EconomicsSettingsRepository'
 
 import type {
   BlueprintAccessStatus,
@@ -73,28 +74,6 @@ type AppView =
   | 'about'
   | 'algorithm'
 
-const ECONOMICS_SETTINGS_KEY =
-  'wasteland-workshop-economics-settings'
-
-function loadEconomicsSettings(): EconomicsSettings {
-  const savedSettings = localStorage.getItem(
-    ECONOMICS_SETTINGS_KEY
-  )
-
-  if (!savedSettings) {
-    return { ...defaultEconomicsSettings }
-  }
-
-  try {
-    return {
-      ...defaultEconomicsSettings,
-      ...JSON.parse(savedSettings),
-    }
-  } catch {
-    return { ...defaultEconomicsSettings }
-  }
-}
-
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -102,11 +81,10 @@ function App() {
     useState<AppView>('workshop')
 
   const [
-    economicsSettings,
-    setEconomicsSettings,
-  ] = useState<EconomicsSettings>(
-    loadEconomicsSettings
-  )
+    economicsOverrides,
+    setEconomicsOverrides,
+  ] = useState<EconomicsOverrides>(loadEconomicsOverrides)
+  const economicsSettings = resolveEconomicsSettings(economicsOverrides)
 
   const [toasts, setToasts] =
     useState<ToastMessage[]>([])
@@ -277,20 +255,13 @@ function App() {
     )
   }
 
-  const saveEconomicsSettings = (
-    settings: EconomicsSettings
-  ) => {
-    setEconomicsSettings(settings)
-
-    localStorage.setItem(
-      ECONOMICS_SETTINGS_KEY,
-      JSON.stringify(settings)
-    )
-
-    showToast(
-      'Settings saved.',
-      'success'
-    )
+  const saveEconomicsSettings = (overrides: EconomicsOverrides) => {
+    if (!saveEconomicsOverrides(overrides)) {
+      showToast('Unable to save Economics Settings. Your changes were not applied.', 'error')
+      return
+    }
+    setEconomicsOverrides(overrides)
+    showToast('Settings saved.', 'success')
   }
 
   const addBlueprintCollection = (
@@ -790,8 +761,8 @@ function App() {
           }
         }} />
         <EconomicsSettingsView
-          currentSettings={
-            economicsSettings
+          currentOverrides={
+            economicsOverrides
           }
           onSave={
             saveEconomicsSettings

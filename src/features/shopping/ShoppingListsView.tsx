@@ -61,7 +61,7 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
   const [quantity, setQuantity] = useState('1')
   const input = useRef<HTMLInputElement>(null)
   const active = state.lists.find(list => list.id === state.activeListId)
-  const valued = active ? valueShoppingList(active, testResourceEconomics, calculator) : undefined
+  const valued = active ? valueShoppingList(active, calculator) : undefined
   const blueprints = getBlueprintAcquisitions(activeCollection, allBlueprints)
 
   const commit = (next: ShoppingListState, message: string) => {

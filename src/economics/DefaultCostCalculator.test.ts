@@ -4,8 +4,8 @@ import { DefaultCostCalculator } from './DefaultCostCalculator'
 describe('DefaultCostCalculator', () => {
   const calculator = new DefaultCostCalculator()
 
-  it('values 10 Mind at 8 credits', () => {
-    expect(calculator.calculateMindCost(10)).toBe(8)
+  it('values 10 Mind at 4 credits', () => {
+    expect(calculator.calculateMindCost(10)).toBe(4)
   })
 
   it('values 20 minutes at 2 credits', () => {
@@ -17,16 +17,15 @@ describe('DefaultCostCalculator', () => {
       mindCostPerPoint: 1,
       timeCostPerMinute: 0.25,
       defaultMarkupPercent: 30,
-      basicForagingCardCost: 3,
-      proficientForagingCardCost: 6,
-      masterForagingCardCost: 10,
+      foragingCardCost: 7,
+      resolveCostPerPoint: 25,
     })
   
     expect(customCalculator.calculateMindCost(10)).toBe(10)
     expect(customCalculator.calculateTimeCost(20)).toBe(5)
   })
 
-  it('calculates Sagely Healing Brew production cost as 37 credits', () => {
+  it('calculates Sagely Healing Brew production cost as 33 credits', () => {
     const productionCost = calculator.calculateProductionCost({
       mind: 10,
       minutes: 20,
@@ -34,7 +33,7 @@ describe('DefaultCostCalculator', () => {
       resolve: 0,
     })
 
-    expect(productionCost).toBe(37)
+    expect(productionCost).toBe(33)
   })
 
   it('calculates 25 percent markup on 37 credits as 47 credits', () => {

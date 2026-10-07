@@ -19,6 +19,6 @@ describe('calculateResourceValuation', () => {
     )
 
     expect(valuation.itemId).toBe(1234)
-    expect(valuation.calculatedCost).toBe(9)
+    expect(valuation.calculatedCost).toBe(5)
   })
 })

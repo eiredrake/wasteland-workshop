@@ -12,4 +12,5 @@ export type AcquisitionMethod = ProductionCostInput & {
   name: string
   resources?: AcquisitionResource[]
   foragingTier?: ForagingTier
+  yieldQuantity?: number
 }

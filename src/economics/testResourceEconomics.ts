@@ -277,3 +277,9 @@ export const testResourceEconomics: ResourceEconomics[] = [
     ],
   },
 ]
+// Alternative acquisition routes; these never define configured material prices.
+for (const [itemId, mind] of [[3866, 5], [3867, 10], [3868, 15]]) {
+  testResourceEconomics.find(resource => resource.itemId === itemId)?.acquisitionMethods.push({
+    name: 'Helscape Mine', mind, minutes: 10, resolve: 0, materialCost: 0,
+  })
+}

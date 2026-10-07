@@ -92,26 +92,26 @@ describe('resources and economics', () => {
   })
   it('uses existing valuations and excludes acquired rows from remaining value', () => {
     const list = addResources(empty, [basic])
-    const value = valueShoppingList(list, testResourceEconomics, calculator)
+    const value = valueShoppingList(list, calculator)
     expect(value.items[0].unitValue).toBe(3)
     expect(value.remainingValue).toBe(6)
-    const acquired = valueShoppingList(toggleResource(list, basic.resourceId), testResourceEconomics, calculator)
+    const acquired = valueShoppingList(toggleResource(list, basic.resourceId), calculator)
     expect(acquired.items).toHaveLength(1)
     expect(acquired.items[0].totalValue).toBe(6)
     expect(acquired.remainingValue).toBe(0)
   })
   it('retains unknown resources and reports a partial estimate honestly', () => {
     const list = addResources(empty, [basic, { resourceId: 999999, name: 'Unknown Component', quantity: 3 }])
-    const value = valueShoppingList(list, testResourceEconomics, calculator)
+    const value = valueShoppingList(list, calculator)
     expect(value.items[1].unitValue).toBeUndefined()
     expect(value.unknownNeeded).toBe(1)
     expect(value.remainingValue).toBe(6)
-    expect(valueShoppingList(toggleResource(list, 999999), testResourceEconomics, calculator).unknownNeeded).toBe(0)
+    expect(valueShoppingList(toggleResource(list, 999999), calculator).unknownNeeded).toBe(0)
   })
-  it('reflects current Economics Settings without storing prices', () => {
+  it('keeps configured material values independent of card acquisition costs', () => {
     const list = addResources(empty, [basic])
-    const changed = new DefaultCostCalculator({ ...defaultEconomicsSettings, basicForagingCardCost: 100 })
-    expect(valueShoppingList(list, testResourceEconomics, changed).remainingValue).toBeGreaterThan(6)
+    const changed = new DefaultCostCalculator({ ...defaultEconomicsSettings, foragingCardCost: 100 })
+    expect(valueShoppingList(list, changed).remainingValue).toBe(6)
   })
   it('derives the catalog from existing components/economics, with no duplicated catalog', () => {
     const catalog = getResourceCatalog(allBlueprints, testResourceEconomics)
@@ -134,7 +134,7 @@ describe('blueprint integration', () => {
   })
   it('matches Blueprint Details material pricing for the same recipe', () => {
     const list = addBlueprintComponents(empty, crafting.craftingComponents)
-    expect(valueShoppingList(list, testResourceEconomics, calculator).remainingValue).toBe(calculateBlueprintCost(crafting, testResourceEconomics, calculator).materialCost)
+    expect(valueShoppingList(list, calculator).remainingValue).toBe(calculateBlueprintCost(crafting, calculator).materialCost)
   })
   it('derives To Acquire prints dynamically, separate from resources', () => {
     const collection: BlueprintCollection = { id: 'collection', name: 'Character', entries: [
