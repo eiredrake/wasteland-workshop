@@ -1,0 +1,12 @@
+.confirmation-dialog {
+  box-sizing: border-box; width: min(420px, calc(100% - 2rem)); max-height: calc(100% - 2rem);
+  padding: 1.25rem; margin: auto; overflow-y: auto;
+  border: 1px solid var(--color-border-strong); border-top: 4px solid var(--color-rust);
+  border-radius: 6px; background: var(--color-surface); color: var(--color-text);
+  box-shadow: 0 12px 40px #0008;
+}
+.confirmation-dialog::backdrop { background: #000b; }
+.confirmation-dialog h3 { margin: 0 0 0.75rem; }
+.confirmation-dialog p { color: var(--color-text-muted); line-height: 1.5; overflow-wrap: anywhere; }
+.confirmation-dialog-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+.confirmation-dialog-actions button { min-height: 44px; }

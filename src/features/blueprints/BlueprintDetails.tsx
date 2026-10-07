@@ -7,7 +7,6 @@ import type {
 import type { CostCalculator } from '../../economics/CostCalculator'
 import type { CraftTimerState } from '../timer/CraftTimerState'
 import { calculateBlueprintCost } from '../../economics/BlueprintCostService'
-import BlueprintCraftTimer from '../../components/CraftTimer/BlueprintCraftTimer'
 import './BlueprintDetails.css'
 import BlueprintShoppingAction, { type BlueprintShoppingProps } from '../shopping/BlueprintShoppingAction'
 
@@ -26,10 +25,8 @@ type BlueprintDetailsProps = {
     blueprintName: string,
     status: BlueprintAccessStatus | undefined
   ) => void
-  onCraftBlueprint: (
-    blueprintName: string,
-    craftingMinutes: number
-  ) => void
+  onCraftBlueprint: (blueprint: Blueprint) => void
+  onAddBuild: (blueprint: Blueprint) => void
   onOpenCraftTimer: () => void
 }
 
@@ -40,9 +37,8 @@ function BlueprintDetails({
   calculator,
   defaultMarkupPercent,
   activeCollection,
-  craftTimer,
   onUpdateCollectionEntry,
-  onCraftBlueprint,
+  onAddBuild,
 }: BlueprintDetailsProps) {
   const [markupPercent, setMarkupPercent] =
     useState(defaultMarkupPercent)
@@ -233,6 +229,7 @@ function BlueprintDetails({
         skills ||
         specialNotes) && (
         <section className="blueprint-details-card blueprint-mechanics-card">
+          {crafting && <button type="button" className="blueprint-access-status blueprint-build-button" onClick={() => onAddBuild(blueprint)}>Build</button>}
           <div className="blueprint-mechanics-section blueprint-crafting-skill">
             <h3>Crafting Skill</h3>
             <p>{skills}</p>
@@ -325,22 +322,6 @@ function BlueprintDetails({
                 </button>
               </div>
             </div>
-
-            {minutes > 0 && (
-              <BlueprintCraftTimer
-                blueprintName={
-                  blueprint.name
-                }
-                minutes={minutes}
-                timer={craftTimer}
-                onStart={() =>
-                  onCraftBlueprint(
-                    blueprint.name,
-                    minutes
-                  )
-                }
-              />
-            )}
           </div>
         ) : (
           <p>

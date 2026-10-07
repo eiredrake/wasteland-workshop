@@ -4,8 +4,12 @@ import { resolveEconomicsSettings, type EconomicsOverrides, type EconomicsSettin
 export class DefaultCostCalculator implements CostCalculator {
   private readonly settings: EconomicsSettings
 
-  constructor(overrides: EconomicsOverrides = {}) {
-    this.settings = resolveEconomicsSettings(overrides)
+  constructor(overrides: EconomicsOverrides = {}, snapshot?: EconomicsSettings) {
+    this.settings = snapshot ? structuredClone(snapshot) : resolveEconomicsSettings(overrides)
+  }
+
+  static fromSnapshot(snapshot: EconomicsSettings): DefaultCostCalculator {
+    return new DefaultCostCalculator({}, snapshot)
   }
 
   calculateMindCost(mind: number): number { return mind * this.settings.mindCostPerPoint }

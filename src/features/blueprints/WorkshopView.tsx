@@ -37,10 +37,8 @@ type WorkshopViewProps = {
       | BlueprintAccessStatus
       | undefined
   ) => void
-  onCraftBlueprint: (
-    blueprintName: string,
-    craftingMinutes: number
-  ) => void
+  onCraftBlueprint: (blueprint: Blueprint) => void
+  onAddBuild: (blueprint: Blueprint) => void
 }
 
 type WorkshopColumn = {
@@ -123,6 +121,7 @@ function WorkshopView({
   craftTimer,
   onUpdateCollectionEntry,
   onCraftBlueprint,
+  onAddBuild,
   onOpenCraftTimer,
 }: WorkshopViewProps) {
   const [searchText, setSearchText] =
@@ -484,6 +483,7 @@ function WorkshopView({
             onUpdateCollectionEntry={
               onUpdateCollectionEntry
             }
+            onAddBuild={onAddBuild}
             onCraftBlueprint={
               onCraftBlueprint
             }

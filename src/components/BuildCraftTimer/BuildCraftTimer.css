@@ -1,0 +1,11 @@
+.build-compact-timer { display: flex; flex-direction: column; align-items: center; flex: 0 0 100px; gap: 0.2rem; }
+.blueprint-craft-timer-compact { width: 96px; height: 96px; flex: 0 0 96px; touch-action: pan-y; user-select: none; -webkit-touch-callout: none; }
+.blueprint-craft-timer-compact .blueprint-craft-timer-ring { width: 88px; height: 88px; margin: 4px; padding: 5px; }
+.blueprint-craft-timer-compact .blueprint-craft-timer-time { font-size: 0.78rem; }
+.blueprint-craft-timer-compact .blueprint-craft-timer-start { font-size: 0.55rem; letter-spacing: 0.03em; }
+.blueprint-craft-timer-compact:disabled { cursor: not-allowed; opacity: 0.7; }
+.build-timer-settings { min-height: 44px; background: transparent; border: 0; color: var(--color-text-muted); text-decoration: underline; padding: 0.25rem; font: inherit; font-size: 0.75rem; }
+.build-timer-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.65rem; margin: 0.5rem 0; }
+.build-timer-row > p { flex: 1 1 130px; margin: 0; }
+
+.build-timer-blocked { max-width: 100px; text-align: center; color: var(--color-text-muted); font-size: 0.75rem; line-height: 1.4; }

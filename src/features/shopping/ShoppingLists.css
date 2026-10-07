@@ -38,15 +38,3 @@
 .shopping-status-badges { flex-direction: row; flex-wrap: nowrap; align-items: center; }
 .shopping-status-badges .blueprint-access-status { flex: 0 0 auto; align-self: center; white-space: nowrap; }
 .shopping-status-badges .shopping-remove-badge { width: 32px; height: 32px; min-height: 32px; padding: 0; text-align: center; }
-.shopping-confirmation {
-  box-sizing: border-box; width: min(420px, calc(100% - 2rem)); max-height: calc(100% - 2rem);
-  padding: 1.25rem; margin: auto; overflow-y: auto;
-  border: 1px solid var(--color-border-strong); border-top: 4px solid var(--color-rust);
-  border-radius: 6px; background: var(--color-surface); color: var(--color-text);
-  box-shadow: 0 12px 40px #0008;
-}
-.shopping-confirmation::backdrop { background: #000b; }
-.shopping-confirmation h3 { margin: 0 0 0.75rem; }
-.shopping-confirmation p { color: var(--color-text-muted); line-height: 1.5; overflow-wrap: anywhere; }
-.shopping-confirmation-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
-.shopping-confirmation-actions button { min-height: 44px; }

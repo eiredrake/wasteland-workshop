@@ -2,6 +2,7 @@ import {
   useEffect,
   useRef,
   type CSSProperties,
+  type ReactNode,
 } from 'react'
 import type { CraftTimerState } from '../../features/timer/CraftTimerState'
 import {
@@ -14,6 +15,8 @@ import {
 import './CraftTimer.css'
 
 type CraftTimerProps = {
+  controls?: ReactNode
+  readOnly?: boolean
   timer: CraftTimerState
   onChange: (timer: CraftTimerState) => void
 }
@@ -42,6 +45,8 @@ function formatDuration(milliseconds: number): string {
 function CraftTimer({
   timer,
   onChange,
+  controls,
+  readOnly = false,
 }: CraftTimerProps) {
   const holdTimeoutRef =
     useRef<number | undefined>(undefined)
@@ -211,6 +216,8 @@ function CraftTimer({
         <button
           type="button"
           aria-label="Remove one minute"
+          disabled={readOnly}
+          onClick={event => { if (event.detail === 0) adjustMinutes(-1) }}
           onPointerDown={() =>
             startAdjusting(-1)
           }
@@ -226,6 +233,8 @@ function CraftTimer({
         <button
           type="button"
           aria-label="Add one minute"
+          disabled={readOnly}
+          onClick={event => { if (event.detail === 0) adjustMinutes(1) }}
           onPointerDown={() =>
             startAdjusting(1)
           }
@@ -237,7 +246,7 @@ function CraftTimer({
         </button>
       </div>
 
-      <div className="craft-timer-controls">
+      {controls ?? <div className="craft-timer-controls">
         <button
           type="button"
           onClick={handleStartStop}
@@ -254,7 +263,7 @@ function CraftTimer({
         >
           Reset
         </button>
-      </div>
+      </div>}
       <p className="craft-timer-alarm-note">
         Keep this app visible and your screen awake to receive alarms.
         Check sound and vibration with Test Alarm in Settings.

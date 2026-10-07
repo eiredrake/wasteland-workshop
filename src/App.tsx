@@ -1,6 +1,5 @@
 import {
   useEffect,
-  useRef,
   useState,
 } from 'react'
 
@@ -22,21 +21,18 @@ import ValuationAlgorithmView from './features/help/ValuationAlgorithmView'
 
 import AlarmSettingsView from './features/settings/AlarmSettingsView'
 import { loadAlarmSettings, saveAlarmSettings } from './features/timer/AlarmSettings'
-import { createCompletionTracker, playAlarm, prepareAlarmAudio } from './features/timer/CraftAlarm'
+import { playAlarm, prepareAlarmAudio } from './features/timer/CraftAlarm'
 
 import CraftTimer from './components/CraftTimer/CraftTimer'
 import {
   createIdleCraftTimer,
-  type CraftTimerState,
 } from './features/timer/CraftTimerState'
 
-import {
-  beginCraftTimer,
-  loadCraftTimer,
-  pauseCraftTimer,
-  resumeCraftTimer,
-  tickCraftTimer,
-} from './features/timer/CraftTimerEngine'
+import BuildQueueView from './features/builds/BuildQueueView'
+import BuildStatusBadge from './components/BuildStatusBadge/BuildStatusBadge'
+import { useBuildQueue } from './features/builds/useBuildQueue'
+import { addBuild, enqueueBlueprintBuild, changeBuildTimer, toggleBuildStatus, workingBuild } from './features/builds/BuildQueueService'
+
 
 import { DefaultCostCalculator } from './economics/DefaultCostCalculator'
 import {
@@ -69,6 +65,7 @@ type AppView =
   | 'catalog'
   | 'collections'
   | 'shopping'
+  | 'builds'
   | 'timer'
   | 'settings'
   | 'about'
@@ -105,19 +102,9 @@ function App() {
 
   const [shoppingState, setShoppingState] = useState(loadShoppingLists)
 
-  const [craftTimer, setCraftTimer] =
-    useState<CraftTimerState>(
-      createIdleCraftTimer
-    )
-
   const [alarmSettings, setAlarmSettings] = useState(loadAlarmSettings)
-  const [completionTracker] = useState(() => createCompletionTracker(craftTimer.status))
+  const [timerBuildId, setTimerBuildId] = useState<string>()
 
-  useEffect(() => {
-    if (completionTracker(craftTimer.status)) {
-      void playAlarm(alarmSettings)
-    }
-  }, [craftTimer.status, alarmSettings, completionTracker])
 
   useEffect(() => {
     if (!alarmSettings.sound) return
@@ -129,33 +116,6 @@ function App() {
       document.removeEventListener('keydown', prepare)
     }
   }, [alarmSettings.sound])
-
-  const craftTimerRef = useRef(craftTimer)
-
-  useEffect(() => {
-    craftTimerRef.current = craftTimer
-  }, [craftTimer])
-
-  useEffect(() => {
-    if (craftTimer.status !== 'running') {
-      return
-    }
-
-    const update = () => {
-      const updatedTimer = tickCraftTimer(craftTimerRef.current)
-      craftTimerRef.current = updatedTimer
-      setCraftTimer(updatedTimer)
-    }
-    const visible = () => { if (document.visibilityState === 'visible') update() }
-    const intervalId = window.setInterval(update, 250)
-    document.addEventListener('visibilitychange', visible)
-    window.addEventListener('pageshow', update)
-    return () => {
-      window.clearInterval(intervalId)
-      document.removeEventListener('visibilitychange', visible)
-      window.removeEventListener('pageshow', update)
-    }
-  }, [craftTimer.status])
 
   const calculator =
     new DefaultCostCalculator(
@@ -206,53 +166,28 @@ function App() {
     }, 4000)
   }
 
+  const buildQueue = useBuildQueue(() => { void playAlarm(alarmSettings) }, message => showToast(message, 'warning'))
+  const activeBuild = workingBuild(buildQueue.builds)
+  const craftTimer = activeBuild?.timer ?? createIdleCraftTimer()
+  const timerBuild = buildQueue.builds.find(build => build.id === timerBuildId) ?? activeBuild
+
   const openCraftTimer = () => {
-    setCurrentView('timer')
-    setMenuOpen(false)
+    if (activeBuild) setTimerBuildId(activeBuild.id)
+    navigateTo('timer')
   }
-
-  const loadBlueprintIntoCraftTimer = (
-    blueprintName: string,
-    craftingMinutes: number
-  ) => {
-    if (
-      craftTimer.label ===
-        blueprintName &&
-      craftTimer.status === 'running'
-    ) {
-      setCraftTimer(
-        pauseCraftTimer(craftTimer)
-      )
-
-      return
+  const addBlueprintToBuildQueue = (blueprint: Blueprint) => {
+    if (buildQueue.apply(queue => enqueueBlueprintBuild(queue, blueprint, economicsSettings))) {
+      navigateTo('builds')
+      showToast('Added "' + blueprint.name + '" to the Build Queue.', 'success')
     }
-
-    if (
-      craftTimer.label ===
-        blueprintName &&
-      craftTimer.status === 'paused'
-    ) {
-      setCraftTimer(
-        resumeCraftTimer(craftTimer)
-      )
-
-      return
+  }
+  const loadBlueprintIntoCraftTimer = (blueprint: Blueprint) => {
+    const id = crypto.randomUUID()
+    if (buildQueue.apply(queue => addBuild(queue, blueprint, economicsSettings, true, Date.now(), id))) {
+      setTimerBuildId(id)
+      navigateTo('timer')
+      showToast('Crafting "' + blueprint.name + '" — Build started.', 'success')
     }
-
-    const loadedTimer =
-      loadCraftTimer(
-        craftingMinutes,
-        blueprintName
-      )
-
-    setCraftTimer(
-      beginCraftTimer(loadedTimer)
-    )
-
-    showToast(
-      `Crafting "${blueprintName}" — ${craftingMinutes} minute timer started.`,
-      'success'
-    )
   }
 
   const saveEconomicsSettings = (overrides: EconomicsOverrides) => {
@@ -620,6 +555,8 @@ function App() {
             Shopping Lists
           </button>
 
+          <button type="button" onClick={() => navigateTo('builds')}>Build Queue</button>
+
           <button
             type="button"
             onClick={openCraftTimer}
@@ -664,6 +601,7 @@ function App() {
         'workshop' && (
         <WorkshopView
           shopping={shopping}
+          onAddBuild={addBlueprintToBuildQueue}
           activeCollection={
             activeBlueprintCollection
           }
@@ -689,6 +627,7 @@ function App() {
         'catalog' && (
         <BlueprintSearch
           shopping={shopping}
+          onAddBuild={addBlueprintToBuildQueue}
           calculator={calculator}
           defaultMarkupPercent={
             economicsSettings
@@ -741,13 +680,19 @@ function App() {
           notify={(message, error) => showToast(message, error ? 'error' : 'success')} />
       )}
 
-      {currentView ===
-        'timer' && (
-        <CraftTimer
-          timer={craftTimer}
-          onChange={setCraftTimer}
-        />
-      )}
+      {currentView === 'builds' && <BuildQueueView builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}
+        onTimer={id => { setTimerBuildId(id); navigateTo('timer') }} />}
+
+      {currentView === 'timer' && <>
+        <button type="button" className="secondary-button" onClick={() => navigateTo('builds')}>Open Build Queue</button>
+        {timerBuild ? <>
+          {activeBuild && activeBuild.id !== timerBuild.id && <p>Pause the current Build before starting another.</p>}
+          <CraftTimer timer={timerBuild.timer} readOnly={timerBuild.status === 'Completed' || timerBuild.status === 'Enqueued'}
+            onChange={timer => buildQueue.apply(queue => changeBuildTimer(queue,timerBuild.id,timer))}
+            controls={<BuildStatusBadge build={timerBuild} blocked={!!activeBuild && activeBuild.id !== timerBuild.id && timerBuild.status !== 'Completed'}
+              onToggle={() => buildQueue.apply(queue => toggleBuildStatus(queue,timerBuild.id))} />} />
+        </> : <p>No Build selected. Add a Blueprint to the Build Queue, or tap its timer to start crafting.</p>}
+      </>}
 
       {currentView ===
         'settings' && (

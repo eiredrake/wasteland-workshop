@@ -1,0 +1,6 @@
+.build-status { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin: 0; padding: 0.4rem 0.7rem; font: inherit; font-size: 0.8rem; border: 1px solid var(--color-border); border-radius: 4px; white-space: nowrap; }
+.build-status-enqueued { color: #e7c879; background: #372c16; border-color: #816529; }
+.build-status-working { color: #c6edaf; background: #273e20; border-color: #72a866; }
+.build-status-paused { color: #c6d9e5; background: #263641; border-color: #597482; }
+.build-status-completed { color: #bcd3aa; background: #273123; border-color: #63784e; }
+.build-status:disabled { opacity: 0.65; cursor: not-allowed; }

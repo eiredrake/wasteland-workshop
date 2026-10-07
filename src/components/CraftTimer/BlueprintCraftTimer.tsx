@@ -1,4 +1,5 @@
-import type { CSSProperties } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
+import { createTimerPress } from './TimerPress'
 import type { CraftTimerState } from '../../features/timer/CraftTimerState'
 import './BlueprintCraftTimer.css'
 
@@ -7,6 +8,10 @@ type BlueprintCraftTimerProps = {
   minutes: number
   timer: CraftTimerState
   onStart: () => void
+  blocked?: boolean
+  compact?: boolean
+  actionLabel?: string
+  onSettings?: () => void
 }
 
 function formatDuration(milliseconds: number): string {
@@ -35,7 +40,14 @@ function BlueprintCraftTimer({
   minutes,
   timer,
   onStart,
+  blocked = false,
+  compact = false,
+  actionLabel,
+  onSettings,
 }: BlueprintCraftTimerProps) {
+  const [press] = useState(() => createTimerPress(() => {}, () => {}))
+  useEffect(() => { press.setCallbacks(onStart,onSettings ?? (() => {})) }, [press,onStart,onSettings])
+  useEffect(() => () => press.cancel(), [press])
   const isActiveBlueprint =
     timer.label === blueprintName &&
     timer.status !== 'idle'
@@ -86,20 +98,21 @@ function BlueprintCraftTimer({
             ? 'Complete'
             : 'Start'
 
-  const handleClick = () => {
-    onStart()
-  }
-
   return (
     <button
       type="button"
-      className="blueprint-craft-timer"
-      onClick={handleClick}
-      aria-label={
-        isActiveBlueprint
-          ? `Open craft timer for ${blueprintName}`
-          : `Start ${minutes} minute craft timer for ${blueprintName}`
-      }
+      className={'blueprint-craft-timer' + (compact ? ' blueprint-craft-timer-compact' : '')}
+      onClick={event => { if (!onSettings || event.detail === 0) onStart(); else press.click() }}
+      onPointerDown={event => { if (onSettings && event.button === 0) press.begin(event.clientX,event.clientY) }}
+      onPointerUp={() => press.end()}
+      onPointerCancel={() => press.cancel()}
+      onPointerLeave={() => press.cancel()}
+      onPointerMove={event => press.move(event.clientX,event.clientY)}
+      onContextMenu={event => { if (onSettings) event.preventDefault() }}
+      onKeyDown={event => { if (onSettings && event.key === 'F2') { event.preventDefault(); press.cancel(); onSettings() } }}
+      disabled={blocked}
+      title={blocked ? "Pause the current Build before starting another." : onSettings ? "Tap to pause/resume. Hold or press F2 for timer settings." : "Create a Build and start crafting now"}
+      aria-label={actionLabel ?? (blocked ? 'Pause the current Build before starting ' + blueprintName : 'Start ' + minutes + ' minute craft timer for ' + blueprintName)}
       style={{
         '--timer-progress': `${progressDegrees}deg`,
         '--timer-color': timerColor,

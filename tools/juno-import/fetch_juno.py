@@ -1,8 +1,8 @@
+import argparse
 import json
 import os
 import re
 import time
-import argparse
 
 from playwright.sync_api import sync_playwright  # type: ignore
 

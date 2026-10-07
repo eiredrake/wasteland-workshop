@@ -107,10 +107,8 @@ type BlueprintSearchProps = {
       | BlueprintAccessStatus
       | undefined
   ) => void
-  onCraftBlueprint: (
-    blueprintName: string,
-    craftingMinutes: number
-  ) => void
+  onCraftBlueprint: (blueprint: Blueprint) => void
+  onAddBuild: (blueprint: Blueprint) => void
 }
 
 function BlueprintSearch({
@@ -121,6 +119,7 @@ function BlueprintSearch({
   craftTimer,
   onUpdateCollectionEntry,
   onCraftBlueprint,
+  onAddBuild,
   onOpenCraftTimer,
 }: BlueprintSearchProps) {
   const [searchText, setSearchText] =
@@ -374,6 +373,7 @@ function BlueprintSearch({
             onUpdateCollectionEntry={
               onUpdateCollectionEntry
             }
+            onAddBuild={onAddBuild}
             onCraftBlueprint={
               onCraftBlueprint
             }

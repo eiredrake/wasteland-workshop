@@ -266,6 +266,7 @@
 }
 
 .blueprint-mechanics-card {
+  display: flow-root;
   margin-bottom: 1rem;
   border-left: 4px solid #d6a33d;
 }
@@ -294,4 +295,27 @@
 
 .blueprint-crafting-skill p {
   font-weight: 600;
+}
+.blueprint-build-button {
+  float: right;
+  display: grid;
+  place-items: center;
+  width: 140px;
+  height: 140px;
+  min-width: 0;
+  margin: 0 0 1rem 1rem;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  color: #c6edaf;
+  background: #273e20;
+  border-color: #72a866;
+}
+
+@media (max-width: 650px) {
+  .blueprint-build-button {
+    width: 88px;
+    height: 88px;
+    font-size: 1rem;
+  }
 }
