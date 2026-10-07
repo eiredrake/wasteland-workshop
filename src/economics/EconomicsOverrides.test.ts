@@ -34,8 +34,8 @@ describe('Ayden configured defaults', () => {
     'uses direct configured value for item %i: %s credits', (id, expected) => expect(value(id)).toBe(expected))
   it('imports all matched resources with provenance, not just the check values', () => {
     expect(source.acquisitionRows).toHaveLength(122)
-    expect(source.entries).toHaveLength(73)
-    expect(new Set(source.entries.map(entry => entry.itemId)).size).toBe(73)
+    expect(source.entries).toHaveLength(96)
+    expect(new Set(source.entries.map(entry => entry.itemId)).size).toBe(96)
     for (const entry of source.entries) {
       expect(value(entry.itemId)).toBe(entry.value)
       expect(entry.sourceName).toBeTruthy()
@@ -48,7 +48,7 @@ describe('Ayden configured defaults', () => {
     expect(value(3857)).toBe(13.8) // Acid Compounds
     expect(value(3899)).toBe(45) // Mortis Extract
     expect(value(3882)).toBe(12) // Reviewed Machined Component(s) spelling
-    expect(value(3939)).toBe(5.4) // Explicit Any Produce input price
+    expect(value(3939)).toBeUndefined() // Category input prices are not resource prices.
   })
   it('preserves the confirmed zero for Corpse without inventing a Juno mapping', () => {
     expect(source.dependencyValues.find(entry => entry.name === 'Corpse')?.values).toEqual([0])
@@ -88,7 +88,7 @@ describe('Ayden configured defaults', () => {
     const unknown = { ...recipe, craftingComponents: [{ ...recipe.craftingComponents[0],
       component: { ...recipe.craftingComponents[0].component, id: 3902 } }] }
     expect(calculateBlueprintCost(unknown, new DefaultCostCalculator()).productionCost).toBeUndefined()
-    expect(calculateBlueprintCost(unknown, new DefaultCostCalculator({ resourceValues: { 3902: 7 } })).materialCost).toBe(28)
+    expect(calculateBlueprintCost(unknown, new DefaultCostCalculator({ resourceValues: { 3902: 7 } })).materialCost).toBe(0)
   })
 })
 

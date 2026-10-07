@@ -39,7 +39,7 @@ function AcquisitionControl({ item, onToggle, onRemove }: {
       onClick={() => { if (!held.current) onToggle(); held.current = false }}>
       {item.acquired ? 'Acquired' : 'Needed'}
     </button>
-    <button className="blueprint-access-status blueprint-access-status-untracked shopping-remove-badge" type="button" aria-label={`Remove ${item.name}`} title="Remove resource from this shopping list" onClick={onRemove}>X</button>
+    <button className="blueprint-access-status blueprint-access-status-untracked shopping-remove-badge" type="button" aria-label={`Remove ${item.name}`} title="Remove ingredient from this shopping list" onClick={onRemove}>X</button>
   </div>
 }
 
@@ -101,7 +101,7 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
     {(adding || renameId || pendingImport) && <form className="blueprint-collection-add" onSubmit={event => { event.preventDefault(); saveName() }}>
       <label htmlFor="shopping-list-name">{renameId ? 'Rename List' : pendingImport ? 'Imported List Name' : 'List Name'}</label>
       <input id="shopping-list-name" value={name} maxLength={200} autoFocus required onChange={event => setName(event.target.value)} onKeyDown={event => { if (event.key === 'Escape') cancelName() }} />
-      {pendingImport && <p>{pendingImport.items.length} resource rows found. Import creates a new list.</p>}
+      {pendingImport && <p>{pendingImport.items.length} ingredient rows found. Import creates a new list.</p>}
       <div className="blueprint-collection-add-actions">
         <button type="button" className="secondary-button" onClick={cancelName}>Cancel</button>
         <button type="submit" className="primary-button" disabled={!name.trim()}>{pendingImport ? 'Import List' : 'Save List'}</button>
@@ -137,7 +137,7 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
     {active && valued && <>
       <h3 className="shopping-active-heading">Resources · {active.name}</h3>
       <div className="shopping-summary" role="status"><strong>Estimated remaining: {credits(valued.remainingValue)}{valued.unknownNeeded ? ' + unknown values' : ''}</strong>
-        <p>{valued.unknownNeeded ? `${valued.unknownNeeded} needed resource row(s) have unknown value. ` : ''}Acquired rows and blueprint prints are excluded. Estimates use Economics Settings.</p>
+        <p>{valued.unknownNeeded ? `${valued.unknownNeeded} needed ingredient row(s) have unknown value. ` : ''}Acquired rows and blueprint prints are excluded. Estimates use Economics Settings.</p>
       </div>
       <form className="blueprint-collection-add shopping-add-resource" onSubmit={event => {
         event.preventDefault()
@@ -161,7 +161,7 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
         emptyMessage="No resources yet. Add one above or add components from Blueprint Details."
         columns={[
           { key: 'name', label: 'Resource / Quantity / Value', protected: true, minWidth: 150, render: item => <div className={item.acquired ? 'shopping-resource-acquired' : ''}>
-            <strong>{item.name}</strong><span className="shopping-resource-value">Qty {item.quantity.toLocaleString()} · Unit {credits(item.unitValue)}<br />Total {credits(item.totalValue)}</span>
+            <strong>{item.name}</strong>{item.kind === 'requirement' && <span className="shopping-resource-value">Ingredient choice · Choice not yet selected</span>}<span className="shopping-resource-value">Qty {item.quantity.toLocaleString()} · Unit {credits(item.unitValue)}<br />Total {credits(item.totalValue)}</span>
           </div> },
           { key: 'acquired', label: 'Status', protected: true, minWidth: 90, render: item => <AcquisitionControl item={item}
             onToggle={() => commit(replaceShoppingList(state, toggleResource(active, item.resourceId)), `${item.name} marked ${item.acquired ? 'Needed' : 'Acquired'}.`)} onRemove={() => remove(item)} /> },

@@ -1,8 +1,10 @@
+import { ingredientRequirement, concreteIngredients } from '../blueprints/IngredientRequirement'
+import { ingredientItems, isSelectorId } from '../blueprints/IngredientCatalog'
+import { getEconomicResourceDefinitions } from '../../economics/EconomicResourceCatalog'
 import type { Blueprint } from '../blueprints/Blueprint'
 import type { BlueprintCollection } from '../blueprints/BlueprintCollection'
 import type { CraftingComponent } from '../blueprints/CraftingComponent'
 import type { CostCalculator } from '../../economics/CostCalculator'
-import { applicationResourceDefinitions } from '../../economics/ApplicationResourceDefaults'
 import type { ResourceEconomics } from '../../economics/ResourceEconomics'
 import { getEffectiveResourceValue } from '../../economics/ResourceValuationService'
 import { newShoppingListId, type BlueprintAcquisitionItem, type ResourceShoppingItem, type ShoppingList, type ShoppingListState } from './ShoppingList'
@@ -51,7 +53,11 @@ export function addResources(list: ShoppingList, resources: { resourceId: number
       // New demand reopens an acquired row; partial acquisitions are future work.
       existing.acquired = false
     } else {
-      items.push({ kind: 'resource', ...resource, name, acquired: false })
+      const item = ingredientItems.get(resource.resourceId)
+      const requirement = item ? ingredientRequirement(item) : undefined
+      items.push({ ...resource, name, acquired: false,
+        kind: requirement?.kind === 'choice' ? 'requirement' : 'resource',
+        ...(requirement?.kind === 'choice' ? {requirement} : {}) })
     }
   }
   return { ...list, items }
@@ -59,9 +65,13 @@ export function addResources(list: ShoppingList, resources: { resourceId: number
 
 // Warehouse "missing components" can later supply an adjusted set here.
 export function addBlueprintComponents(list: ShoppingList, components: CraftingComponent[]): ShoppingList {
-  return addResources(list, components.map(component => ({
-    resourceId: component.component.id, name: component.component.name, quantity: component.amount,
-  })))
+  let next = list
+  for (const component of components) {
+    next = addResources(next,[{resourceId: component.component.id, name: component.component.name, quantity: component.amount}])
+    const requirement = ingredientRequirement(component.component)
+    if (requirement.kind === 'choice') next = { ...next, items: next.items.map(item => item.resourceId === component.component.id ? {...item, kind: 'requirement', requirement} : item) }
+  }
+  return next
 }
 
 export function toggleResource(list: ShoppingList, resourceId: number): ShoppingList {
@@ -89,7 +99,7 @@ export function valueShoppingList(list: ShoppingList, calculator: CostCalculator
   let remainingValue = 0
   let unknownNeeded = 0
   const items: ValuedResource[] = list.items.map(item => {
-    const unitValue = getEffectiveResourceValue(item.resourceId, calculator)
+    const unitValue = item.kind === 'requirement' || isSelectorId(item.resourceId) ? undefined : getEffectiveResourceValue(item.resourceId, calculator)
     const totalValue = unitValue === undefined ? undefined : unitValue * item.quantity
     if (!item.acquired) {
       if (totalValue === undefined) unknownNeeded++
@@ -102,19 +112,11 @@ export function valueShoppingList(list: ShoppingList, calculator: CostCalculator
 
 export type ResourceOption = { resourceId: number; name: string }
 export function getResourceCatalog(blueprints: Blueprint[], resources: ResourceEconomics[]): ResourceOption[] {
-  const names = new Map<number, string>()
-  const componentIds = new Set<number>()
-  for (const blueprint of blueprints) {
-    for (const crafting of blueprint.itemCraftings ?? []) {
-      for (const component of crafting.craftingComponents) {
-        names.set(component.component.id, component.component.name)
-        componentIds.add(component.component.id)
-      }
-      for (const product of crafting.craftingFinalProducts) names.set(product.finalProduct.id, product.finalProduct.name)
-    }
+  const names = new Map(getEconomicResourceDefinitions(blueprints).map(item => [item.itemId,item.name]))
+  for (const blueprint of blueprints) for (const recipe of blueprint.itemCraftings ?? []) {
+    for (const component of recipe.craftingComponents) for (const item of concreteIngredients(component.component)) names.set(item.id,item.name)
+    for (const product of recipe.craftingFinalProducts) if (names.has(product.finalProduct.id)) names.set(product.finalProduct.id,product.finalProduct.name)
   }
-  for (const resource of applicationResourceDefinitions) names.set(resource.itemId, resource.name)
-  const ids = new Set([...componentIds, ...resources.map(resource => resource.itemId), ...applicationResourceDefinitions.map(resource => resource.itemId)])
-  return [...ids].map(resourceId => ({ resourceId, name: names.get(resourceId) ?? `Resource #${resourceId}` }))
-    .sort((a, b) => a.name.localeCompare(b.name))
+  for (const resource of resources) if (!isSelectorId(resource.itemId) && !names.has(resource.itemId)) names.set(resource.itemId,'Resource #' + resource.itemId)
+  return [...names].filter(([id]) => !isSelectorId(id)).map(([resourceId,name]) => ({resourceId,name})).sort((a,b) => a.name.localeCompare(b.name))
 }

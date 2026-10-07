@@ -1,3 +1,4 @@
+import { isSelectorId } from '../features/blueprints/IngredientCatalog'
 import type { CostCalculator, ProductionCostInput } from './CostCalculator'
 import { resolveEconomicsSettings, type EconomicsOverrides, type EconomicsSettings } from './EconomicsSettings'
 
@@ -20,7 +21,7 @@ export class DefaultCostCalculator implements CostCalculator {
       + this.calculateResolveCost(input.resolve) + input.materialCost
   }
   calculateForagingCardCost(): number { return this.settings.foragingCardCost }
-  getEffectiveResourceValue(itemId: number): number | undefined { return this.settings.resourceValues[itemId] }
+  getEffectiveResourceValue(itemId: number): number | undefined { return isSelectorId(itemId) ? undefined : this.settings.resourceValues[itemId] }
   calculateSellingPrice(productionCost: number, markupPercent: number): number {
     return Math.ceil(productionCost * (1 + markupPercent / 100))
   }

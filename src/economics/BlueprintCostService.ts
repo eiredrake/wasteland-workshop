@@ -1,3 +1,4 @@
+import { isIngredientSelector } from '../features/blueprints/IngredientRequirement'
 import type { CostCalculator } from './CostCalculator'
 import {
   getEffectiveResourceValue,
@@ -39,7 +40,7 @@ export function calculateBlueprintCost(
   const components: BlueprintComponentCost[] = []
 
   for (const craftingComponent of crafting.craftingComponents) {
-    const unitCost = getEffectiveResourceValue(craftingComponent.component.id, calculator)
+    const unitCost = isIngredientSelector(craftingComponent.component) ? undefined : getEffectiveResourceValue(craftingComponent.component.id, calculator)
 
     if (unitCost === undefined) {
       hasUnknownComponentCosts = true

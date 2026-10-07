@@ -38,12 +38,20 @@
       "mapping": "Exact name and unique ID"
     },
     {
-      "itemId": 3939,
-      "name": "Any Produce",
-      "value": 5.4,
-      "sourceName": "Any Produce",
-      "sourceCell": "Ingredient Lookup!J:K / M:N",
-      "mapping": "Exact ingredient-input name and consistent explicit unit value"
+      "itemId": 3811,
+      "name": "Anise",
+      "value": 7,
+      "sourceName": "Anise",
+      "sourceCell": "Ingredient Lookup!O42",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
+      "itemId": 3832,
+      "name": "Aralia",
+      "value": 7,
+      "sourceName": "Aralia",
+      "sourceCell": "Ingredient Lookup!O43",
+      "mapping": "Exact concrete child item name and unique Juno ID"
     },
     {
       "itemId": 3846,
@@ -70,6 +78,22 @@
       "mapping": "Exact name and unique ID"
     },
     {
+      "itemId": 3813,
+      "name": "Basil",
+      "value": 7,
+      "sourceName": "Basil",
+      "sourceCell": "Ingredient Lookup!O45",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
+      "itemId": 3827,
+      "name": "Bay Leaf",
+      "value": 7,
+      "sourceName": "Bay Leaf",
+      "sourceCell": "Ingredient Lookup!O46",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
       "itemId": 3829,
       "name": "Bayberry",
       "value": 7,
@@ -78,12 +102,52 @@
       "mapping": "Exact name and unique ID"
     },
     {
+      "itemId": 3826,
+      "name": "Burnet",
+      "value": 7,
+      "sourceName": "Burnet",
+      "sourceCell": "Ingredient Lookup!O48",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
+      "itemId": 3812,
+      "name": "Calendula",
+      "value": 7,
+      "sourceName": "Calendula",
+      "sourceCell": "Ingredient Lookup!O49",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
       "itemId": 3843,
       "name": "Cannabis",
       "value": 7,
       "sourceName": "Cannabis",
       "sourceCell": "Ingredient Lookup!O50",
       "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3836,
+      "name": "Caraway",
+      "value": 7,
+      "sourceName": "Caraway",
+      "sourceCell": "Ingredient Lookup!O51",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
+      "itemId": 3810,
+      "name": "Chervil",
+      "value": 7,
+      "sourceName": "Chervil",
+      "sourceCell": "Ingredient Lookup!O52",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
+      "itemId": 3834,
+      "name": "Cicely",
+      "value": 7,
+      "sourceName": "Cicely",
+      "sourceCell": "Ingredient Lookup!O53",
+      "mapping": "Exact concrete child item name and unique Juno ID"
     },
     {
       "itemId": 3877,
@@ -118,6 +182,14 @@
       "mapping": "Exact name and unique ID"
     },
     {
+      "itemId": 3817,
+      "name": "Dill",
+      "value": 7,
+      "sourceName": "Dill",
+      "sourceCell": "Ingredient Lookup!O54",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
       "itemId": 3848,
       "name": "Eggs",
       "value": 5.4,
@@ -134,12 +206,28 @@
       "mapping": "Exact name and unique ID"
     },
     {
+      "itemId": 3815,
+      "name": "Fennel",
+      "value": 7,
+      "sourceName": "Fennel",
+      "sourceCell": "Ingredient Lookup!O56",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
       "itemId": 3900,
       "name": "Festering Crystal",
       "value": 15,
       "sourceName": "Festering Crystal",
       "sourceCell": "Ingredient Lookup!O87",
       "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3849,
+      "name": "Fish",
+      "value": 12,
+      "sourceName": "Fish",
+      "sourceCell": "Ingredient Lookup!O98",
+      "mapping": "Exact concrete child item name and unique Juno ID"
     },
     {
       "itemId": 3842,
@@ -198,6 +286,14 @@
       "mapping": "Exact name and unique ID"
     },
     {
+      "itemId": 3819,
+      "name": "Geranium",
+      "value": 7,
+      "sourceName": "Geranium",
+      "sourceCell": "Ingredient Lookup!O58",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
       "itemId": 3901,
       "name": "Grave Flesh",
       "value": 18,
@@ -214,12 +310,28 @@
       "mapping": "Exact name and unique ID"
     },
     {
+      "itemId": 3833,
+      "name": "Hibiscus",
+      "value": 7,
+      "sourceName": "Hibiscus",
+      "sourceCell": "Ingredient Lookup!O59",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
       "itemId": 3879,
       "name": "High Grade Lumber",
       "value": 4.4,
       "sourceName": "High Grade Lumber",
       "sourceCell": "Ingredient Lookup!O113",
       "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3831,
+      "name": "Horehound",
+      "value": 7,
+      "sourceName": "Horehound",
+      "sourceCell": "Ingredient Lookup!O60",
+      "mapping": "Exact concrete child item name and unique Juno ID"
     },
     {
       "itemId": 3897,
@@ -246,12 +358,20 @@
       "mapping": "Exact name and unique ID"
     },
     {
-      "itemId": 5559,
-      "name": "Local Currency",
-      "value": 1,
-      "sourceName": "Local Currency",
-      "sourceCell": "Ingredient Lookup!J:K / M:N",
-      "mapping": "Exact ingredient-input name and consistent explicit unit value"
+      "itemId": 3840,
+      "name": "Lemon Balm",
+      "value": 7,
+      "sourceName": "Lemon Balm",
+      "sourceCell": "Ingredient Lookup!O62",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
+      "itemId": 3838,
+      "name": "Lemongrass",
+      "value": 7,
+      "sourceName": "Lemongrass",
+      "sourceCell": "Ingredient Lookup!O63",
+      "mapping": "Exact concrete child item name and unique Juno ID"
     },
     {
       "itemId": 3882,
@@ -358,6 +478,14 @@
       "mapping": "Exact name and unique ID"
     },
     {
+      "itemId": 3814,
+      "name": "Milk Thistle",
+      "value": 7,
+      "sourceName": "Milk Thistle",
+      "sourceCell": "Ingredient Lookup!O65",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
       "itemId": 3899,
       "name": "Mortis Extract",
       "value": 45,
@@ -388,6 +516,14 @@
       "sourceName": "Pain Killer Crafting Component",
       "sourceCell": "Ingredient Lookup!O5",
       "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3825,
+      "name": "Parsley",
+      "value": 7,
+      "sourceName": "Parsley",
+      "sourceCell": "Ingredient Lookup!O66",
+      "mapping": "Exact concrete child item name and unique Juno ID"
     },
     {
       "itemId": 3894,
@@ -454,6 +590,14 @@
       "mapping": "Exact name and unique ID"
     },
     {
+      "itemId": 3818,
+      "name": "Ragweed",
+      "value": 7,
+      "sourceName": "Ragweed",
+      "sourceCell": "Ingredient Lookup!O70",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
       "itemId": 3809,
       "name": "Rare Herb",
       "value": 7,
@@ -476,6 +620,22 @@
       "sourceName": "Recovered Electronics",
       "sourceCell": "Ingredient Lookup!O120",
       "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3820,
+      "name": "Rosemary",
+      "value": 7,
+      "sourceName": "Rosemary",
+      "sourceCell": "Ingredient Lookup!O71",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
+      "itemId": 3837,
+      "name": "Sage",
+      "value": 7,
+      "sourceName": "Sage",
+      "sourceCell": "Ingredient Lookup!O72",
+      "mapping": "Exact concrete child item name and unique Juno ID"
     },
     {
       "itemId": 3862,
@@ -526,12 +686,28 @@
       "mapping": "Exact name and unique ID"
     },
     {
+      "itemId": 3841,
+      "name": "Thyme",
+      "value": 7,
+      "sourceName": "Thyme",
+      "sourceCell": "Ingredient Lookup!O74",
+      "mapping": "Exact concrete child item name and unique Juno ID"
+    },
+    {
       "itemId": 3855,
       "name": "Tree Nuts",
       "value": 5.4,
       "sourceName": "Tree Nuts",
       "sourceCell": "Ingredient Lookup!O96",
       "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3835,
+      "name": "Turmeric",
+      "value": 7,
+      "sourceName": "Turmeric",
+      "sourceCell": "Ingredient Lookup!O75",
+      "mapping": "Exact concrete child item name and unique Juno ID"
     },
     {
       "itemId": 3808,
@@ -588,6 +764,14 @@
       "sourceName": "Weapons Platform",
       "sourceCell": "Ingredient Lookup!O38",
       "mapping": "Exact name and unique ID"
+    },
+    {
+      "itemId": 3824,
+      "name": "Witch Hazel",
+      "value": 7,
+      "sourceName": "Witch Hazel",
+      "sourceCell": "Ingredient Lookup!O78",
+      "mapping": "Exact concrete child item name and unique Juno ID"
     },
     {
       "itemId": 3823,
@@ -684,150 +868,6 @@
       "reason": "No matching standalone Juno item ID"
     },
     {
-      "name": "Anise",
-      "value": 7,
-      "sourceRow": 42,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Aralia",
-      "value": 7,
-      "sourceRow": 43,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Basil",
-      "value": 7,
-      "sourceRow": 45,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Bay Leaf",
-      "value": 7,
-      "sourceRow": 46,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Burnet",
-      "value": 7,
-      "sourceRow": 48,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Calendula",
-      "value": 7,
-      "sourceRow": 49,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Caraway",
-      "value": 7,
-      "sourceRow": 51,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Chervil",
-      "value": 7,
-      "sourceRow": 52,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Cicely",
-      "value": 7,
-      "sourceRow": 53,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Dill",
-      "value": 7,
-      "sourceRow": 54,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Fennel",
-      "value": 7,
-      "sourceRow": 56,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Geranium",
-      "value": 7,
-      "sourceRow": 58,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Hibiscus",
-      "value": 7,
-      "sourceRow": 59,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Horehound",
-      "value": 7,
-      "sourceRow": 60,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Lemon Balm",
-      "value": 7,
-      "sourceRow": 62,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Lemongrass",
-      "value": 7,
-      "sourceRow": 63,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Milk Thistle",
-      "value": 7,
-      "sourceRow": 65,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Parsley",
-      "value": 7,
-      "sourceRow": 66,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Ragweed",
-      "value": 7,
-      "sourceRow": 70,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Rosemary",
-      "value": 7,
-      "sourceRow": 71,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Sage",
-      "value": 7,
-      "sourceRow": 72,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Thyme",
-      "value": 7,
-      "sourceRow": 74,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Turmeric",
-      "value": 7,
-      "sourceRow": 75,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Witch Hazel",
-      "value": 7,
-      "sourceRow": 78,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
       "name": "Festering Crystal - The Wheels of Commerce",
       "value": 45,
       "sourceRow": 85,
@@ -837,12 +877,6 @@
       "name": "Festering Crystal - Dead Market Harvest",
       "value": 15,
       "sourceRow": 86,
-      "reason": "No matching standalone Juno item ID"
-    },
-    {
-      "name": "Fish",
-      "value": 12,
-      "sourceRow": 98,
       "reason": "No matching standalone Juno item ID"
     },
     {

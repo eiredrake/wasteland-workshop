@@ -1,3 +1,4 @@
+import { isSelectorId } from '../features/blueprints/IngredientCatalog'
 import type { CostCalculator } from './CostCalculator'
 import type { ResourceEconomics } from './ResourceEconomics'
 
@@ -74,5 +75,5 @@ export function findResourceEconomics(
 }
 // Configured value lookup intentionally never falls back to an acquisition calculation.
 export function getEffectiveResourceValue(itemId: number, calculator: CostCalculator): number | undefined {
-  return calculator.getEffectiveResourceValue(itemId)
+  return isSelectorId(itemId) ? undefined : calculator.getEffectiveResourceValue(itemId)
 }

@@ -1,3 +1,4 @@
+import { isSelectorId } from '../features/blueprints/IngredientCatalog'
 import source from '../data/ayden-resource-defaults.json'
 import { applicationResourceDefaults } from './ApplicationResourceDefaults'
 
@@ -28,7 +29,7 @@ export function sanitizeEconomicsOverrides(value: unknown): EconomicsOverrides {
   if (source.resourceValues && typeof source.resourceValues === 'object' && !Array.isArray(source.resourceValues)) {
     const resources: Record<number, number> = {}
     for (const [id, amount] of Object.entries(source.resourceValues)) {
-      if (Number.isSafeInteger(Number(id)) && Number(id) > 0 && validEconomicValue(amount)) resources[Number(id)] = amount
+      if (Number.isSafeInteger(Number(id)) && Number(id) > 0 && !isSelectorId(Number(id)) && validEconomicValue(amount)) resources[Number(id)] = amount
     }
     if (Object.keys(resources).length) result.resourceValues = resources
   }

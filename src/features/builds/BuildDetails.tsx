@@ -1,3 +1,4 @@
+import { isIngredientSelector } from '../blueprints/IngredientRequirement'
 import BuildCraftTimer from '../../components/BuildCraftTimer/BuildCraftTimer'
 import { useState } from 'react'
 import type { EconomicSetting, EconomicsOverrides } from '../../economics/EconomicsSettings'
@@ -41,7 +42,7 @@ export default function BuildDetails({ build, onSave, onClose, onTimer, onToggle
       {error && <p>Enter a non-negative number.</p>}
     </div>
   }
-  const ingredients = [...new Map(build.recipe.craftingComponents.map(c => [c.component.id,c.component])).values()]
+  const ingredients = [...new Map(build.recipe.craftingComponents.filter(c => !isIngredientSelector(c.component)).map(c => [c.component.id,c.component])).values()]
   return <section className="build-details">
     <button type="button" className="secondary-button" onClick={onClose}>Back to Build Queue</button>
     <h3>{build.blueprintName}</h3><p>{build.status} · Original: {duration(build.timer.originalDurationMs)} · Remaining: {duration(build.timer.remainingMs)}</p>

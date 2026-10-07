@@ -1,5 +1,7 @@
+import type { IngredientRequirement } from '../blueprints/IngredientRequirement'
 export type ResourceShoppingItem = {
-  kind: 'resource'
+  kind: 'resource' | 'requirement'
+  requirement?: Extract<IngredientRequirement, {kind: 'choice'}>
   resourceId: number
   name: string
   quantity: number

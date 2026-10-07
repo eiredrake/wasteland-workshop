@@ -1,3 +1,5 @@
+import { ingredientItems } from '../blueprints/IngredientCatalog'
+import { ingredientRequirement } from '../blueprints/IngredientRequirement'
 import type { ResourceShoppingItem, ShoppingList, ShoppingListState } from './ShoppingList'
 import { requireName, validQuantity } from './ShoppingListService'
 
@@ -20,7 +22,7 @@ function parseItems(value: unknown): ResourceShoppingItem[] {
   const items: ResourceShoppingItem[] = []
   for (const entry of value) {
     const item = record(entry)
-    if (item.kind !== 'resource' || typeof item.resourceId !== 'number' || !Number.isSafeInteger(item.resourceId) || item.resourceId <= 0 ||
+    if ((item.kind !== 'resource' && item.kind !== 'requirement') || typeof item.resourceId !== 'number' || !Number.isSafeInteger(item.resourceId) || item.resourceId <= 0 ||
       typeof item.quantity !== 'number' || !validQuantity(item.quantity) || typeof item.acquired !== 'boolean') {
       throw new Error('Invalid shopping list resource or quantity.')
     }
@@ -32,7 +34,12 @@ function parseItems(value: unknown): ResourceShoppingItem[] {
       existing.quantity = quantity
       existing.acquired = existing.acquired && item.acquired
     } else {
-      items.push({ kind: 'resource', resourceId: item.resourceId, name, quantity: item.quantity, acquired: item.acquired })
+      // Reclassify legacy rows by Juno ID; keep quantities and acquired status.
+      const known = ingredientItems.get(item.resourceId)
+      const requirement = known ? ingredientRequirement(known) : undefined
+      if (item.kind === 'requirement' && requirement?.kind !== 'choice') throw new Error('Unknown ingredient requirement.')
+      items.push({ kind: requirement?.kind === 'choice' ? 'requirement' : 'resource',
+        ...(requirement?.kind === 'choice' ? {requirement} : {}), resourceId: item.resourceId, name, quantity: item.quantity, acquired: item.acquired })
     }
   }
   return items
