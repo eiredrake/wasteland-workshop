@@ -30,6 +30,7 @@ type DatalistProps<T> = {
   emptyMessage?: string
   renderDetails?: (item: T) => ReactNode
   backLabel?: string
+  detailsResetKey?: string
 }
 
 function Datalist<T>({
@@ -43,6 +44,7 @@ function Datalist<T>({
   emptyMessage = 'No items found.',
   renderDetails,
   backLabel = 'Back',
+  detailsResetKey,
 }: DatalistProps<T>) {
   const [sortKey, setSortKey] =
     useState<keyof T | null>(null)
@@ -52,6 +54,15 @@ function Datalist<T>({
 
   const [selectedItem, setSelectedItem] =
     useState<T | null>(null)
+
+  const [previousDetailsResetKey, setPreviousDetailsResetKey] =
+    useState(detailsResetKey)
+
+  // A new search returns to the list without resetting its sort or the search input.
+  if (previousDetailsResetKey !== detailsResetKey) {
+    setPreviousDetailsResetKey(detailsResetKey)
+    setSelectedItem(null)
+  }
 
   const [availableWidth, setAvailableWidth] =
     useState(0)

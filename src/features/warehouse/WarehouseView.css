@@ -1,0 +1,40 @@
+.warehouse-page { margin-top: 2rem; }
+.warehouse-controls { border: 0; padding: 0; margin: 0; min-width: 0; }
+.warehouse-credits, .warehouse-add { border: 1px solid rgba(255,255,255,.14); border-radius: 8px; background: rgba(0,0,0,.18); padding: 1.2rem; margin: 1rem 0; }
+.warehouse-credits { border-left: 4px solid #d6a33d; }
+.warehouse-balance { display: block; font-size: 2rem; color: #d6a33d; margin-bottom: 1rem; }
+.warehouse-page label { display: block; margin-bottom: .35rem; }
+.warehouse-page input, .warehouse-page select { max-width: 100%; box-sizing: border-box; }
+.warehouse-page input[type=number] { width: 140px; }
+.warehouse-actions { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; margin-top: .6rem; }
+.warehouse-add .searchable-picker { max-width: 500px; margin-bottom: 1rem; }
+.warehouse-add > button { display: block; margin-top: .8rem; }
+.warehouse-filters { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+.warehouse-list { padding: 0; list-style: none; }
+.warehouse-list li { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; padding: 1rem; margin-bottom: .6rem; border: 1px solid rgba(255,255,255,.14); border-radius: 8px; }
+.warehouse-list li > div:first-child { flex: 1; min-width: 160px; }
+.warehouse-list span { display: block; font-size: .8rem; color: #aaa79f; margin-top: .3rem; }
+.warehouse-remove { margin: 0; width: 32px; height: 32px; padding: 0; }
+.warehouse-hint { color: #aaa79f; font-size: .85rem; }
+.blueprint-materials-available { color: #c6edaf; }
+.blueprint-materials-missing { color: #d6a33d; }
+@media(max-width:650px) { .warehouse-list li > div:first-child { flex-basis: 100%; } .warehouse-quantity { flex: 1; } }
+
+.warehouse-page { max-width: 760px; margin-left: auto; margin-right: auto; }
+.warehouse-page input, .warehouse-page select { min-height: 44px; padding: .65rem .75rem; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-surface); color: var(--color-text); font: inherit; }
+.warehouse-page button { min-height: 44px; padding: .5rem .75rem; font: inherit; cursor: pointer; }
+.warehouse-page .secondary-button { border: 1px solid var(--color-border); }
+.warehouse-page button:disabled { opacity: .5; cursor: default; }
+.warehouse-page input:focus-visible, .warehouse-page select:focus-visible, .warehouse-page button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.warehouse-page .warehouse-remove { min-width: 44px; height: 44px; padding: 0; }
+
+.warehouse-list .warehouse-lot-good { border-left: 4px solid #72a866; }
+.warehouse-list .warehouse-lot-good strong { color: #c6edaf; }
+.warehouse-list .warehouse-lot-expiring { border-left: 4px solid #d6a33d; }
+.warehouse-list .warehouse-lot-expired { border-left: 4px solid #777; background: rgba(110,110,110,.08); }
+.warehouse-list .warehouse-lot-expired strong { color: #aaa79f; }
+.warehouse-list .warehouse-expiration-badge { display: inline-block; border: 1px solid currentColor; border-radius: 999px; padding: .25rem .6rem; font-size: .75rem; font-weight: 700; text-transform: uppercase; }
+.warehouse-expiration-good { color: #c6edaf !important; background: #273e20; }
+.warehouse-expiration-expiring { color: #d6a33d !important; background: rgba(214,163,61,.12); }
+.warehouse-expiration-expired, .warehouse-expiration-unknown, .warehouse-expiration-currency { color: #aaa79f !important; }
+.warehouse-expiration input { width: 160px; }

@@ -1,3 +1,7 @@
+import WarehouseSettingsView from './features/settings/WarehouseSettingsView'
+import { loadExpirationWarningDays, saveExpirationWarningDays } from './features/settings/WarehouseSettings'
+import WarehouseView from './features/warehouse/WarehouseView'
+import { useWarehouse } from './features/warehouse/useWarehouse'
 import {
   useEffect,
   useState,
@@ -64,6 +68,7 @@ type AppView =
   | 'workshop'
   | 'catalog'
   | 'collections'
+  | 'warehouse'
   | 'shopping'
   | 'builds'
   | 'timer'
@@ -166,6 +171,8 @@ function App() {
     }, 4000)
   }
 
+  const [expirationWarningDays,setExpirationWarningDays] = useState(loadExpirationWarningDays)
+  const inventory = useWarehouse(message => showToast(message, 'warning'))
   const buildQueue = useBuildQueue(() => { void playAlarm(alarmSettings) }, message => showToast(message, 'warning'))
   const activeBuild = workingBuild(buildQueue.builds)
   const craftTimer = activeBuild?.timer ?? createIdleCraftTimer()
@@ -555,6 +562,8 @@ function App() {
             Shopping Lists
           </button>
 
+          <button type="button" onClick={() => navigateTo('warehouse')}>Warehouse</button>
+
           <button type="button" onClick={() => navigateTo('builds')}>Build Queue</button>
 
           <button
@@ -599,7 +608,7 @@ function App() {
 
       {currentView ===
         'workshop' && (
-        <WorkshopView
+        <WorkshopView warehouse={inventory.warehouse} warehouseError={inventory.error}
           shopping={shopping}
           onAddBuild={addBlueprintToBuildQueue}
           activeCollection={
@@ -625,7 +634,7 @@ function App() {
 
       {currentView ===
         'catalog' && (
-        <BlueprintSearch
+        <BlueprintSearch warehouse={inventory.warehouse} warehouseError={inventory.error}
           shopping={shopping}
           onAddBuild={addBlueprintToBuildQueue}
           calculator={calculator}
@@ -680,6 +689,8 @@ function App() {
           notify={(message, error) => showToast(message, error ? 'error' : 'success')} />
       )}
 
+      {currentView === 'warehouse' && <WarehouseView warningDays={expirationWarningDays} warehouse={inventory.warehouse} apply={inventory.apply} error={inventory.error} />}
+
       {currentView === 'builds' && <BuildQueueView builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}
         onTimer={id => { setTimerBuildId(id); navigateTo('timer') }} />}
 
@@ -697,6 +708,11 @@ function App() {
       {currentView ===
         'settings' && (
         <>
+        <header className="settings-page settings-header"><h2>Settings</h2></header>
+        <WarehouseSettingsView days={expirationWarningDays} onSave={days=>{
+          try {saveExpirationWarningDays(days);setExpirationWarningDays(days);showToast('Expiration settings saved.','success');return true}
+          catch {showToast('Expiration settings could not be saved.','error');return false}
+        }} />
         <AlarmSettingsView settings={alarmSettings} onChange={settings => {
           try {
             saveAlarmSettings(settings)

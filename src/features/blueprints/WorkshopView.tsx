@@ -1,3 +1,4 @@
+import type { Warehouse } from '../warehouse/Warehouse'
 import { useState, type ReactNode } from 'react'
 import Datalist from '../../components/Datalist/Datalist'
 import type { CostCalculator } from '../../economics/CostCalculator'
@@ -23,6 +24,8 @@ type WorkshopRow = {
 }
 
 type WorkshopViewProps = {
+  warehouse?: Warehouse
+  warehouseError?: string
   shopping: BlueprintShoppingProps
   activeCollection:
     BlueprintCollection | undefined
@@ -114,6 +117,8 @@ function getStatusLabel(
 }
 
 function WorkshopView({
+  warehouse,
+  warehouseError,
   shopping,
   activeCollection,
   calculator,
@@ -455,6 +460,7 @@ function WorkshopView({
           item.id
         }
         showAddButton={false}
+        detailsResetKey={searchText}
         emptyMessage={
           normalizedSearch
             ? 'No matching blueprints found.'
@@ -462,7 +468,7 @@ function WorkshopView({
         }
         backLabel={`Back to ${activeCollection.name}`}
         renderDetails={(item) => (
-          <BlueprintDetails
+          <BlueprintDetails warehouse={warehouse} warehouseError={warehouseError}
             shopping={shopping}
             blueprint={
               item.blueprint

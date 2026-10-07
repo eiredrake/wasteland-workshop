@@ -1,3 +1,4 @@
+import type { Warehouse } from '../warehouse/Warehouse'
 import { useState } from 'react'
 import Datalist from '../../components/Datalist/Datalist'
 import type { CostCalculator } from '../../economics/CostCalculator'
@@ -93,6 +94,8 @@ function getNextStatus(
 }
 
 type BlueprintSearchProps = {
+  warehouse?: Warehouse
+  warehouseError?: string
   shopping: BlueprintShoppingProps
   calculator: CostCalculator
   defaultMarkupPercent: number
@@ -112,6 +115,8 @@ type BlueprintSearchProps = {
 }
 
 function BlueprintSearch({
+  warehouse,
+  warehouseError,
   shopping,
   calculator,
   defaultMarkupPercent,
@@ -355,10 +360,11 @@ function BlueprintSearch({
           blueprint.id
         }
         showAddButton={false}
+        detailsResetKey={searchText}
         emptyMessage="No blueprints found."
         backLabel="Back to Blueprints"
         renderDetails={(blueprint) => (
-          <BlueprintDetails
+          <BlueprintDetails warehouse={warehouse} warehouseError={warehouseError}
             shopping={shopping}
             blueprint={blueprint}
             mode="catalog"

@@ -1,3 +1,6 @@
+import { useCalendarDay } from '../warehouse/useCalendarDay'
+import { blueprintCraftability } from '../warehouse/CraftabilityService'
+import type { Warehouse } from '../warehouse/Warehouse'
 import { useState } from 'react'
 import type { Blueprint } from './Blueprint'
 import type {
@@ -13,6 +16,8 @@ import BlueprintShoppingAction, { type BlueprintShoppingProps } from '../shoppin
 const formatCredits = (value: number | undefined) => value === undefined ? 'Unknown' : value.toLocaleString(undefined, { maximumFractionDigits: 4 })
 
 type BlueprintDetailsProps = {
+  warehouse?: Warehouse
+  warehouseError?: string
   shopping: BlueprintShoppingProps
   blueprint: Blueprint
   mode: 'catalog' | 'collection'
@@ -31,6 +36,8 @@ type BlueprintDetailsProps = {
 }
 
 function BlueprintDetails({
+  warehouse,
+  warehouseError,
   shopping,
   blueprint,
   mode,
@@ -43,7 +50,9 @@ function BlueprintDetails({
   const [markupPercent, setMarkupPercent] =
     useState(defaultMarkupPercent)
 
+  const today = useCalendarDay()
   const crafting = blueprint.itemCraftings?.[0]
+  const availability = crafting && warehouse && !warehouseError ? blueprintCraftability(crafting,warehouse,today) : undefined
 
   const mind = crafting?.craftingMindCost ?? 0
   const minutes =
@@ -289,6 +298,15 @@ function BlueprintDetails({
         </section>
       )}
 
+      {warehouse && crafting && <section className="blueprint-details-card blueprint-access-card">
+        <h3>Warehouse Materials</h3>
+        {warehouseError ? <p>Warehouse unavailable. Open Warehouse to review the saved inventory problem.</p> : availability && <>
+          <strong className={availability.materialsAvailable ? 'blueprint-materials-available' : 'blueprint-materials-missing'}>{availability.materialsAvailable
+            ? 'Materials Available · Can Craft' + (availability.maxCopies === null ? ' · No material limit' : ' × ' + availability.maxCopies.toLocaleString()) : 'Missing Materials'}</strong>
+          {!!availability.missing.length && <ul>{availability.missing.map((item,index) => <li key={index}>{item.name} × {item.quantity.toLocaleString()}{item.choice ? ' (choose a qualifying ingredient)' : ''}</li>)}</ul>}
+          <p>Only dated, usable inventory (and non-expiring currency) counts. Material availability only. Skills, Mind, Resolve, crafting space, and other item eligibility rules still apply. Inventory is not reserved or consumed.</p>
+        </>}
+      </section>}
       <section className="blueprint-details-card blueprint-access-card">
         <div className="blueprint-card-heading">
           <h3>Blueprint Access</h3>
