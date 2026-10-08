@@ -1,3 +1,5 @@
+import AppMetadata from './components/AppMetadata/AppMetadata'
+import { masterBlueprintsUpdatedAt } from './features/blueprints/blueprints'
 import BackupSettingsView from './features/backup/BackupSettingsView'
 import WarehouseSettingsView from './features/settings/WarehouseSettingsView'
 import { loadExpirationWarningDays, saveExpirationWarningDays } from './features/settings/WarehouseSettings'
@@ -524,9 +526,7 @@ function App() {
         <div>
           <h1>
             Wasteland Workshop
-            <span className="app-version">
-              v{__APP_VERSION__}
-            </span>
+            <AppMetadata version={__APP_VERSION__} blueprintsUpdatedAt={masterBlueprintsUpdatedAt} />
           </h1>
         </div>
       </header>

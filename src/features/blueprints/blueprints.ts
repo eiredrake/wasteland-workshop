@@ -14,6 +14,8 @@ type BlueprintDatastore = {
 const datastore =
   blueprintData as BlueprintDatastore
 
+export const masterBlueprintsUpdatedAt = datastore.generatedAt
+
 export const allBlueprints: Blueprint[] =
   datastore.blueprints
 

@@ -1,0 +1,2 @@
+.blueprint-usage-badges { display: flex; flex-wrap: wrap; gap: .25rem; margin-top: .3rem; }
+.blueprint-usage-badge { display: inline-block; max-width: 100%; box-sizing: border-box; padding: .15rem .45rem; border: 1px solid #b99b59; border-radius: 5px; color: #e9cc85; background: #b99b5912; font-size: .72rem; line-height: 1.35; font-weight: 400; overflow-wrap: anywhere; }

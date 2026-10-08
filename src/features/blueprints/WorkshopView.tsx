@@ -1,3 +1,5 @@
+import BlueprintUsageBadges from '../../components/BlueprintUsageBadges/BlueprintUsageBadges'
+import { matchesBlueprintSearch } from './BlueprintSearchMatch'
 import type { Warehouse } from '../warehouse/Warehouse'
 import { useState, type ReactNode } from 'react'
 import Datalist from '../../components/Datalist/Datalist'
@@ -214,14 +216,7 @@ function WorkshopView({
           ),
         ]
 
-        return searchableFields.some(
-          (field) =>
-            field
-              .toLowerCase()
-              .includes(
-                normalizedSearch
-              )
-        )
+        return matchesBlueprintSearch(item.blueprint, normalizedSearch, searchableFields)
       })
       .filter((item) =>
         statusFilter === 'all'
@@ -273,6 +268,7 @@ function WorkshopView({
       label: 'Blueprint',
       protected: true,
       minWidth: 170,
+      render: (item) => <span>{item.name}<BlueprintUsageBadges blueprint={item.blueprint} /></span>,
     },
     {
       key: 'craftingSkill',

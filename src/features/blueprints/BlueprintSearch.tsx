@@ -1,3 +1,5 @@
+import BlueprintUsageBadges from '../../components/BlueprintUsageBadges/BlueprintUsageBadges'
+import { matchesBlueprintSearch } from './BlueprintSearchMatch'
 import type { Warehouse } from '../warehouse/Warehouse'
 import { useState } from 'react'
 import Datalist from '../../components/Datalist/Datalist'
@@ -242,6 +244,7 @@ function BlueprintSearch({
       label: 'Blueprint',
       protected: true,
       minWidth: 170,
+      render: (blueprint: Blueprint) => <span>{blueprint.name}<BlueprintUsageBadges blueprint={blueprint} /></span>,
     },
     {
       key:
@@ -319,14 +322,7 @@ function BlueprintSearch({
           ),
         ]
 
-        return searchableFields.some(
-          (field) =>
-            field
-              .toLowerCase()
-              .includes(
-                normalizedSearch
-              )
-        )
+        return matchesBlueprintSearch(blueprint, normalizedSearch, searchableFields)
       }
     )
 
