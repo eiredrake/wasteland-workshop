@@ -1,4 +1,4 @@
-import BlueprintUsageBadges from '../../components/BlueprintUsageBadges/BlueprintUsageBadges'
+import BlueprintName from '../../components/BlueprintName/BlueprintName'
 import { matchesBlueprintSearch } from './BlueprintSearchMatch'
 import type { Warehouse } from '../warehouse/Warehouse'
 import { useState, type ReactNode } from 'react'
@@ -268,7 +268,7 @@ function WorkshopView({
       label: 'Blueprint',
       protected: true,
       minWidth: 170,
-      render: (item) => <span>{item.name}<BlueprintUsageBadges blueprint={item.blueprint} /></span>,
+      render: (item) => <BlueprintName blueprint={item.blueprint} />,
     },
     {
       key: 'craftingSkill',

@@ -1,3 +1,4 @@
+import { BlueprintReadProvider } from './features/blueprints/BlueprintReadContext'
 import AppMetadata from './components/AppMetadata/AppMetadata'
 import { masterBlueprintsUpdatedAt } from './features/blueprints/blueprints'
 import BackupSettingsView from './features/backup/BackupSettingsView'
@@ -509,7 +510,7 @@ function App() {
   }
 
   return (
-    <main>
+    <BlueprintReadProvider><main>
       <header className="app-header">
         <button
           className="menu-button"
@@ -753,7 +754,7 @@ function App() {
         toasts={toasts}
         onDismiss={dismissToast}
       />
-    </main>
+    </main></BlueprintReadProvider>
   )
 }
 

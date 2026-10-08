@@ -14,13 +14,14 @@ import { allBlueprints } from '../blueprints/blueprints'
 export const BACKUP_FORMAT = 'wasteland-workshop-backup'
 export const MAX_BACKUP_BYTES = 20 * 1024 * 1024
 export type BackupData = {
+  blueprintReadHistory: { readIds: number[] }
   blueprintCollections: { collections: BlueprintCollection[]; activeCollectionId: string | null }
   shoppingLists: ShoppingListState
   warehouse: Warehouse
   settings: { economicsOverrides: EconomicsOverrides; alarm: AlarmSettings; warehouse: { expirationWarningDays: number } }
   buildQueue: { builds: BuildQueue }
 }
-export type Backup = { format: typeof BACKUP_FORMAT; schemaVersion: 1; appVersion: string; exportedAt: string; data: BackupData }
+export type Backup = { format: typeof BACKUP_FORMAT; schemaVersion: 2; appVersion: string; exportedAt: string; data: BackupData }
 export function object(value: unknown): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('Expected a data object.')
   return value as Record<string, unknown>
@@ -80,7 +81,7 @@ function build(value: unknown) {
   else check(data.completedAt === undefined, 'Unfinished Build has a completion timestamp.')
 }
 export function validateData(value: unknown): BackupData {
-  const data = object(value); keys(data, ['blueprintCollections','shoppingLists','warehouse','settings','buildQueue'])
+  const data = object(value); keys(data, ['blueprintCollections','shoppingLists','warehouse','settings','buildQueue','blueprintReadHistory'])
   const collectionState = object(data.blueprintCollections); keys(collectionState,['collections','activeCollectionId'])
   const collections = array(collectionState.collections)
   for (const value of collections) {
@@ -123,16 +124,19 @@ export function validateData(value: unknown): BackupData {
   const warehouseSettings = object(settings.warehouse); keys(warehouseSettings,['expirationWarningDays']); check(validWarningDays(warehouseSettings.expirationWarningDays), 'Invalid expiration warning days.')
   const queue = object(data.buildQueue); keys(queue,['builds']); const builds = array(queue.builds); builds.forEach(build); unique(builds.map(value => object(value).id))
   check(builds.filter(value => object(value).status === 'Working').length <= 1, 'More than one Working Build.')
+  const history=object(data.blueprintReadHistory); keys(history,['readIds']); const readIds=array(history.readIds); check(readIds.every(validId),'Invalid Read Blueprint IDs.'); unique(readIds)
   return structuredClone(data) as BackupData
 }
-// Explicit migration boundary; v1 is current. Future versions migrate here before validation.
+// Explicit migration boundary; v1 migrates to v2. Future versions migrate here before validation.
 export function migrateBackup(value: unknown): Backup {
   const backup = object(value); keys(backup,['format','schemaVersion','appVersion','exportedAt','data'])
   check(backup.format === BACKUP_FORMAT, 'This is not a full Wasteland Workshop backup.')
-  check(backup.schemaVersion === 1, 'Unsupported backup version. Update Wasteland Workshop before restoring it.')
+  check(backup.schemaVersion === 1 || backup.schemaVersion === 2, 'Unsupported backup version. Update Wasteland Workshop before restoring it.')
   text(backup.appVersion); text(backup.exportedAt)
   check(/^\d{4}-\d{2}-\d{2}T/.test(backup.exportedAt) && Number.isFinite(Date.parse(backup.exportedAt)), 'Invalid backup timestamp.')
-  return {...backup,data:validateData(backup.data)} as Backup
+  const data=object(backup.data)
+  if (backup.schemaVersion===1) { keys(data,['blueprintCollections','shoppingLists','warehouse','settings','buildQueue']); return {...backup,schemaVersion:2,data:validateData({...data,blueprintReadHistory:{readIds:[]}})} as Backup }
+  return {...backup,data:validateData(data)} as Backup
 }
 export function parseBackup(json: string): Backup {
   check(new Blob([json]).size <= MAX_BACKUP_BYTES, 'Backup is too large (maximum 20 MB).')

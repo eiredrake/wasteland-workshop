@@ -5,6 +5,7 @@ export const USER_KEYS = [
   'wasteland-workshop-blueprint-collections','wasteland-workshop-active-blueprint-collection',
   'wasteland-workshop-shopping-lists','wasteland-workshop-warehouse','wasteland-workshop-economics-settings',
   'wasteland-workshop-alarm-settings','wasteland-workshop-warehouse-settings','wasteland-workshop-build-queue',
+  'wasteland-workshop-blueprint-read-history',
 ] as const
 export type UserStorage = Pick<Storage,'getItem'|'setItem'|'removeItem'>
 let loadedRevision: string | null = null
@@ -13,6 +14,7 @@ export function recoverRestore(storage: UserStorage = localStorage) {
   const raw=storage.getItem(JOURNAL_KEY)
   if (!raw) return
   const journal=JSON.parse(raw) as {before:Record<string,string|null>;previousRevision:string|null;targetRevision:string}
+  if (journal?.before && !('wasteland-workshop-blueprint-read-history' in journal.before)) journal.before['wasteland-workshop-blueprint-read-history'] = storage.getItem('wasteland-workshop-blueprint-read-history')
   if (!journal || (journal.previousRevision!==null && typeof journal.previousRevision!=='string') || typeof journal.targetRevision!=='string' || !journal.before || !USER_KEYS.every(key=>typeof journal.before[key]==='string'||journal.before[key]===null)) throw new Error('Restore recovery data is unreadable. Stored data has been preserved.')
   // The revision pointer is the commit marker. Otherwise roll every key back before App mounts.
   if (storage.getItem(REVISION_KEY)!==journal.targetRevision) {

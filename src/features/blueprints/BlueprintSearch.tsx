@@ -1,4 +1,4 @@
-import BlueprintUsageBadges from '../../components/BlueprintUsageBadges/BlueprintUsageBadges'
+import BlueprintName from '../../components/BlueprintName/BlueprintName'
 import { matchesBlueprintSearch } from './BlueprintSearchMatch'
 import type { Warehouse } from '../warehouse/Warehouse'
 import { useState } from 'react'
@@ -244,7 +244,7 @@ function BlueprintSearch({
       label: 'Blueprint',
       protected: true,
       minWidth: 170,
-      render: (blueprint: Blueprint) => <span>{blueprint.name}<BlueprintUsageBadges blueprint={blueprint} /></span>,
+      render: (blueprint: Blueprint) => <BlueprintName blueprint={blueprint} />,
     },
     {
       key:

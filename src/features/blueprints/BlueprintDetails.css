@@ -72,12 +72,12 @@
 
 .blueprint-access-status-untracked {
   background: rgba(170, 167, 159, 0.12);
-  color: #aaa79f;
+  color: #8f8f8f;
 }
 
 .blueprint-access-status-sell {
   background: rgba(34, 211, 238, 0.16);
-  color: #22d3ee;
+  color: #67e8f9;
 }
 
 .blueprint-access-status:hover {

@@ -42,7 +42,7 @@ export default function BackupSettingsView() {
     {loading&&<p role="status">Checking backup…</p>}{message&&<p role="status">{message}</p>}{error&&<p role="alert">{error}</p>}
     {candidate&&prepared&&<section className="backup-confirmation" aria-label="Restore confirmation"><h3>Restore Wasteland Workshop Backup?</h3>
       <p>Backup from {new Date(candidate.exportedAt).toLocaleString()} · App {candidate.appVersion}</p>
-      <p>{prepared.data.blueprintCollections.collections.length} collections · {prepared.data.shoppingLists.lists.length} shopping lists · {prepared.data.warehouse.entries.length} inventory lots · {prepared.data.buildQueue.builds.length} Builds</p>
+      <p>{prepared.data.blueprintCollections.collections.length} collections · {prepared.data.shoppingLists.lists.length} shopping lists · {prepared.data.warehouse.entries.length} inventory lots · {prepared.data.buildQueue.builds.length} Builds · {prepared.data.blueprintReadHistory.readIds.length} read Blueprints</p>
       <p className="backup-replace-warning">Restoring will replace all Wasteland Workshop data in this browser with this backup.</p>
       <p>Save your current data first if you want to keep it. Close other Wasteland Workshop tabs before restoring. Active Builds restore paused. Unavailable catalog references are preserved.</p>
       {prepared.warnings.length>0&&<details><summary>{prepared.warnings.length} catalog or selection notices</summary><ul>{prepared.warnings.map(warning=><li key={warning}>{warning}</li>)}</ul></details>}

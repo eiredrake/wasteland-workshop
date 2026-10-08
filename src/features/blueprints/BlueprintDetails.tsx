@@ -1,7 +1,8 @@
 import { useCalendarDay } from '../warehouse/useCalendarDay'
 import { blueprintCraftability } from '../warehouse/CraftabilityService'
 import type { Warehouse } from '../warehouse/Warehouse'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useBlueprintReadHistory } from './useBlueprintReadHistory'
 import SharePreview from '../../components/SharePreview/SharePreview'
 import { blueprintShareCard } from './BlueprintShareCard'
 import type { ShareCard } from '../../sharing/ShareCard'
@@ -54,6 +55,8 @@ function BlueprintDetails({
     useState(defaultMarkupPercent)
 
   const [shareCard, setShareCard] = useState<ShareCard>()
+  const {markRead} = useBlueprintReadHistory()
+  useEffect(() => { markRead(blueprint.id) },[blueprint.id,markRead])
   const today = useCalendarDay()
   const crafting = blueprint.itemCraftings?.[0]
   const availability = crafting && warehouse && !warehouseError ? blueprintCraftability(crafting,warehouse,today) : undefined
@@ -145,7 +148,7 @@ function BlueprintDetails({
 
     const collectionStatus = (() => {
       if (!collectionEntry) {
-        return 'To Acquire'
+        return 'Not Acquired'
       }
     
       if (collectionEntry.status === 'acquired') {
@@ -229,7 +232,7 @@ function BlueprintDetails({
       return
     }
 
-    updateCollectionStatus('acquired')
+    updateCollectionStatus(undefined)
   }
 
   return (
