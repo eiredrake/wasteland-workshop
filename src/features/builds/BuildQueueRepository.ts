@@ -1,3 +1,4 @@
+import { userStorage } from '../backup/UserStorage'
 import { defaultEconomicsSettings, sanitizeEconomicsOverrides, validEconomicValue } from '../../economics/EconomicsSettings'
 import type { Build, BuildQueue } from './Build'
 import { tickBuildQueue } from './BuildQueueService'
@@ -28,7 +29,7 @@ function validBuild(value: unknown): value is Build {
   if (value.status === 'Completed' && (timer.remainingMs !== 0 || value.completedAt === undefined)) return false
   return object(value.overrides)
 }
-export function loadBuildQueue(storage: QueueStorage = localStorage, now = Date.now()): BuildQueue {
+export function loadBuildQueue(storage: QueueStorage = userStorage, now = Date.now()): BuildQueue {
   const raw = storage.getItem(BUILD_QUEUE_KEY)
   if (!raw) return []
   const saved: unknown = JSON.parse(raw)
@@ -40,6 +41,6 @@ export function loadBuildQueue(storage: QueueStorage = localStorage, now = Date.
   const builds = saved.builds.map(build => ({ ...build, overrides: sanitizeEconomicsOverrides(build.overrides) }))
   return tickBuildQueue(builds, now)
 }
-export function saveBuildQueue(queue: BuildQueue, storage: QueueStorage = localStorage) {
+export function saveBuildQueue(queue: BuildQueue, storage: QueueStorage = userStorage) {
   storage.setItem(BUILD_QUEUE_KEY, JSON.stringify({ version: 1, builds: queue }))
 }

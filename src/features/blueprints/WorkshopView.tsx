@@ -172,28 +172,26 @@ function WorkshopView({
               entry.blueprintId
           )
 
-        if (!blueprint) {
-          return undefined
-        }
+        const resolvedBlueprint: Blueprint = blueprint ?? {id:entry.blueprintId,name:`Unknown Blueprint #${entry.blueprintId}`,kind:'unavailable'}
 
         return {
-          id: blueprint.id,
-          name: blueprint.name,
+          id: resolvedBlueprint.id,
+          name: resolvedBlueprint.name,
           craftingSkill:
-            blueprint
+            resolvedBlueprint
               .itemCraftings?.[0]
               ?.craftingSkills ??
             'Unknown',
           kind: formatKind(
-            blueprint
+            resolvedBlueprint
               .itemCraftings?.[0]
               ?.craftingFinalProducts?.[0]
               ?.finalProduct.kind
           ),
           updatedAt:
-            blueprint.updatedAt,
+            resolvedBlueprint.updatedAt,
           status: entry.status,
-          blueprint,
+          blueprint: resolvedBlueprint,
         }
       })
       .filter(

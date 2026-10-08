@@ -1,3 +1,4 @@
+import { allBlueprints } from '../blueprints/blueprints'
 import BuildCraftTimer from '../../components/BuildCraftTimer/BuildCraftTimer'
 import { useState } from 'react'
 import ConfirmationDialog from '../../components/ConfirmationDialog/ConfirmationDialog'
@@ -39,7 +40,7 @@ export default function BuildQueueView({ builds, apply, onTimer, error }: {
           <div className="build-row-heading">
             <label className="build-checkbox"><input type="checkbox" checked={!working && selection.includes(build.id)} disabled={working} aria-label={'Select Build ' + (index + 1) + ': ' + build.blueprintName}
               onChange={event => setSelected(event.target.checked ? [...selection,build.id] : selection.filter(id => id !== build.id))} /></label>
-            <button type="button" className="build-name" onClick={() => setDetailsId(build.id)}>{build.blueprintName}<span>Build {index + 1} · View details</span></button>
+            <button type="button" className="build-name" onClick={() => setDetailsId(build.id)}>{build.blueprintName}<span>Build {index + 1} · View details{!allBlueprints.some(blueprint=>blueprint.id===build.blueprintId) && ' · Catalog entry unavailable'}</span></button>
             <BuildStatusBadge readOnly={index === 0} actionOverride="move to top and start" build={build} blocked={false} onToggle={() => setStartingId(build.id)} />
           </div>
           <div className="build-timer-row"><p className="build-time">Original: {duration(build.timer.originalDurationMs)} · {build.status === 'Completed' ? 'Finished' : 'Remaining: ' + duration(build.timer.remainingMs)}</p>

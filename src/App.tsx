@@ -1,3 +1,4 @@
+import BackupSettingsView from './features/backup/BackupSettingsView'
 import WarehouseSettingsView from './features/settings/WarehouseSettingsView'
 import { loadExpirationWarningDays, saveExpirationWarningDays } from './features/settings/WarehouseSettings'
 import WarehouseView from './features/warehouse/WarehouseView'
@@ -709,6 +710,7 @@ function App() {
         'settings' && (
         <>
         <header className="settings-page settings-header"><h2>Settings</h2></header>
+        <BackupSettingsView />
         <WarehouseSettingsView days={expirationWarningDays} onSave={days=>{
           try {saveExpirationWarningDays(days);setExpirationWarningDays(days);showToast('Expiration settings saved.','success');return true}
           catch {showToast('Expiration settings could not be saved.','error');return false}

@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import { initializeUserStorage } from './UserStorage'
 import { loadBlueprintCollections } from '../blueprints/BlueprintCollectionRepository'
 import { loadShoppingLists } from '../shopping/ShoppingListRepository'
 import { loadEconomicsOverrides } from '../../economics/EconomicsSettingsRepository'
@@ -9,7 +10,8 @@ import { loadWarehouse } from '../warehouse/WarehouseRepository'
 afterEach(() => vi.unstubAllGlobals())
 describe('Portable-data persistence investigation', () => {
   it('finds that the collection loader accepts an invalid record without validation', () => {
-    vi.stubGlobal('localStorage', { getItem: () => JSON.stringify([{ id: 'a', name: 'Test', entries: 'invalid' }]) })
+    vi.stubGlobal('localStorage', { getItem: (key: string) => key === 'wasteland-workshop-blueprint-collections' ? JSON.stringify([{ id: 'a', name: 'Test', entries: 'invalid' }]) : null })
+    initializeUserStorage()
     expect(loadBlueprintCollections()).toEqual([{ id: 'a', name: 'Test', entries: 'invalid' }])
   })
   it('finds that corrupt shopping storage becomes an empty state instead of an error', () => {
@@ -23,10 +25,10 @@ describe('Portable-data persistence investigation', () => {
     expect(loadEconomicsOverrides(storage)).toEqual({})
     expect(storage.setItem).not.toHaveBeenCalled()
   })
-  it('finds that stale Warehouse references prevent loading rather than preserving an unresolved row', () => {
+  it('preserves structurally valid stale Warehouse references after the portability fix', () => {
     const raw = JSON.stringify({ version: 2, credits: 0, entries: [{ itemId: 999999999, quantity: 2 }] })
     const storage = { getItem: () => raw }
-    expect(() => loadWarehouse(storage)).toThrow('invalid or unsupported')
+    expect(loadWarehouse(storage).entries).toEqual([{ itemId: 999999999, quantity: 2 }])
     expect(storage.getItem()).toBe(raw)
   })
 })

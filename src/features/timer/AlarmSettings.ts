@@ -1,8 +1,9 @@
+import { userStorage } from '../backup/UserStorage'
 export type AlarmSettings = { sound: boolean; vibration: boolean }
 export const defaultAlarmSettings: AlarmSettings = { sound: true, vibration: true }
 export const ALARM_SETTINGS_KEY = 'wasteland-workshop-alarm-settings'
 
-export function loadAlarmSettings(storage: Pick<Storage, 'getItem'> = localStorage): AlarmSettings {
+export function loadAlarmSettings(storage: Pick<Storage, 'getItem'> = userStorage): AlarmSettings {
   try {
     const saved = JSON.parse(storage.getItem(ALARM_SETTINGS_KEY) ?? '{}')
     return {
@@ -14,6 +15,6 @@ export function loadAlarmSettings(storage: Pick<Storage, 'getItem'> = localStora
   }
 }
 
-export function saveAlarmSettings(settings: AlarmSettings, storage: Pick<Storage, 'setItem'> = localStorage) {
+export function saveAlarmSettings(settings: AlarmSettings, storage: Pick<Storage, 'setItem'> = userStorage) {
   storage.setItem(ALARM_SETTINGS_KEY, JSON.stringify(settings))
 }

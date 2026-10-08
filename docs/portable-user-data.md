@@ -1,5 +1,7 @@
 # Portable user data: persistence audit and proposed backup design
 
+Implementation update (2026-10-08): full backup/restore is now implemented. See [the implementation report](backup-and-restore.md) for the shipped controls, schema, recovery design, tests and remaining physical-device checks. The investigation below records the earlier findings.
+
 Date: 2026-10-07. Application inspected: 0.4.6. Repository: eiredrake/wasteland-workshop.
 
 ## Decision

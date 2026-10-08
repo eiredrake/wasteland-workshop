@@ -1,3 +1,4 @@
+import { userStorage } from '../backup/UserStorage'
 import { ingredientItems } from '../blueprints/IngredientCatalog'
 import { ingredientRequirement } from '../blueprints/IngredientRequirement'
 import type { ResourceShoppingItem, ShoppingList, ShoppingListState } from './ShoppingList'
@@ -37,9 +38,10 @@ function parseItems(value: unknown): ResourceShoppingItem[] {
       // Reclassify legacy rows by Juno ID; keep quantities and acquired status.
       const known = ingredientItems.get(item.resourceId)
       const requirement = known ? ingredientRequirement(known) : undefined
-      if (item.kind === 'requirement' && requirement?.kind !== 'choice') throw new Error('Unknown ingredient requirement.')
-      items.push({ kind: requirement?.kind === 'choice' ? 'requirement' : 'resource',
-        ...(requirement?.kind === 'choice' ? {requirement} : {}), resourceId: item.resourceId, name, quantity: item.quantity, acquired: item.acquired })
+      const storedChoice = item.kind === 'requirement' && !known ? item.requirement as ResourceShoppingItem['requirement'] : undefined
+      if (item.kind === 'requirement' && requirement?.kind !== 'choice' && (!storedChoice || storedChoice.kind !== 'choice' || storedChoice.selectorId !== item.resourceId || !Array.isArray(storedChoice.options))) throw new Error('Unknown ingredient requirement.')
+      items.push({ kind: requirement?.kind === 'choice' || storedChoice ? 'requirement' : 'resource',
+        ...(requirement?.kind === 'choice' ? {requirement} : storedChoice ? {requirement:storedChoice} : {}), resourceId: item.resourceId, name, quantity: item.quantity, acquired: item.acquired })
     }
   }
   return items
@@ -55,7 +57,7 @@ export function exportShoppingList(list: ShoppingList): string {
   return JSON.stringify({ format: SHOPPING_FORMAT, version: 1, name: list.name, items: list.items }, null, 2)
 }
 
-export function loadShoppingLists(storage: Pick<Storage, 'getItem'> = localStorage): ShoppingListState {
+export function loadShoppingLists(storage: Pick<Storage, 'getItem'> = userStorage): ShoppingListState {
   try {
     const saved = storage.getItem(SHOPPING_STORAGE_KEY)
     if (!saved) return { lists: [] }
@@ -73,7 +75,7 @@ export function loadShoppingLists(storage: Pick<Storage, 'getItem'> = localStora
   }
 }
 
-export function saveShoppingLists(state: ShoppingListState, storage: Pick<Storage, 'setItem'> = localStorage): void {
+export function saveShoppingLists(state: ShoppingListState, storage: Pick<Storage, 'setItem'> = userStorage): void {
   // One write keeps list changes and active selection consistent.
   storage.setItem(SHOPPING_STORAGE_KEY, JSON.stringify({ version: 1, ...state }))
 }

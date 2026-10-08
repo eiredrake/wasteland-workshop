@@ -18,6 +18,7 @@ export function expirationStatus(itemId:number, expirationDate:string|undefined,
 }
 export function lotKey(itemId:number,expirationDate?:string): string {return itemId+':'+(expirationDate??'unknown')}
 export function usableForIngredient(itemId:number,expirationDate:string|undefined,acceptsExpiredWithinDays:number,today=localDate()): boolean {
+  if (!inventoryItemById.has(itemId)) return false
   if (inventoryItemById.get(itemId)?.kind==='currency') return true
   if (!expirationDate) return false
   return daysUntilExpiration(expirationDate,today)>=-Math.max(0,acceptsExpiredWithinDays)

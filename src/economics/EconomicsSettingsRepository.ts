@@ -1,9 +1,10 @@
+import { userStorage } from '../features/backup/UserStorage'
 import { sanitizeEconomicsOverrides, type EconomicsOverrides } from './EconomicsSettings'
 
 export const ECONOMICS_SETTINGS_KEY = 'wasteland-workshop-economics-settings'
 type SettingsStorage = Pick<Storage, 'getItem' | 'setItem'>
 
-export function loadEconomicsOverrides(storage: SettingsStorage = localStorage): EconomicsOverrides {
+export function loadEconomicsOverrides(storage: SettingsStorage = userStorage): EconomicsOverrides {
   try {
     const raw = storage.getItem(ECONOMICS_SETTINGS_KEY)
     if (!raw) return {}
@@ -22,7 +23,7 @@ export function loadEconomicsOverrides(storage: SettingsStorage = localStorage):
   } catch { return {} }
 }
 
-export function saveEconomicsOverrides(overrides: EconomicsOverrides, storage: SettingsStorage = localStorage): boolean {
+export function saveEconomicsOverrides(overrides: EconomicsOverrides, storage: SettingsStorage = userStorage): boolean {
   try {
     storage.setItem(ECONOMICS_SETTINGS_KEY, JSON.stringify({ version: 1, overrides: sanitizeEconomicsOverrides(overrides) }))
     return true

@@ -1,3 +1,4 @@
+import { ingredientItems } from '../blueprints/IngredientCatalog'
 import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import ShoppingConfirmationDialog from './ShoppingConfirmationDialog'
 import SearchablePicker from '../../components/SearchablePicker/SearchablePicker'
@@ -161,7 +162,7 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
         emptyMessage="No resources yet. Add one above or add components from Blueprint Details."
         columns={[
           { key: 'name', label: 'Resource / Quantity / Value', protected: true, minWidth: 150, render: item => <div className={item.acquired ? 'shopping-resource-acquired' : ''}>
-            <strong>{item.name}</strong>{item.kind === 'requirement' && <span className="shopping-resource-value">Ingredient choice · Choice not yet selected</span>}<span className="shopping-resource-value">Qty {item.quantity.toLocaleString()} · Unit {credits(item.unitValue)}<br />Total {credits(item.totalValue)}</span>
+            <strong>{item.name}</strong>{!ingredientItems.has(item.resourceId) && <span className="shopping-resource-value">Catalog entry unavailable · Resource #{item.resourceId}</span>}{item.kind === 'requirement' && <span className="shopping-resource-value">Ingredient choice · Choice not yet selected</span>}<span className="shopping-resource-value">Qty {item.quantity.toLocaleString()} · Unit {credits(item.unitValue)}<br />Total {credits(item.totalValue)}</span>
           </div> },
           { key: 'acquired', label: 'Status', protected: true, minWidth: 90, render: item => <AcquisitionControl item={item}
             onToggle={() => commit(replaceShoppingList(state, toggleResource(active, item.resourceId)), `${item.name} marked ${item.acquired ? 'Needed' : 'Acquired'}.`)} onRemove={() => remove(item)} /> },

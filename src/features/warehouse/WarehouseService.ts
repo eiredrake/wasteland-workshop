@@ -7,7 +7,7 @@ export function validInventoryAmount(value: unknown): value is number {
 function checkAmount(value: number) { if (!validInventoryAmount(value)) throw new Error('Enter a non-negative quantity within the supported range.') }
 export function quantityOnHand(warehouse: Warehouse, itemId: number): number { return warehouse.entries.filter(entry => entry.itemId === itemId).reduce((sum,entry)=>sum+entry.quantity,0) }
 export function setInventoryQuantity(warehouse: Warehouse, itemId: number, quantity: number, expirationDate?: string): Warehouse {
-  if (!inventoryItemById.has(itemId)) throw new Error('Choose a concrete item from the Warehouse catalog.')
+  if (!inventoryItemById.has(itemId) && !warehouse.entries.some(entry => entry.itemId === itemId)) throw new Error('Choose a concrete item from the Warehouse catalog.')
   checkAmount(quantity)
   if (expirationDate !== undefined && (!validExpirationDate(expirationDate) || inventoryItemById.get(itemId)?.kind === 'currency')) throw new Error('Enter a valid expiration date for a non-currency item.')
   const entries = warehouse.entries.filter(entry => entry.itemId !== itemId || entry.expirationDate !== expirationDate)
