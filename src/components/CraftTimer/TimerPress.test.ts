@@ -19,7 +19,7 @@ describe('Compact timer gestures', () => {
   })
   it('long press opens settings once and release does not pause/resume', () => {
     const tap = vi.fn(), settings = vi.fn(), press = createTimerPress(tap,settings)
-    press.begin(10,10); vi.advanceTimersByTime(650); vi.advanceTimersByTime(1000)
+    press.begin(10,10); vi.advanceTimersByTime(500); vi.advanceTimersByTime(1000)
     press.end(); press.click()
     expect(settings).toHaveBeenCalledTimes(1); expect(tap).not.toHaveBeenCalled()
   })
@@ -28,9 +28,20 @@ describe('Compact timer gestures', () => {
     press.begin(10,10); press.move(10,30); vi.advanceTimersByTime(1000); press.end(); press.click()
     expect(tap).not.toHaveBeenCalled(); expect(settings).not.toHaveBeenCalled()
   })
+  it('does not open before the 500ms threshold', () => {
+    const settings = vi.fn(), press = createTimerPress(vi.fn(),settings)
+    press.begin(0,0); vi.advanceTimersByTime(499); expect(settings).not.toHaveBeenCalled()
+    vi.advanceTimersByTime(1); expect(settings).toHaveBeenCalledOnce()
+  })
+  it('keeps separate timer callbacks independent', () => {
+    const first = vi.fn(), second = vi.fn()
+    const a = createTimerPress(vi.fn(),first), b = createTimerPress(vi.fn(),second)
+    a.begin(0,0); b.begin(0,0); b.cancel(); vi.advanceTimersByTime(500)
+    expect(first).toHaveBeenCalledOnce(); expect(second).not.toHaveBeenCalled()
+  })
   it('small finger movement still permits holding', () => {
     const settings = vi.fn(), press = createTimerPress(vi.fn(),settings)
-    press.begin(10,10); press.move(15,15); vi.advanceTimersByTime(650)
+    press.begin(10,10); press.move(15,15); vi.advanceTimersByTime(500)
     expect(settings).toHaveBeenCalledTimes(1)
   })
   it('pointer cancel, leaving, or unmount clears pending settings', () => {
@@ -40,7 +51,7 @@ describe('Compact timer gestures', () => {
   })
   it('a new tap after a hold resumes normal behavior', () => {
     const tap = vi.fn(), settings = vi.fn(), press = createTimerPress(tap,settings)
-    press.begin(0,0); vi.advanceTimersByTime(650); press.end(); press.click()
+    press.begin(0,0); vi.advanceTimersByTime(500); press.end(); press.click()
     press.begin(0,0); press.end(); press.click()
     expect(settings).toHaveBeenCalledTimes(1); expect(tap).toHaveBeenCalledTimes(1)
   })

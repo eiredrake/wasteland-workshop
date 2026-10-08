@@ -13,8 +13,10 @@ import {
   resumeCraftTimer,
 } from '../../features/timer/CraftTimerEngine'
 import './CraftTimer.css'
+import { useTimerPress } from './useTimerPress'
 
 type CraftTimerProps = {
+  onSettings?: () => void
   controls?: ReactNode
   readOnly?: boolean
   timer: CraftTimerState
@@ -46,6 +48,7 @@ function CraftTimer({
   timer,
   onChange,
   controls,
+  onSettings,
   readOnly = false,
 }: CraftTimerProps) {
   const holdTimeoutRef =
@@ -119,6 +122,8 @@ function CraftTimer({
     }
   }
 
+  const gesture = useTimerPress(() => {}, readOnly ? undefined : onSettings)
+
   const handleReset = () => {
     onChange(resetCraftTimer(timer))
   }
@@ -190,6 +195,11 @@ function CraftTimer({
 
       <div
         className="craft-timer-ring"
+        {...(onSettings && !readOnly ? gesture : {})}
+        role={onSettings && !readOnly ? 'button' : undefined}
+        tabIndex={onSettings && !readOnly ? 0 : undefined}
+        aria-label={onSettings && !readOnly ? 'Craft timer. Hold or press F2 for timer settings.' : undefined}
+        onKeyDown={event => { if (!onSettings || readOnly) return; if (event.key === 'F2') { event.preventDefault(); onSettings() } else if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onSettings() } }}
         style={{
           '--timer-progress': `${progressDegrees}deg`,
           '--timer-color': timerColor,
@@ -212,6 +222,7 @@ function CraftTimer({
         </div>
       </div>
 
+      {onSettings && !readOnly && <button type="button" onClick={onSettings}>Timer Settings</button>}
       <div className="craft-timer-adjustments">
         <button
           type="button"

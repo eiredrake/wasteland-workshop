@@ -1,5 +1,5 @@
-import { useEffect, useState, type CSSProperties } from 'react'
-import { createTimerPress } from './TimerPress'
+import { type CSSProperties } from 'react'
+import { useTimerPress } from './useTimerPress'
 import type { CraftTimerState } from '../../features/timer/CraftTimerState'
 import './BlueprintCraftTimer.css'
 
@@ -45,9 +45,7 @@ function BlueprintCraftTimer({
   actionLabel,
   onSettings,
 }: BlueprintCraftTimerProps) {
-  const [press] = useState(() => createTimerPress(() => {}, () => {}))
-  useEffect(() => { press.setCallbacks(onStart,onSettings ?? (() => {})) }, [press,onStart,onSettings])
-  useEffect(() => () => press.cancel(), [press])
+  const gesture = useTimerPress(() => { if (!blocked) onStart() }, onSettings)
   const isActiveBlueprint =
     timer.label === blueprintName &&
     timer.status !== 'idle'
@@ -102,15 +100,10 @@ function BlueprintCraftTimer({
     <button
       type="button"
       className={'blueprint-craft-timer' + (compact ? ' blueprint-craft-timer-compact' : '')}
-      onClick={event => { if (!onSettings || event.detail === 0) onStart(); else press.click() }}
-      onPointerDown={event => { if (onSettings && event.button === 0) press.begin(event.clientX,event.clientY) }}
-      onPointerUp={() => press.end()}
-      onPointerCancel={() => press.cancel()}
-      onPointerLeave={() => press.cancel()}
-      onPointerMove={event => press.move(event.clientX,event.clientY)}
-      onContextMenu={event => { if (onSettings) event.preventDefault() }}
-      onKeyDown={event => { if (onSettings && event.key === 'F2') { event.preventDefault(); press.cancel(); onSettings() } }}
-      disabled={blocked}
+      {...gesture}
+      onKeyDown={event => { if (onSettings && event.key === 'F2') { event.preventDefault(); onSettings() } }}
+      disabled={blocked && !onSettings}
+      aria-disabled={blocked || undefined}
       title={blocked ? "Pause the current Build before starting another." : onSettings ? "Tap to pause/resume. Hold or press F2 for timer settings." : "Create a Build and start crafting now"}
       aria-label={actionLabel ?? (blocked ? 'Pause the current Build before starting ' + blueprintName : 'Start ' + minutes + ' minute craft timer for ' + blueprintName)}
       style={{

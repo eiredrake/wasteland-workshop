@@ -8,7 +8,7 @@ export function createTimerPress(tap: () => void, hold: () => void) {
     setCallbacks(nextTap: () => void, nextHold: () => void) { tap = nextTap; hold = nextHold },
     begin(x: number, y: number) {
       end(); suppressed = false; origin = { x, y }
-      timeout = setTimeout(() => { timeout = undefined; suppressed = true; hold() },650)
+      timeout = setTimeout(() => { timeout = undefined; suppressed = true; hold() },500)
     },
     move(x: number, y: number) { if (Math.hypot(x-origin.x,y-origin.y) > 10) cancel() },
     end, cancel,

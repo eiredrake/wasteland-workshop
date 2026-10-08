@@ -28,6 +28,7 @@ import AlarmSettingsView from './features/settings/AlarmSettingsView'
 import { loadAlarmSettings, saveAlarmSettings } from './features/timer/AlarmSettings'
 import { playAlarm, prepareAlarmAudio } from './features/timer/CraftAlarm'
 
+import TimerConfiguration from './components/TimerConfiguration/TimerConfiguration'
 import CraftTimer from './components/CraftTimer/CraftTimer'
 import {
   createIdleCraftTimer,
@@ -36,7 +37,7 @@ import {
 import BuildQueueView from './features/builds/BuildQueueView'
 import BuildStatusBadge from './components/BuildStatusBadge/BuildStatusBadge'
 import { useBuildQueue } from './features/builds/useBuildQueue'
-import { addBuild, enqueueBlueprintBuild, changeBuildTimer, toggleBuildStatus, workingBuild } from './features/builds/BuildQueueService'
+import { addBuild, enqueueBlueprintBuild, adjustBuildTimerMinutes, changeBuildTimer, toggleBuildStatus, workingBuild } from './features/builds/BuildQueueService'
 
 
 import { DefaultCostCalculator } from './economics/DefaultCostCalculator'
@@ -109,6 +110,7 @@ function App() {
   const [shoppingState, setShoppingState] = useState(loadShoppingLists)
 
   const [alarmSettings, setAlarmSettings] = useState(loadAlarmSettings)
+  const [configurationBuildId, setConfigurationBuildId] = useState<string>()
   const [timerBuildId, setTimerBuildId] = useState<string>()
 
 
@@ -177,6 +179,7 @@ function App() {
   const buildQueue = useBuildQueue(() => { void playAlarm(alarmSettings) }, message => showToast(message, 'warning'))
   const activeBuild = workingBuild(buildQueue.builds)
   const craftTimer = activeBuild?.timer ?? createIdleCraftTimer()
+  const configurationBuild = buildQueue.builds.find(build => build.id === configurationBuildId)
   const timerBuild = buildQueue.builds.find(build => build.id === timerBuildId) ?? activeBuild
 
   const openCraftTimer = () => {
@@ -693,13 +696,15 @@ function App() {
       {currentView === 'warehouse' && <WarehouseView warningDays={expirationWarningDays} warehouse={inventory.warehouse} apply={inventory.apply} error={inventory.error} />}
 
       {currentView === 'builds' && <BuildQueueView builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}
-        onTimer={id => { setTimerBuildId(id); navigateTo('timer') }} />}
+        onTimer={id => setConfigurationBuildId(id)} />}
 
+      {configurationBuild && <TimerConfiguration key={configurationBuild.id} build={configurationBuild} onClose={() => setConfigurationBuildId(undefined)}
+        onApply={minutes => buildQueue.apply(queue => adjustBuildTimerMinutes(queue,configurationBuild.id,minutes))} />}
       {currentView === 'timer' && <>
         <button type="button" className="secondary-button" onClick={() => navigateTo('builds')}>Open Build Queue</button>
         {timerBuild ? <>
           {activeBuild && activeBuild.id !== timerBuild.id && <p>Pause the current Build before starting another.</p>}
-          <CraftTimer timer={timerBuild.timer} readOnly={timerBuild.status === 'Completed' || timerBuild.status === 'Enqueued'}
+          <CraftTimer onSettings={() => setConfigurationBuildId(timerBuild.id)} timer={timerBuild.timer} readOnly={timerBuild.status === 'Completed' || timerBuild.status === 'Enqueued'}
             onChange={timer => buildQueue.apply(queue => changeBuildTimer(queue,timerBuild.id,timer))}
             controls={<BuildStatusBadge build={timerBuild} blocked={!!activeBuild && activeBuild.id !== timerBuild.id && timerBuild.status !== 'Completed'}
               onToggle={() => buildQueue.apply(queue => toggleBuildStatus(queue,timerBuild.id))} />} />

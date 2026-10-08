@@ -3,7 +3,7 @@ import { DefaultCostCalculator } from '../../economics/DefaultCostCalculator'
 import { calculateBlueprintCost } from '../../economics/BlueprintCostService'
 import { sanitizeEconomicsOverrides, type EconomicsOverrides, type EconomicsSettings } from '../../economics/EconomicsSettings'
 import type { Blueprint } from '../blueprints/Blueprint'
-import { beginCraftTimer, loadCraftTimer, pauseCraftTimer, resumeCraftTimer, tickCraftTimer } from '../timer/CraftTimerEngine'
+import { adjustCraftTimerMinutes, beginCraftTimer, loadCraftTimer, pauseCraftTimer, resumeCraftTimer, tickCraftTimer } from '../timer/CraftTimerEngine'
 import type { CraftTimerState } from '../timer/CraftTimerState'
 import type { Build, BuildQueue } from './Build'
 
@@ -80,6 +80,15 @@ export function changeBuildTimer(queue: BuildQueue, id: string, timer: CraftTime
   if (timer.status === 'idle' && build.startedAt !== undefined) throw new Error('Started Builds must be paused or completed, not reset to Enqueued.')
   if (timer.originalDurationMs !== build.timer.originalDurationMs) throw new Error('The original crafting duration is fixed.')
   return replace(queue, withTimer(build, { ...timer, label: build.blueprintName }, now))
+}
+// Apply a relative adjustment to the authoritative state, never a dialog snapshot.
+export function adjustBuildTimerMinutes(queue: BuildQueue, id: string, minutes: number, now = Date.now()): BuildQueue {
+  if (!Number.isSafeInteger(minutes)) throw new Error('Use a whole number of minutes.')
+  const build = findBuild(queue,id)
+  if (build.status === 'Completed' || build.status === 'Enqueued') throw new Error('Only Working or Paused Builds can be adjusted.')
+  const current = tickCraftTimer(build.timer,now)
+  if (current.status === 'complete') return replace(queue,withTimer(build,current,now))
+  return changeBuildTimer(queue,id,adjustCraftTimerMinutes(current,minutes,now),now)
 }
 export function editBuild(queue: BuildQueue, id: string, notes: string, overrides: EconomicsOverrides): BuildQueue {
   return replace(queue, { ...findBuild(queue, id), notes, overrides: sanitizeEconomicsOverrides(overrides) })
