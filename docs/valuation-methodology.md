@@ -1,0 +1,13 @@
+# Economics valuation methodology
+
+Economics Settings now includes a collapsed **How Valuation Works** section. It explains labor, materials, production, acquisition and suggested selling prices, using multiplication, summation, stacked fractions and ceiling notation. No equation library was added.
+
+The review confirmed the existing implementation matches the work order. No economic algorithms, shipped defaults, storage or override handling changed. Rates come from `defaultEconomicsSettings`: Mind 0.4, minutes 0.1, Resolve 15, Foraging Card 4 and markup 25%. Both defaults and effective draft rates are shown. Examples call the existing calculator and acquisition valuation function, update with valid draft overrides, and clearly state that Save Settings applies changes. Invalid overrides are excluded with a visible explanation.
+
+The worked production example uses 15 Mind, 60 minutes, 0 Resolve and 20 credits of materials: with shipped rates this yields 12 credits labor, 32 production, and 40 suggested selling price at 25% markup. The foraging example uses 5 Mind, 10 minutes and one card, yielding 3 units: 7 total credits divided by 3, rounded up to 3 credits per unit.
+
+Acquisition material costs follow acquisition methods, independently of fixed Ayden resource valuations. Only acquisition methods with a foraging tier charge one card. Yield defaults to one when absent; invalid yield or unresolved acquisition resources produce Unknown. Production materials use effective configured resource unit values. Zero is valid, unknown is not zero, and unresolved selectors/alternatives leave the production estimate Unknown. The known-material subtotal can still be shown but remains incomplete. Markup is a recommendation, not a guaranteed market price or profit.
+
+Presentation uses a native accessible details/summary control, wrapping equations, stacked fractions, and theme variables. The fraction numerator wraps within available width, and rate labels/values stack. Desktop and mobile browser visual verification remains outstanding because the browser-control runtime could not start in this session; no actual phone verification is claimed.
+
+Tests cover displayed formulas, shipped defaults, calculator-driven default and override examples, zero values, explanatory unknown/selector rules, and settings integration without saving/mutation. Existing selector tests now inspect editable resource labels rather than disallowing legitimate explanatory mentions. Existing economics tests retain coverage of actual unknown/selector exclusion, rounding, persistence and overrides. No GitHub issue is closed automatically.

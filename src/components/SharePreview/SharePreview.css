@@ -1,0 +1,12 @@
+.share-preview { width: min(900px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); box-sizing: border-box; background: #1c1c19; color: #eee; border: 1px solid #b95730; border-radius: 8px; padding: 20px; overflow: auto; }
+.share-preview::backdrop { background: #000b; }
+.share-preview h2 { margin: 0 0 16px; color: #edc96c; }
+.share-preview-image { max-height: 60dvh; overflow: auto; background: #171715; }
+.share-preview-image img { display: block; width: 100%; height: auto; }
+.share-preview-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.share-preview-actions button, .blueprint-share-button { min-height: 44px; padding: 10px 16px; background: #292821; color: #eee; border: 1px solid #9f7740; border-radius: 6px; cursor: pointer; }
+.share-preview-actions button:disabled { opacity: .5; cursor: default; }
+.share-preview-hint { color: #b7b5aa; font-size: .9rem; }
+.blueprint-details-header { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.blueprint-details-header h2 { flex: 1; }
+.blueprint-share-button { display: inline-flex; align-items: center; gap: 8px; }

@@ -2,6 +2,9 @@ import { useCalendarDay } from '../warehouse/useCalendarDay'
 import { blueprintCraftability } from '../warehouse/CraftabilityService'
 import type { Warehouse } from '../warehouse/Warehouse'
 import { useState } from 'react'
+import SharePreview from '../../components/SharePreview/SharePreview'
+import { blueprintShareCard } from './BlueprintShareCard'
+import type { ShareCard } from '../../sharing/ShareCard'
 import type { Blueprint } from './Blueprint'
 import type {
   BlueprintAccessStatus,
@@ -50,6 +53,7 @@ function BlueprintDetails({
   const [markupPercent, setMarkupPercent] =
     useState(defaultMarkupPercent)
 
+  const [shareCard, setShareCard] = useState<ShareCard>()
   const today = useCalendarDay()
   const crafting = blueprint.itemCraftings?.[0]
   const availability = crafting && warehouse && !warehouseError ? blueprintCraftability(crafting,warehouse,today) : undefined
@@ -230,8 +234,13 @@ function BlueprintDetails({
 
   return (
     <section className="blueprint-details">
+      {shareCard && <SharePreview card={shareCard} onClose={() => setShareCard(undefined)} />}
       <header className="blueprint-details-header">
         <h2>{blueprint.name}</h2>
+        <button type="button" className="blueprint-share-button" onClick={() => setShareCard(blueprintShareCard(blueprint, calculator))}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m9 10 6-4M9 14l6 4"/></svg>
+          Share Print
+        </button>
       </header>
 
       {(itemMechanics ||

@@ -25,11 +25,12 @@ const component = recipe.craftingComponents.find(c => c.component.id === selecto
 const list: ShoppingList = {id:'test',name:'Test',items:[]}
 function storage() {let raw: string | null = null; return {getItem: () => raw, setItem: (_key: string,value: string) => {raw=value}}}
 describe('Concrete ingredients and structured selectors', () => {
-  it.each(['Any Herb','Any Produce','Anise or Geranium','Anise or Rosemary'])('%s is absent from Settings and resource picker', name => {
+  it.each(['Any Herb','Any Produce','Anise or Geranium','Anise or Rosemary'])('%s is absent from editable resource valuations and resource picker', name => {
     expect(definitions.some(item => item.name === name)).toBe(false)
     expect(getResourceCatalog(allBlueprints,[]).some(item => item.name === name)).toBe(false)
     const html = renderToStaticMarkup(createElement(EconomicsSettingsView,{currentOverrides:{},onSave:vi.fn()}))
-    expect(html).not.toContain(name)
+    const valuationLabels = [...html.matchAll(/<label for="economic-resource-\d+">([^<]*)<\/label>/g)].map(match => match[1])
+    expect(valuationLabels).not.toContain(name)
   })
   it('excludes all 38 structured taxonomy identities, including categories without Any/or names', () => {
     expect(selectors).toHaveLength(38)

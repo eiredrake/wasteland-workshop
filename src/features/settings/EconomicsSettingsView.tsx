@@ -7,6 +7,7 @@ import { DefaultCostCalculator } from '../../economics/DefaultCostCalculator'
 import { ingredientItems } from '../blueprints/IngredientCatalog'
 import { allBlueprints } from '../blueprints/blueprints'
 import './EconomicsSettingsView.css'
+import EconomicsValuationExplanation from './EconomicsValuationExplanation'
 
 const definitions = getEconomicResourceDefinitions(allBlueprints)
 const valuationGroups = [
@@ -83,6 +84,7 @@ export default function EconomicsSettingsView({ currentOverrides, onSave }: {
     <div className="settings-header"><h2>Economics Settings</h2>
       <p>Override the values used throughout Wasteland Workshop. Leave an override blank or reset it to use the default.</p>
     </div>
+    <EconomicsValuationExplanation overrides={overrides} invalid={invalid} />
     <form onSubmit={event => { event.preventDefault(); if (!invalid) onSave(overrides) }}>
       {groups.map(group => <div className="settings-card" key={group.title}><h3>{group.title}</h3>
         {group.fields.map(({ key, label, unit }) => field(key, label, unit, defaultEconomicsSettings[key], effective[key]))}
