@@ -18,6 +18,9 @@ with sync_playwright() as p:
   requests=[];errors=[];page.on('request',lambda r:requests.append(r.url));page.on('pageerror',lambda e:errors.append(str(e)))
   page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload()
   def capture(view):
+   if view=='camera':
+    bounds=page.locator('.scan-viewfinder').bounding_box();assert abs(bounds['width']/bounds['height']-3.4)<.02,bounds
+    frame=page.locator('.scan-target-frame').bounding_box();assert frame['width']>frame['height']*3,frame
    filename=f'{name}-scanner-{view}.png';page.mouse.move(0,0);page.evaluate('document.fonts.ready');page.wait_for_timeout(100);data=page.locator('.scanner-panel').screenshot(animations='disabled');(out/filename).write_bytes(data)
    baseline=root/'tests/visual/baselines'/filename
    if not args.record and (not baseline.exists() or baseline.read_bytes()!=data):differences.append(filename)
@@ -68,6 +71,14 @@ with sync_playwright() as p:
  page.get_by_role('button',name='Retake Photo / Try Again').click();page.evaluate("window.ocrFailure=false;window.controlledMatch={confidence:'high',candidates:[window.controlledMatch.candidates.find(c=>c.blueprint.id===4407)]}");page.get_by_role('button',name='Capture Photo').click();expect(page.get_by_role('heading',name='Blueprint identified: Hooch')).to_be_visible();page.evaluate("localStorage.setItem('wasteland-workshop-active-blueprint-collection','other')");page.get_by_role('button',name='Acquire Hooch',exact=True).click();expect(page.get_by_role('alert')).to_contain_text('active collection changed');expect(page.locator('.scanner-counts')).to_contain_text('Scanned: 2 | Acquired: 1')
  page.evaluate("localStorage.setItem('wasteland-workshop-active-blueprint-collection','scan');localStorage.setItem('wasteland-workshop-blueprint-collections','[]')");page.get_by_role('button',name='Acquire Hooch',exact=True).click();expect(page.get_by_role('alert')).to_contain_text('deleted')
  page.get_by_role('button',name='Exit Scanner').click();page.get_by_role('button',name='Done',exact=True).click();page.close()
+ # Supported torch toggles and rejected changes never report success.
+ page=browser.new_page(viewport={'width':390,'height':844})
+ page.add_init_script("""navigator.mediaDevices.getUserMedia=async()=>{const c=document.createElement('canvas');c.width=800;c.height=1050;c.getContext('2d').fillRect(0,0,800,1050);const s=c.captureStream(15),t=s.getVideoTracks()[0];let torch=false;t.getCapabilities=()=>({torch:true});t.getConstraints=()=>({});t.getSettings=()=>({torch});t.applyConstraints=async v=>{if(window.failTorch)throw Error('Unavailable');torch=v.advanced[0].torch};return s}""")
+ page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload();page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire').click()
+ page.get_by_role('button',name='Camera Light: Off').click();expect(page.get_by_role('button',name='Camera Light: On')).to_have_attribute('aria-pressed','true')
+ page.locator('.scanner-panel').screenshot(path=str(out/'mobile-scanner-light.png'))
+ page.get_by_role('button',name='Camera Light: On').click();expect(page.get_by_role('button',name='Camera Light: Off')).to_have_attribute('aria-pressed','false')
+ page.evaluate('window.failTorch=true');page.get_by_role('button',name='Camera Light: Off').click();expect(page.get_by_role('alert')).to_contain_text('Camera light could not');expect(page.get_by_role('button',name='Camera Light: Off')).to_have_attribute('aria-pressed','false');page.close()
  page=browser.new_page();page.add_init_script("Object.defineProperty(navigator,'mediaDevices',{value:undefined})");page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload();page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire').click();expect(page.get_by_role('alert')).to_contain_text('does not support camera');assert page.get_by_role('button',name='Capture Photo').count()==0
  page.close();browser.close()
 print('Desktop/mobile scanner passed: real OCR, explicit acquisition, persisted metadata, batch/repeated owned scans, unmatched/retake counters, reopen, interruption, camera release, denial and same-origin requests only.')

@@ -11,6 +11,7 @@ type Props={collection:BlueprintCollection|undefined;destinationName:string;dest
 export default function BlueprintScanner({collection,destinationName,destinationId,activeId,onAcquire,onDone}:Props){
  const video=useRef<HTMLVideoElement>(null),stream=useRef<MediaStream|undefined>(undefined),recognizer=useRef<ScanRecognizer|undefined>(undefined),generation=useRef(0),busy=useRef(false)
  const [camera,setCamera]=useState<'opening'|'ready'|'stopped'>('opening'),[error,setError]=useState(''),[analyzing,setAnalyzing]=useState(false),[photo,setPhoto]=useState<string>(),[match,setMatch]=useState<ScanMatch>(),[selected,setSelected]=useState<Blueprint>(),[summary,setSummary]=useState(false),[documents,setDocuments]=useState<ScanOutcome[]>([]),[outcome,setOutcome]=useState<ScanOutcome>(),[attempt,setAttempt]=useState(0)
+ const [lightSupported,setLightSupported]=useState(false),[lightOn,setLightOn]=useState(false),[lightBusy,setLightBusy]=useState(false)
  const captureCanvas=useRef<HTMLCanvasElement|undefined>(undefined)
  const currentOutcome=useRef<ScanOutcome|undefined>(undefined)
  const documentIndex=useRef<number|undefined>(undefined)
@@ -29,6 +30,8 @@ export default function BlueprintScanner({collection,destinationName,destination
     const media=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:2560},height:{ideal:1920}},audio:false})
     if(disposed||generation.current!==openingGeneration){media.getTracks().forEach(track=>track.stop());return}
     stream.current=media
+    setLightOn(false);setLightSupported(false)
+    try{setLightSupported((media.getVideoTracks()[0]?.getCapabilities?.() as MediaTrackCapabilities & {torch?:boolean})?.torch===true)}catch{/* Camera light is optional. */}
     // Best-effort continuous autofocus where the device exposes it; unsupported devices continue normally.
     try {
      const rearTrack=media.getVideoTracks()[0]
@@ -44,6 +47,13 @@ export default function BlueprintScanner({collection,destinationName,destination
   void open();document.addEventListener('visibilitychange',hidden)
   return()=>{disposed=true;invalidate();releaseCamera();closeRecognition();document.removeEventListener('visibilitychange',hidden)}
  },[attempt])
+ async function toggleLight(){
+  const track=stream.current?.getVideoTracks()[0];if(!track||lightBusy)return
+  setLightBusy(true)
+  try{await track.applyConstraints({...track.getConstraints(),advanced:[{torch:!lightOn} as MediaTrackConstraintSet & {torch:boolean}]});if((track.getSettings() as MediaTrackSettings & {torch?:boolean}).torch!==!lightOn)throw new Error('Light unavailable');if(stream.current?.getVideoTracks()[0]===track){setLightOn(!lightOn);setError('')}}
+  catch{setError('Camera light could not be enabled. Try brighter surroundings and avoid glare.')}
+  finally{setLightBusy(false)}
+ }
  function classify(index:number,value:ScanOutcome){currentOutcome.current=value;setDocuments(old=>old.map((item,i)=>i===index?value:item));setOutcome(value)}
  function choose(blueprint:Blueprint){setSelected(blueprint);if(collection?.entries.some(e=>e.blueprintId===blueprint.id&&e.status==='acquired')&&documentIndex.current!==undefined)classify(documentIndex.current,'owned')}
  async function capture(){
@@ -87,6 +97,7 @@ export default function BlueprintScanner({collection,destinationName,destination
  <CameraPreview videoRef={video} photo={photo} onReady={()=>setCamera('ready')}/>
  {!photo&&<p>Aim at just the Item Name row, not the whole Blueprint. Photos stay on this device and are discarded after scanning.</p>}
  <div className="scanner-controls">
+ {camera==='ready'&&!photo&&lightSupported&&<button type="button" className="secondary-button" aria-pressed={lightOn} disabled={lightBusy||analyzing} onClick={()=>void toggleLight()}>Camera Light: {lightOn?'On':'Off'}</button>}
  {camera==='ready'&&!photo&&<button type="button" className="primary-button" disabled={analyzing||!destinationValid} onClick={()=>void capture()}>Capture Photo</button>}
  {camera==='stopped'&&<button type="button" className="secondary-button" disabled={!destinationValid} onClick={()=>{setCamera('opening');setError('');setAttempt(n=>n+1)}}>Resume Camera</button>}
  {camera==='opening'&&<p role="status">Opening camera…</p>}

@@ -75,3 +75,7 @@ Segmentation, contrast and skew approach follows Tesseract quality guidance: htt
 Production preview verification passed with a name-value-only capture and local bundled OCR assets. The noisy capture produced an uncertain correct Freeiron Dry Pack candidate; explicitly choosing it and then Acquire persisted canonical ID 5234. No development source imports or external requests occurred.
 
 Additional files changed for this improvement: `ScanQuality.ts`, `ScanQuality.test.ts`, `ScanOcr.test.ts`, `ScanMatching.ts`, `ScanOcr.ts`, `Scanner.test.ts`, `BlueprintScanner.tsx/.css`, CameraPreview code/CSS/geometry, both scanner browser tools, four individually reviewed camera/result baselines and documentation/evidence. Existing capture/session/destination tests remain passing.
+
+### Landscape framing and camera light correction
+
+The preview video/image now fills an explicitly sized landscape container without its intrinsic portrait dimensions stretching the viewfinder. Browser checks assert the actual rendered 3.4:1 geometry on desktop and mobile. Supported cameras expose a themed Camera Light toggle; it preserves existing constraints, verifies the resulting torch setting, and reports rejected/ignored changes. The light is optional and camera tracks are stopped on exit/background. Physical Android testing remains required.
