@@ -3,7 +3,8 @@ import type { Worker } from 'tesseract.js'
 import { catalogNameFragments, extractScanNames, matchScanNames, type ScanMatch } from './ScanMatching'
 import { normalizeScanContrast } from './ScanQuality'
 import type { Blueprint } from '../blueprints/Blueprint'
-export type ScanRecognizer={recognize:(image:HTMLCanvasElement,catalog:Blueprint[])=>Promise<ScanMatch>;close:()=>Promise<void>}
+export type ScanPassDiagnostic={mode:string;variant:string;width:number;height:number;milliseconds:number;text:string;confidence:number;names:string[];words:{text:string;confidence:number}[];image:string}
+export type ScanRecognizer={recognize:(image:HTMLCanvasElement,catalog:Blueprint[],diagnostic?:(pass:ScanPassDiagnostic)=>void)=>Promise<ScanMatch>;close:()=>Promise<void>}
 export function createScanRecognizer():ScanRecognizer {
  let pending:Promise<Worker>|undefined,closed=false
  const worker=()=>pending??=(async()=>{
@@ -14,10 +15,11 @@ export function createScanRecognizer():ScanRecognizer {
   return instance
  })()
  return {
-  async recognize(image,catalog){
+  async recognize(image,catalog,diagnostic){
    const instance=await worker()
    const names:string[]=[],supportedNames:string[]=[],texts:string[]=[]
-   const read=async(canvas:HTMLCanvasElement,mode:'11'|'6'|'7')=>{
+   const read=async(canvas:HTMLCanvasElement,mode:'11'|'6'|'7',variant='original')=>{
+    const started=performance.now()
     if(closed)throw new Error('Scanner closed.')
     await instance.setParameters({tessedit_pageseg_mode:mode as import('tesseract.js').PSM,preserve_interword_spaces:'1'})
     const result=await instance.recognize(canvas,{}, {blocks:true})
@@ -26,6 +28,7 @@ export function createScanRecognizer():ScanRecognizer {
      const words=line.words.filter(word=>word.confidence>=40).map(word=>word.text).join(' ')
      supportedNames.push(...extractScanNames(words))
     }
+    diagnostic?.({mode,variant,width:canvas.width,height:canvas.height,milliseconds:Math.round(performance.now()-started),text:result.data.text,confidence:result.data.confidence,names:extractScanNames(result.data.text),words:(result.data.blocks??[]).flatMap(b=>b.paragraphs.flatMap(p=>p.lines.flatMap(l=>l.words.map(w=>({text:w.text,confidence:w.confidence}))))),image:canvas.toDataURL('image/png')})
     names.push(...extractScanNames(result.data.text));texts.push(result.data.text.trim())
     return {...matchScanNames(names,catalog),readText:texts.find(text=>text.length>0)?.replace(/\s+/g,' ').slice(0,160)}
    }
@@ -38,10 +41,10 @@ export function createScanRecognizer():ScanRecognizer {
    const context=enhanced.getContext('2d')!;context.drawImage(image,0,0)
    const pixels=context.getImageData(0,0,enhanced.width,enhanced.height);normalizeScanContrast(pixels.data);context.putImageData(pixels,0,0)
    try {
-    match=await read(enhanced,'6')
+    match=await read(enhanced,'6','contrast')
     if(match.confidence==='high')return match
     // Single-line segmentation helps tightly framed names. Block mode retains wrapped names.
-    match=await read(enhanced,'7')
+    match=await read(enhanced,'7','contrast')
     if(match.confidence==='high')return match
     for(const degrees of [-5,5]){
      if(closed)throw new Error('Scanner closed.')
@@ -49,7 +52,7 @@ export function createScanRecognizer():ScanRecognizer {
      try {
       const ctx=rotated.getContext('2d')!;ctx.fillStyle='white';ctx.fillRect(0,0,rotated.width,rotated.height)
       ctx.translate(rotated.width/2,rotated.height/2);ctx.rotate(degrees*Math.PI/180);ctx.drawImage(enhanced,-enhanced.width/2,-enhanced.height/2)
-      match=await read(rotated,'11')
+      match=await read(rotated,'11','contrast rotated '+degrees)
       if(match.confidence==='high')return match
      }finally{rotated.width=rotated.height=0}
     }

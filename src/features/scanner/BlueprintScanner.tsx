@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
+import { scanFrameBounds } from '../../components/CameraPreview/CameraGeometry'
 import CameraPreview from '../../components/CameraPreview/CameraPreview'
 import type { Blueprint } from '../blueprints/Blueprint'
 import type { BlueprintCollection } from '../blueprints/BlueprintCollection'
 import { masterBlueprints } from '../blueprints/blueprints'
 import type { ScanMatch } from './ScanMatching'
-import { captureScanFrame, createScanRecognizer, type ScanRecognizer } from './ScanOcr'
+import { captureScanFrame, createScanRecognizer, type ScanRecognizer, type ScanPassDiagnostic } from './ScanOcr'
 import { scanCounters, type ScanOutcome } from './ScanSession'
 import './BlueprintScanner.css'
 type Props={collection:BlueprintCollection|undefined;destinationName:string;destinationId:string;activeId:string|undefined;onAcquire:(collectionId:string,blueprint:Blueprint)=>{alreadyOwned:boolean};onDone:()=>void}
@@ -12,6 +13,7 @@ export default function BlueprintScanner({collection,destinationName,destination
  const video=useRef<HTMLVideoElement>(null),stream=useRef<MediaStream|undefined>(undefined),recognizer=useRef<ScanRecognizer|undefined>(undefined),generation=useRef(0),busy=useRef(false)
  const [camera,setCamera]=useState<'opening'|'ready'|'stopped'>('opening'),[error,setError]=useState(''),[analyzing,setAnalyzing]=useState(false),[photo,setPhoto]=useState<string>(),[match,setMatch]=useState<ScanMatch>(),[selected,setSelected]=useState<Blueprint>(),[summary,setSummary]=useState(false),[documents,setDocuments]=useState<ScanOutcome[]>([]),[outcome,setOutcome]=useState<ScanOutcome>(),[attempt,setAttempt]=useState(0)
  const [lightSupported,setLightSupported]=useState(false),[lightOn,setLightOn]=useState(false),[lightBusy,setLightBusy]=useState(false)
+ const [diagnosticsEnabled,setDiagnosticsEnabled]=useState(false),[diagnosticReport,setDiagnosticReport]=useState<string>()
  const captureCanvas=useRef<HTMLCanvasElement|undefined>(undefined)
  const currentOutcome=useRef<ScanOutcome|undefined>(undefined)
  const documentIndex=useRef<number|undefined>(undefined)
@@ -60,18 +62,22 @@ export default function BlueprintScanner({collection,destinationName,destination
   if(busy.current||camera!=='ready'||!destinationValid||!video.current)return
   busy.current=true;currentOutcome.current=undefined;setAnalyzing(true);setError('');setMatch(undefined);setSelected(undefined);setOutcome(undefined)
   const job=++generation.current;let canvas:HTMLCanvasElement|undefined
+  const passes:ScanPassDiagnostic[]=[]
+  const report=diagnosticsEnabled?{schema:1,appVersion:__APP_VERSION__,created:new Date().toISOString(),browser:navigator.userAgent,viewport:{width:window.innerWidth,height:window.innerHeight,pixelRatio:window.devicePixelRatio},camera:{width:video.current.videoWidth,height:video.current.videoHeight,settings:Object.fromEntries(Object.entries(stream.current?.getVideoTracks()[0]?.getSettings()??{}).filter(([key])=>['width','height','aspectRatio','frameRate','facingMode','focusMode','exposureMode','torch','zoom'].includes(key))),crop:scanFrameBounds(video.current.videoWidth,video.current.videoHeight),preview:video.current.getBoundingClientRect().toJSON()},capture:undefined as {width:number;height:number;image:string}|undefined,passes,result:undefined as unknown,error:''}:undefined
+  setDiagnosticReport(undefined)
   try{
-   canvas=captureScanFrame(video.current);captureCanvas.current=canvas;setPhoto(canvas.toDataURL('image/jpeg',.8))
+   canvas=captureScanFrame(video.current);if(report)report.capture={width:canvas.width,height:canvas.height,image:canvas.toDataURL('image/png')};captureCanvas.current=canvas;setPhoto(canvas.toDataURL('image/jpeg',.8))
    if(documentIndex.current===undefined){documentIndex.current=documents.length;setDocuments(old=>[...old,'unmatched'])}else classify(documentIndex.current,'unmatched')
    recognizer.current??=createScanRecognizer()
-   const result=await recognizer.current.recognize(canvas,masterBlueprints)
+   const result=await recognizer.current.recognize(canvas,masterBlueprints,report?pass=>passes.push(pass):undefined)
    if(generation.current!==job)return
+   if(report)report.result={confidence:result.confidence,candidates:result.candidates.map(c=>({id:c.blueprint.id,name:c.blueprint.name,score:c.score}))}
    setMatch(result)
    if(result.confidence==='high')choose(result.candidates[0].blueprint)
-  }catch(e){if(generation.current===job){setError(e instanceof Error?'Recognition failed: '+e.message:'Recognition failed. Try again.');closeRecognition()}}
-  finally{if(canvas)canvas.width=canvas.height=0;if(captureCanvas.current===canvas)captureCanvas.current=undefined;if(generation.current===job){busy.current=false;setAnalyzing(false)}}
+  }catch(e){if(report)report.error=e instanceof Error?e.message:String(e);if(generation.current===job){setError(e instanceof Error?'Recognition failed: '+e.message:'Recognition failed. Try again.');closeRecognition()}}
+  finally{if(report&&generation.current===job)setDiagnosticReport(JSON.stringify(report,null,2));if(canvas)canvas.width=canvas.height=0;if(captureCanvas.current===canvas)captureCanvas.current=undefined;if(generation.current===job){busy.current=false;setAnalyzing(false)}}
  }
- function reset(next:boolean){if(busy.current)return;currentOutcome.current=undefined;setPhoto(undefined);setMatch(undefined);setSelected(undefined);setOutcome(undefined);setError('');if(next)documentIndex.current=undefined}
+ function reset(next:boolean){if(busy.current)return;currentOutcome.current=undefined;setPhoto(undefined);setDiagnosticReport(undefined);setMatch(undefined);setSelected(undefined);setOutcome(undefined);setError('');if(next)documentIndex.current=undefined}
  function acquire(){
   if(busy.current||!selected||!destinationValid||currentOutcome.current==='acquired'||currentOutcome.current==='owned'||documentIndex.current===undefined)return
   busy.current=true
@@ -79,7 +85,7 @@ export default function BlueprintScanner({collection,destinationName,destination
   catch(e){setError(e instanceof Error?e.message:'Unable to save acquisition. No success recorded.')}
   finally{busy.current=false}
  }
- function exit(){invalidate();releaseCamera();closeRecognition();setPhoto(undefined);setAnalyzing(false);setSummary(true)}
+ function exit(){invalidate();releaseCamera();closeRecognition();setPhoto(undefined);setDiagnosticReport(undefined);setAnalyzing(false);setSummary(true)}
  const counters=scanCounters(documents)
  if(summary)return <section className="scanner-panel"><h2>Scan Session Complete</h2><p>{counters.scanned} Blueprints scanned · {counters.acquired} marked Acquired · {counters.owned} already Acquired · {counters.unmatched} unmatched</p><button type="button" className="primary-button" onClick={onDone}>Done</button></section>
  return <section className="scanner-panel" data-tour-blocked="true" aria-label="Blueprint scanner"><h2>Scan &amp; Acquire</h2><p>Destination: <strong>{destinationName}</strong></p>
@@ -96,6 +102,8 @@ export default function BlueprintScanner({collection,destinationName,destination
  </div>
  <CameraPreview videoRef={video} photo={photo} onReady={()=>setCamera('ready')}/>
  {!photo&&<p>Aim at just the Item Name row, not the whole Blueprint. Photos stay on this device and are discarded after scanning.</p>}
+ <details><summary>Scan Diagnostics</summary><p>Enable before capturing to save the exact OCR images, recognized text, matching results and camera details. Nothing is uploaded. The download contains the photographed name area; share it only when you choose.</p><label><input type="checkbox" checked={diagnosticsEnabled} disabled={analyzing} onChange={e=>{setDiagnosticsEnabled(e.target.checked);setDiagnosticReport(undefined)}}/> Collect diagnostics for the next capture</label>
+ {diagnosticReport&&<button type="button" className="secondary-button" onClick={()=>{const url=URL.createObjectURL(new Blob([diagnosticReport],{type:'application/json'})),link=document.createElement('a');link.href=url;link.download='wasteland-scan-diagnostics.json';document.body.appendChild(link);link.click();link.remove();window.setTimeout(()=>URL.revokeObjectURL(url),30000)}}>Download Scan Diagnostics</button>}</details>
  <div className="scanner-controls">
  {camera==='ready'&&!photo&&lightSupported&&<button type="button" className="secondary-button" aria-pressed={lightOn} disabled={lightBusy||analyzing} onClick={()=>void toggleLight()}>Camera Light: {lightOn?'On':'Off'}</button>}
  {camera==='ready'&&!photo&&<button type="button" className="primary-button" disabled={analyzing||!destinationValid} onClick={()=>void capture()}>Capture Photo</button>}

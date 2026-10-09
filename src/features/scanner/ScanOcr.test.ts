@@ -13,6 +13,15 @@ beforeEach(()=>{
 })
 afterEach(()=>vi.unstubAllGlobals())
 describe('bounded local name OCR passes',()=>{
+ it('exports exact input and complete per-pass text only when requested',async()=>{
+  mocks.recognize.mockResolvedValue({data:{text:'Item Name Freeiron Dry Pack',confidence:87,blocks:null}})
+  const toDataURL=vi.fn(()=> 'data:image/png;base64,exact'),diagnostic=vi.fn(),reader=createScanRecognizer()
+  const capture={...image,toDataURL} as unknown as HTMLCanvasElement
+  await reader.recognize(capture,catalog);expect(toDataURL).not.toHaveBeenCalled()
+  await reader.recognize(capture,catalog,diagnostic)
+  expect(diagnostic).toHaveBeenCalledWith(expect.objectContaining({mode:'11',variant:'original',text:'Item Name Freeiron Dry Pack',confidence:87,width:100,height:30,image:'data:image/png;base64,exact',names:['Freeiron Dry Pack']}))
+  await reader.close()
+ })
  it('returns a direct exact match after one pass and closes its worker',async()=>{
   mocks.recognize.mockResolvedValue({data:{text:'Item Name Freeiron Dry Pack',blocks:null}})
   const reader=createScanRecognizer();expect((await reader.recognize(image,catalog)).confidence).toBe('high');expect(mocks.recognize).toHaveBeenCalledTimes(1)

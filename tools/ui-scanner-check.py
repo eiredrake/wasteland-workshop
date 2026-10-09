@@ -29,11 +29,14 @@ with sync_playwright() as p:
   def scan():page.get_by_role('button',name='Capture Photo',exact=True).click();expect(page.get_by_role('heading',name='Blueprint identified: Freeiron Dry Pack')).to_be_visible(timeout=30000)
   nav('Blueprint Collections');assert page.evaluate('window.cameraCalls')==0;page.get_by_role('button',name='Scan & Acquire',exact=True).click();expect(page.get_by_role('button',name='Capture Photo')).to_be_visible()
   assert page.evaluate('window.requestedFocus')=='continuous'
-  capture('camera')
+  capture('camera');page.get_by_text('Scan Diagnostics',exact=True).click();page.get_by_role('checkbox',name='Collect diagnostics for the next capture').check()
   page.set_viewport_size({'width':844,'height':390});assert page.evaluate('document.documentElement.scrollWidth<=innerWidth');page.set_viewport_size({'width':320,'height':700});assert page.evaluate('document.documentElement.scrollWidth<=innerWidth');page.set_viewport_size({'width':width,'height':height})
   expect(page.get_by_text('Scanner Collection',exact=True)).to_be_visible();assert page.evaluate("window.cameraConstraints.video.facingMode.ideal")=='environment'
   before=collection();scan();assert collection()==before
-  capture('result');assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
+  capture('result')
+  with page.expect_download() as exported:page.get_by_role('button',name='Download Scan Diagnostics').click()
+  report=json.loads(Path(exported.value.path()).read_text(encoding='utf-8'));assert report['capture']['image'].startswith('data:image/png;base64,');assert report['passes'][0]['text'];assert report['result']['candidates'][0]['id']==5234;assert report['appVersion']
+  page.get_by_role('checkbox',name='Collect diagnostics for the next capture').uncheck();page.get_by_text('Scan Diagnostics',exact=True).click();assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
   button=page.get_by_role('button',name='Acquire Freeiron Dry Pack',exact=True);button.evaluate('b=>{b.click();b.click()}');expect(page.get_by_text('Acquired and saved in Scanner Collection.')).to_be_visible()
   assert collection()['entries']==[{'blueprintId':5234,'status':'acquired','note':'retain'}]
   calls=page.evaluate('window.cameraCalls');page.get_by_role('button',name='Scan Next Blueprint').click();scan();expect(page.get_by_text('Already Acquired',exact=True)).to_be_visible();assert page.evaluate('window.cameraCalls')==calls

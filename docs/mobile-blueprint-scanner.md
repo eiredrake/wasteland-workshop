@@ -79,3 +79,9 @@ Additional files changed for this improvement: `ScanQuality.ts`, `ScanQuality.te
 ### Landscape framing and camera light correction
 
 The preview video/image now fills an explicitly sized landscape container without its intrinsic portrait dimensions stretching the viewfinder. Browser checks assert the actual rendered 3.4:1 geometry on desktop and mobile. Supported cameras expose a themed Camera Light toggle; it preserves existing constraints, verifies the resulting torch setting, and reports rejected/ignored changes. The light is optional and camera tracks are stopped on exit/background. Physical Android testing remains required.
+
+### Diagnosing a failing phone scan
+
+Before Capture Photo, expand Scan Diagnostics and enable Collect diagnostics for the next capture. After recognition finishes or fails, Download Scan Diagnostics saves a JSON file containing the lossless original OCR crop, each processed OCR image, full recognized text, word confidence, extracted name candidates, matching results, timings, app version, browser, preview bounds and camera resolution/settings. Camera identifiers and collection contents are excluded. The original capture remains available even if OCR initialization fails. Nothing is uploaded or persisted automatically; retake, exit or disabling diagnostics clears the report. Send the downloaded file for investigation rather than a screenshot of the preview. Diagnostics are opt-in; normal scans do not encode/store per-pass images.
+
+Camera Light currently means continuous illumination. It is not a still-photo flash; native capture flash needs a separately supported still-photo capture path.
