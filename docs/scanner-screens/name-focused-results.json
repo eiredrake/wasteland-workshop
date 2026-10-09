@@ -1,0 +1,142 @@
+[
+  {
+    "readText": "a pi oy | Item Name Freeiron Dry Pack Item Type Gizmo Requirements To Use None Expiration 12 months Number of Uses: N/A EE EE EE ee Production Skills Proficient",
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 5234,
+        "name": "Freeiron Dry Pack",
+        "score": 1
+      }
+    ],
+    "milliseconds": 617,
+    "variant": "original",
+    "expected": "Freeiron Dry Pack"
+  },
+  {
+    "readText": "~~M Name ro ( >\u2014 Item Type Freeiron Dry pack Gizmo Requirements To Use None Expiration 12 months roduct Number of Uses: N/A ala Inn ion Skills Mma \" Shicrens Ar",
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 5234,
+        "name": "Freeiron Dry Pack",
+        "score": 1
+      }
+    ],
+    "milliseconds": 228,
+    "variant": "rotation-5deg",
+    "expected": "Freeiron Dry Pack"
+  },
+  {
+    "readText": "a pi fy | Item Name Freeiron Dry Pack Item Type Gizmo Requirements To Use None Expiration 12 months Number of Uses: N/A -. aa _ _ ee Production Skills Proficien",
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 5234,
+        "name": "Freeiron Dry Pack",
+        "score": 1
+      }
+    ],
+    "milliseconds": 428,
+    "variant": "dim",
+    "expected": "Freeiron Dry Pack"
+  },
+  {
+    "readText": "rr od - Freeiron Dry Pack Item Name Gizmo Item Type None Number of Uses: N/A Requirements To Use 12 months Expiration production Skills protien A oo",
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 5234,
+        "name": "Freeiron Dry Pack",
+        "score": 1
+      }
+    ],
+    "milliseconds": 199,
+    "variant": "rotation-minus-5deg",
+    "expected": "Freeiron Dry Pack"
+  },
+  {
+    "readText": "Freeiron] Dry Pack",
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 5234,
+        "name": "Freeiron Dry Pack",
+        "score": 1
+      }
+    ],
+    "milliseconds": 141,
+    "variant": "name-only",
+    "expected": "Freeiron Dry Pack"
+  },
+  {
+    "readText": "So es py yas oo = yi Item Name Hooch Item Type Intoxication Brew Requirements To Use None Expiration 12 months Number of Uses: 1 a \u2014 \u2014\u2014\u2014\u2014\u2014 Production Skills Bas",
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 4407,
+        "name": "Hooch",
+        "score": 1
+      }
+    ],
+    "milliseconds": 432,
+    "variant": "original",
+    "expected": "Hooch"
+  },
+  {
+    "readText": "eM Name SR Hooch \u2014 Item Type Intoxication Brew Requirements To Use None Expiration \u2014 a. 12 months Product Number of Uses: 1 ion ls FR Culinary",
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 4407,
+        "name": "Hooch",
+        "score": 1
+      }
+    ],
+    "milliseconds": 194,
+    "variant": "rotation-5deg",
+    "expected": "Hooch"
+  },
+  {
+    "readText": "So nen py yes a = yi Item Name Hooch Item Type Intoxication Brew Requirements To Use None Expiration 12 months Number of Uses: 1 EE re Production Skills Basic C",
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 4407,
+        "name": "Hooch",
+        "score": 1
+      }
+    ],
+    "milliseconds": 457,
+    "variant": "dim",
+    "expected": "Hooch"
+  },
+  {
+    "readText": "ils a \u2014 Ea Hooch Ttem Name Intoxication Brew Ttem Type Use None Requirements To Number of Uses: 1 12 months Expiration us Basic Culina Are skills Tn Tk roc A",
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 4407,
+        "name": "Hooch",
+        "score": 1
+      }
+    ],
+    "milliseconds": 299,
+    "variant": "rotation-minus-5deg",
+    "expected": "Hooch"
+  },
+  {
+    "readText": "Hooch Bs ee",
+    "confidence": "ambiguous",
+    "candidates": [
+      {
+        "id": 4407,
+        "name": "Hooch",
+        "score": 1
+      }
+    ],
+    "milliseconds": 429,
+    "variant": "name-only",
+    "expected": "Hooch"
+  }
+]

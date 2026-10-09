@@ -9,14 +9,13 @@ with sync_playwright() as p:
  page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload()
  def nav(name):page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name=name,exact=True).click()
  def records():return page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-build-queue')).builds")
- nav('Actions');page.get_by_role('searchbox').fill('mine');assert page.locator('tbody tr').count()==1;page.get_by_role('button',name='Clear Search Actions').click();assert page.locator('tbody tr').count()>1
  nav('Workshop');page.get_by_role('searchbox').fill('AA Blade');assert page.locator('tbody tr').count()==1;page.get_by_text('AA Blade',exact=True).click();page.get_by_role('searchbox').fill('Dodge');assert page.locator('.blueprint-details').count()==0
  nav('Work Queue');page.locator('li.build-card details').last.locator('summary').click();assert page.get_by_role('button',name='Start / Resume',exact=True).is_disabled()
  page.locator('.blueprint-craft-timer').click();assert not any(r['status']=='Working' for r in records())
  page.get_by_role('button',name='Start / Resume',exact=True).click();assert records()[0]['id']=='pending' and records()[0]['status']=='Working'
  page.locator('.build-timer-settings').click();assert page.locator('dialog').count()==0;page.get_by_role('button',name='Add one minute',exact=True).click();assert records()[0]['timer']['remainingMs']>650000;page.get_by_role('button',name='Back to Work Queue',exact=True).click()
  page.locator('.blueprint-craft-timer').click();remaining=records()[0]['timer']['remainingMs'];page.reload();assert records()[0]['timer']['remainingMs']==remaining;nav('Work Queue')
- page.locator('.work-entry summary').click();page.get_by_role('button',name='Action',exact=True).click();picker=page.get_by_role('combobox',name='Find an Action');picker.fill('Mine');picker.press('ArrowDown');picker.press('Enter');assert page.locator('.action-details').count()==1
+ page.locator('.work-entry summary').click();page.get_by_role('button',name='Action',exact=True).click();picker=page.get_by_role('combobox',name='Find an Action');picker.fill('Mine');picker.press('ArrowDown');picker.press('Enter');assert page.locator('.action-configuration').count()==1
  page.get_by_role('button',name='Add to Queue',exact=True).click();assert len(records())==4
  nav('Work History');page.locator('details.blueprint-collection-card summary').click();page.get_by_role('button',name='Details & Notes',exact=True).click();assert page.locator('input[type=number]').count()==0;page.get_by_label('Notes',exact=True).fill('Theme migration QA');page.get_by_role('button',name='Save Activity',exact=True).click();assert any(r['notes']=='Theme migration QA' for r in records())
  nav('Settings');page.locator('#expiration-warning-days').fill('45');page.get_by_role('button',name='Save Expiration Settings',exact=True).click();page.reload();nav('Settings');assert page.locator('#expiration-warning-days').input_value()=='45'

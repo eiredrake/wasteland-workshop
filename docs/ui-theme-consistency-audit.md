@@ -1,5 +1,7 @@
 # UI Theme Consistency Audit
 
+Historical reference: standalone Actions catalog/details have since been consolidated into Work Queue → Add to Queue → Action. The screenshots below document the earlier audit.
+
 Project: Wasteland Workshop · Version inspected: 0.6.3 · Date: 2026-10-08
 
 **Audit only. All findings are AWAITING REVIEW. No application source, CSS, persistence or behavior was changed.** Existing feature edits in the working tree were preserved.

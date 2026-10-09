@@ -1,4 +1,4 @@
-export type TourScreen='catalog'|'collections'|'shopping'|'warehouse'|'actions'|'builds'|'history'|'timer'|'settings'
+export type TourScreen='catalog'|'collections'|'shopping'|'warehouse'|'builds'|'history'|'timer'|'settings'
 export type TourCondition='blueprint-selected'|'collection-selected'|'membership'|'queued'
 export type GuidedTourStep={id:string;title:string;body:string;screen?:TourScreen;target?:string;mode:'explanation'|'action';condition?:TourCondition;blueprintContext?:boolean}
 export type GuidedTourDefinition={id:string;title:string;description:string;steps:GuidedTourStep[]}
@@ -33,12 +33,13 @@ export const guidedTours:GuidedTourDefinition[]=[
  step('lots','Quantities and lots','Matching items with matching expiration dates merge. Different dates stay separate. Edit On hand or use −/+ to change quantity by one. Zero and X remove the lot immediately, without a confirmation.','warehouse','warehouse-inventory'),
  step('expiry','Expiration and filters','Green means good, yellow expiring, grey expired. Settings controls warning days. Expiration, Type and Sort filters work independently; undated old inventory needs a date to count toward crafting.','warehouse','warehouse-filters'),
  step('credits','Credits','Set, add or subtract credits explicitly. Credit amounts display rounded up to whole credits; changing inventory quantities does not change this balance.','warehouse','warehouse-credits')]),
- tour('actions','Actions','Prepare non-Blueprint work.',[
- step('catalog','Actions and Blueprints','Actions cover gathering, healing, repair and other non-Blueprint activities. Browse or search the catalog and select one.','actions','actions'),
- step('details','Requirements and costs','Details show rules, prerequisites, tools, facilities, duration, Mind, inputs, outputs and effects. Read the relevant restrictions before acting in game.','actions','actions'),
- step('queue','Configure and add','In Work Queue, expand Add to Queue and select Action. Choose an action and any required options, quantities or session ID. Add to Queue creates a real Activity; optional requirements/details are expandable. It does not spend character resources or change Warehouse.','builds','queue-entry')]),
  tour('work-queue','Work Queue','Manage planned and active activities.',[
- step('add','Add an Activity','Expand Add to Queue and select Blueprint or Action. Required Action choices stay above the orange Add to Queue button. The tour itself will not add work.','builds','queue-entry'),
+ step('add','Add an Activity','Open Work Queue and expand Add to Queue. Blueprint and Action share this entry point.','builds','queue-entry'),
+ step('action','Choose Action','Select Action to prepare gathering, healing, repair or other non-Blueprint work.','builds','queue-action-source'),
+ step('search','Find an Action','Type in Find an Action and select a match. The picker supports arrow keys and Enter.','builds','queue-action-picker'),
+ step('configure','Configure relevant inputs','Choose any option, quantity, named herb or required session ID. Fixed herb types are automatic. Limb count and healing Mind update their costs.','builds','action-configuration'),
+ step('costs','Review costs and requirements','Review Duration, Mind and Resolve above Add to Queue. Expand Requirements and details for rules, consumables, outputs and effects. Recorded costs and resource overrides belong to this Activity.','builds','action-costs'),
+ step('submit','Add to Queue','Add to Queue creates a real Action Activity without spending character resources or changing Warehouse. The tour itself never adds work. Only click when you want to queue it.','builds','action-submit'),
  step('states','Activity states','Enqueued means planned; Working means active; Paused preserves remaining time. The top/active Activity shows the compact timer. Click it to start or pause.','builds','work-queue'),
  step('order','Order and switching','Working Activities cannot move or be deleted: pause first. Move other pending Activities with Move Up/Down. Start / Resume can move an Activity to the top, but is blocked while another is Working.','builds','work-queue'),
  step('details','Per-Activity settings','Expand Details for the captured recipe or Action, costs and outputs. Notes & Overrides edits this Activity only. Timer Settings opens the full Timer page.','builds','work-queue'),

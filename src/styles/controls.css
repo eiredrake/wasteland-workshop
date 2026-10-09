@@ -55,7 +55,6 @@
 :root main .blueprint-usage-badge { border-radius:999px; border-color:var(--color-selection); color:var(--color-selection); background:var(--color-warning-tint); font:inherit; font-size:.75rem; font-weight:700; padding:.3rem .65rem; }
 :root main .build-timer-settings { border-radius:var(--control-radius); }
 :root main .action-details { max-width:100%; }
-:root main .actions-page > label { display:block; margin:.75rem 0; }
 :root main :is(.settings-row select,.blueprint-markup-select) { min-height:44px; }
 :root main .warehouse-filters .search-input { flex:1 1 220px; }
 :root main :is(.confirmation-dialog-actions,.timer-configuration-actions,.share-preview-actions) { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:.75rem; margin-top:1.25rem; }

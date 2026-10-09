@@ -1,5 +1,5 @@
-.actions-page label, .action-details label { display: block; margin: .75rem 0; }
-.action-details label input, .action-details label select { display: block; width: 100%; margin-top: .25rem; }
+.action-configuration label { display: block; margin: .75rem 0; }
+.action-configuration label input, .action-configuration label select { display: block; width: 100%; margin-top: .25rem; }
 .work-summary { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; min-height: 44px; cursor: pointer; }
 .work-summary strong { flex: 1; overflow-wrap: anywhere; }
 .work-entry { margin-bottom: 1rem; }

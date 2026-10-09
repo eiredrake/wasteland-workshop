@@ -12,13 +12,16 @@ export function extractScanNames(text:string):string[] {
  const lines=text.slice(0,12000).split(/\r?\n/).map(s=>s.trim()).filter(s=>s.length>0&&s.length<=160).slice(0,40)
  const label=lines.findIndex(s=>/item\s*name/i.test(s))
  const tail=label>=0?lines.slice(label,label+4):lines
+ // Sparse OCR can put the name value just before its label on tilted paper.
+ const preceding=label>0&&/^item\s*name\s*[:—-]?$/i.test(lines[label])?lines[label-1]:undefined
  const end=label>=0?tail.findIndex((s,i)=>i>0&&/^(item type|requirements|expiration|number of uses|production|item mechanics)/i.test(s)):-1
  const selected=end>=0?tail.slice(0,end):tail
  const names=selected.map(s=>s.replace(/^.*?item\s*name\s*[:—-]?\s*/i,'')).filter(s=>s.length>1&&!/^(artisan|culinary|agricultural|medical) recipe$|^item type|^requirements|^expiration|^number of uses/i.test(s))
+ if(preceding&&!/^(artisan|culinary|agricultural|medical) recipe$|^item type|^requirements|^expiration|^number of uses|^production/i.test(preceding))names.unshift(preceding)
  return [...new Set([...names,...names.slice(0,-1).map((s,i)=>s+' '+names[i+1])])]
 }
 export type ScanCandidate={blueprint:Blueprint;score:number}
-export type ScanMatch={confidence:'high'|'ambiguous'|'none';candidates:ScanCandidate[]}
+export type ScanMatch={confidence:'high'|'ambiguous'|'none';candidates:ScanCandidate[];readText?:string}
 export function matchScanNames(names:string[],catalog:Blueprint[]):ScanMatch {
  const keys=names.slice(0,80).map(normalizeScanName).filter(key=>key.length>0&&key.length<=160)
  const candidates=catalog.map(blueprint=>{
@@ -30,4 +33,22 @@ export function matchScanNames(names:string[],catalog:Blueprint[]):ScanMatch {
  const exact=candidates.filter(c=>c.score===1)
  const strong=candidates[0].score>=.94&&(!candidates[1]||candidates[0].score-candidates[1].score>=.08)
  return {confidence:exact.length===1||strong?'high':'ambiguous',candidates:candidates.slice(0,5)}
+}
+
+// Extra OCR noise can surround an otherwise exact name. These fragments are suggestions only.
+export function catalogNameFragments(names:string[],catalog:Blueprint[]):string[] {
+ const known=new Map(catalog.map(blueprint=>[normalizeScanName(blueprint.name),blueprint.name]))
+ const matches=new Set<string>()
+ for(const line of names.slice(0,80)){
+  const words=line.slice(0,160).split(/\s+/).map(normalizeScanName).filter(Boolean).slice(0,24)
+  for(let start=0;start<words.length;start++){
+   let key=''
+   for(let end=start;end<Math.min(words.length,start+10);end++){
+    key+=words[end]
+    const name=key.length>=5?known.get(key):undefined
+    if(name)matches.add(name)
+   }
+  }
+ }
+ return [...matches]
 }

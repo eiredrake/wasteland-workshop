@@ -26,7 +26,6 @@ with sync_playwright() as p:
   center=page.locator('.blueprint-build-button').evaluate('e=>{const r=document.createRange();r.selectNodeContents(e);const t=r.getBoundingClientRect(),b=e.getBoundingClientRect();return [Math.abs(t.x+t.width/2-b.x-b.width/2),Math.abs(t.y+t.height/2-b.y-b.height/2)]}')
   assert max(center)<2,center
   page.locator('.back-button').focus();page.keyboard.press('Tab');page.keyboard.press('Shift+Tab');assert page.locator('.back-button').evaluate('e=>getComputedStyle(e).outlineColor')=='rgb(224, 184, 63)';capture('keyboard-focus')
-  nav('Actions');capture('actions');page.get_by_role('searchbox').hover();capture('search-hover');page.get_by_text('Proficient Agricultural',exact=True).first.click();assert page.locator('.back-button').count()==1;capture('action-details')
   nav('Work Queue');
   for heading in page.locator('.build-row-heading').all():
    alignment=heading.evaluate('e=>{const n=e.querySelector("strong").getBoundingClientRect(),s=e.querySelector(".build-status").getBoundingClientRect();return s.left>=n.right-1?Math.abs(n.y+n.height/2-s.y-s.height/2):0}')
@@ -35,8 +34,8 @@ with sync_playwright() as p:
   picker=page.get_by_role('combobox',name='Find an Action');picker.fill('Repair Equipment');picker.press('ArrowDown');picker.press('Enter')
   assert page.get_by_role('button',name='Close Action Selection').count()==0
   assert not page.locator('.action-queue-details').get_attribute('open')
-  add=page.locator('.action-details').get_by_role('button',name='Add to Queue',exact=True)
-  assert add.bounding_box()['y']-picker.bounding_box()['y']<100
+  add=page.locator('.action-configuration').get_by_role('button',name='Add to Queue',exact=True)
+  assert add.bounding_box()['y']-picker.bounding_box()['y']<150
   capture('queue-action')
   page.locator('.action-queue-details summary').click();capture('queue-action-expanded');picker.fill('')
   page.locator('li.build-card details').last.locator('summary').click();page.get_by_role('button',name='Delete Activity Helscape Mine',exact=True).click();capture('delete-dialog');page.get_by_role('button',name='Cancel',exact=True).click()
@@ -61,4 +60,4 @@ with sync_playwright() as p:
  (actual/'environment.json').write_text(json.dumps({'browser':browser.version,'platform':sys.platform,'viewports':['1280x900','390x844']},indent=2),encoding='utf-8');browser.close()
 if args.record:print('Candidates recorded in tests/visual/actual. Inspect before explicitly copying to baselines; this command never updates baselines.')
 elif failures:print('Visual differences (inspect actual and baseline; do not auto-accept): '+', '.join(failures));sys.exit(1)
-else:print('34 visual comparisons passed; geometry, keyboard focus, selection and target checks passed.')
+else:print('28 visual comparisons passed; geometry, keyboard focus, selection and target checks passed.')

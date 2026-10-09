@@ -5,3 +5,5 @@
 .scanner-success { color:var(--color-success-text); }
 .scanner-counts { color:var(--color-text-muted); line-height:1.5; }
 @media(max-width:400px){.scanner-panel{padding:.75rem}.scanner-controls button{flex-grow:1}}
+
+.scanner-read-text { color:var(--color-text-muted); overflow-wrap:anywhere; }

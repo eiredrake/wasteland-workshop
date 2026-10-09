@@ -1,5 +1,7 @@
 # UI Theme Standardization — Implementation Report
 
+Historical reference: standalone Actions catalog/details have since been consolidated into Work Queue → Add to Queue → Action. The screenshots below document the earlier audit.
+
 Date: 2026-10-08 · Wasteland Workshop 0.6.3 · Repository: G:/codebase/wasteland-workshop
 
 ## A. Summary

@@ -1,3 +1,4 @@
+import AppShare from './components/AppShare/AppShare'
 import { setCollectionBlueprintStatus } from './features/blueprints/BlueprintCollectionService'
 import { acquireScannedBlueprint } from './features/scanner/ScanSession'
 import { createQueueSubmissionGuard } from './features/builds/SubmissionGuard'
@@ -6,7 +7,6 @@ import { guidedTours } from './features/tours/TourRegistry'
 import { useGuidedTours } from './features/tours/useGuidedTours'
 import BackButton from './components/BackButton/BackButton'
 import './styles/controls.css'
-import ActionsView from './features/actions/ActionsView'
 import QueueEntry from './features/actions/QueueEntry'
 import WorkHistoryView from './features/builds/WorkHistoryView'
 import { addActionActivity } from './features/actions/ActionService'
@@ -90,7 +90,6 @@ type AppView =
   | 'warehouse'
   | 'shopping'
   | 'builds'
-  | 'actions'
   | 'history'
   | 'timer'
   | 'settings'
@@ -99,6 +98,7 @@ type AppView =
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [appShareOpen, setAppShareOpen] = useState(false)
   const [tourBlueprint,setTourBlueprint]=useState<Blueprint>()
   const [selectionRevision,setSelectionRevision]=useState(0)
 
@@ -508,6 +508,7 @@ function App() {
   const tourStepId=tours.step?.id
   return (
     <BlueprintReadProvider><main className={tours.active?'tour-active':undefined}>
+      {appShareOpen && <AppShare onClose={() => { setAppShareOpen(false); requestAnimationFrame(() => document.querySelector<HTMLButtonElement>('[data-tour-target="menu"]')?.focus()) }} />}
       <header className="app-header">
         <button
           data-tour-target="menu" className="menu-button"
@@ -566,7 +567,6 @@ function App() {
 
           <button type="button" onClick={() => navigateTo('warehouse')}>Warehouse</button>
 
-          <button type="button" onClick={() => navigateTo('actions')}>Actions</button>
           <button type="button" onClick={() => navigateTo('builds')}>Work Queue</button>
           <button type="button" onClick={() => navigateTo('history')}>Work History</button>
 
@@ -590,6 +590,7 @@ function App() {
           <details className="guided-tours-menu"><summary>Guided Tours</summary>
           {guidedTours.map(tour=><button key={tour.id} type="button" aria-label={tour.title+(tours.progress[tour.id]?.completed?' (completed)':'')} onClick={()=>{setTourBlueprint(undefined);tours.start(tour.id);setMenuOpen(false)}}>{tours.progress[tour.id]?.completed&&<span aria-hidden="true">✓ </span>}{tour.title}</button>)}
           </details>
+          <button type="button" onClick={() => { setMenuOpen(false); setAppShareOpen(true) }}>Share Wasteland Workshop</button>
 
           <button
             type="button"
@@ -696,7 +697,6 @@ function App() {
 
       {currentView === 'warehouse' && <WarehouseView warningDays={expirationWarningDays} warehouse={inventory.warehouse} apply={inventory.apply} error={inventory.error} />}
 
-      {currentView === 'actions' && <ActionsView onAdd={addActionToQueue}/>}
       {currentView === 'history' && <WorkHistoryView builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}/>}
       {currentView === 'builds' && <BuildQueueView builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}
         onTimer={id => { setTimerBuildId(id); navigateTo('timer') }}><QueueEntry onBlueprint={addBlueprintToBuildQueue} onAction={addActionToQueue}/></BuildQueueView>}

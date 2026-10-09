@@ -4,7 +4,7 @@ Implemented directly in G:\codebase\wasteland-workshop. Open the main menu, then
 
 ## Implementation
 
-Ten independent tours cover introductory Blueprints, collections, shopping lists, Warehouse, Actions, Work Queue, Work History, Timer, Timer Settings, and application Settings. Definitions live in src/features/tours/TourRegistry.ts; progress validation/storage and the controller live alongside it. The shared panel and CSS live in src/components/GuidedTour. App owns navigation and confirmed action signals; existing views expose stable data-tour-target anchors. Datalist reports actual Blueprint selection and can retain that selection across tour navigation.
+Nine independent tours cover introductory Blueprints, collections, shopping lists, Warehouse, Work Queue (including Actions), Work History, Timer, Timer Settings, and application Settings. Definitions live in src/features/tours/TourRegistry.ts; progress validation/storage and the controller live alongside it. The shared panel and CSS live in src/components/GuidedTour. App owns navigation and confirmed action signals; existing views expose stable data-tour-target anchors. Datalist reports actual Blueprint selection and can retain that selection across tour navigation.
 
 The nonmodal panel highlights real controls, scrolls them into view, supports Previous Step, Next, Skip Step, Exit and Finish, and suspends around dialogs. Missing targets can be skipped. Guided steps advance only after a meaningful confirmed application change. Previous Step never reverses data changes. Existing collections and queued work can be reused, avoiding duplicate records on replay. Tours never fabricate application data or click Build on the user's behalf.
 

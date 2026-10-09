@@ -12,19 +12,20 @@ with sync_playwright() as p:
   page=browser.new_page(viewport={'width':width,'height':height},has_touch=name=='mobile');page.set_default_timeout(15000)
   page.add_init_script("""window.cameraCalls=0;window.cameraTracks=[];navigator.mediaDevices.getUserMedia=async constraints=>{
     window.cameraCalls++;window.cameraConstraints=constraints;
-    const canvas=document.createElement('canvas');canvas.width=800;canvas.height=1050;const ctx=canvas.getContext('2d');const image=new Image();image.src="""+json.dumps(photo)+""";await image.decode();ctx.drawImage(image,0,0,800,1050);window.cameraCanvas=canvas;
-    const stream=canvas.captureStream(15);window.cameraTracks.push(...stream.getTracks());return stream;
+    const canvas=document.createElement('canvas');canvas.width=800;canvas.height=1050;const ctx=canvas.getContext('2d');const image=new Image();image.src="""+json.dumps(photo)+""";await image.decode();const sx=image.width*.075,sy=image.height*.12,sw=image.width*.65,sh=sw/3.4;ctx.fillStyle='white';ctx.fillRect(0,0,800,1050);const scale=720/sw;ctx.drawImage(image,40-sx*scale,(1050-720/3.4)/2-sy*scale,image.width*scale,image.height*scale);window.cameraCanvas=canvas;
+    const stream=canvas.captureStream(15);const track=stream.getVideoTracks()[0];track.getCapabilities=()=>({focusMode:['continuous']});track.applyConstraints=async constraints=>{window.requestedFocus=constraints.focusMode;throw new Error('Unsupported focus override')};window.cameraTracks.push(...stream.getTracks());return stream;
    };""")
   requests=[];errors=[];page.on('request',lambda r:requests.append(r.url));page.on('pageerror',lambda e:errors.append(str(e)))
   page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload()
   def capture(view):
-   filename=f'{name}-scanner-{view}.png';page.evaluate('document.fonts.ready');page.wait_for_timeout(100);data=page.locator('.scanner-panel').screenshot(animations='disabled');(out/filename).write_bytes(data)
+   filename=f'{name}-scanner-{view}.png';page.mouse.move(0,0);page.evaluate('document.fonts.ready');page.wait_for_timeout(100);data=page.locator('.scanner-panel').screenshot(animations='disabled');(out/filename).write_bytes(data)
    baseline=root/'tests/visual/baselines'/filename
    if not args.record and (not baseline.exists() or baseline.read_bytes()!=data):differences.append(filename)
   def nav(label):page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name=label,exact=True).click()
   def collection():return page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[0]")
   def scan():page.get_by_role('button',name='Capture Photo',exact=True).click();expect(page.get_by_role('heading',name='Blueprint identified: Freeiron Dry Pack')).to_be_visible(timeout=30000)
   nav('Blueprint Collections');assert page.evaluate('window.cameraCalls')==0;page.get_by_role('button',name='Scan & Acquire',exact=True).click();expect(page.get_by_role('button',name='Capture Photo')).to_be_visible()
+  assert page.evaluate('window.requestedFocus')=='continuous'
   capture('camera')
   page.set_viewport_size({'width':844,'height':390});assert page.evaluate('document.documentElement.scrollWidth<=innerWidth');page.set_viewport_size({'width':320,'height':700});assert page.evaluate('document.documentElement.scrollWidth<=innerWidth');page.set_viewport_size({'width':width,'height':height})
   expect(page.get_by_text('Scanner Collection',exact=True)).to_be_visible();assert page.evaluate("window.cameraConstraints.video.facingMode.ideal")=='environment'
@@ -34,7 +35,7 @@ with sync_playwright() as p:
   assert collection()['entries']==[{'blueprintId':5234,'status':'acquired','note':'retain'}]
   calls=page.evaluate('window.cameraCalls');page.get_by_role('button',name='Scan Next Blueprint').click();scan();expect(page.get_by_text('Already Acquired',exact=True)).to_be_visible();assert page.evaluate('window.cameraCalls')==calls
   page.get_by_role('button',name='Scan Next Blueprint').click();page.evaluate("window.cameraCanvas.getContext('2d').fillStyle='white';window.cameraCanvas.getContext('2d').fillRect(0,0,800,1050)");page.wait_for_timeout(200);page.get_by_role('button',name='Capture Photo').click();expect(page.get_by_text('Blueprint not identified.',exact=False)).to_be_visible(timeout=30000)
-  saved=collection();page.get_by_role('button',name='Retake Photo / Try Again').click();page.get_by_role('button',name='Capture Photo').click();expect(page.get_by_text('Blueprint not identified.',exact=False)).to_be_visible(timeout=30000);assert collection()==saved
+  saved=collection();page.get_by_role('button',name='Retake Photo / Try Again').click();expect(page.locator('.scan-guidance')).to_contain_text('Little text contrast',timeout=3000);page.evaluate("window.cameraCanvas.getContext('2d').fillStyle='rgb(20,20,20)';window.cameraCanvas.getContext('2d').fillRect(0,0,800,1050)");expect(page.locator('.scan-guidance')).to_contain_text('More light needed',timeout=3000);page.evaluate("window.cameraCanvas.getContext('2d').fillStyle='white';window.cameraCanvas.getContext('2d').fillRect(0,0,800,1050)");page.wait_for_timeout(200);page.get_by_role('button',name='Capture Photo').click();expect(page.get_by_text('Blueprint not identified.',exact=False)).to_be_visible(timeout=30000);assert collection()==saved
   expect(page.locator('.scanner-counts')).to_have_text('Scanned: 3 | Acquired: 1 | Already Owned: 1 | Unmatched: 1')
   page.get_by_role('button',name='Exit Scanner').click();expect(page.get_by_role('heading',name='Scan Session Complete')).to_be_visible();capture('summary');assert page.evaluate("window.cameraTracks.every(t=>t.readyState==='ended')")
   page.get_by_role('button',name='Done',exact=True).click();page.reload();assert collection()['entries'][0]['status']=='acquired'
@@ -59,7 +60,7 @@ with sync_playwright() as p:
  page.route('**/src/features/scanner/ScanOcr.ts*',recognition_route)
  page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload();page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire').click();expect(page.get_by_role('button',name='Capture Photo')).to_be_visible()
  page.evaluate("""async()=>{const {masterBlueprints}=await import('/src/features/blueprints/blueprints.ts');window.controlledMatch={confidence:'ambiguous',candidates:masterBlueprints.filter(b=>[5234,4407].includes(b.id)).map(blueprint=>({blueprint,score:.9}))}}""")
- page.get_by_role('button',name='Capture Photo').click();expect(page.get_by_text('Several matches are plausible.',exact=False)).to_be_visible();assert page.get_by_role('button',name='Acquire Freeiron Dry Pack').count()==0
+ page.get_by_role('button',name='Capture Photo').click();expect(page.get_by_text('Recognition is uncertain.',exact=False)).to_be_visible();assert page.get_by_role('button',name='Acquire Freeiron Dry Pack').count()==0
  page.locator('.scanner-panel').screenshot(path=str(out/'mobile-scanner-ambiguous.png'))
  page.get_by_role('button',name='Freeiron Dry Pack',exact=True).click();before=page.evaluate("localStorage.getItem('wasteland-workshop-blueprint-collections')");page.evaluate('window.failSave=true');page.get_by_role('button',name='Acquire Freeiron Dry Pack',exact=True).click();expect(page.get_by_role('alert')).to_be_visible();assert page.evaluate("localStorage.getItem('wasteland-workshop-blueprint-collections')")==before;expect(page.locator('.scanner-counts')).to_contain_text('Acquired: 0')
  page.evaluate('window.failSave=false');page.get_by_role('button',name='Acquire Freeiron Dry Pack',exact=True).click();expect(page.get_by_text('Acquired and saved in Scanner Collection.')).to_be_visible()

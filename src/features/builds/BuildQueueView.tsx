@@ -10,7 +10,7 @@ import { calculateBuildCost, deleteBuilds, editBuild, moveBuild, toggleBuildStat
 import { credits, duration } from './BuildFormatting'
 import '../blueprints/BlueprintCollectionsView.css'
 import './BuildQueueView.css'
-import '../actions/Actions.css'
+import '../actions/ActionConfigurationForm.css'
 export default function BuildQueueView({builds,apply,onTimer,error,children}:{builds:BuildQueue;apply:(operation:(queue:BuildQueue)=>BuildQueue)=>boolean;onTimer:(id:string)=>void;error:string;children?:ReactNode}) {
  const [selected,setSelected]=useState<string[]>([]),[detailsId,setDetailsId]=useState<string>(),[deleting,setDeleting]=useState<string[]>()
  const pending=builds.filter(activity=>activity.status!=='Completed'),active=workingBuild(builds),details=pending.find(activity=>activity.id===detailsId)

@@ -13,8 +13,7 @@ import { migrateBackup } from '../backup/Backup'
 import WorkHistoryView from '../builds/WorkHistoryView'
 import BuildQueueView from '../builds/BuildQueueView'
 import BuildDetails from '../builds/BuildDetails'
-import ActionDetails from './ActionDetails'
-import ActionsView from './ActionsView'
+import ActionConfigurationForm from './ActionConfigurationForm'
 const defaults=resolveEconomicsSettings(), definition=actionCatalog[0]
 function memory(){const values=new Map<string,string>();return {getItem:(key:string)=>values.get(key)??null,setItem:(key:string,value:string)=>{values.set(key,value)},removeItem:(key:string)=>{values.delete(key)}}}
 function queue(){return addActionActivity([],definition,'explore',{},defaults,undefined,undefined,1000,'action')}
@@ -112,13 +111,12 @@ describe('Activity persistence and compatibility',()=>{
 })
 describe('shared themed queue, actions and history presentation',()=>{
  it('fixed options do not require a redundant selector, and actions have no ownership badges',()=>{
-  const html=renderToStaticMarkup(createElement(ActionDetails,{definition,onAdd:vi.fn(),onClose:vi.fn()}))
+  const html=renderToStaticMarkup(createElement(ActionConfigurationForm,{definition,onAdd:vi.fn(),onClose:vi.fn()}))
   expect(html).not.toContain('<select');expect(html).toContain('Add to Queue');expect(html).toContain('Equipment uses')
   expect(html).not.toContain('Acquired');expect(html).not.toContain('Selling estimate')
-  expect(renderToStaticMarkup(createElement(ActionsView,{onAdd:vi.fn()}))).toContain('Pending rules verification')
  })
  it('multiple options show generic selectors and fields',()=>{
-  const action=multiple(),html=renderToStaticMarkup(createElement(ActionDetails,{definition:action,onAdd:vi.fn(),onClose:vi.fn()}))
+  const action=multiple(),html=renderToStaticMarkup(createElement(ActionConfigurationForm,{definition:action,onAdd:vi.fn(),onClose:vi.fn()}))
   expect(html).toContain('<select');expect(html).toContain('Restore 5 Mind')
  })
  it('only Working rows start expanded, use the shared timer, and exclude completed records',()=>{

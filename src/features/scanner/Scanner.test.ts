@@ -55,9 +55,9 @@ describe('confirmed acquisition and counters',()=>{
 })
 
 
-it.each([[800,1050],[1600,900]])('document capture frame stays aligned inside %s x %s video', (width,height)=>{
+it.each([[800,1050],[1600,900]])('name strip capture frame stays aligned inside %s x %s video', (width,height)=>{
  const frame=scanFrameBounds(width,height)
- expect(frame.width/frame.height).toBeCloseTo(.77)
+ expect(frame.width/frame.height).toBeCloseTo(3.4)
  expect(frame.x).toBeGreaterThanOrEqual(width*.05-.001)
  expect(frame.y).toBeGreaterThanOrEqual(height*.05-.001)
  expect(frame.x*2+frame.width).toBeCloseTo(width)

@@ -49,7 +49,7 @@ with sync_playwright() as p:
   page.keyboard.press('Escape');assert panel.count()==0
   assert page.locator('[data-tour-target="menu"]').evaluate('e=>e===document.activeElement')
   # Every other tour is manual, can finish independently, and leaves real data intact.
-  titles=['Blueprint Collections','Shopping Lists','Actions','Work Queue','Work History','Timer','Timer Settings','Application Settings & Overrides']
+  titles=['Blueprint Collections','Shopping Lists','Work Queue','Work History','Timer','Timer Settings','Application Settings & Overrides']
   for title in titles:
    launch(title)
    for _ in range(12):

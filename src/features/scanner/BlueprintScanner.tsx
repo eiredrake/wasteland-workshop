@@ -26,9 +26,16 @@ export default function BlueprintScanner({collection,destinationName,destination
     if(!window.isSecureContext)throw new Error('Camera scanning requires HTTPS (or localhost). Open the secure site on your phone.')
     if(typeof Worker==='undefined'||typeof WebAssembly==='undefined')throw new Error('This browser does not support the local recognition engine. Use a supported browser or search manually.')
     if(!navigator.mediaDevices?.getUserMedia)throw new Error('This browser does not support camera scanning. Use a supported browser or search Blueprints manually.')
-    const media=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1600},height:{ideal:2100}},audio:false})
+    const media=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:2560},height:{ideal:1920}},audio:false})
     if(disposed||generation.current!==openingGeneration){media.getTracks().forEach(track=>track.stop());return}
     stream.current=media
+    // Best-effort continuous autofocus where the device exposes it; unsupported devices continue normally.
+    try {
+     const rearTrack=media.getVideoTracks()[0]
+     const capabilities=rearTrack?.getCapabilities?.() as (MediaTrackCapabilities & {focusMode?:string[]})|undefined
+     if(capabilities?.focusMode?.includes('continuous'))await rearTrack.applyConstraints({focusMode:'continuous'} as MediaTrackConstraints)
+    }catch{/* Unsupported autofocus retains the camera's default behavior. */}
+    if(disposed||generation.current!==openingGeneration){media.getTracks().forEach(track=>track.stop());return}
     for(const track of media.getVideoTracks())track.addEventListener('ended',()=>{if(!disposed){setCamera('stopped');setError('The camera was interrupted. Resume Camera to continue.')}})
     if(video.current){video.current.srcObject=media;await video.current.play()}
    }catch(e){if(!disposed){setCamera('stopped');const name=e instanceof Error?e.name:'';setError(name==='NotAllowedError'?'Camera permission was denied. Allow camera access in your browser settings, then Resume Camera.':name==='NotReadableError'?'The camera is busy or unavailable. Close other camera apps and try again.':e instanceof Error?e.message:'Unable to open the camera.')}}
@@ -67,16 +74,18 @@ export default function BlueprintScanner({collection,destinationName,destination
  if(summary)return <section className="scanner-panel"><h2>Scan Session Complete</h2><p>{counters.scanned} Blueprints scanned · {counters.acquired} marked Acquired · {counters.owned} already Acquired · {counters.unmatched} unmatched</p><button type="button" className="primary-button" onClick={onDone}>Done</button></section>
  return <section className="scanner-panel" data-tour-blocked="true" aria-label="Blueprint scanner"><h2>Scan &amp; Acquire</h2><p>Destination: <strong>{destinationName}</strong></p>
  <p className="scanner-counts" aria-live="polite">Scanned: {counters.scanned} | Acquired: {counters.acquired} | Already Owned: {counters.owned} | Unmatched: {counters.unmatched}</p>
+ <p>Move closer to the upper-left <strong>Item Name</strong> row. Center the complete name inside the wide frame. The Item Name label is optional; the rest of the page is not needed.</p>
  {!destinationValid&&<p role="alert">The destination collection changed or was deleted. Exit and select the correct collection before scanning.</p>}
  {error&&<p role="alert">{error}</p>}
  <div className="scanner-result" aria-live="polite">
- {analyzing&&<p role="status">Analyzing Blueprint… First scan loads the local recognition engine.</p>}
+ {analyzing&&<p role="status">Reading Item Name… Keep this screen open. First scan loads the local recognition engine.</p>}
  {selected&&<><h3>Blueprint identified: {selected.name}</h3>{outcome==='owned'?<p className="scanner-success">Already Acquired</p>:outcome==='acquired'?<p className="scanner-success">Acquired and saved in {destinationName}.</p>:<button type="button" className="primary-button" disabled={!destinationValid||analyzing} onClick={acquire}>Acquire {selected.name}</button>}</>}
- {match?.confidence==='ambiguous'&&!selected&&<><p>Several matches are plausible. Choose the correct Blueprint before acquiring.</p>{match.candidates.map(c=><button key={c.blueprint.id} className="secondary-button" type="button" onClick={()=>choose(c.blueprint)}>{c.blueprint.name}</button>)}</>}
- {match?.confidence==='none'&&<p>Blueprint not identified. Flatten the paper, improve lighting, or move closer and try again. No collection data changed.</p>}
+ {match?.confidence==='ambiguous'&&!selected&&<><p>Recognition is uncertain. Choose the correct Blueprint before acquiring.</p>{match.candidates.map(c=><button key={c.blueprint.id} className="secondary-button" type="button" onClick={()=>choose(c.blueprint)}>{c.blueprint.name}</button>)}</>}
+ {match?.readText&&match.confidence!=='high'&&<p className="scanner-read-text">Read from photo: “{match.readText}”</p>}
+ {match?.confidence==='none'&&<p>Blueprint not identified. Check the captured name below. Include the full name, move closer, avoid glare and hold still before trying again. No collection data changed.</p>}
  </div>
  <CameraPreview videoRef={video} photo={photo} onReady={()=>setCamera('ready')}/>
- {!photo&&<p>Place the flattened Blueprint inside the frame, with Item Name near the top. Photos stay on this device and are discarded after scanning.</p>}
+ {!photo&&<p>Aim at just the Item Name row, not the whole Blueprint. Photos stay on this device and are discarded after scanning.</p>}
  <div className="scanner-controls">
  {camera==='ready'&&!photo&&<button type="button" className="primary-button" disabled={analyzing||!destinationValid} onClick={()=>void capture()}>Capture Photo</button>}
  {camera==='stopped'&&<button type="button" className="secondary-button" disabled={!destinationValid} onClick={()=>{setCamera('opening');setError('');setAttempt(n=>n+1)}}>Resume Camera</button>}

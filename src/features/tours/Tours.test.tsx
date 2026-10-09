@@ -52,9 +52,16 @@ describe('guided tours',()=>{
   const failing={...destination,setItem:(key:string,value:string)=>{if(key===TOUR_STORAGE_KEY&&!failed){failed=true;throw new Error('Quota')}destination.setItem(key,value)}}
   expect(()=>restoreBackup(createBackup(memory()),failing)).toThrow();expect(loadTourProgress(destination)).toEqual(before)
  })
- it('has ten independently replayable tours with stable unique step IDs',()=>{
-  expect(guidedTours).toHaveLength(10);expect(new Set(guidedTours.map(t=>t.id)).size).toBe(10)
+ it('has nine independently replayable tours with stable unique step IDs',()=>{
+  expect(guidedTours).toHaveLength(9);expect(new Set(guidedTours.map(t=>t.id)).size).toBe(9)
   for(const tour of guidedTours){expect(tour.steps.length).toBeGreaterThan(1);expect(new Set(tour.steps.map(s=>s.id)).size).toBe(tour.steps.length);expect(tour.steps.every(s=>s.body&&s.title)).toBe(true)}
+ })
+ it('removes standalone Actions while retaining legacy progress and queue instruction',()=>{
+  expect(guidedTours.some(t=>t.id==='actions')).toBe(false)
+  expect(guidedTours.flatMap(t=>t.steps).some(s=>String(s.screen)==='actions')).toBe(false)
+  const steps=guidedTours.find(t=>t.id==='work-queue')!.steps
+  expect(steps.map(s=>s.id)).toEqual(expect.arrayContaining(['add','action','search','configure','costs','submit','states']))
+  const legacy=completeTour(completeTour({},'actions'),'warehouse');expect(validateTourProgress(legacy)).toEqual(legacy)
  })
  it('requires confirmed actions; removal and revisiting a queue step do not count as additions',()=>{
   const step=guidedTours[0].steps.find(s=>s.condition==='queued')!
