@@ -42,7 +42,7 @@ function ValuationAlgorithmView() {
         </div>
 
         <p>
-          The default value is <strong>0.4cr per Mind</strong>. This value can
+          The default value is <strong>4cr per 10 Mind</strong>. This value can
           be changed in Economics Settings.
         </p>
       </div>
@@ -59,7 +59,7 @@ function ValuationAlgorithmView() {
         </div>
 
         <p>
-          The default value is <strong>0.1cr per minute</strong>. This value
+          The default value is <strong>1cr per 10 minutes</strong>. This value
           can also be changed in Economics Settings.
         </p>
       </div>
@@ -103,7 +103,7 @@ function ValuationAlgorithmView() {
         </p>
 
         <p>
-          Configured material values keep their fractional credits, such as Craftable Stone at 4.4cr. The suggested selling price is rounded up to a whole credit. The existing acquisition-cost estimator also rounds its calculated unit costs up.
+          Calculation inputs retain their precision. Each displayed credit valuation rounds upward to a whole credit after the calculation. Totals sum unrounded components; suggested selling prices apply markup to the unrounded production cost before rounding. Acquisition unit costs retain their existing rounding after division by yield.
         </p>
       </div>
 

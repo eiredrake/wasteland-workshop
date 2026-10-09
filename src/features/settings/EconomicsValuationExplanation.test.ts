@@ -18,7 +18,7 @@ describe('valuation methodology', () => {
   it('uses shipped defaults and the expected illustrative results', () => {
     expect(defaultEconomicsSettings).toMatchObject({mindCostPerPoint:.4,timeCostPerMinute:.1,resolveCostPerPoint:15,foragingCardCost:4,defaultMarkupPercent:25})
     const html = render()
-    for (const text of ['15 Mind × 0.4 = 6 credits','60 Minutes × 0.1 = 6 credits','Labor Cost = 6 + 6 = 12 credits','Production Cost = 32 credits','Suggested Selling Price = 40 credits','Unit cost = ⌈7 ÷ 3⌉ = 3 credits per unit']) expect(html).toContain(text)
+    for (const text of ['15 Mind × 0.4 = 6 credits','60 Minutes × 0.1 = 6 credits','Labor Cost (rounded once after summing Mind and Time) = 12 credits','Production Cost = 32 credits','Suggested Selling Price = 40 credits','Unit cost (unrounded acquisition total ÷ 3, then rounded up) = 3 credits per unit']) expect(html).toContain(text)
     expect(html).toContain('not actual Blueprint records')
   })
   it('updates examples using overrides and the existing calculator', () => {
@@ -29,11 +29,11 @@ describe('valuation methodology', () => {
     expect(html).toContain(`Production Cost = ${production} credits`)
     expect(html).toContain(`Suggested Selling Price = ${calculator.calculateSellingPrice(production,17)} credits`)
     expect(html).toContain('Default: 4 · Effective: 0')
-    expect(html).toContain('Unit cost = ⌈7 ÷ 3⌉ = 3 credits per unit')
+    expect(html).toContain('Unit cost (unrounded acquisition total ÷ 3, then rounded up) = 3 credits per unit')
   })
   it('preserves zero rates and explains unknown and selector handling', () => {
     const html = render({mindCostPerPoint:0,timeCostPerMinute:0,resolveCostPerPoint:0,foragingCardCost:0,defaultMarkupPercent:0})
-    expect(html).toContain('Labor Cost = 0 + 0 = 0 credits')
+    expect(html).toContain('Labor Cost (rounded once after summing Mind and Time) = 0 credits')
     expect(html).toContain('Production Cost = 20 credits')
     expect(html).toContain('Suggested Selling Price = 20 credits')
     for (const text of ['Unknown, never silently zero','explicit zero valuation is valid','Any Herb','Anise or Geranium','Only methods with a foraging tier','pricing recommendation']) expect(html).toContain(text)

@@ -1,0 +1,4 @@
+import { useId, type InputHTMLAttributes } from 'react'
+import './SearchInput.css'
+type Props=Omit<InputHTMLAttributes<HTMLInputElement>,'onChange'|'value'|'type'> & {value:string;onValueChange:(value:string)=>void;label:string;showLabel?:boolean}
+export default function SearchInput({value,onValueChange,label,showLabel=false,className='',id,...props}:Props){const generated=useId(),inputId=id??generated;return <div className={'search-input '+className}>{showLabel&&<label htmlFor={inputId}>{label}</label>}<div className="search-input-field"><input {...props} id={inputId} aria-label={label} type="search" value={value} onChange={event=>onValueChange(event.target.value)}/><span className="search-input-icon" aria-hidden="true"/>{value&&<button type="button" className="search-input-clear" aria-label={'Clear '+label} disabled={props.disabled} onClick={()=>onValueChange('')}><span aria-hidden="true">X</span></button>}</div></div>}

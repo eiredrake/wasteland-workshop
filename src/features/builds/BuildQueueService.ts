@@ -7,7 +7,7 @@ import { adjustCraftTimerMinutes, beginCraftTimer, loadCraftTimer, pauseCraftTim
 import type { CraftTimerState } from '../timer/CraftTimerState'
 import type { Build, BuildQueue } from './Build'
 
-export const ACTIVE_BUILD_MESSAGE = 'Pause the current Build before starting another.'
+export const ACTIVE_BUILD_MESSAGE = 'Pause the current Activity before starting another.'
 export function workingBuild(queue: BuildQueue): Build | undefined { return queue.find(build => build.status === 'Working') }
 function findBuild(queue: BuildQueue, id: string): Build {
   const build = queue.find(item => item.id === id)
@@ -27,7 +27,7 @@ export function addBuild(queue: BuildQueue, blueprint: Blueprint, economics: Eco
   const recipe = blueprint.itemCraftings?.[0]
   if (!recipe) throw new Error('This Blueprint has no crafting recipe.')
   if (queue.some(item => item.id === id)) throw new Error('Build IDs must be unique.')
-  const build: Build = { id, blueprintId: blueprint.id, blueprintName: blueprint.name,
+  const build: Build = { id, sourceType:'Blueprint',sourceId:blueprint.id,sourceVersion:blueprint.updatedAt, blueprintId: blueprint.id, blueprintName: blueprint.name,
     recipe: structuredClone(recipe), economicSnapshot: structuredClone(economics), overrides: {}, notes: '',
     status: 'Enqueued', timer: loadCraftTimer(recipe.craftingTimeInMinute, blueprint.name), createdAt: now }
   if (!immediately) return [...queue, build]
@@ -39,7 +39,7 @@ export function addBuild(queue: BuildQueue, blueprint: Blueprint, economics: Eco
 // Blueprint Build action starts only when the queue is entirely empty.
 export function enqueueBlueprintBuild(queue: BuildQueue, blueprint: Blueprint, economics: EconomicsSettings,
   now = Date.now(), id: string = crypto.randomUUID()): BuildQueue {
-  return addBuild(queue, blueprint, economics, queue.length === 0, now, id)
+  return addBuild(queue, blueprint, economics, !queue.some(activity=>activity.status!=='Completed'), now, id)
 }
 export function toggleBuildStatus(queue: BuildQueue, id: string, now = Date.now()): BuildQueue {
   const build = findBuild(queue, id)
@@ -57,9 +57,11 @@ export function toggleBuildStatus(queue: BuildQueue, id: string, now = Date.now(
 // Called only after the user confirms switching their active project.
 export function startBuildAtTop(queue: BuildQueue, id: string, now = Date.now()): BuildQueue {
   const target = findBuild(queue, id)
-  if (target.status === 'Completed') throw new Error('Completed Builds cannot be restarted.')
+  if (target.status === 'Completed') throw new Error('Completed Activities cannot be restarted.')
+  if(target.status==='Working')return queue
   const active = workingBuild(queue)
-  let next = active && active.id !== id ? toggleBuildStatus(queue, active.id, now) : queue
+  if(active && active.id!==id)throw new Error(ACTIVE_BUILD_MESSAGE)
+  let next = queue
   if (findBuild(next, id).status !== 'Working') next = toggleBuildStatus(next, id, now)
   return [findBuild(next, id), ...next.filter(build => build.id !== id)]
 }
@@ -74,9 +76,9 @@ export function tickBuildQueue(queue: BuildQueue, now = Date.now()): BuildQueue 
 }
 export function changeBuildTimer(queue: BuildQueue, id: string, timer: CraftTimerState, now = Date.now()): BuildQueue {
   const build = findBuild(queue, id)
-  if (build.status === 'Completed') throw new Error('Completed Builds cannot be restarted or adjusted.')
+  if (build.status === 'Completed') throw new Error('Completed Activities cannot be restarted or adjusted.')
   if (timer.status === 'running' && workingBuild(queue)?.id !== id && workingBuild(queue)) throw new Error(ACTIVE_BUILD_MESSAGE)
-  if (build.status === 'Enqueued') throw new Error('Start this Build before adjusting its timer.')
+  if (build.status === 'Enqueued') throw new Error('Start this Activity before adjusting its timer.')
   if (timer.status === 'idle' && build.startedAt !== undefined) throw new Error('Started Builds must be paused or completed, not reset to Enqueued.')
   if (timer.originalDurationMs !== build.timer.originalDurationMs) throw new Error('The original crafting duration is fixed.')
   return replace(queue, withTimer(build, { ...timer, label: build.blueprintName }, now))
@@ -85,26 +87,28 @@ export function changeBuildTimer(queue: BuildQueue, id: string, timer: CraftTime
 export function adjustBuildTimerMinutes(queue: BuildQueue, id: string, minutes: number, now = Date.now()): BuildQueue {
   if (!Number.isSafeInteger(minutes)) throw new Error('Use a whole number of minutes.')
   const build = findBuild(queue,id)
-  if (build.status === 'Completed' || build.status === 'Enqueued') throw new Error('Only Working or Paused Builds can be adjusted.')
+  if (build.status === 'Completed' || build.status === 'Enqueued') throw new Error('Only Working or Paused Activities can be adjusted.')
   const current = tickCraftTimer(build.timer,now)
   if (current.status === 'complete') return replace(queue,withTimer(build,current,now))
   return changeBuildTimer(queue,id,adjustCraftTimerMinutes(current,minutes,now),now)
 }
 export function editBuild(queue: BuildQueue, id: string, notes: string, overrides: EconomicsOverrides): BuildQueue {
-  return replace(queue, { ...findBuild(queue, id), notes, overrides: sanitizeEconomicsOverrides(overrides) })
+  const build=findBuild(queue,id)
+  return replace(queue, { ...build, notes, overrides: build.status==='Completed'?build.overrides:sanitizeEconomicsOverrides(overrides) })
 }
 export function moveBuild(queue: BuildQueue, id: string, direction: -1 | 1): BuildQueue {
-  if (findBuild(queue, id).status === 'Working') throw new Error('Pause this Build before reordering it.')
+  if (findBuild(queue, id).status === 'Working') throw new Error('Pause this Activity before reordering it.')
   // Keep the Working slot fixed even when other rows move around it.
-  const movable = queue.filter(build => build.status !== 'Working')
+  const movingCompleted=findBuild(queue,id).status==='Completed'
+  const movable = queue.filter(build => build.status !== 'Working' && (movingCompleted || build.status!=='Completed'))
   const index = movable.findIndex(build => build.id === id), target = index + direction
   if (target < 0 || target >= movable.length) return queue
   ;[movable[index], movable[target]] = [movable[target], movable[index]]
   let position = 0
-  return queue.map(build => build.status === 'Working' ? build : movable[position++])
+  return queue.map(build => build.status === 'Working'||(!movingCompleted&&build.status==='Completed') ? build : movable[position++])
 }
 export function deleteBuilds(queue: BuildQueue, ids: string[]): BuildQueue {
-  if (queue.some(build => ids.includes(build.id) && build.status === 'Working')) throw new Error('Pause the Working Build before deleting it.')
+  if (queue.some(build => ids.includes(build.id) && build.status === 'Working')) throw new Error('Pause the Working Activity before deleting it.')
   return queue.filter(build => !ids.includes(build.id))
 }
 export function effectiveBuildEconomics(build: Build): EconomicsSettings {
@@ -130,4 +134,12 @@ export function createBuildCompletionTracker(initial: BuildQueue) {
     for (const id of trackers.keys()) if (!queue.some(build => build.id === id)) trackers.delete(id)
     return finished
   }
+}
+
+// Interruption invalidates the elapsed role-play, while preserving the execution snapshot.
+export function restartInterruptedActivity(queue:BuildQueue,id:string,now=Date.now()):BuildQueue {
+ const build=queue.find(item=>item.id===id)
+ if(!build?.actionSnapshot?.option.interruptionRestarts)throw new Error('This Activity has no interruption restart rule.')
+ if(build.status==='Completed')throw new Error('Completed history cannot be restarted.')
+ return replace(queue,withTimer(build,{...build.timer,status:'paused',remainingMs:build.timer.originalDurationMs,endTimeMs:undefined},now))
 }

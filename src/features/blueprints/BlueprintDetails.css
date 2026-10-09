@@ -23,12 +23,12 @@
 
 .blueprint-details-card h3 {
   margin: 0 0 1rem;
-  color: #f0e6d2;
+  color: var(--color-text);
 }
 
 .blueprint-access-card {
   margin-bottom: 1rem;
-  border-left: 4px solid #d65f32;
+  border-left: 4px solid var(--color-primary);
 }
 
 .blueprint-card-heading {
@@ -36,48 +36,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-}
-
-.blueprint-access-status {
-  appearance: none;
-  align-self: flex-start;
-  width: auto;
-  margin: 0.5rem 0 0;
-  padding: 0.3rem 0.65rem;
-
-  border: 1px solid currentColor;
-  border-radius: 999px;
-
-  background: transparent;
-
-  font: inherit;
-  font-size: 0.75rem;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-
-  cursor: pointer;
-}
-
-.blueprint-access-status-acquired {
-  background: rgba(95, 159, 98, 0.18);
-  color: #5f9f62;
-}
-
-.blueprint-access-status-to-acquire {
-  background: rgba(214, 163, 61, 0.18);
-  color: #d6a33d;
-}
-
-.blueprint-access-status-untracked {
-  background: rgba(170, 167, 159, 0.12);
-  color: #8f8f8f;
-}
-
-.blueprint-access-status-sell {
-  background: rgba(34, 211, 238, 0.16);
-  color: #67e8f9;
 }
 
 .blueprint-access-status:hover {
@@ -156,18 +114,18 @@
 .blueprint-cost-production {
   margin-top: 0.35rem;
   padding-top: 0.35rem;
-  border-top: 1px solid #d65f32;
+  border-top: 1px solid var(--color-primary);
 }
 
 .blueprint-cost-production dt,
 .blueprint-cost-production dd {
-  color: #e37045;
+  color: var(--color-primary-hover);
   font-weight: 700;
 }
 
 .blueprint-cost-selling dt,
 .blueprint-cost-selling dd {
-  color: #f0e6d2;
+  color: var(--color-text);
   font-size: 1.05rem;
   font-weight: 700;
 }
@@ -176,14 +134,14 @@
   padding: 0.35rem 1.8rem 0.35rem 0.55rem;
   border: 1px solid #55564e;
   border-radius: 4px;
-  background: #22231f;
-  color: #f0e6d2;
+  background: var(--color-surface);
+  color: var(--color-text);
   font: inherit;
 }
 
 .blueprint-markup-select:focus {
   outline: none;
-  border-color: #d65f32;
+  border-color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(214, 95, 50, 0.18);
 }
 
@@ -219,7 +177,7 @@
 
 .blueprint-cost-warning {
   margin: 1rem 0 0;
-  color: #d6a33d;
+  color: var(--color-selection);
   font-size: 0.9rem;
 }
 
@@ -268,7 +226,7 @@
 .blueprint-mechanics-card {
   display: flow-root;
   margin-bottom: 1rem;
-  border-left: 4px solid #d6a33d;
+  border-left: 4px solid var(--color-selection);
 }
 
 .blueprint-mechanics-section + .blueprint-mechanics-section {
@@ -307,8 +265,8 @@
   padding: 0;
   border-radius: 50%;
   font-size: 1.1rem;
-  color: #c6edaf;
-  background: #273e20;
+  color: var(--color-success-text);
+  background: var(--color-success-tint);
   border-color: #72a866;
 }
 

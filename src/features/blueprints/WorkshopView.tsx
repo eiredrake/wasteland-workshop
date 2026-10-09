@@ -1,3 +1,4 @@
+import SearchInput from '../../components/SearchInput/SearchInput'
 import BlueprintName from '../../components/BlueprintName/BlueprintName'
 import { matchesBlueprintSearch } from './BlueprintSearchMatch'
 import type { Warehouse } from '../warehouse/Warehouse'
@@ -429,23 +430,7 @@ function WorkshopView({
         </button>
       </div>
 
-      <div className="blueprint-search">
-        <span
-          className="blueprint-search-icon"
-          aria-hidden="true"
-        />
-
-        <input
-          type="search"
-          placeholder={`Search ${activeCollection.name}...`}
-          value={searchText}
-          onChange={(event) =>
-            setSearchText(
-              event.target.value
-            )
-          }
-        />
-      </div>
+      <SearchInput label="Search collection" value={searchText} onValueChange={setSearchText} placeholder={`Search ${activeCollection.name}...`}/>
 
       <Datalist<WorkshopRow>
         items={workshopRows}

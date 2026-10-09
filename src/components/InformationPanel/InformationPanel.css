@@ -1,0 +1,5 @@
+.information-panel { margin:1rem 0; border-left:4px solid var(--color-rust); }
+.information-panel-gold { border-left-color:var(--color-hazard); }
+.information-panel-green { border-left-color:var(--color-success); }
+.information-panel-neutral { border-left-color:var(--color-border-strong); }
+.information-panel > :last-child { margin-bottom:0; }

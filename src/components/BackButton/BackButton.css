@@ -1,0 +1,2 @@
+.back-button { display:inline-flex; align-items:center; gap:.4rem; margin-bottom:1.5rem; border-color:var(--color-rust); background:transparent; color:var(--color-text); font-weight:600; }
+.back-button:hover:not(:disabled) { background:var(--color-hover); border-color:var(--color-rust-light); }

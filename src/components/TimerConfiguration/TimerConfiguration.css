@@ -1,8 +1,0 @@
-.timer-configuration { box-sizing: border-box; width: min(480px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow: auto; padding: 20px; color: var(--color-text); background: var(--color-surface); border: 1px solid var(--color-rust); border-radius: 8px; }
-.timer-configuration::backdrop { background: #000b; }
-.timer-configuration-adjust, .timer-configuration-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
-.timer-configuration button { min-height: 44px; padding: 10px 14px; color: var(--color-text); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 6px; cursor: pointer; }
-.timer-configuration button:disabled { opacity: .5; cursor: default; }
-.craft-timer-ring, .blueprint-craft-timer { touch-action: pan-y; user-select: none; -webkit-touch-callout: none; }
-.craft-timer-ring[role="button"] { cursor: pointer; }
-.craft-timer-ring:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }

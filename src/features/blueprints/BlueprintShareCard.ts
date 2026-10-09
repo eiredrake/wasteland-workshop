@@ -1,3 +1,4 @@
+import { formatCredits } from '../../economics/Credits'
 import type { Blueprint } from './Blueprint'
 import type { CostCalculator } from '../../economics/CostCalculator'
 import { calculateBlueprintCost } from '../../economics/BlueprintCostService'
@@ -15,7 +16,7 @@ export function blueprintShareCard(blueprint: Blueprint, calculator: CostCalcula
     add('Mind Cost', crafting.craftingMindCost)
     add('Crafting Time', `${crafting.craftingTimeInMinute} min`)
     const cost = calculateBlueprintCost(crafting, calculator)
-    add('Production Cost', cost.productionCost === undefined ? 'Unknown — one or more component values are unknown.' : `${cost.productionCost.toLocaleString(undefined, { maximumFractionDigits: 4 })}cr`)
+    add('Production Cost', cost.productionCost === undefined ? 'Unknown — one or more component values are unknown.' : formatCredits(cost.productionCost))
   }
   add('Uses', product?.metadata?.uses)
   if (product?.lifetimeAmount !== null && product?.lifetimeAmount !== undefined && product.lifetimeUnit) add('Expiration', `${product.lifetimeAmount} ${product.lifetimeUnit}${product.lifetimeAmount === 1 ? '' : 's'}`)

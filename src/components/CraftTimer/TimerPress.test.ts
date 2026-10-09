@@ -74,7 +74,7 @@ describe('Compact Build timer display', () => {
   it('blocks a paused timer from starting when another Build owns active work', () => {
     const paused = toggleBuildStatus([working],working.id,61000)[0]
     const html = renderToStaticMarkup(createElement(BuildCraftTimer,{ build: paused,blocked: true,onToggle: vi.fn(),onSettings: vi.fn() }))
-    expect(html).toContain('disabled'); expect(html).toContain('Pause the current Build first')
+    expect(html).toContain('disabled'); expect(html).toContain('Pause the current Activity first')
   })
 })
 

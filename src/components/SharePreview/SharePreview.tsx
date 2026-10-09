@@ -37,10 +37,10 @@ export default function SharePreview({ card, onClose }: { card: ShareCard; onClo
     <p role="status">{message}</p>
     {generated && <p className="share-preview-hint">{!canShareImage(generated.file) && 'Image sharing is unavailable here. '}{!canCopyImage() && 'Image clipboard is unavailable here. '}Save Image lets you attach the PNG yourself.</p>}
     <div className="share-preview-actions">
-      <button type="button" disabled={!generated || busy || !canShareImage(generated.file)} onClick={() => void act('share')}>Share</button>
-      <button type="button" disabled={!generated || busy || !canCopyImage()} onClick={() => void act('copy')}>Copy Image</button>
-      <button type="button" disabled={!generated || busy} onClick={() => void act('save')}>Save Image</button>
-      <button type="button" autoFocus onClick={onClose}>Close</button>
+      <button type="button" className="secondary-button" disabled={!generated || busy || !canShareImage(generated.file)} onClick={() => void act('share')}>Share</button>
+      <button type="button" className="secondary-button" disabled={!generated || busy || !canCopyImage()} onClick={() => void act('copy')}>Copy Image</button>
+      <button type="button" className="primary-button" disabled={!generated || busy} onClick={() => void act('save')}>Save Image</button>
+      <button type="button" className="secondary-button" autoFocus onClick={onClose}>Close</button>
     </div>
   </dialog>
 }

@@ -33,13 +33,13 @@ export function snapshotUserData(storage:UserStorage=userStorage):BackupData {
   for(const list of lists)for(const row of list.items){const item=ingredientItems.get(row.resourceId),requirement=item?ingredientRequirement(item):undefined;if(requirement?.kind==='choice'){row.kind='requirement';row.requirement??=requirement}}
   const warehouse=warehouseRaw===undefined?{credits:0,entries:[]}:version(warehouseRaw,[1,2],'Warehouse')
   const warning=warningRaw===undefined?DEFAULT_EXPIRATION_WARNING_DAYS:version(warningRaw,[1],'Warehouse Settings').expirationWarningDays
-  const queue=buildRaw===undefined?[]:version(buildRaw,[1],'Build Queue').builds
+  const queue=buildRaw===undefined?[]:version(buildRaw,[1,2],'Work Queue').builds
   const data={blueprintReadHistory:{readIds:loadReadHistory(storage)},blueprintCollections:{collections,activeCollectionId:storage.getItem(activeKey)},shoppingLists:{lists,...(shopping.activeListId===undefined?{}:{activeListId:shopping.activeListId})},warehouse:{credits:warehouse.credits,entries:warehouse.entries},settings:{economicsOverrides,alarm,warehouse:{expirationWarningDays:warning}},buildQueue:{builds:queue}}
-  return migrateBackup({format:BACKUP_FORMAT,schemaVersion:2,appVersion:packageInfo.version,exportedAt:new Date().toISOString(),data}).data
+  return migrateBackup({format:BACKUP_FORMAT,schemaVersion:3,appVersion:packageInfo.version,exportedAt:new Date().toISOString(),data}).data
 }
 export function createBackup(storage:UserStorage=userStorage,now=new Date()):Backup {
   const exportedAt=now.toISOString(),data=normalizeTimers(snapshotUserData(storage),exportedAt)
-  return migrateBackup({format:BACKUP_FORMAT,schemaVersion:2,appVersion:packageInfo.version,exportedAt,data})
+  return migrateBackup({format:BACKUP_FORMAT,schemaVersion:3,appVersion:packageInfo.version,exportedAt,data})
 }
 export function serializeBackup(backup:Backup) {return JSON.stringify(migrateBackup(backup),null,2)}
 export function restoreBackup(backup:Backup,storage:UserStorage=localStorage) {
@@ -48,7 +48,7 @@ export function restoreBackup(backup:Backup,storage:UserStorage=localStorage) {
     [collectionsKey]:JSON.stringify(data.blueprintCollections.collections),[activeKey]:data.blueprintCollections.activeCollectionId,
     [shoppingKey]:JSON.stringify({version:1,...data.shoppingLists}),[warehouseKey]:JSON.stringify({version:2,...data.warehouse}),
     [economicsKey]:JSON.stringify({version:1,overrides:data.settings.economicsOverrides}),[alarmKey]:JSON.stringify(data.settings.alarm),
-    [warningKey]:JSON.stringify({version:1,...data.settings.warehouse}),[buildKey]:JSON.stringify({version:1,builds:data.buildQueue.builds}),[readKey]:JSON.stringify({version:1,readIds:data.blueprintReadHistory.readIds}),
+    [warningKey]:JSON.stringify({version:1,...data.settings.warehouse}),[buildKey]:JSON.stringify({version:2,builds:data.buildQueue.builds}),[readKey]:JSON.stringify({version:1,readIds:data.blueprintReadHistory.readIds}),
   }
   commitReplacement(values,storage)
 }

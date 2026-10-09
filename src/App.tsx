@@ -1,3 +1,11 @@
+import BackButton from './components/BackButton/BackButton'
+import './styles/controls.css'
+import ActionsView from './features/actions/ActionsView'
+import QueueEntry from './features/actions/QueueEntry'
+import WorkHistoryView from './features/builds/WorkHistoryView'
+import { addActionActivity } from './features/actions/ActionService'
+import type { ActionDefinition, ActionConfiguration } from './features/actions/Action'
+import BlueprintReadSettingsView from './features/settings/BlueprintReadSettingsView'
 import { BlueprintReadProvider } from './features/blueprints/BlueprintReadContext'
 import AppMetadata from './components/AppMetadata/AppMetadata'
 import { masterBlueprintsUpdatedAt } from './features/blueprints/blueprints'
@@ -31,7 +39,6 @@ import AlarmSettingsView from './features/settings/AlarmSettingsView'
 import { loadAlarmSettings, saveAlarmSettings } from './features/timer/AlarmSettings'
 import { playAlarm, prepareAlarmAudio } from './features/timer/CraftAlarm'
 
-import TimerConfiguration from './components/TimerConfiguration/TimerConfiguration'
 import CraftTimer from './components/CraftTimer/CraftTimer'
 import {
   createIdleCraftTimer,
@@ -40,7 +47,7 @@ import {
 import BuildQueueView from './features/builds/BuildQueueView'
 import BuildStatusBadge from './components/BuildStatusBadge/BuildStatusBadge'
 import { useBuildQueue } from './features/builds/useBuildQueue'
-import { addBuild, enqueueBlueprintBuild, adjustBuildTimerMinutes, changeBuildTimer, toggleBuildStatus, workingBuild } from './features/builds/BuildQueueService'
+import { addBuild, enqueueBlueprintBuild, changeBuildTimer, toggleBuildStatus, workingBuild } from './features/builds/BuildQueueService'
 
 
 import { DefaultCostCalculator } from './economics/DefaultCostCalculator'
@@ -76,6 +83,8 @@ type AppView =
   | 'warehouse'
   | 'shopping'
   | 'builds'
+  | 'actions'
+  | 'history'
   | 'timer'
   | 'settings'
   | 'about'
@@ -113,7 +122,6 @@ function App() {
   const [shoppingState, setShoppingState] = useState(loadShoppingLists)
 
   const [alarmSettings, setAlarmSettings] = useState(loadAlarmSettings)
-  const [configurationBuildId, setConfigurationBuildId] = useState<string>()
   const [timerBuildId, setTimerBuildId] = useState<string>()
 
 
@@ -182,7 +190,6 @@ function App() {
   const buildQueue = useBuildQueue(() => { void playAlarm(alarmSettings) }, message => showToast(message, 'warning'))
   const activeBuild = workingBuild(buildQueue.builds)
   const craftTimer = activeBuild?.timer ?? createIdleCraftTimer()
-  const configurationBuild = buildQueue.builds.find(build => build.id === configurationBuildId)
   const timerBuild = buildQueue.builds.find(build => build.id === timerBuildId) ?? activeBuild
 
   const openCraftTimer = () => {
@@ -192,8 +199,13 @@ function App() {
   const addBlueprintToBuildQueue = (blueprint: Blueprint) => {
     if (buildQueue.apply(queue => enqueueBlueprintBuild(queue, blueprint, economicsSettings))) {
       navigateTo('builds')
-      showToast('Added "' + blueprint.name + '" to the Build Queue.', 'success')
+      showToast('Added "' + blueprint.name + '" to the Work Queue.', 'success')
     }
+  }
+  const addActionToQueue = (definition:ActionDefinition,option:string,configuration:ActionConfiguration,target?:string,session?:string) => {
+    const success=buildQueue.apply(queue=>addActionActivity(queue,definition,option,configuration,economicsSettings,target,session))
+    if(success){navigateTo('builds');showToast('Added "'+definition.name+'" to the Work Queue.','success')}
+    return success
   }
   const loadBlueprintIntoCraftTimer = (blueprint: Blueprint) => {
     const id = crypto.randomUUID()
@@ -569,13 +581,15 @@ function App() {
 
           <button type="button" onClick={() => navigateTo('warehouse')}>Warehouse</button>
 
-          <button type="button" onClick={() => navigateTo('builds')}>Build Queue</button>
+          <button type="button" onClick={() => navigateTo('actions')}>Actions</button>
+          <button type="button" onClick={() => navigateTo('builds')}>Work Queue</button>
+          <button type="button" onClick={() => navigateTo('history')}>Work History</button>
 
           <button
             type="button"
             onClick={openCraftTimer}
           >
-            Craft Timer
+            Timer
           </button>
 
           <button
@@ -696,26 +710,27 @@ function App() {
 
       {currentView === 'warehouse' && <WarehouseView warningDays={expirationWarningDays} warehouse={inventory.warehouse} apply={inventory.apply} error={inventory.error} />}
 
+      {currentView === 'actions' && <ActionsView onAdd={addActionToQueue}/>}
+      {currentView === 'history' && <WorkHistoryView builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}/>}
       {currentView === 'builds' && <BuildQueueView builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}
-        onTimer={id => setConfigurationBuildId(id)} />}
+        onTimer={id => { setTimerBuildId(id); navigateTo('timer') }}><QueueEntry onBlueprint={addBlueprintToBuildQueue} onAction={addActionToQueue}/></BuildQueueView>}
 
-      {configurationBuild && <TimerConfiguration key={configurationBuild.id} build={configurationBuild} onClose={() => setConfigurationBuildId(undefined)}
-        onApply={minutes => buildQueue.apply(queue => adjustBuildTimerMinutes(queue,configurationBuild.id,minutes))} />}
       {currentView === 'timer' && <>
-        <button type="button" className="secondary-button" onClick={() => navigateTo('builds')}>Open Build Queue</button>
+        <h2>Timer</h2><BackButton onClick={() => navigateTo('builds')}>Back to Work Queue</BackButton>
         {timerBuild ? <>
-          {activeBuild && activeBuild.id !== timerBuild.id && <p>Pause the current Build before starting another.</p>}
-          <CraftTimer onSettings={() => setConfigurationBuildId(timerBuild.id)} timer={timerBuild.timer} readOnly={timerBuild.status === 'Completed' || timerBuild.status === 'Enqueued'}
+          {activeBuild && activeBuild.id !== timerBuild.id && <p>Pause the current Activity before starting another.</p>}
+          <CraftTimer timer={timerBuild.timer} readOnly={timerBuild.status === 'Completed' || timerBuild.status === 'Enqueued'}
             onChange={timer => buildQueue.apply(queue => changeBuildTimer(queue,timerBuild.id,timer))}
             controls={<BuildStatusBadge build={timerBuild} blocked={!!activeBuild && activeBuild.id !== timerBuild.id && timerBuild.status !== 'Completed'}
               onToggle={() => buildQueue.apply(queue => toggleBuildStatus(queue,timerBuild.id))} />} />
-        </> : <p>No Build selected. Add a Blueprint to the Build Queue, or tap its timer to start crafting.</p>}
+        </> : <p>No Activity selected. Add a Blueprint or Action to the Work Queue.</p>}
       </>}
 
       {currentView ===
         'settings' && (
         <>
         <header className="settings-page settings-header"><h2>Settings</h2></header>
+        <BlueprintReadSettingsView />
         <BackupSettingsView />
         <WarehouseSettingsView days={expirationWarningDays} onSave={days=>{
           try {saveExpirationWarningDays(days);setExpirationWarningDays(days);showToast('Expiration settings saved.','success');return true}

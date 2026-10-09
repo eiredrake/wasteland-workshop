@@ -9,7 +9,7 @@ export default function AlarmSettingsView({ settings, onChange }: {
   const [result, setResult] = useState('Tap Test Alarm, then confirm you hear the sound and feel vibration.')
   const [testing, setTesting] = useState(false)
   return <section className="settings-page">
-    <h2>Craft Timer Alarm</h2>
+    <h3>Timer Alarm</h3>
     <div className="settings-card">
       {(['sound', 'vibration'] as const).map(key => <div className="settings-row" key={key}>
         <label htmlFor={`alarm-${key}`}>{key === 'sound' ? 'Alarm Sound' : 'Vibration'}</label>
@@ -18,7 +18,7 @@ export default function AlarmSettingsView({ settings, onChange }: {
           <option value="true">On</option><option value="false">Off</option>
         </select>
       </div>)}
-      <div className="settings-actions"><button type="button" disabled={testing} onClick={async () => {
+      <div className="settings-actions"><button className="secondary-button" type="button" disabled={testing} onClick={async () => {
         setTesting(true)
         try {
           setResult(await testAlarm(settings))

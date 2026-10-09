@@ -146,7 +146,7 @@ describe('Status workflow and one authoritative active timer', () => {
   })
   it('keeps Enqueued duration fixed until its status badge starts the job', () => {
     const queue = queued()
-    expect(() => changeBuildTimer(queue,'a',adjustCraftTimerMinutes(queue[0].timer,-1))).toThrow('Start this Build')
+    expect(() => changeBuildTimer(queue,'a',adjustCraftTimerMinutes(queue[0].timer,-1))).toThrow('Start this Activity')
     expect(queue[0].timer.remainingMs).toBe(queue[0].timer.originalDurationMs)
   })
   it('does not reset started work back to Enqueued through timer controls', () => {
@@ -226,7 +226,7 @@ describe('Order, notes, history, and deletion', () => {
   it('renders terminal and blocked badges correctly, without circular status controls', () => {
     const queue = active(), toggle = vi.fn()
     const blocked = renderToStaticMarkup(createElement(BuildStatusBadge,{ build: queue[1],blocked: true,onToggle: toggle }))
-    expect(blocked).toContain('disabled'); expect(blocked).toContain('Pause the current Build first')
+    expect(blocked).toContain('disabled'); expect(blocked).toContain('Pause the current Activity first')
     const completed = tickBuildQueue(queue,9999999)[0]
     const markup = renderToStaticMarkup(createElement(BuildStatusBadge,{ build: completed,blocked: false,onToggle: toggle }))
     expect(markup).toContain('<span'); expect(markup).not.toContain('<button')
@@ -289,7 +289,8 @@ describe('Queue persistence and deadline restoration', () => {
 
  describe('Confirmed switch to a queued Build', () => {
   it('preserves the active remaining time, moves the target to the top and starts it', () => {
-    const next = startBuildAtTop(active(),'b',62000)
+    const original=active();expect(()=>startBuildAtTop(original,'b',62000)).toThrow(ACTIVE_BUILD_MESSAGE)
+    const next = startBuildAtTop(toggleBuildStatus(original,'a',62000),'b',62000)
     expect(next.map(b => b.id)).toEqual(['b','a'])
     expect(next[0].status).toBe('Working')
     expect(next[1].status).toBe('Paused')
@@ -299,7 +300,8 @@ describe('Queue persistence and deadline restoration', () => {
   it('resumes a paused target with its preserved time', () => {
     const paused = toggleBuildStatus(active(),'a',62000)
     const other = toggleBuildStatus(paused,'b',63000)
-    const next = startBuildAtTop(other,'a',64000)
+    expect(()=>startBuildAtTop(other,'a',64000)).toThrow(ACTIVE_BUILD_MESSAGE)
+    const next = startBuildAtTop(toggleBuildStatus(other,'b',64000),'a',64000)
     expect(next[0].id).toBe('a')
     expect(next[0].timer.remainingMs).toBe(next[0].timer.originalDurationMs - 60000)
     expect(next[1].status).toBe('Paused')
@@ -328,7 +330,7 @@ describe('Blueprint Build action', () => {
     const paused = toggleBuildStatus(active(),'a',62000)
     expect(enqueueBlueprintBuild(paused,blueprint,defaults(),63000,'new').at(-1)?.status).toBe('Enqueued')
     const completed = tickBuildQueue([active()[0]],99999999)
-    expect(enqueueBlueprintBuild(completed,blueprint,defaults(),99999999,'new').at(-1)?.status).toBe('Enqueued')
+    expect(enqueueBlueprintBuild(completed,blueprint,defaults(),99999999,'new').find(build=>build.id==='new')?.status).toBe('Working')
   })
 })
 

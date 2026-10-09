@@ -26,6 +26,24 @@
   --color-warning: #d1a72c;
   --color-danger: #a84b3f;
 
+  --color-accent: var(--color-rust-light);
+  --color-primary: #d65f32;
+  --color-primary-hover: #e37045;
+  --color-primary-text: #151713;
+  --color-selection: var(--color-hazard);
+  --color-neutral: #aaa79f;
+  --color-neutral-tint: rgba(170,167,159,.12);
+  --color-success-text: #c6edaf;
+  --color-success-tint: #273e20;
+  --color-warning-tint: rgba(214,163,61,.12);
+  --color-paused: #c6d9e5;
+  --color-paused-tint: #263641;
+  --color-sell: #67e8f9;
+  --color-sell-tint: rgba(34,211,238,.16);
+  --color-danger-text: #f5b2a0;
+  --control-radius: 6px;
+  --panel-radius: 8px;
+  --control-height: 44px;
   /* Shape */
   --border-radius: 3px;
 }

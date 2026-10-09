@@ -5,16 +5,20 @@ import { addBuild, adjustBuildTimerMinutes, createBuildCompletionTracker, toggle
 import { allBlueprints } from '../blueprints/blueprints'
 import { resolveEconomicsSettings } from '../../economics/EconomicsSettings'
 import { loadBuildQueue, saveBuildQueue } from './BuildQueueRepository'
-import TimerConfiguration from '../../components/TimerConfiguration/TimerConfiguration'
 import CraftTimer from '../../components/CraftTimer/CraftTimer'
 const blueprint = allBlueprints.find(b => b.name === 'AA Blade')!
 const working = () => addBuild([],blueprint,resolveEconomicsSettings(),true,1000,'first')
 describe('timer configuration', () => {
-  it('opening the selected configuration does not modify or apply timer state', () => {
-    const build = working()[0], before = structuredClone(build), apply = vi.fn(), close = vi.fn()
-    const html = renderToStaticMarkup(createElement(TimerConfiguration,{build,onApply:apply,onClose:close}))
-    expect(html).toContain('AA Blade'); expect(html).toContain('>Cancel</button>')
-    expect(html).toContain('Working'); expect(apply).not.toHaveBeenCalled(); expect(build).toEqual(before)
+  it('opening the full Timer page preserves state and exposes direct minute adjustments', () => {
+    const build=working()[0], before=structuredClone(build), change=vi.fn()
+    const html=renderToStaticMarkup(createElement(CraftTimer,{timer:build.timer,onChange:change}))
+    expect(html).toContain('AA Blade')
+    expect(html).toContain('aria-label="Add one minute"')
+    expect(html).toContain('aria-label="Remove one minute"')
+    expect(html).not.toContain('<dialog')
+    expect(html).not.toContain('>Apply</button>')
+    expect(html).not.toContain('>Timer Settings</button>')
+    expect(change).not.toHaveBeenCalled();expect(build).toEqual(before)
   })
   it('adds and subtracts from elapsed running time, keeping it Working', () => {
     const queue = working()

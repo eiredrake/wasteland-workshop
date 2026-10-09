@@ -186,7 +186,7 @@ function CraftTimer({
   return (
     <section className="craft-timer">
       <div className="craft-timer-heading">
-        <span>Craft Timer</span>
+        <span>Timer</span>
 
         {timer.label && (
           <strong>{timer.label}</strong>
@@ -198,7 +198,7 @@ function CraftTimer({
         {...(onSettings && !readOnly ? gesture : {})}
         role={onSettings && !readOnly ? 'button' : undefined}
         tabIndex={onSettings && !readOnly ? 0 : undefined}
-        aria-label={onSettings && !readOnly ? 'Craft timer. Hold or press F2 for timer settings.' : undefined}
+        aria-label={onSettings && !readOnly ? 'Timer. Hold or press F2 for timer settings.' : undefined}
         onKeyDown={event => { if (!onSettings || readOnly) return; if (event.key === 'F2') { event.preventDefault(); onSettings() } else if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onSettings() } }}
         style={{
           '--timer-progress': `${progressDegrees}deg`,
@@ -216,13 +216,13 @@ function CraftTimer({
               : timer.status === 'paused'
                 ? 'Stopped'
                 : timer.status === 'running'
-                  ? 'Crafting'
+                  ? 'Working'
                   : 'Ready'}
           </span>
         </div>
       </div>
 
-      {onSettings && !readOnly && <button type="button" onClick={onSettings}>Timer Settings</button>}
+      {onSettings && !readOnly && <button type="button" className="secondary-button" onClick={onSettings}>Timer Settings</button>}
       <div className="craft-timer-adjustments">
         <button
           type="button"

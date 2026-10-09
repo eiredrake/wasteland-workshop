@@ -34,7 +34,7 @@ afterEach(()=>vi.unstubAllGlobals())
 describe('Full portable backup',()=>{
   it('exports every persisted domain, preferences and active IDs with explicit metadata',()=>{
     const store=populated(),before=[...store.values],backup=createBackup(store,new Date(time+1000))
-    expect(backup).toMatchObject({format:BACKUP_FORMAT,schemaVersion:2,appVersion:expect.any(String),exportedAt:'2026-10-08T12:00:01.000Z'})
+    expect(backup).toMatchObject({format:BACKUP_FORMAT,schemaVersion:3,appVersion:expect.any(String),exportedAt:'2026-10-08T12:00:01.000Z'})
     expect(backup.data.settings).toMatchObject({economicsOverrides:{mindCostPerPoint:0},alarm:{sound:false,vibration:false},warehouse:{expirationWarningDays:0}})
     expect(backup.data.blueprintCollections.activeCollectionId).toBe('collection-a')
     expect(backup.data.shoppingLists.activeListId).toBe('list-a')
@@ -81,7 +81,7 @@ describe('Full portable backup',()=>{
   })
   it('passes v1 through the migration boundary and rejects unknown sections and future versions',()=>{
     const backup=createBackup(memory(),new Date(time));expect(migrateBackup(backup)).toEqual(backup)
-    expect(()=>migrateBackup({...backup,schemaVersion:3})).toThrow('Unsupported')
+    expect(()=>migrateBackup({...backup,schemaVersion:4})).toThrow('Unsupported')
     expect(()=>migrateBackup({...backup,data:{...backup.data,futureData:[]}})).toThrow('Unrecognized')
   })
   it.each(['{bad','{}','[]','{"format":"other","schemaVersion":1}'])('rejects invalid files before changing storage: %s',json=>{
@@ -109,7 +109,7 @@ describe('Additional compatibility coverage',()=>{
   it('preserves unknown shopping choices and unknown Build references through stored reload',()=>{
     const backup=createBackup(populated(),new Date(time))
     backup.data.shoppingLists.lists[0].items.push({kind:'requirement',resourceId:99999998,name:'Old choice',quantity:2,acquired:false,requirement:{kind:'choice',selectorId:99999998,label:'Old choice',options:[{id:99999997,name:'Old herb',kind:'named_herb'}]}})
-    backup.data.buildQueue.builds[0].blueprintId=99999999
+    backup.data.buildQueue.builds[0].blueprintId=99999999;backup.data.buildQueue.builds[0].sourceId=99999999
     const destination=memory();restoreBackup(backup,destination)
     expect(createBackup(destination).data).toEqual(backup.data)
   })

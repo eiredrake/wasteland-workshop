@@ -1,3 +1,5 @@
+import RemoveBadge from '../../components/RemoveBadge/RemoveBadge'
+import SearchInput from '../../components/SearchInput/SearchInput'
 import { DEFAULT_EXPIRATION_WARNING_DAYS } from '../settings/WarehouseSettings'
 import { expirationStatus, lotKey } from './Expiration'
 import { useCalendarDay } from './useCalendarDay'
@@ -7,7 +9,7 @@ import { inventoryCatalog, inventoryItemById, type InventoryItem } from './Inven
 import { addInventoryQuantity, changeInventoryExpiration, changeCredits, setInventoryQuantity, subtractInventoryQuantity } from './WarehouseService'
 import type { Warehouse } from './Warehouse'
 import './WarehouseView.css'
-const count=(value:number) => value.toLocaleString(undefined,{maximumFractionDigits:6})
+import { formatCredits } from '../../economics/Credits'
 export default function WarehouseView({warehouse,apply,error,warningDays=DEFAULT_EXPIRATION_WARNING_DAYS}: {
   warningDays?:number; warehouse:Warehouse; apply:(operation:(warehouse:Warehouse)=>Warehouse)=>boolean; error:string
 }) {
@@ -29,7 +31,7 @@ export default function WarehouseView({warehouse,apply,error,warningDays=DEFAULT
     <h2>Warehouse</h2><p>What you have on hand. Inventory changes only when you update it here.</p>
     {error && <p role="alert">{error}</p>}
     <fieldset disabled={!!error} className="warehouse-controls">
-      <section className="warehouse-credits"><h3>Credits on hand</h3><strong className="warehouse-balance">{count(warehouse.credits)} cr</strong>
+      <section className="warehouse-credits"><h3>Credits on hand</h3><strong className="warehouse-balance">{formatCredits(warehouse.credits)}</strong>
         <form onSubmit={event=>{event.preventDefault();updateCredits('set')}}>
           <label htmlFor="warehouse-credits">Credits amount</label><input id="warehouse-credits" type="number" inputMode="decimal" min="0" step="any" value={credits} onChange={event=>setCredits(event.target.value)} />
           <div className="warehouse-actions"><button className="secondary-button" type="submit" disabled={!credits.trim()}>Set Credits</button>
@@ -43,7 +45,7 @@ export default function WarehouseView({warehouse,apply,error,warningDays=DEFAULT
         {selected?.kind!=='currency'&&<><label htmlFor="warehouse-add-expiration">Expiration date</label><input id="warehouse-add-expiration" type="date" value={expirationDate} onChange={event=>setExpirationDate(event.target.value)} required /><p className="warehouse-hint">Use the date on the item. Matching items and dates merge into one row.</p></>}
         <button className="primary-button" type="submit" disabled={!selected||!quantity.trim()||Number(quantity)<=0||(selected.kind!=='currency'&&!expirationDate)}>Add to Warehouse</button>
       </form>
-      <div className="warehouse-filters"><div><label htmlFor="warehouse-search">Search inventory</label><input id="warehouse-search" type="search" value={search} onChange={event=>setSearch(event.target.value)} placeholder="Find what you own…" /></div>
+      <div className="warehouse-filters"><SearchInput id="warehouse-search" label="Search inventory" showLabel value={search} onValueChange={setSearch} placeholder="Find what you own…"/>
         <div><label htmlFor="warehouse-expiration-filter">Expiration</label><select id="warehouse-expiration-filter" value={expirationFilter} onChange={event=>setExpirationFilter(event.target.value)}><option>Unexpired</option><option>Expired</option><option>All</option></select></div>
         <div><label htmlFor="warehouse-category">Type</label><select id="warehouse-category" value={category} onChange={event=>setCategory(event.target.value)}><option value="All">All types</option><option>Resources</option><option>Items</option></select></div>
         <div><label htmlFor="warehouse-sort">Sort by</label><select id="warehouse-sort" value={sort} onChange={event=>setSort(event.target.value)}><option>Name</option><option>Expiration: soonest first</option><option>Expiration: latest first</option></select></div>
@@ -56,9 +58,9 @@ export default function WarehouseView({warehouse,apply,error,warningDays=DEFAULT
         <div className="warehouse-quantity"><label htmlFor={'warehouse-quantity-'+lotKey(row.itemId,row.expirationDate)}>On hand</label><input key={row.quantity} id={'warehouse-quantity-'+lotKey(row.itemId,row.expirationDate)} aria-label={'Quantity on hand: '+row.item.name+' ('+(row.expirationDate??'undated')+')'} type="number" min="0" step="any" inputMode="decimal" defaultValue={row.quantity}
           onKeyDown={event=>{if(event.key==='Enter'){event.preventDefault();event.currentTarget.blur()}}}
           onBlur={event=>{const value=event.currentTarget.value;if(!value.trim()||!apply(current=>setInventoryQuantity(current,row.itemId,Number(value),row.expirationDate))) event.currentTarget.value=String(row.quantity)}} /></div>
-        <div className="warehouse-actions"><button type="button" className="blueprint-access-status blueprint-access-status-acquired warehouse-remove" aria-label={'Subtract one '+row.item.name+' ('+(row.expirationDate??'undated')+')'} disabled={row.quantity<1} onClick={()=>apply(current=>subtractInventoryQuantity(current,row.itemId,1,row.expirationDate))}>−1</button>
-          <button type="button" className="blueprint-access-status blueprint-access-status-acquired warehouse-remove" aria-label={'Add one '+row.item.name+' ('+(row.expirationDate??'undated')+')'} onClick={()=>apply(current=>addInventoryQuantity(current,row.itemId,1,row.expirationDate))}>+1</button>
-          <button type="button" className="blueprint-access-status blueprint-access-status-untracked warehouse-remove" aria-label={'Remove '+row.item.name+' ('+(row.expirationDate??'undated')+')'} onClick={()=>apply(current=>setInventoryQuantity(current,row.itemId,0,row.expirationDate))}>X</button></div>
+        <div className="warehouse-actions"><button type="button" className="blueprint-access-status blueprint-access-status-acquired warehouse-remove" aria-label={'Subtract one '+row.item.name+' ('+(row.expirationDate??'undated')+')'} disabled={row.quantity<1} onClick={()=>apply(current=>subtractInventoryQuantity(current,row.itemId,1,row.expirationDate))}>−</button>
+          <button type="button" className="blueprint-access-status blueprint-access-status-acquired warehouse-remove" aria-label={'Add one '+row.item.name+' ('+(row.expirationDate??'undated')+')'} onClick={()=>apply(current=>addInventoryQuantity(current,row.itemId,1,row.expirationDate))}>+</button>
+          <RemoveBadge label={'Remove '+row.item.name+' ('+(row.expirationDate??'undated')+')'} onClick={()=>apply(current=>setInventoryQuantity(current,row.itemId,0,row.expirationDate))}/></div>
       </li>)}</ul>
       {!rows.length&&<p>{warehouse.entries.length?'No matching inventory.':'Your Warehouse is empty. Add what you own above.'}</p>}
       <p className="warehouse-hint">Edit On hand to set a quantity. Edit a date to merge it with any matching lot. Undated older inventory needs a date before it counts toward crafting. Zero removes the row. Adding or removing items does not change Credits.</p>

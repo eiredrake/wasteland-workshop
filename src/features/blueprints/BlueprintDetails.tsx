@@ -17,7 +17,7 @@ import { calculateBlueprintCost } from '../../economics/BlueprintCostService'
 import './BlueprintDetails.css'
 import BlueprintShoppingAction, { type BlueprintShoppingProps } from '../shopping/BlueprintShoppingAction'
 
-const formatCredits = (value: number | undefined) => value === undefined ? 'Unknown' : value.toLocaleString(undefined, { maximumFractionDigits: 4 })
+import { formatCreditAmount as formatCredits } from '../../economics/Credits'
 
 type BlueprintDetailsProps = {
   warehouse?: Warehouse

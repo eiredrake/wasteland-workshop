@@ -44,16 +44,16 @@
   box-sizing: border-box;
   width: 100%;
   padding: 0.7rem 0.85rem;
-  border: 1px solid #4b4b43;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
-  background: #22231f;
-  color: #f0e6d2;
+  background: var(--color-surface);
+  color: var(--color-text);
   font: inherit;
 }
 
 .blueprint-collection-add input:focus {
   outline: none;
-  border-color: #d65f32;
+  border-color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(214, 95, 50, 0.18);
 }
 
@@ -83,8 +83,8 @@
 }
 
 .blueprint-collection-card-active {
-  border-color: #d65f32;
-  box-shadow: inset 4px 0 0 #d65f32;
+  border-color: var(--color-primary);
+  box-shadow: inset 4px 0 0 var(--color-primary);
 }
 
 .blueprint-collection-card-header {
@@ -106,9 +106,9 @@
 
 .blueprint-collection-active-badge {
   padding: 0.3rem 0.6rem;
-  border: 1px solid #d65f32;
+  border: 1px solid var(--color-primary);
   border-radius: 999px;
-  color: #e37045;
+  color: var(--color-primary-hover);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.06em;

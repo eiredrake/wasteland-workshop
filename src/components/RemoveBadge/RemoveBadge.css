@@ -1,0 +1,4 @@
+button.remove-badge { display:inline-grid; place-items:center; flex:0 0 44px; width:44px; height:44px; min-height:44px; padding:0; border:0; background:transparent; border-radius:50%; color:var(--color-neutral); font:inherit; font-size:.75rem; font-weight:700; }
+.remove-badge span { display:grid; place-items:center; box-sizing:border-box; width:44px; height:44px; border:1px solid var(--color-neutral); border-radius:50%; background:var(--color-neutral-tint); }
+.remove-badge-compact span { width:32px; height:32px; }
+.remove-badge:hover:not(:disabled) span { background:var(--color-hover); border-color:var(--color-text-muted); }

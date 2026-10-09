@@ -104,8 +104,8 @@ function BlueprintCraftTimer({
       onKeyDown={event => { if (onSettings && event.key === 'F2') { event.preventDefault(); onSettings() } }}
       disabled={blocked && !onSettings}
       aria-disabled={blocked || undefined}
-      title={blocked ? "Pause the current Build before starting another." : onSettings ? "Tap to pause/resume. Hold or press F2 for timer settings." : "Create a Build and start crafting now"}
-      aria-label={actionLabel ?? (blocked ? 'Pause the current Build before starting ' + blueprintName : 'Start ' + minutes + ' minute craft timer for ' + blueprintName)}
+      title={blocked ? "Pause the current Activity before starting another." : onSettings ? "Tap to pause/resume. Hold or press F2 for timer settings." : "Create a Build and start crafting now"}
+      aria-label={actionLabel ?? (blocked ? 'Pause the current Activity before starting ' + blueprintName : 'Start ' + minutes + ' minute craft timer for ' + blueprintName)}
       style={{
         '--timer-progress': `${progressDegrees}deg`,
         '--timer-color': timerColor,

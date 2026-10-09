@@ -1,3 +1,5 @@
+import { formatCreditAmount } from '../../economics/Credits'
+import SearchInput from '../../components/SearchInput/SearchInput'
 import { useState } from 'react'
 import { defaultEconomicsSettings, resolveEconomicsSettings, validEconomicValue,
   type EconomicSetting, type EconomicsOverrides } from '../../economics/EconomicsSettings'
@@ -59,19 +61,20 @@ export default function EconomicsSettingsView({ currentOverrides, onSave }: {
   const effective = resolveEconomicsSettings(overrides)
   const calculator = new DefaultCostCalculator(overrides)
   const field = (key: string, label: string, unit: string, defaultValue: number | undefined, effectiveValue: number | undefined) => {
+    const displayValue = key.startsWith('resource-') || key === 'foragingCardCost' ? formatCreditAmount : formatValue
     const text = draft[key] ?? ''
     const hasOverride = text.trim() !== ''
     const error = hasOverride && !validEconomicValue(Number(text))
     return <div className="settings-row economics-value-row" key={key}>
       <div><label htmlFor={`economic-${key}`}>{label}</label>
         <p className="economics-value-summary" id={`economic-${key}-summary`}>
-          Default: {formatValue(defaultValue)} · Effective: {error ? 'Invalid' : formatValue(effectiveValue)} {unit}
+          Default: {displayValue(defaultValue)} · Effective: {error ? 'Invalid' : displayValue(effectiveValue)} {unit}
           <br />{error ? 'Enter a non-negative number.' : hasOverride ? 'User override' : defaultValue === undefined ? 'No shipped valuation; enter a value if known.' : 'Using application default'}
         </p>
       </div>
-      <div className="settings-input economics-override-input">
+      {error&&<p role="alert" id={`economic-${key}-error`}>Enter a non-negative number.</p>}<div className="settings-input economics-override-input">
         <input id={`economic-${key}`} type="number" inputMode="decimal" min="0" max={Number.MAX_SAFE_INTEGER} step="any"
-          aria-describedby={`economic-${key}-summary`} aria-invalid={error || undefined}
+          aria-describedby={`economic-${key}-summary` + (error ? ` economic-${key}-error` : '')} aria-invalid={error || undefined}
           placeholder={defaultValue === undefined ? 'Unknown' : String(defaultValue)} value={text}
           onChange={event => setDraft({ ...draft, [key]: event.target.value })} />
         <button type="button" className="secondary-button" disabled={!hasOverride} aria-label={`Reset ${label} to default`}
@@ -81,7 +84,7 @@ export default function EconomicsSettingsView({ currentOverrides, onSave }: {
   }
 
   return <section className="settings-page economics-settings-page">
-    <div className="settings-header"><h2>Economics Settings</h2>
+    <div className="settings-header"><h3>Economics Settings</h3>
       <p>Override the values used throughout Wasteland Workshop. Leave an override blank or reset it to use the default.</p>
     </div>
     <EconomicsValuationExplanation overrides={overrides} invalid={invalid} />
@@ -92,9 +95,7 @@ export default function EconomicsSettingsView({ currentOverrides, onSave }: {
       </div>)}
       <div className="economics-resource-valuations"><h3>Resource Valuations</h3>
         <p className="economics-note">Ayden’s Econtism defaults are fixed resource values used for blueprint materials and shopping estimates. Acquisition costs are separate. Save an override to use your value throughout the app; reset it to restore the application default. Unmapped resources remain unknown.</p>
-        <label htmlFor="economic-resource-filter">Find a resource value</label>
-        <input className="economics-resource-filter" id="economic-resource-filter" type="search" value={filter}
-          placeholder="Herbs, scrap, crystals…" onChange={event => setFilter(event.target.value)} />
+        <SearchInput id="economic-resource-filter" label="Find a resource value" showLabel value={filter} onValueChange={setFilter} placeholder="Herbs, scrap, crystals…"/>
         {valuationGroups.map(group => {
           const resources = definitions.filter(resource => valuationGroup(resource.itemId) === group.key
             && resource.name.toLowerCase().includes(filter.trim().toLowerCase()))

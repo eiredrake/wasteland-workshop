@@ -1,3 +1,4 @@
+import BackButton from '../BackButton/BackButton'
 import {
   useEffect,
   useRef,
@@ -247,13 +248,7 @@ function Datalist<T>({
   ) {
     return (
       <section className="datalist datalist-details">
-        <button
-          type="button"
-          className="datalist-back"
-          onClick={handleBack}
-        >
-          ← {backLabel}
-        </button>
+        <BackButton onClick={handleBack}>{backLabel}</BackButton>
 
         {renderDetails(selectedItem)}
       </section>

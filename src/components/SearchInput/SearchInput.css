@@ -1,0 +1,8 @@
+ .search-input { width:100%; max-width:32rem; margin-bottom:1.25rem; min-width:0; }
+.search-input-field { position:relative; }
+.search-input input { width:100%; padding-right:5.5rem; }
+.search-input input::-webkit-search-cancel-button { appearance:none; }
+.search-input-icon { position:absolute; right:1rem; top:50%; width:.8rem; height:.8rem; border:2px solid var(--color-text-muted); border-radius:50%; transform:translateY(-60%); pointer-events:none; }
+.search-input-icon::after { content:''; position:absolute; right:-.35rem; bottom:-.2rem; width:.45rem; height:2px; background:var(--color-text-muted); transform:rotate(45deg); }
+button.search-input-clear { position:absolute; right:2.5rem; top:0; min-width:44px; height:44px; padding:0; border:0; background:transparent; color:var(--color-neutral); }
+.search-input label { display:block; margin-bottom:.35rem; }

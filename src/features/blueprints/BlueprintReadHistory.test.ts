@@ -1,7 +1,7 @@
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it, vi } from 'vitest'
-import { loadReadHistory, saveReadHistory, markBlueprintRead, READ_HISTORY_KEY } from './BlueprintReadHistory'
+import { loadReadHistory, saveReadHistory, markBlueprintRead, markBlueprintsRead, READ_HISTORY_KEY } from './BlueprintReadHistory'
 import { BlueprintReadContext } from './useBlueprintReadHistory'
 import BlueprintName from '../../components/BlueprintName/BlueprintName'
 import BlueprintDetails from './BlueprintDetails'
@@ -31,6 +31,20 @@ describe('Blueprint read history', () => {
   expect(markBlueprintRead(next,4403,storage)).toBe(next); expect(setItem).toHaveBeenCalledOnce()
   expect(loadReadHistory(storage)).toEqual(next)
  })
+ it('marks a current catalog snapshot in one write, preserving history and future unread IDs', () => {
+  const storage=memory(), write=vi.spyOn(storage,'setItem'), original=[99999999,4403]
+  const updated=markBlueprintsRead(original,[4403,4439,4447],storage)
+  expect(updated).toEqual([99999999,4403,4439,4447]); expect(original).toEqual([99999999,4403])
+  expect(write).toHaveBeenCalledOnce(); expect(loadReadHistory(storage)).toEqual(updated)
+  expect(updated.includes(55555555)).toBe(false)
+  expect(markBlueprintsRead(updated,[4403,4439,4447],storage)).toBe(updated)
+  expect(write).toHaveBeenCalledOnce()
+ })
+ it('bulk marking does not change history when saving fails', () => {
+  const original=[4403], storage={...memory(),setItem:()=>{throw new Error('Quota')}}
+  expect(()=>markBlueprintsRead(original,[4439],storage)).toThrow('Quota')
+  expect(original).toEqual([4403])
+ })
  it('reports failed persistence and does not change the input history', () => {
   const input=[4439], storage={...memory(),setItem:()=>{throw new Error('Quota')}}
   expect(()=>markBlueprintRead(input,4403,storage)).toThrow('Quota'); expect(input).toEqual([4439])
@@ -53,7 +67,7 @@ describe('Blueprint read history', () => {
  it('exports and restores read history with replacement rather than merging', () => {
   const source=memory(), destination=memory(); saveReadHistory([4403,99999999],source); saveReadHistory([4439],destination)
   const backup=createBackup(source)
-  expect(backup.schemaVersion).toBe(2); expect(backup.data.blueprintReadHistory.readIds).toEqual([4403,99999999])
+  expect(backup.schemaVersion).toBe(3); expect(backup.data.blueprintReadHistory.readIds).toEqual([4403,99999999])
   restoreBackup(backup,destination); expect(loadReadHistory(destination)).toEqual([4403,99999999])
  })
  it('migrates legacy backups to empty history and clears destination history', () => {

@@ -2,7 +2,7 @@
   width: min(100%, 420px);
   padding: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  border-left: 4px solid #d65f32;
+  border-left: 4px solid var(--color-primary);
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.22);
 }
@@ -16,7 +16,7 @@
 }
 
 .craft-timer-heading > span {
-  color: #e37045;
+  color: var(--color-primary-hover);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -24,7 +24,7 @@
 }
 
 .craft-timer-heading > strong {
-  color: #f0e6d2;
+  color: var(--color-text);
   font-size: 1.1rem;
 }
 
@@ -62,7 +62,7 @@
 }
 
 .craft-timer-time {
-  color: #f0e6d2;
+  color: var(--color-text);
   font-size: 2.2rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
@@ -71,7 +71,7 @@
 
 .craft-timer-status {
   margin-top: 0.35rem;
-  color: #aaa79f;
+  color: var(--color-neutral);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -93,10 +93,10 @@
 .craft-timer-controls button {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid #d65f32;
+  border: 1px solid var(--color-primary);
   border-radius: 5px;
   background: #2b2c27;
-  color: #f0e6d2;
+  color: var(--color-text);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
@@ -131,7 +131,7 @@
 }
 
 .craft-timer-adjustments > span {
-  color: #aaa79f;
+  color: var(--color-neutral);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -143,10 +143,10 @@
   width: 64px;
   height: 52px;
   padding: 0;
-  border: 1px solid #d65f32;
+  border: 1px solid var(--color-primary);
   border-radius: 6px;
   background: #2b2c27;
-  color: #f0e6d2;
+  color: var(--color-text);
   font-size: 1.8rem;
   font-weight: 700;
   line-height: 1;
@@ -157,7 +157,7 @@
 
 .craft-timer-adjustments button:hover {
   background: #373832;
-  border-color: #e37045;
+  border-color: var(--color-primary-hover);
 }
 
 .craft-timer-adjustments button:active {

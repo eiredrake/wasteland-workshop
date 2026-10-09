@@ -26,3 +26,6 @@ dist-ssr
 # Shared toolbar task bindings
 !.vscode/tasks.json
 tools\juno-import\raw\*
+
+# Visual test candidates never replace reviewed baselines automatically.
+tests/visual/actual/

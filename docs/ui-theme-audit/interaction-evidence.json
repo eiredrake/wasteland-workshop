@@ -1,0 +1,72 @@
+[
+  {
+    "size": "desktop",
+    "back": {
+      "borderWidth": "0px",
+      "outline": "rgb(255, 255, 255) none 3px",
+      "background": "rgba(0, 0, 0, 0)",
+      "accent": ""
+    }
+  },
+  {
+    "size": "desktop",
+    "overflow": {
+      "width": 1280,
+      "scroll": 1280,
+      "elements": []
+    }
+  },
+  {
+    "size": "mobile",
+    "back": {
+      "borderWidth": "0px",
+      "outline": "rgb(255, 255, 255) none 3px",
+      "background": "rgba(0, 0, 0, 0)",
+      "accent": ""
+    }
+  },
+  {
+    "size": "mobile",
+    "overflow": {
+      "width": 390,
+      "scroll": 411,
+      "elements": [
+        {
+          "tag": "SECTION",
+          "class": "craft-timer",
+          "width": 395
+        },
+        {
+          "tag": "DIV",
+          "class": "craft-timer-heading",
+          "width": 358
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "width": 358
+        },
+        {
+          "tag": "STRONG",
+          "class": "",
+          "width": 358
+        },
+        {
+          "tag": "DIV",
+          "class": "craft-timer-adjustments",
+          "width": 358
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "width": 64
+        },
+        {
+          "tag": "P",
+          "class": "craft-timer-alarm-note",
+          "width": 358
+        }
+      ]
+    }
+  }
+]

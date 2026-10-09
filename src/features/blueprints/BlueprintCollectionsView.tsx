@@ -1,3 +1,5 @@
+import RemoveBadge from '../../components/RemoveBadge/RemoveBadge'
+import ConfirmationDialog from '../../components/ConfirmationDialog/ConfirmationDialog'
 import {
   useRef,
   useState,
@@ -108,19 +110,8 @@ function BlueprintCollectionsView({
     URL.revokeObjectURL(url)
   }
 
-  const handleDeleteCollection = (
-    collection: BlueprintCollection
-  ) => {
-    const confirmed = window.confirm(
-      `Delete "${collection.name}"?\n\nThis cannot be undone.`
-    )
-
-    if (!confirmed) {
-      return
-    }
-
-    onDeleteCollection(collection.id)
-  }
+  const [deletingCollection,setDeletingCollection]=useState<BlueprintCollection>()
+  const handleDeleteCollection=(collection:BlueprintCollection)=>setDeletingCollection(collection)
 
   const isBlueprintAccessStatus = (
     value: unknown
@@ -452,24 +443,15 @@ function BlueprintCollectionsView({
                     Export
                   </button>
 
-                  <button
-                    type="button"
-                    className="secondary-button"
-                    onClick={() =>
-                      handleDeleteCollection(
-                        collection
-                      )
-                    }
-                  >
-                    Delete
-                  </button>
+                  <RemoveBadge label={`Delete collection ${collection.name}`} onClick={()=>handleDeleteCollection(collection)}/>
                 </div>
               </div>
             )
           })}
         </div>
       )}
-    </section>
+    {deletingCollection&&<ConfirmationDialog title="Delete Collection?" message={`Delete "${deletingCollection.name}"? This cannot be undone. Master Blueprints are kept.`} confirmLabel="Delete Collection" onCancel={()=>setDeletingCollection(undefined)} onConfirm={()=>{onDeleteCollection(deletingCollection.id);setDeletingCollection(undefined)}}/>}
+</section>
   )
 }
 

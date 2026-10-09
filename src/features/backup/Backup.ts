@@ -1,3 +1,4 @@
+import { isActionExecution } from '../actions/ActionService'
 import type { BlueprintCollection } from '../blueprints/BlueprintCollection'
 import type { ShoppingListState } from '../shopping/ShoppingList'
 import type { Warehouse } from '../warehouse/Warehouse'
@@ -21,7 +22,7 @@ export type BackupData = {
   settings: { economicsOverrides: EconomicsOverrides; alarm: AlarmSettings; warehouse: { expirationWarningDays: number } }
   buildQueue: { builds: BuildQueue }
 }
-export type Backup = { format: typeof BACKUP_FORMAT; schemaVersion: 2; appVersion: string; exportedAt: string; data: BackupData }
+export type Backup = { format: typeof BACKUP_FORMAT; schemaVersion: 3; appVersion: string; exportedAt: string; data: BackupData }
 export function object(value: unknown): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('Expected a data object.')
   return value as Record<string, unknown>
@@ -50,10 +51,13 @@ function ingredient(value: unknown, depth = 0) {
     const row = object(child); if ('id' in row) check(validId(row.id), 'Malformed ingredient classification ID.'); ingredient(row.childItem, depth + 1)
   }
 }
-function build(value: unknown) {
+export function validateActivity(value: unknown) {
   const data = object(value)
-  keys(data, ['id','blueprintId','blueprintName','recipe','economicSnapshot','overrides','notes','status','timer','createdAt','startedAt','completedAt'])
-  text(data.id); check(validId(data.blueprintId), 'Malformed Build Blueprint ID.'); text(data.blueprintName); text(data.notes, true)
+  keys(data, ['id','blueprintId','blueprintName','recipe','economicSnapshot','overrides','notes','status','timer','createdAt','startedAt','completedAt','sourceType','sourceId','sourceVersion','actionSnapshot'])
+  text(data.id);
+  if(data.sourceType==='Action') { check(data.blueprintId===undefined,'Actions cannot have a Blueprint ID.'); check(typeof data.sourceId==='string'&&data.sourceId.length>0&&isActionExecution(data.actionSnapshot),'Malformed Action execution snapshot.'); const execution=data.actionSnapshot as import('../actions/Action').ActionExecution; check(data.sourceId===execution.definition.id&&data.sourceVersion===execution.definition.version,'Action source does not match its snapshot.') }
+  else { check(data.sourceType===undefined||data.sourceType==='Blueprint','Unsupported Activity source.'); check(validId(data.blueprintId), 'Malformed Build Blueprint ID.'); if(data.sourceId!==undefined)check(data.sourceId===data.blueprintId,'Blueprint source mismatch.'); check(data.actionSnapshot===undefined,'Blueprint cannot contain an Action snapshot.') }
+  if(data.sourceVersion!==undefined)check(typeof data.sourceVersion==='string'||validId(data.sourceVersion),'Invalid source version.'); text(data.blueprintName); text(data.notes, true)
   amount(data.createdAt); for (const key of ['startedAt','completedAt']) if (key in data) amount(data[key])
   overrides(data.overrides); overrides(data.economicSnapshot, true)
   const recipe = object(data.recipe); check(validId(recipe.id), 'Malformed recipe ID.')
@@ -70,6 +74,7 @@ function build(value: unknown) {
     text(item.lifetimeUnit, true)
     if (item.metadata !== undefined && item.metadata !== null) for (const value of Object.values(object(item.metadata))) check(value === null || typeof value === 'string' || typeof value === 'boolean' || validEconomicValue(value), 'Malformed product metadata.')
   }
+  if(data.sourceType==='Action'){const execution=data.actionSnapshot as import('../actions/Action').ActionExecution;check(recipe.craftingMindCost===execution.option.mind&&recipe.craftingTimeInMinute===execution.option.minutes&&recipe.craftingResolveCost===execution.option.resolve,'Resolved Action costs do not match its snapshot.')}
   const timer = object(data.timer); keys(timer, ['label','originalDurationMs','remainingMs','endTimeMs','status'])
   if ('label' in timer) text(timer.label, true)
   amount(timer.originalDurationMs); amount(timer.remainingMs)
@@ -122,7 +127,7 @@ export function validateData(value: unknown): BackupData {
   const settings = object(data.settings); keys(settings,['economicsOverrides','alarm','warehouse']); overrides(settings.economicsOverrides)
   const alarm = object(settings.alarm); keys(alarm,['sound','vibration']); check(typeof alarm.sound === 'boolean' && typeof alarm.vibration === 'boolean', 'Invalid alarm preferences.')
   const warehouseSettings = object(settings.warehouse); keys(warehouseSettings,['expirationWarningDays']); check(validWarningDays(warehouseSettings.expirationWarningDays), 'Invalid expiration warning days.')
-  const queue = object(data.buildQueue); keys(queue,['builds']); const builds = array(queue.builds); builds.forEach(build); unique(builds.map(value => object(value).id))
+  const queue = object(data.buildQueue); keys(queue,['builds']); const builds = array(queue.builds); builds.forEach(validateActivity); unique(builds.map(value => object(value).id))
   check(builds.filter(value => object(value).status === 'Working').length <= 1, 'More than one Working Build.')
   const history=object(data.blueprintReadHistory); keys(history,['readIds']); const readIds=array(history.readIds); check(readIds.every(validId),'Invalid Read Blueprint IDs.'); unique(readIds)
   return structuredClone(data) as BackupData
@@ -131,12 +136,15 @@ export function validateData(value: unknown): BackupData {
 export function migrateBackup(value: unknown): Backup {
   const backup = object(value); keys(backup,['format','schemaVersion','appVersion','exportedAt','data'])
   check(backup.format === BACKUP_FORMAT, 'This is not a full Wasteland Workshop backup.')
-  check(backup.schemaVersion === 1 || backup.schemaVersion === 2, 'Unsupported backup version. Update Wasteland Workshop before restoring it.')
+  check(backup.schemaVersion === 1 || backup.schemaVersion === 2 || backup.schemaVersion === 3, 'Unsupported backup version. Update Wasteland Workshop before restoring it.')
   text(backup.appVersion); text(backup.exportedAt)
   check(/^\d{4}-\d{2}-\d{2}T/.test(backup.exportedAt) && Number.isFinite(Date.parse(backup.exportedAt)), 'Invalid backup timestamp.')
   const data=object(backup.data)
-  if (backup.schemaVersion===1) { keys(data,['blueprintCollections','shoppingLists','warehouse','settings','buildQueue']); return {...backup,schemaVersion:2,data:validateData({...data,blueprintReadHistory:{readIds:[]}})} as Backup }
-  return {...backup,data:validateData(data)} as Backup
+  let migrated=data
+  if(backup.schemaVersion===1){keys(data,['blueprintCollections','shoppingLists','warehouse','settings','buildQueue']);migrated={...data,blueprintReadHistory:{readIds:[]}}}
+  const validated=validateData(migrated)
+  validated.buildQueue.builds=validated.buildQueue.builds.map(activity=>activity.sourceType?activity:{...activity,sourceType:'Blueprint',sourceId:activity.blueprintId})
+  return {...backup,schemaVersion:3,data:validated} as Backup
 }
 export function parseBackup(json: string): Backup {
   check(new Blob([json]).size <= MAX_BACKUP_BYTES, 'Backup is too large (maximum 20 MB).')
@@ -161,7 +169,7 @@ export function prepareRestore(backup: Backup) {
   for (const collection of data.blueprintCollections.collections) for (const entry of collection.entries) if (!blueprintIds.has(entry.blueprintId)) warnings.add(`Unknown Blueprint #${entry.blueprintId}: preserved.`)
   for (const entry of data.warehouse.entries) if (!inventoryItemById.has(entry.itemId)) warnings.add(`Unknown Item #${entry.itemId}: preserved.`)
   for (const list of data.shoppingLists.lists) for (const item of list.items) if (!inventoryItemById.has(item.resourceId) && !isSelectorId(item.resourceId)) warnings.add(`Unknown Resource #${item.resourceId}: preserved.`)
-  for (const build of data.buildQueue.builds) if (!blueprintIds.has(build.blueprintId)) warnings.add(`Build references unavailable Blueprint #${build.blueprintId}; history preserved.`)
+  for (const build of data.buildQueue.builds) if (build.sourceType!=='Action' && !blueprintIds.has(build.blueprintId!)) warnings.add(`Build references unavailable Blueprint #${build.blueprintId}; history preserved.`)
   if (data.blueprintCollections.activeCollectionId && !data.blueprintCollections.collections.some(collection=>collection.id===data.blueprintCollections.activeCollectionId)) {data.blueprintCollections.activeCollectionId=null;warnings.add('Unavailable active collection selection cleared.')}
   if (data.shoppingLists.activeListId && !data.shoppingLists.lists.some(list=>list.id===data.shoppingLists.activeListId)) {delete data.shoppingLists.activeListId;warnings.add('Unavailable active shopping list selection cleared.')}
   return {data,warnings:[...warnings]}

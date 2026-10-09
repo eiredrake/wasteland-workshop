@@ -1,3 +1,5 @@
+import RemoveBadge from '../../components/RemoveBadge/RemoveBadge'
+import ConfirmationDialog from '../../components/ConfirmationDialog/ConfirmationDialog'
 import { ingredientItems } from '../blueprints/IngredientCatalog'
 import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import ShoppingConfirmationDialog from './ShoppingConfirmationDialog'
@@ -14,7 +16,7 @@ import '../blueprints/BlueprintCollectionsView.css'
 import './ShoppingLists.css'
 
 const resourceCatalog = getResourceCatalog(allBlueprints, testResourceEconomics)
-const credits = (value: number | undefined) => value === undefined ? 'Unknown' : `${value.toLocaleString(undefined, { maximumFractionDigits: 2 })}cr`
+import { formatCredits as credits } from '../../economics/Credits'
 
 function AcquisitionControl({ item, onToggle, onRemove }: {
   item: ResourceShoppingItem; onToggle: () => void; onRemove: () => void
@@ -40,7 +42,7 @@ function AcquisitionControl({ item, onToggle, onRemove }: {
       onClick={() => { if (!held.current) onToggle(); held.current = false }}>
       {item.acquired ? 'Acquired' : 'Needed'}
     </button>
-    <button className="blueprint-access-status blueprint-access-status-untracked shopping-remove-badge" type="button" aria-label={`Remove ${item.name}`} title="Remove ingredient from this shopping list" onClick={onRemove}>X</button>
+    <RemoveBadge size="compact" label={`Remove ${item.name}`} title="Remove ingredient from this shopping list" onClick={onRemove}/>
   </div>
 }
 
@@ -52,6 +54,7 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
   onUpdateBlueprint: (id: number, name: string, status: BlueprintAccessStatus | undefined) => void
   notify: (message: string, error?: boolean) => void
 }) {
+  const [deletingList,setDeletingList]=useState<string>()
   const [pendingResource, setPendingResource] = useState<{ item: ResourceShoppingItem; listId: string }>()
   const [pendingBlueprint, setPendingBlueprint] = useState<BlueprintAcquisitionItem>()
   const [adding, setAdding] = useState(false)
@@ -124,9 +127,7 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
             document.body.appendChild(link); link.click(); link.remove()
             setTimeout(() => URL.revokeObjectURL(url), 1000)
           }}>Export</button>
-          <button type="button" className="secondary-button" onClick={() => {
-            if (window.confirm(`Delete "${list.name}"?\n\nThis cannot be undone. Blueprint Collection statuses are kept.`)) commit(deleteShoppingList(state, list.id), 'Shopping list deleted.')
-          }}>Delete</button>
+          <RemoveBadge label={`Delete list ${list.name}`} onClick={()=>setDeletingList(list.id)}/>
         </div>
       </div>)}
     </div>
@@ -178,12 +179,11 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
           { key: 'blueprintId', label: 'Acquisition', protected: true, render: item => <div className="shopping-row-actions shopping-status-badges">
             <button type="button" className="blueprint-access-status blueprint-access-status-to-acquire" aria-label={`Mark ${item.name} acquired`}
               onClick={() => onUpdateBlueprint(item.blueprintId, item.name, 'acquired')}>To Acquire</button>
-            <button type="button" className="blueprint-access-status blueprint-access-status-untracked shopping-remove-badge"
-              aria-label={`Stop tracking ${item.name}`} title="Remove from the active Blueprint Collection"
-              onClick={() => setPendingBlueprint(item)}>X</button>
+            <RemoveBadge size="compact" label={`Stop tracking ${item.name}`} title="Remove from the active Blueprint Collection" onClick={()=>setPendingBlueprint(item)}/>
           </div> },
         ]} />
     </section>
+    {deletingList&&<ConfirmationDialog title="Delete Shopping List?" message={`Delete "${state.lists.find(list=>list.id===deletingList)?.name}" and its resources? Blueprint Collection statuses are kept.`} confirmLabel="Delete List" onCancel={()=>setDeletingList(undefined)} onConfirm={()=>{if(commit(deleteShoppingList(state,deletingList),'Shopping list deleted.'))setDeletingList(undefined)}}/>}
     {pendingResource && <ShoppingConfirmationDialog title="Remove resource?"
       message={`Remove "${pendingResource.item.name}" from "${state.lists.find(list => list.id === pendingResource.listId)?.name ?? 'this shopping list'}"?`}
       onCancel={() => setPendingResource(undefined)} onConfirm={() => {

@@ -31,9 +31,9 @@ export default function BackupSettingsView() {
     try{await withRestoreLock(()=>restoreBackup(candidate));window.location.reload()}
     catch(error){setError(error instanceof Error?error.message:'Restore failed. Your previous data was kept.');setLoading(false)}
   }
-  return <section className="settings-page backup-settings"><div className="settings-card"><h2>Data Backup &amp; Restore</h2>
+  return <section className="settings-page backup-settings"><div className="settings-card"><h3>Data Backup &amp; Restore</h3>
     <p>Move your Wasteland Workshop data between devices or keep a complete backup. Files stay on your device unless you choose to share them.</p>
-    <p>Includes collections, shopping lists, inventory, settings, and Build Queue/history. Active work is paused in the backup copy; work on this device continues. Master catalogs stay separate.</p>
+    <p>Includes collections, shopping lists, inventory, settings, and Work Queue and Work History. Active work is paused in the backup copy; work on this device continues. Master catalogs stay separate.</p>
     <div className="backup-actions"><button className="primary-button" type="button" onClick={exportData}>Export All Data</button>
       {canShare&&<button className="secondary-button" type="button" onClick={()=>void shareData()}>Share Backup</button>}
     </div>
@@ -42,9 +42,9 @@ export default function BackupSettingsView() {
     {loading&&<p role="status">Checking backup…</p>}{message&&<p role="status">{message}</p>}{error&&<p role="alert">{error}</p>}
     {candidate&&prepared&&<section className="backup-confirmation" aria-label="Restore confirmation"><h3>Restore Wasteland Workshop Backup?</h3>
       <p>Backup from {new Date(candidate.exportedAt).toLocaleString()} · App {candidate.appVersion}</p>
-      <p>{prepared.data.blueprintCollections.collections.length} collections · {prepared.data.shoppingLists.lists.length} shopping lists · {prepared.data.warehouse.entries.length} inventory lots · {prepared.data.buildQueue.builds.length} Builds · {prepared.data.blueprintReadHistory.readIds.length} read Blueprints</p>
+      <p>{prepared.data.blueprintCollections.collections.length} collections · {prepared.data.shoppingLists.lists.length} shopping lists · {prepared.data.warehouse.entries.length} inventory lots · {prepared.data.buildQueue.builds.length} Activities · {prepared.data.blueprintReadHistory.readIds.length} read Blueprints</p>
       <p className="backup-replace-warning">Restoring will replace all Wasteland Workshop data in this browser with this backup.</p>
-      <p>Save your current data first if you want to keep it. Close other Wasteland Workshop tabs before restoring. Active Builds restore paused. Unavailable catalog references are preserved.</p>
+      <p>Save your current data first if you want to keep it. Close other Wasteland Workshop tabs before restoring. Active Activities restore paused. Unavailable catalog references are preserved.</p>
       {prepared.warnings.length>0&&<details><summary>{prepared.warnings.length} catalog or selection notices</summary><ul>{prepared.warnings.map(warning=><li key={warning}>{warning}</li>)}</ul></details>}
       <div className="backup-actions"><button className="secondary-button" type="button" onClick={exportData}>Export Current Data First</button>
         <button className="secondary-button" type="button" onClick={()=>setCandidate(undefined)}>Cancel</button>

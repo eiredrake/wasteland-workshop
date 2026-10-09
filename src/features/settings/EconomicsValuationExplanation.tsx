@@ -1,3 +1,4 @@
+import { formatCreditAmount } from '../../economics/Credits'
 import { defaultEconomicsSettings, type EconomicsOverrides, resolveEconomicsSettings } from '../../economics/EconomicsSettings'
 import { DefaultCostCalculator } from '../../economics/DefaultCostCalculator'
 import { calculateResourceValuation } from '../../economics/ResourceValuation'
@@ -24,7 +25,7 @@ export default function EconomicsValuationExplanation({ overrides, invalid = fal
       <div><dt>Mind · credits per point</dt><dd>Default: {number(defaultEconomicsSettings.mindCostPerPoint)} · Effective: {number(settings.mindCostPerPoint)}</dd></div>
       <div><dt>Time · credits per minute</dt><dd>Default: {number(defaultEconomicsSettings.timeCostPerMinute)} · Effective: {number(settings.timeCostPerMinute)}</dd></div>
       <div><dt>Resolve · credits per point</dt><dd>Default: {number(defaultEconomicsSettings.resolveCostPerPoint)} · Effective: {number(settings.resolveCostPerPoint)}</dd></div>
-      <div><dt>Foraging Card · credits per card</dt><dd>Default: {number(defaultEconomicsSettings.foragingCardCost)} · Effective: {number(settings.foragingCardCost)}</dd></div>
+      <div><dt>Foraging Card · credits per card</dt><dd>Default: {formatCreditAmount(defaultEconomicsSettings.foragingCardCost)} · Effective: {formatCreditAmount(settings.foragingCardCost)}</dd></div>
       <div><dt>Markup</dt><dd>Default: {number(defaultEconomicsSettings.defaultMarkupPercent)}% · Effective: {number(settings.defaultMarkupPercent)}%</dd></div>
     </dl>
     <h3>Materials</h3>
@@ -37,19 +38,19 @@ export default function EconomicsValuationExplanation({ overrides, invalid = fal
     <h3>Suggested selling price</h3>
     <div className="valuation-equation valuation-fraction-equation"><span>Selling Price = ⌈ Production Cost × (1 +</span><span className="valuation-fraction"><span>Markup %</span><span>100</span></span><span>) ⌉</span></div>
     <p>Round upward to a whole credit after applying markup. This is a pricing recommendation, not an automatic market price or guaranteed profit.</p>
-    <h3>Worked examples</h3>
+    <p>All displayed credit amounts round upward. Inputs and per-point/per-minute calculation rates retain precision. Totals use unrounded values, so displayed parts may not sum to the displayed total. Markup also uses unrounded production cost.</p><h3>Worked examples</h3>
     <p>Illustrations only, not actual Blueprint records. These results change with your effective rates.</p>
     <div className="valuation-example">
-      <p>15 Mind × {number(settings.mindCostPerPoint)} = {number(mind)} credits</p>
-      <p>60 Minutes × {number(settings.timeCostPerMinute)} = {number(time)} credits</p>
-      <p>Labor Cost = {number(mind)} + {number(time)} = {number(mind + time)} credits</p>
-      <p>With 20 credits of materials and 0 Resolve: Production Cost = {number(production)} credits</p>
-      <p>At {number(settings.defaultMarkupPercent)}% markup: Suggested Selling Price = {number(selling)} credits</p>
+      <p>15 Mind × {number(settings.mindCostPerPoint)} = {formatCreditAmount(mind)} credits</p>
+      <p>60 Minutes × {number(settings.timeCostPerMinute)} = {formatCreditAmount(time)} credits</p>
+      <p>Labor Cost (rounded once after summing Mind and Time) = {formatCreditAmount(mind + time)} credits</p>
+      <p>With 20 credits of materials and 0 Resolve: Production Cost = {formatCreditAmount(production)} credits</p>
+      <p>At {number(settings.defaultMarkupPercent)}% markup: Suggested Selling Price = {formatCreditAmount(selling)} credits</p>
     </div>
     <div className="valuation-example">
       <p>A foraging method uses 5 Mind, 10 minutes, 0 Resolve, no materials and one card, yielding 3 units.</p>
-      <p>Acquisition total = {number(calculator.calculateMindCost(5))} + {number(calculator.calculateTimeCost(10))} + {number(settings.foragingCardCost)} = {number(acquisitionTotal)} credits</p>
-      <p>Unit cost = ⌈{number(acquisitionTotal)} ÷ 3⌉ = {number(unitCost)} credits per unit</p>
+      <p>Acquisition total (rounded for display) = {formatCreditAmount(acquisitionTotal)} credits</p>
+      <p>Unit cost (unrounded acquisition total ÷ 3, then rounded up) = {formatCreditAmount(unitCost)} credits per unit</p>
     </div>
   </details>
 }

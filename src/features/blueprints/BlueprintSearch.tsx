@@ -1,3 +1,4 @@
+import SearchInput from '../../components/SearchInput/SearchInput'
 import BlueprintName from '../../components/BlueprintName/BlueprintName'
 import { matchesBlueprintSearch } from './BlueprintSearchMatch'
 import type { Warehouse } from '../warehouse/Warehouse'
@@ -328,23 +329,7 @@ function BlueprintSearch({
 
   return (
     <section>
-      <div className="blueprint-search">
-        <span
-          className="blueprint-search-icon"
-          aria-hidden="true"
-        />
-
-        <input
-          type="search"
-          placeholder="Search blueprints..."
-          value={searchText}
-          onChange={(event) =>
-            setSearchText(
-              event.target.value
-            )
-          }
-        />
-      </div>
+      <SearchInput label="Search blueprints" value={searchText} onValueChange={setSearchText} placeholder="Search blueprints..."/>
 
       <Datalist<Blueprint>
         title={`Blueprints (${filteredBlueprints.length})`}

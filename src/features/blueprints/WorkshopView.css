@@ -10,14 +10,14 @@
   gap: 2rem;
   margin-bottom: 1.5rem;
   padding: 1.25rem;
-  border: 1px solid #d65f32;
+  border: 1px solid var(--color-primary);
   border-left-width: 5px;
   border-radius: 8px;
   background: rgba(0, 0, 0, 0.18);
 }
 
 .workshop-active-label {
-  color: #e37045;
+  color: var(--color-primary-hover);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -75,29 +75,6 @@
   font-size: 0.85rem;
 }
 
-.workshop-status {
-  flex-shrink: 0;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid currentColor;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.workshop-status-acquired {
-  color: #5f9f62;
-}
-
-.workshop-status-to-acquire {
-  color: #d6a33d;
-}
-
-.workshop-status-sell {
-  color: #67e8f9;
-}
-
 @media (max-width: 600px) {
   .workshop-active-collection {
     align-items: flex-start;
@@ -123,7 +100,7 @@
   border: 1px solid #55564e;
   border-radius: 999px;
   background: transparent;
-  color: #aaa79f;
+  color: var(--color-neutral);
   font: inherit;
   font-size: 0.85rem;
   font-weight: 600;
@@ -131,18 +108,18 @@
 }
 
 .workshop-filter:hover {
-  border-color: #d6a33d;
-  color: #f0e6d2;
+  border-color: var(--color-selection);
+  color: var(--color-text);
 }
 
 .workshop-filter.active {
-  border-color: #d6a33d;
+  border-color: var(--color-selection);
   background: rgba(214, 163, 61, 0.12);
-  color: #d6a33d;
+  color: var(--color-selection);
 }
 
 .workshop-filter:focus-visible {
-  outline: 2px solid #d6a33d;
+  outline: 2px solid var(--color-selection);
   outline-offset: 2px;
 }
 

@@ -68,7 +68,7 @@
 .algorithm-formula {
   margin: 1rem 0;
   padding: 0.85rem 1rem;
-  border-left: 4px solid #d65f32;
+  border-left: 4px solid var(--color-primary);
   background: rgba(0, 0, 0, 0.22);
   font-family: monospace;
 }

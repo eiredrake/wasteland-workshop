@@ -145,5 +145,5 @@ describe('Blueprint material availability',()=>{
 it('Warehouse screen exposes Credits controls, search, type filters and owned resources/items',()=>{
   const item=inventoryCatalog.find(item=>item.kind==='gizmo')!
   const html=renderToStaticMarkup(createElement(WarehouseView,{warehouse:datedStock([{itemId:scrap,quantity:7},{itemId:item.itemId,quantity:3}]),apply:vi.fn(),error:''}))
-  for(const text of ['Credits on hand','237 cr','Set Credits','Add Credits','Subtract Credits','Search inventory','Resources','Items','Rare Scrap',item.name,'Quantity on hand: Rare Scrap']) expect(html).toContain(text)
+  for(const text of ['Credits on hand','237cr','Set Credits','Add Credits','Subtract Credits','Search inventory','Resources','Items','Rare Scrap',item.name,'Quantity on hand: Rare Scrap']) expect(html).toContain(text)
 })

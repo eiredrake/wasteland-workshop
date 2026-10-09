@@ -1,0 +1,94 @@
+/* Shared foundations; specialized timer and badge geometry remains local. */
+:root main button:where(:not(.blueprint-craft-timer,.blueprint-build-button,.workshop-status,.blueprint-access-status,.build-status,.remove-badge,.workshop-filter,.search-input-clear,.build-timer-settings,.menu-button)) { min-height:44px; padding:.6rem .85rem; border-radius:var(--control-radius); font:inherit; cursor:pointer; }
+:root main :is(.primary-button,.secondary-button,.danger-button) { border:1px solid var(--color-border); color:var(--color-text); background:var(--color-surface); }
+:root main .primary-button { background:var(--color-primary); color:var(--color-primary-text); border-color:var(--color-primary); }
+:root main .primary-button:hover:not(:disabled) { background:var(--color-primary-hover); border-color:var(--color-primary-hover); }
+:root main .secondary-button:hover:not(:disabled) { background:var(--color-hover); border-color:var(--color-border-strong); }
+:root main .danger-button { color:var(--color-text); background:var(--color-danger); border-color:var(--color-danger); }
+:root main .danger-button:hover:not(:disabled) { filter:brightness(1.15); }
+:root main :is(input:not([type=checkbox],[type=radio],[type=file],[type=hidden]),select,textarea) { box-sizing:border-box; min-width:0; max-width:100%; min-height:44px; padding:.65rem .75rem; border:1px solid var(--color-border); border-radius:var(--control-radius); background:var(--color-surface); color:var(--color-text); font:inherit; box-shadow:none; }
+:root main :is(input,select,textarea):hover:not(:disabled) { border-color:var(--color-border-strong); }
+:root main :is(button,input,select,textarea,a,summary,[tabindex],[role=button]):focus-visible { outline:2px solid var(--color-focus); outline-offset:3px; box-shadow:none; }
+:root main :is(button,input,select,textarea):disabled { opacity:.7; cursor:not-allowed; }
+:root main button[aria-pressed=true]:not(.blueprint-access-status,.workshop-status) { border-color:var(--color-selection); color:var(--color-selection); background:var(--color-warning-tint); }
+:root main :is(.workshop-status,.blueprint-access-status,.build-status,.warehouse-expiration-badge,.blueprint-collection-active-badge,.workshop-filter) { border:1px solid currentColor; border-radius:999px; padding:.3rem .65rem; font-family:inherit; font-size:.75rem; font-weight:700; line-height:1.2; letter-spacing:.04em; text-transform:uppercase; white-space:nowrap; }
+:root main button:is(.workshop-status,.blueprint-access-status,.build-status,.workshop-filter) { min-height:44px; cursor:pointer; }
+:root main :is(.workshop-status-acquired,.blueprint-access-status-acquired,.build-status-working,.build-status-completed,.warehouse-expiration-good) { color:var(--color-success-text); background:var(--color-success-tint); }
+:root main :is(.workshop-status-to-acquire,.blueprint-access-status-to-acquire,.build-status-enqueued,.warehouse-expiration-expiring,.workshop-filter-active) { color:var(--color-selection); background:var(--color-warning-tint); }
+:root main :is(.workshop-status-none,.blueprint-access-status-untracked,.warehouse-expiration-expired,.warehouse-expiration-unknown,.warehouse-expiration-currency) { color:var(--color-neutral); background:var(--color-neutral-tint); }
+:root main .build-status-paused { color:var(--color-paused); background:var(--color-paused-tint); }
+:root main :is(.workshop-status-sell,.blueprint-access-status-sell) { color:var(--color-sell); background:var(--color-sell-tint); }
+:root main .blueprint-collection-active-badge { color:var(--color-rust-light); }
+:root main .blueprint-build-button { border-radius:50%; }
+:root main details > summary { min-height:44px; cursor:pointer; }
+:root main .work-summary { list-style:none; }
+:root main .work-summary::-webkit-details-marker { display:none; }
+:root main .work-summary::before { content:'▶'; font-size:.75rem; flex:0 0 auto; }
+:root main details[open] > .work-summary::before { content:'▼'; }
+:root main [role=alert] { display:block; padding:.75rem; border:1px solid var(--color-danger); border-left-width:4px; border-radius:var(--control-radius); background:var(--color-neutral-tint); color:var(--color-danger-text); font:inherit; line-height:1.5; overflow-wrap:anywhere; }
+:root main [role=alert]::before { content:'⚠ '; }
+:root main [aria-invalid=true] { border-color:var(--color-danger); }
+:root main dialog { box-sizing:border-box; width:min(480px,calc(100vw - 32px)); max-height:calc(100dvh - 32px); padding:1.25rem; overflow:auto; border:1px solid var(--color-border-strong); border-top:4px solid var(--color-rust); border-radius:var(--panel-radius); background:var(--color-surface); color:var(--color-text); box-shadow:0 12px 40px #0008; }
+:root main dialog::backdrop { background:#000b; }
+:root main dialog :is(h2,h3):first-child { margin:0 0 1rem; padding-bottom:.5rem; border-bottom:1px solid var(--color-rust); color:var(--color-rust-light); text-transform:uppercase; font-size:1.2rem; letter-spacing:.04em; }
+:root main dialog button { min-height:44px; padding:.6rem .85rem; font:inherit; }
+:root main .datalist th button { min-height:44px; padding:.3rem 0; border-radius:0; }
+:root main .craft-timer { box-sizing:border-box; width:min(100%,420px); min-width:0; padding:clamp(.75rem,4vw,1.5rem); }
+.craft-timer-heading strong { overflow-wrap:anywhere; }
+:root main .craft-timer-ring { box-sizing:border-box; width:min(250px,100%); height:auto; aspect-ratio:1; }
+.action-details .blueprint-details-card, .activity-snapshot .blueprint-details-card { margin:1rem 0; }
+.action-details .panel-requirements, .activity-snapshot .panel-requirements { border-left:4px solid var(--color-hazard); }
+.action-details .panel-costs, .activity-snapshot .panel-costs { border-left:4px solid var(--color-rust); }
+.action-details .panel-effects, .activity-snapshot .panel-effects { border-left:4px solid var(--color-success); }
+.action-details .panel-configuration { border-left:4px solid var(--color-rust-light); }
+.action-details .panel-rules { border-left:4px solid var(--color-border-strong); }
+.work-entry { width:100%; box-sizing:border-box; }
+.work-history-page { max-width:760px; margin:auto; }
+.history-values { margin:0; }
+.history-values div { display:flex; flex-wrap:wrap; justify-content:space-between; gap:.5rem; padding:.75rem 0; border-bottom:1px solid var(--color-border); }
+.history-values dd { margin:0; }
+@media(max-width:400px) { .shopping-page .shopping-resources :is(th,td):last-child, .shopping-page .shopping-blueprints :is(th,td):last-child { width:9rem; } .shopping-status-badges { gap:.35rem; } }
+
+:root main .search-input input { padding-right:5.5rem; }
+:root main button.remove-badge { min-width:44px; padding:0; }
+:root main button.search-input-clear:hover:not(:disabled) { color:var(--color-text); background:var(--color-hover); }
+:root main .blueprint-usage-badge { border-radius:999px; border-color:var(--color-selection); color:var(--color-selection); background:var(--color-warning-tint); font:inherit; font-size:.75rem; font-weight:700; padding:.3rem .65rem; }
+:root main .build-timer-settings { border-radius:var(--control-radius); }
+:root main .action-details { max-width:100%; }
+:root main .actions-page > label { display:block; margin:.75rem 0; }
+:root main :is(.settings-row select,.blueprint-markup-select) { min-height:44px; }
+:root main .warehouse-filters .search-input { flex:1 1 220px; }
+:root main :is(.confirmation-dialog-actions,.timer-configuration-actions,.share-preview-actions) { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:.75rem; margin-top:1.25rem; }
+
+:root main h2 { color:var(--color-rust-light); }
+:root main .warehouse-expiration-badge { color:inherit; }
+:root main .warehouse-expiration-good { color:var(--color-success-text) !important; }
+:root main .warehouse-expiration-expiring { color:var(--color-selection) !important; }
+:root main :is(.warehouse-expiration-expired,.warehouse-expiration-unknown,.warehouse-expiration-currency) { color:var(--color-neutral) !important; }
+:root main .settings-input input { height:44px; }
+:root main .searchable-picker input { height:44px; }
+:root main .build-row-heading > strong { min-width:0; overflow-wrap:anywhere; }
+:root main .blueprint-details-card { box-sizing:border-box; min-width:0; }
+:root main .workshop-filter { min-height:44px; }
+:root main .share-preview-actions button:disabled { opacity:.7; }
+
+:root main .information-panel { border-left:4px solid var(--color-rust); }
+:root main .information-panel-gold { border-left-color:var(--color-hazard); }
+:root main .information-panel-green { border-left-color:var(--color-success); }
+:root main .information-panel-neutral { border-left-color:var(--color-border-strong); }
+
+:root main :is(.workshop-status,.blueprint-access-status,.build-status,.warehouse-expiration-badge,.blueprint-collection-active-badge) { align-self:flex-start; flex-shrink:0; }
+:root main .settings-page > h3 { color:var(--color-rust-light); margin-top:2rem; padding-bottom:.4rem; border-bottom:2px solid var(--color-rust); text-transform:uppercase; letter-spacing:.06em; }
+
+/* Compact status pills for precise pointers; touch keeps its full target. */
+@media (hover:hover) and (pointer:fine) {
+ :root main button:is(.workshop-status,.blueprint-access-status,.build-status):not(.warehouse-remove,.blueprint-build-button) { min-height:34px; padding:.2rem .55rem; }
+}
+
+/* Center differently sized status/removal visuals within their shared row. */
+:root main .shopping-status-badges .blueprint-access-status { align-self:center; }
+
+:root main .blueprint-build-button { display:grid; place-items:center; padding:0; line-height:1; font-size:1.1rem; text-align:center; }
+@media(max-width:650px) { :root main .blueprint-build-button { font-size:1rem; } }
+
+:root main .build-row-heading .build-status { align-self:center; }

@@ -172,14 +172,14 @@ h2 {
 /* Primary actions */
 
 .primary-button {
-  border: 1px solid #d65f32;
-  background: #d65f32;
-  color: #151713;
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 .primary-button:hover {
-  background: #e37045;
-  border-color: #e37045;
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
 }
 
 .primary-button:active {
@@ -204,10 +204,10 @@ h2 {
   height: 2.75rem;
   flex-shrink: 0;
   padding: 0;
-  border: 1px solid #d65f32;
+  border: 1px solid var(--color-primary);
   border-radius: 6px;
-  background: #22231f;
-  color: #f0e6d2;
+  background: var(--color-surface);
+  color: var(--color-text);
   font-size: 1.4rem;
   line-height: 1;
   cursor: pointer;
@@ -215,7 +215,7 @@ h2 {
 
 .menu-button:hover {
   background: #2d2e29;
-  border-color: #e37045;
+  border-color: var(--color-primary-hover);
 }
 
 .menu-button:active {
@@ -228,9 +228,9 @@ h2 {
   min-width: 220px;
   margin-top: 0.25rem;
   padding: 0.5rem;
-  border: 1px solid #4b4b43;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
-  background: #22231f;
+  background: var(--color-surface);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
@@ -241,7 +241,7 @@ h2 {
   border: 0;
   border-radius: 4px;
   background: transparent;
-  color: #f0e6d2;
+  color: var(--color-text);
   font: inherit;
   text-align: left;
   cursor: pointer;
@@ -249,14 +249,14 @@ h2 {
 
 .app-menu button:hover {
   background: #34352f;
-  color: #e37045;
+  color: var(--color-primary-hover);
 }
 
 .menu-heading {
   margin: 0.4rem 0.5rem 0.25rem;
   padding-top: 0.5rem;
-  border-top: 1px solid #4b4b43;
-  color: #aaa397;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;

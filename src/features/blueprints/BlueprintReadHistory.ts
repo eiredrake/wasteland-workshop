@@ -21,3 +21,10 @@ export function markBlueprintRead(ids: number[], id: number, storage: UserStorag
   saveReadHistory(next,storage)
   return next
 }
+
+export function markBlueprintsRead(ids: number[], blueprintIds: number[], storage: UserStorage = userStorage): number[] {
+  const next=validateReadIds([...ids,...blueprintIds])
+  if (next.length===ids.length && next.every((id,index)=>id===ids[index])) return ids
+  saveReadHistory(next,storage)
+  return next
+}

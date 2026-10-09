@@ -5,6 +5,6 @@
 .backup-settings input[type=file] { max-width:100%; color:var(--color-text); }
 .backup-settings input::file-selector-button { padding:.6rem; margin-right:.6rem; border:1px solid var(--color-rust); border-radius:5px; background:var(--color-surface); color:var(--color-text); font:inherit; }
 .backup-confirmation { margin-top:1.5rem; padding:1rem; border:1px solid var(--color-rust); border-radius:8px; background:var(--color-surface); }
-.backup-replace-warning { color:#d6a33d; font-weight:700; }
-.backup-settings [role=alert] { color:#f5b2a0; overflow-wrap:anywhere; }
+.backup-replace-warning { color:var(--color-selection); font-weight:700; }
+.backup-settings [role=alert] { color:var(--color-danger-text); overflow-wrap:anywhere; }
 .backup-settings details { overflow-wrap:anywhere; }

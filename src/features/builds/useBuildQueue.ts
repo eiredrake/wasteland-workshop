@@ -6,7 +6,7 @@ import type { BuildQueue } from './Build'
 export function useBuildQueue(onComplete: () => void, notify: (message: string) => void) {
   const [initial] = useState(() => {
     try { return { builds: loadBuildQueue(), error: '' } }
-    catch { return { builds: [] as BuildQueue, error: 'Saved Build Queue could not be read. Stored data has been kept; queue changes are disabled.' } }
+    catch { return { builds: [] as BuildQueue, error: 'Saved Work Queue could not be read. Stored data has been kept; queue changes are disabled.' } }
   })
   const [builds, setBuilds] = useState(initial.builds)
   const queueRef = useRef(builds)
@@ -27,14 +27,14 @@ export function useBuildQueue(onComplete: () => void, notify: (message: string) 
       publish(next)
       return true
     } catch (error) {
-      callbacks.current.notify(error instanceof Error ? error.message : 'Build Queue could not be saved. Your previous queue was kept.')
+      callbacks.current.notify(error instanceof Error ? error.message : 'Work Queue could not be saved. Your previous queue was kept.')
       return false
     }
   }
   useEffect(() => {
     if (initial.error || !initial.builds.length) return
     try { saveBuildQueue(initial.builds) }
-    catch { callbacks.current.notify('Restored Build Queue could not be saved. Existing stored data was kept.') }
+    catch { callbacks.current.notify('Restored Work Queue could not be saved. Existing stored data was kept.') }
   }, [initial])
   const activeId = workingBuild(builds)?.id
   useEffect(() => {
