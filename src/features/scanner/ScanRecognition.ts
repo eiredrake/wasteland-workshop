@@ -1,0 +1,56 @@
+import type { Blueprint } from '../blueprints/Blueprint'
+import { extractScanNames, matchScanNames, normalizeScanName, type ScanMatch } from './ScanMatching'
+import { createScanRecognizer as createTesseractRecognizer, type ScanRecognizer, type ScanPassDiagnostic } from './ScanOcr'
+export type OcrLine={text:string;score:number;poly:number[][]}
+function bounds(line:OcrLine){const x=line.poly.map(p=>p[0]),y=line.poly.map(p=>p[1]);return {left:Math.min(...x),right:Math.max(...x),top:Math.min(...y),bottom:Math.max(...y)}}
+export function matchPaddleLines(lines:OcrLine[],catalog:Blueprint[]):ScanMatch {
+ const usable=lines.filter(line=>line.score>=.55&&line.poly.length>=4)
+ const label=usable.find(line=>/^(item|irem|itern|1tem|i1em)n(ame|ome)$/.test(normalizeScanName(line.text)))
+ const fields=usable.filter(line=>/^(item|irem|itern|1tem|i1em)type|^requirements|^expiration|^production/.test(normalizeScanName(line.text)))
+ let names:string[]
+ if(label){
+  const box=bounds(label),height=box.bottom-box.top
+  const bottom=Math.min(Infinity,...fields.map(bounds).filter(b=>b.top>box.top+height*.5).map(b=>b.top))
+  const values=usable.filter(line=>line!==label).filter(line=>{const b=bounds(line);return b.left>box.right&&b.top>=box.top-height*.5&&b.top<bottom}).sort((a,b)=>bounds(a).top-bounds(b).top)
+  names=values.flatMap(line=>extractScanNames(line.text));names.push(values.map(line=>line.text).join(' '))
+ }else{
+  const cutoff=Math.min(Infinity,...fields.map(line=>bounds(line).top))
+  names=usable.filter(line=>bounds(line).top<cutoff).flatMap(line=>extractScanNames(line.text))
+ }
+ const match=matchScanNames(names,catalog)
+ // Context-free detections and fuzzy readings always remain explicit suggestions.
+ return {...match,confidence:!label&&match.confidence!=='none'?'ambiguous':match.confidence,readText:[...new Set(names.filter(Boolean))].join(' ').slice(0,160)}
+}
+export function createScanRecognizer():ScanRecognizer {
+ type Reader={predict:(image:HTMLCanvasElement)=>Promise<{items:OcrLine[]}[]>;dispose:()=>Promise<void>}
+ let pending:Promise<Reader>|undefined,worker:Worker|undefined,closed=false,fallback:ScanRecognizer|undefined
+ const reader=()=>pending??=(async()=>{
+  const {PaddleOCR}=await import('@paddleocr/paddleocr-js')
+  if(closed)throw new Error('Scanner closed.')
+  const base=new URL(import.meta.env.BASE_URL+'ocr-paddle/',location.origin).href
+  const instance=await PaddleOCR.create({worker:{createWorker:()=>{worker=new Worker(base+'worker.js',{type:'module'});return worker}},textDetectionModelName:'PP-OCRv5_mobile_det',textDetectionModelAsset:{url:base+'PP-OCRv5_mobile_det.tar'},textRecognitionModelName:'PP-OCRv5_mobile_rec',textRecognitionModelAsset:{url:base+'PP-OCRv5_mobile_rec.tar'},ortOptions:{backend:'wasm',wasmPaths:base,numThreads:1}})
+  if(closed){void instance.dispose().catch(()=>{});throw new Error('Scanner closed.')}
+  return instance as Reader
+ })()
+ return {
+  async recognize(image,catalog,diagnostic){
+   if(closed)throw new Error('Scanner closed.')
+   const started=performance.now()
+   try{
+    const instance=await reader(),[result]=await instance.predict(image)
+    if(closed)throw new Error('Scanner closed.')
+    const lines=result.items,match=matchPaddleLines(lines,catalog)
+    diagnostic?.({engine:'PaddleOCR PP-OCRv5 mobile',mode:'detection+recognition',variant:'original',width:image.width,height:image.height,milliseconds:Math.round(performance.now()-started),text:lines.map(l=>l.text).join('\n'),confidence:lines.length?lines.reduce((sum,l)=>sum+l.score,0)*100/lines.length:0,names:match.candidates.map(c=>c.blueprint.name),words:lines.map(l=>({text:l.text,confidence:l.score*100})),boxes:lines.map(l=>({text:l.text,poly:l.poly,score:l.score})),image:image.toDataURL('image/png')})
+    if(match.confidence!=='none')return match
+   }catch(error){
+    if(closed)throw new Error('Scanner closed.',{cause:error})
+    diagnostic?.({engine:'PaddleOCR PP-OCRv5 mobile',mode:'error',variant:'fallback',width:image.width,height:image.height,milliseconds:Math.round(performance.now()-started),text:error instanceof Error?error.message:String(error),confidence:0,names:[],words:[],image:image.toDataURL('image/png')})
+   }
+   if(closed)throw new Error('Scanner closed.')
+   fallback??=createTesseractRecognizer()
+   return fallback.recognize(image,catalog,diagnostic?pass=>diagnostic({...pass,engine:'Tesseract 7 fallback'}):undefined)
+  },
+  async close(){closed=true;worker?.terminate();worker=undefined;void pending?.then(instance=>instance.dispose()).catch(()=>{});await fallback?.close()}
+ }
+}
+export type {ScanRecognizer,ScanPassDiagnostic}

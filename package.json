@@ -12,6 +12,8 @@
     "test:visual": "python tools/ui-visual-check.py"
   },
   "dependencies": {
+    "@paddleocr/paddleocr-js": "0.4.2",
+    "onnxruntime-web": "1.24.3",
     "qrcode.react": "4.2.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

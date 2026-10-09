@@ -4,7 +4,7 @@ import { catalogNameFragments, extractScanNames, matchScanNames, type ScanMatch 
 import { isolateNameRows, prepareNameRow } from './ScanNameRows'
 import { normalizeScanContrast } from './ScanQuality'
 import type { Blueprint } from '../blueprints/Blueprint'
-export type ScanPassDiagnostic={mode:string;variant:string;width:number;height:number;milliseconds:number;text:string;confidence:number;names:string[];words:{text:string;confidence:number}[];image:string}
+export type ScanPassDiagnostic={engine?:string;boxes?:{text:string;poly:number[][];score:number}[];mode:string;variant:string;width:number;height:number;milliseconds:number;text:string;confidence:number;names:string[];words:{text:string;confidence:number}[];image:string}
 export type ScanRecognizer={recognize:(image:HTMLCanvasElement,catalog:Blueprint[],diagnostic?:(pass:ScanPassDiagnostic)=>void)=>Promise<ScanMatch>;close:()=>Promise<void>}
 export function createScanRecognizer():ScanRecognizer {
  let pending:Promise<Worker>|undefined,closed=false

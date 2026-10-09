@@ -1,0 +1,17 @@
+{
+  "sdk": "@paddleocr/paddleocr-js@0.4.2",
+  "license": "Apache-2.0",
+  "source": "https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/",
+  "models": {
+    "PP-OCRv5_mobile_det.tar": {
+      "bytes": 4843520,
+      "sha256": "781056046c9ed77a15c94681605db6a0f62317c2e9cce6931c71da2478d4bc30"
+    },
+    "PP-OCRv5_mobile_rec.tar": {
+      "bytes": 16701440,
+      "sha256": "f7e792bc836f36e7ef895ad47c426d75b0b75b1650caa6d63fe9418441ffba8c"
+    }
+  },
+  "onnxRuntime": "onnxruntime-web@1.24.3",
+  "worker": "paddleocr-js@0.4.2 dist/assets/worker-entry-C9UNuyOJ.js"
+}

@@ -63,7 +63,7 @@ with sync_playwright() as p:
  def recognition_route(route):
   if 'real=1' in route.request.url:return route.continue_()
   route.fulfill(content_type='application/javascript',body="""import {captureScanFrame} from '/src/features/scanner/ScanOcr.ts?real=1';export {captureScanFrame};export function createScanRecognizer(){return {recognize:async()=>{if(window.ocrFailure)throw new Error('OCR failed');return window.controlledMatch},close:async()=>{}}}""")
- page.route('**/src/features/scanner/ScanOcr.ts*',recognition_route)
+ page.route('**/src/features/scanner/ScanRecognition.ts*',recognition_route)
  page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload();page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire').click();expect(page.get_by_role('button',name='Capture Photo')).to_be_visible()
  page.evaluate("""async()=>{const {masterBlueprints}=await import('/src/features/blueprints/blueprints.ts');window.controlledMatch={confidence:'ambiguous',candidates:masterBlueprints.filter(b=>[5234,4407].includes(b.id)).map(blueprint=>({blueprint,score:.9}))}}""")
  page.get_by_role('button',name='Capture Photo').click();expect(page.get_by_text('Recognition is uncertain.',exact=False)).to_be_visible();assert page.get_by_role('button',name='Acquire Freeiron Dry Pack').count()==0
