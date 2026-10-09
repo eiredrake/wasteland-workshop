@@ -1,6 +1,7 @@
 import { scanFrameBounds } from '../../components/CameraPreview/CameraGeometry'
 import type { Worker } from 'tesseract.js'
 import { catalogNameFragments, extractScanNames, matchScanNames, type ScanMatch } from './ScanMatching'
+import { isolateNameRows, prepareNameRow } from './ScanNameRows'
 import { normalizeScanContrast } from './ScanQuality'
 import type { Blueprint } from '../blueprints/Blueprint'
 export type ScanPassDiagnostic={mode:string;variant:string;width:number;height:number;milliseconds:number;text:string;confidence:number;names:string[];words:{text:string;confidence:number}[];image:string}
@@ -23,13 +24,15 @@ export function createScanRecognizer():ScanRecognizer {
     if(closed)throw new Error('Scanner closed.')
     await instance.setParameters({tessedit_pageseg_mode:mode as import('tesseract.js').PSM,preserve_interword_spaces:'1'})
     const result=await instance.recognize(canvas,{}, {blocks:true})
+    const metadataRow=variant.startsWith('name-row')&&/item\s*type|requirements|expiration|production|number\s*of\s*uses/i.test(result.data.text)
     // Word-supported suggestions remain uncertain: never silently drop a qualifier from a name.
-    for(const block of result.data.blocks??[])for(const paragraph of block.paragraphs)for(const line of paragraph.lines){
+    if(!metadataRow)for(const block of result.data.blocks??[])for(const paragraph of block.paragraphs)for(const line of paragraph.lines){
      const words=line.words.filter(word=>word.confidence>=40).map(word=>word.text).join(' ')
      supportedNames.push(...extractScanNames(words))
     }
     diagnostic?.({mode,variant,width:canvas.width,height:canvas.height,milliseconds:Math.round(performance.now()-started),text:result.data.text,confidence:result.data.confidence,names:extractScanNames(result.data.text),words:(result.data.blocks??[]).flatMap(b=>b.paragraphs.flatMap(p=>p.lines.flatMap(l=>l.words.map(w=>({text:w.text,confidence:w.confidence}))))),image:canvas.toDataURL('image/png')})
-    names.push(...extractScanNames(result.data.text));texts.push(result.data.text.trim())
+    if(!metadataRow)names.push(...extractScanNames(result.data.text))
+    texts.push(result.data.text.trim())
     return {...matchScanNames(names,catalog),readText:texts.find(text=>text.length>0)?.replace(/\s+/g,' ').slice(0,160)}
    }
    // Read only the visible name strip, never mechanics or production sections.
@@ -37,6 +40,18 @@ export function createScanRecognizer():ScanRecognizer {
    if(match.confidence==='high')return match
    match=await read(image,'7')
    if(match.confidence==='high')return match
+   // Only after the normal fast path fails: identify a few text-height bands, not a fixed page coordinate.
+   const isolated=isolateNameRows(image)
+   try{
+    for(const row of isolated.rows)for(const variant of ['grayscale','local-background'] as const){
+     const strip=prepareNameRow(image,row,variant)
+     try{
+      const suggestion=await read(strip,'11',`name-row ${row.y}:${row.height} ${variant}`)
+      // Exclude other labeled fields; heuristic row crops always require explicit confirmation.
+      if(suggestion.confidence!=='none')return {...suggestion,confidence:'ambiguous',readText:texts.at(-1)?.replace(/\s+/g,' ').slice(0,160)}
+     }finally{strip.width=strip.height=0}
+    }
+   }finally{isolated.binary.width=isolated.binary.height=0}
    const enhanced=document.createElement('canvas');enhanced.width=image.width;enhanced.height=image.height
    const context=enhanced.getContext('2d')!;context.drawImage(image,0,0)
    const pixels=context.getImageData(0,0,enhanced.width,enhanced.height);normalizeScanContrast(pixels.data);context.putImageData(pixels,0,0)

@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import * as nameRows from './ScanNameRows'
 import { createScanRecognizer } from './ScanOcr'
 import { masterBlueprints } from '../blueprints/blueprints'
 const mocks=vi.hoisted(()=>({recognize:vi.fn(),setParameters:vi.fn(),terminate:vi.fn(),createWorker:vi.fn()}))
@@ -11,8 +12,25 @@ beforeEach(()=>{
  vi.stubGlobal('location',{origin:'https://local.invalid'})
  vi.stubGlobal('document',{createElement:()=>({width:0,height:0,getContext:()=>({drawImage:vi.fn(),getImageData:()=>({data:new Uint8ClampedArray([70,70,70,255,130,130,130,255])}),putImageData:vi.fn(),fillRect:vi.fn(),translate:vi.fn(),rotate:vi.fn()})})})
 })
-afterEach(()=>vi.unstubAllGlobals())
+afterEach(()=>{vi.unstubAllGlobals();vi.restoreAllMocks()})
 describe('bounded local name OCR passes',()=>{
+ it('does not suggest a blueprint from another labeled field in an isolated row',async()=>{
+  vi.spyOn(nameRows,'isolateNameRows').mockReturnValue({binary:{width:100,height:30} as HTMLCanvasElement,rows:[{y:7,height:10}]})
+  vi.spyOn(nameRows,'prepareNameRow').mockImplementation(()=>({width:100,height:20} as HTMLCanvasElement))
+  const metadata={data:{text:'Item Type Hooch',blocks:[{paragraphs:[{lines:[{words:[{text:'Hooch',confidence:99}]}]}]}]}}
+  const empty={data:{text:'unknown',blocks:null}}
+  mocks.recognize.mockResolvedValueOnce(empty).mockResolvedValueOnce(empty).mockResolvedValueOnce(metadata).mockResolvedValueOnce(metadata).mockResolvedValue(empty)
+  const reader=createScanRecognizer();expect((await reader.recognize(image,catalog)).confidence).toBe('none');await reader.close()
+ })
+ it('offers isolated-row recovery only with explicit confirmation and reports the useful row text',async()=>{
+  const binary={width:100,height:30},strip={width:100,height:20} as HTMLCanvasElement
+  vi.spyOn(nameRows,'isolateNameRows').mockReturnValue({binary:binary as HTMLCanvasElement,rows:[{y:7,height:10}]})
+  vi.spyOn(nameRows,'prepareNameRow').mockReturnValue(strip)
+  mocks.recognize.mockResolvedValueOnce({data:{text:'header noise',blocks:null}}).mockResolvedValueOnce({data:{text:'',blocks:null}}).mockResolvedValueOnce({data:{text:'Freeiron Dry Pack',blocks:null}})
+  const reader=createScanRecognizer(),match=await reader.recognize(image,catalog)
+  expect(match.confidence).toBe('ambiguous');expect(match.candidates[0].blueprint.id).toBe(1);expect(match.readText).toBe('Freeiron Dry Pack')
+  expect(mocks.recognize).toHaveBeenCalledTimes(3);expect(binary.width).toBe(0);expect(strip.width).toBe(0);await reader.close()
+ })
  it('exports exact input and complete per-pass text only when requested',async()=>{
   mocks.recognize.mockResolvedValue({data:{text:'Item Name Freeiron Dry Pack',confidence:87,blocks:null}})
   const toDataURL=vi.fn(()=> 'data:image/png;base64,exact'),diagnostic=vi.fn(),reader=createScanRecognizer()
