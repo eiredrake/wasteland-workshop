@@ -19,7 +19,7 @@ with sync_playwright() as p:
   def nav(name):
    page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name=name,exact=True).click()
   def capture(name):
-   page.evaluate('document.fonts.ready');page.clock.run_for(50);time.sleep(.1);data=page.screenshot(full_page=name!='error-state',animations='disabled');filename=size+'-'+name+'.png';(actual/filename).write_bytes(data)
+   page.locator('.app-version > span').first.evaluate("e=>e.textContent='v0.6.3'");page.evaluate('document.fonts.ready');page.clock.run_for(50);time.sleep(.1);data=page.screenshot(full_page=name!='error-state',animations='disabled');filename=size+'-'+name+'.png';(actual/filename).write_bytes(data)
    assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'),name+' horizontal overflow'
    if not args.record and (not (baseline/filename).exists() or data!=(baseline/filename).read_bytes()):failures.append(filename)
   nav('Blueprint Catalog');page.get_by_role('searchbox').fill('AA Blade');capture('blueprint-catalog');page.get_by_text('AA Blade',exact=True).click();capture('blueprint-details')

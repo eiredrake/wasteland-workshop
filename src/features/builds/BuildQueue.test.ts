@@ -1,3 +1,7 @@
+import { hasActiveQueueEntries } from './BuildQueueService'
+import { createQueueSubmissionGuard } from './SubmissionGuard'
+import { addActionActivity } from '../actions/ActionService'
+import { actionCatalog } from '../actions/ActionCatalog'
 import { describe, expect, it, vi } from 'vitest'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { createElement } from 'react'
@@ -345,4 +349,71 @@ it('collection Blueprint details offer one Build badge without a timer or separa
   expect(html).toContain('>Build</button>')
   expect(html).not.toContain('Add to Build Queue')
   expect(html).not.toContain('blueprint-craft-timer')
+})
+
+
+describe('context-sensitive queue creation', () => {
+  const render = (buildQueue: BuildQueue) => renderToStaticMarkup(createElement(BlueprintDetails, {
+    buildQueue, blueprint, mode:'catalog', calculator:new DefaultCostCalculator(defaults()), defaultMarkupPercent:0,
+    activeCollection:undefined, craftTimer:add([],'timer')[0].timer,
+    onUpdateCollectionEntry:vi.fn(),onCraftBlueprint:vi.fn(),onAddBuild:vi.fn(),onOpenCraftTimer:vi.fn(),
+    shopping:{lists:[],onAddComponents:vi.fn(),onOpenLists:vi.fn()}
+  }))
+  it.each(['Enqueued','Paused','Working'] as const)('%s displays Add to Queue and preserves all existing data/order', status => {
+    let queue = queued()
+    if(status!=='Enqueued')queue=toggleBuildStatus(queue,'a',2000)
+    if(status==='Paused')queue=toggleBuildStatus(queue,'a',62000)
+    const before=structuredClone(queue)
+    expect(hasActiveQueueEntries(queue)).toBe(true)
+    expect(render(queue)).toContain('Add to<br/>Queue')
+    expect(render(queue)).toContain('blueprint-build-queued')
+    const next=enqueueBlueprintBuild(queue,blueprint,defaults(),63000,'new')
+    expect(next.slice(0,queue.length)).toEqual(before)
+    expect(next.at(-1)).toMatchObject({status:'Enqueued',timer:{status:'idle'}})
+    expect(next.at(-1)?.timer.endTimeMs).toBeUndefined()
+    expect(queue).toEqual(before)
+  })
+  it('empty queue and completed history display Build; transitions derive from current entries', () => {
+    const history=tickBuildQueue([active()[0]],99999999)
+    for(const queue of [[],history]) {
+      expect(hasActiveQueueEntries(queue)).toBe(false)
+      expect(render(queue)).toContain('>Build</button>')
+      const next=enqueueBlueprintBuild(queue,blueprint,defaults(),100000000,'new')
+      expect(next[0].status).toBe('Working')
+      expect(render(next)).toContain('Add to<br/>Queue')
+      expect(render(next.filter(b=>b.id!=='new'))).toContain('>Build</button>')
+    }
+  })
+  it('rechecks authoritative queue at submission instead of the earlier displayed state', () => {
+    expect(render([])).toContain('>Build</button>')
+    const current=active(),next=enqueueBlueprintBuild(current,blueprint,defaults(),62000,'late')
+    expect(next.slice(0,current.length)).toEqual(current)
+    expect(next.at(-1)?.status).toBe('Enqueued')
+    const saved=storage();saveBuildQueue(next,saved)
+    const restored=loadBuildQueue(saved,63000)
+    expect(restored[0].timer.endTimeMs).toBe(current[0].timer.endTimeMs)
+    expect(restored.at(-1)?.timer.endTimeMs).toBeUndefined()
+    expect(restored.at(-1)?.recipe).toEqual(blueprint.itemCraftings![0])
+    expect(calculateBuildCost(restored.at(-1)!)).toEqual(calculateBuildCost(next.at(-1)!))
+  })
+  it.each(['Enqueued','Paused','Working'] as const)('Actions preserve existing %s work and append idle', status => {
+    let queue=queued()
+    if(status!=='Enqueued')queue=toggleBuildStatus(queue,'a',2000)
+    if(status==='Paused')queue=toggleBuildStatus(queue,'a',62000)
+    const next=addActionActivity(queue,actionCatalog[0],'explore',{},defaults(),undefined,undefined,63000,'action')
+    expect(next.slice(0,queue.length)).toEqual(queue)
+    expect(next.at(-1)).toMatchObject({status:'Enqueued',timer:{status:'idle'}})
+  })
+  it('blocks double and reentrant submissions but permits later intentional additions', () => {
+    let now=1000;const submit=createQueueSubmissionGuard(()=>now),operation=vi.fn(()=>true)
+    expect(submit(()=>{expect(submit(operation)).toBe(false);return operation()})).toBe(true)
+    expect(submit(operation)).toBe(false);expect(operation).toHaveBeenCalledTimes(1)
+    now+=751;expect(submit(operation)).toBe(true)
+  })
+  it('validation failures or exceptions release the submission guard immediately', () => {
+    const submit=createQueueSubmissionGuard(()=>1000)
+    expect(submit(()=>false)).toBe(false)
+    expect(()=>submit(()=>{throw new Error('Invalid configuration')})).toThrow('Invalid configuration')
+    expect(submit(()=>true)).toBe(true)
+  })
 })

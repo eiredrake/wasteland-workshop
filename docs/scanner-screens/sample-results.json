@@ -1,0 +1,80 @@
+[
+  {
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 5234,
+        "name": "Freeiron Dry Pack",
+        "score": 1
+      }
+    ],
+    "milliseconds": 559,
+    "variant": "original",
+    "expected": "Freeiron Dry Pack"
+  },
+  {
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 5234,
+        "name": "Freeiron Dry Pack",
+        "score": 1
+      }
+    ],
+    "milliseconds": 538,
+    "variant": "rotation-5deg",
+    "expected": "Freeiron Dry Pack"
+  },
+  {
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 5234,
+        "name": "Freeiron Dry Pack",
+        "score": 1
+      }
+    ],
+    "milliseconds": 346,
+    "variant": "dim",
+    "expected": "Freeiron Dry Pack"
+  },
+  {
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 4407,
+        "name": "Hooch",
+        "score": 1
+      }
+    ],
+    "milliseconds": 332,
+    "variant": "original",
+    "expected": "Hooch"
+  },
+  {
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 4407,
+        "name": "Hooch",
+        "score": 1
+      }
+    ],
+    "milliseconds": 291,
+    "variant": "rotation-5deg",
+    "expected": "Hooch"
+  },
+  {
+    "confidence": "high",
+    "candidates": [
+      {
+        "id": 4407,
+        "name": "Hooch",
+        "score": 1
+      }
+    ],
+    "milliseconds": 335,
+    "variant": "dim",
+    "expected": "Hooch"
+  }
+]

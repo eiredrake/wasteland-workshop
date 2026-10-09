@@ -1,3 +1,5 @@
+import BlueprintScanner from '../scanner/BlueprintScanner'
+import type { Blueprint } from './Blueprint'
 import RemoveBadge from '../../components/RemoveBadge/RemoveBadge'
 import ConfirmationDialog from '../../components/ConfirmationDialog/ConfirmationDialog'
 import {
@@ -24,6 +26,7 @@ type PendingImport = {
 type BlueprintCollectionsViewProps = {
   collections: BlueprintCollection[]
   activeCollectionId: string | undefined
+  onAcquireScanned: (collectionId:string,blueprint:Blueprint)=>{alreadyOwned:boolean}
   onAddCollection: (name: string) => void
   onSetActiveCollection: (collectionId: string) => void
   onDeleteCollection: (collectionId: string) => void
@@ -36,11 +39,14 @@ type BlueprintCollectionsViewProps = {
 function BlueprintCollectionsView({
   collections,
   activeCollectionId,
+  onAcquireScanned,
   onAddCollection,
   onSetActiveCollection,
   onDeleteCollection,
   onImportCollection,
 }: BlueprintCollectionsViewProps) {
+  const [scanning,setScanning] = useState<{id:string;name:string}>()
+  const destination=collections.find(c=>c.id===activeCollectionId)
   const [addingCollection, setAddingCollection] =
     useState(false)
 
@@ -209,6 +215,7 @@ function BlueprintCollectionsView({
     setImportName('')
   }
 
+  if(scanning)return <BlueprintScanner destinationId={scanning.id} destinationName={scanning.name} collection={collections.find(c=>c.id===scanning.id)} activeId={activeCollectionId} onAcquire={onAcquireScanned} onDone={()=>setScanning(undefined)}/>
   return (
     <section data-tour-target="collections" className="blueprint-collections-page">
       <header data-tour-target="collection-create" className="blueprint-collections-header">
@@ -224,6 +231,8 @@ function BlueprintCollectionsView({
         <div className="blueprint-collection-header-actions">
           {!addingCollection && !pendingImport && (
             <>
+              <button type="button" className="secondary-button" disabled={!destination} onClick={()=>{if(destination)setScanning({id:destination.id,name:destination.name})}}>Scan &amp; Acquire</button>
+              {!destination&&<p>Select or create an active collection before scanning.</p>}
               <button
                 type="button"
                 className="secondary-button"

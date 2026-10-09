@@ -78,3 +78,8 @@ Timer Settings buttons and compact-timer long presses navigate to the selected a
 GuidedTour owns the themed, nonmodal bottom panel, responsive scrolling, gold target highlight and 44px actions. Reuse its data-driven registry and stable data-tour-target anchors for additional tours. Use existing navigation and confirmed application actions; never synthesize demo records, auto-click destructive controls or undo user changes on Previous Step. Suspend around dialogs/import review and restore focus on exit. Reserve space beneath content and keep toasts out of the panel. Help > Guided Tours uses a native disclosure and independent completion markers.
 
 Run `python tools/ui-tour-check.py` for isolated onboarding/replay checks and 8 additional desktop/mobile visual baselines. Its `--record` writes candidates only; inspect and copy individually after review. These complement the existing 34 theme screenshots.
+
+
+## Blueprint scanning
+
+CameraPreview (`src/components/CameraPreview/`) owns the live video, intrinsic aspect ratio and centered portrait gold document frame with a dark outline. Scanner controls reuse primary/secondary button foundations and status/error announcements. Display the destination and identified name before Acquire, keep explicit confirmation separate from recognition, and retain the camera session between captures. Do not use width or user-agent checks as permission detection. Verify narrow/landscape layouts, camera cleanup and the six scanner comparisons with `python tools/ui-scanner-check.py`. Its `--record` writes review candidates only.

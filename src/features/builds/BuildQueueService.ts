@@ -8,6 +8,10 @@ import type { CraftTimerState } from '../timer/CraftTimerState'
 import type { Build, BuildQueue } from './Build'
 
 export const ACTIVE_BUILD_MESSAGE = 'Pause the current Activity before starting another.'
+// Completed history does not make the active queue nonempty.
+export function hasActiveQueueEntries(queue: BuildQueue): boolean {
+  return queue.some(activity => activity.status === 'Enqueued' || activity.status === 'Paused' || activity.status === 'Working')
+}
 export function workingBuild(queue: BuildQueue): Build | undefined { return queue.find(build => build.status === 'Working') }
 function findBuild(queue: BuildQueue, id: string): Build {
   const build = queue.find(item => item.id === id)
@@ -39,7 +43,7 @@ export function addBuild(queue: BuildQueue, blueprint: Blueprint, economics: Eco
 // Blueprint Build action starts only when the queue is entirely empty.
 export function enqueueBlueprintBuild(queue: BuildQueue, blueprint: Blueprint, economics: EconomicsSettings,
   now = Date.now(), id: string = crypto.randomUUID()): BuildQueue {
-  return addBuild(queue, blueprint, economics, !queue.some(activity=>activity.status!=='Completed'), now, id)
+  return addBuild(queue, blueprint, economics, !hasActiveQueueEntries(queue), now, id)
 }
 export function toggleBuildStatus(queue: BuildQueue, id: string, now = Date.now()): BuildQueue {
   const build = findBuild(queue, id)

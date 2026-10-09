@@ -3,7 +3,7 @@ import type { Build, BuildQueue } from '../builds/Build'
 import type { EconomicsSettings } from '../../economics/EconomicsSettings'
 import { loadCraftTimer } from '../timer/CraftTimerEngine'
 import { ingredientItems, isSelectorId } from '../blueprints/IngredientCatalog'
-import { toggleBuildStatus } from '../builds/BuildQueueService'
+import { hasActiveQueueEntries, toggleBuildStatus } from '../builds/BuildQueueService'
 export function resolveAction(definition:ActionDefinition,optionId:string,configuration:ActionConfiguration={},target?:string,sessionId?:string,allowUnavailable=false):ActionExecution {
  if (!definition.verified) throw new Error('This Action is awaiting rules verification.')
  const option=definition.options.find(option=>option.id===optionId)
@@ -45,7 +45,7 @@ export function addActionActivity(queue:BuildQueue,definition:ActionDefinition,o
  recipe:{id:1,craftingTimeInMinute:option.minutes,craftingMindCost:option.mind,craftingResolveCost:option.resolve,craftingSkills:definition.skill??null,craftingZone:null,craftingComponents:inputs,craftingFinalProducts:[]},
  economicSnapshot:structuredClone(economics),overrides:{},notes:'',status:'Enqueued',timer:loadCraftTimer(option.minutes,definition.name),createdAt:now}
  const next=[...queue,build]
- return queue.some(activity=>activity.status!=='Completed')?next:toggleBuildStatus(next,id,now)
+ return hasActiveQueueEntries(queue)?next:toggleBuildStatus(next,id,now)
 }
 export function isActionExecution(value:unknown):value is ActionExecution {
  try {

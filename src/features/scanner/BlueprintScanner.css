@@ -1,0 +1,7 @@
+.scanner-panel { max-width:680px; margin:0 auto; padding:1rem; border:1px solid var(--color-border); border-top:3px solid var(--color-rust); border-radius:var(--panel-radius); background:var(--color-surface); }
+.scanner-panel h3 { overflow-wrap:anywhere; }
+.scanner-controls,.scanner-result { display:flex; flex-wrap:wrap; gap:.65rem; align-items:center; margin:1rem 0; }
+.scanner-result h3,.scanner-result p { flex-basis:100%; margin:.25rem 0; }
+.scanner-success { color:var(--color-success-text); }
+.scanner-counts { color:var(--color-text-muted); line-height:1.5; }
+@media(max-width:400px){.scanner-panel{padding:.75rem}.scanner-controls button{flex-grow:1}}

@@ -1,3 +1,4 @@
+import type { BuildQueue } from '../builds/Build'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import BlueprintName from '../../components/BlueprintName/BlueprintName'
 import { matchesBlueprintSearch } from './BlueprintSearchMatch'
@@ -116,6 +117,7 @@ type BlueprintSearchProps = {
       | undefined
   ) => void
   onCraftBlueprint: (blueprint: Blueprint) => void
+  buildQueue?: BuildQueue
   onAddBuild: (blueprint: Blueprint) => void
 }
 
@@ -131,6 +133,7 @@ function BlueprintSearch({
   craftTimer,
   onUpdateCollectionEntry,
   onCraftBlueprint,
+  buildQueue = [],
   onAddBuild,
   onOpenCraftTimer,
 }: BlueprintSearchProps) {
@@ -366,6 +369,7 @@ function BlueprintSearch({
             onUpdateCollectionEntry={
               onUpdateCollectionEntry
             }
+            buildQueue={buildQueue}
             onAddBuild={onAddBuild}
             onCraftBlueprint={
               onCraftBlueprint

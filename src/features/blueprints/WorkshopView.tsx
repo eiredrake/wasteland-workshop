@@ -1,3 +1,4 @@
+import type { BuildQueue } from '../builds/Build'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import BlueprintName from '../../components/BlueprintName/BlueprintName'
 import { matchesBlueprintSearch } from './BlueprintSearchMatch'
@@ -44,6 +45,7 @@ type WorkshopViewProps = {
       | undefined
   ) => void
   onCraftBlueprint: (blueprint: Blueprint) => void
+  buildQueue?: BuildQueue
   onAddBuild: (blueprint: Blueprint) => void
 }
 
@@ -129,6 +131,7 @@ function WorkshopView({
   craftTimer,
   onUpdateCollectionEntry,
   onCraftBlueprint,
+  buildQueue = [],
   onAddBuild,
   onOpenCraftTimer,
 }: WorkshopViewProps) {
@@ -468,6 +471,7 @@ function WorkshopView({
             onUpdateCollectionEntry={
               onUpdateCollectionEntry
             }
+            buildQueue={buildQueue}
             onAddBuild={onAddBuild}
             onCraftBlueprint={
               onCraftBlueprint

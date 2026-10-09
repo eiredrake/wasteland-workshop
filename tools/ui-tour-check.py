@@ -9,7 +9,7 @@ with sync_playwright() as p:
  for name,width,height in [('desktop',1280,900),('mobile',390,844)]:
   page=browser.new_page(viewport={'width':width,'height':height},has_touch=name=='mobile',is_mobile=name=='mobile',reduced_motion='reduce')
   def capture(view):
-   page.evaluate('document.fonts.ready');page.wait_for_timeout(400)
+   page.locator('.app-version > span').first.evaluate("e=>e.textContent='v0.6.3'");page.evaluate('document.fonts.ready');page.wait_for_timeout(400)
    filename=name+'-tour-'+view+'.png';data=page.screenshot(full_page=False,animations='disabled');(out/filename).write_bytes(data)
    baseline=root/'tests/visual/baselines'/filename
    if not args.record and (not baseline.exists() or baseline.read_bytes()!=data):differences.append(filename)

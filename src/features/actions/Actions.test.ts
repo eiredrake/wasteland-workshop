@@ -211,7 +211,7 @@ describe('confirmed Helscape Mine',()=>{
 
 it('Basic Medical heals ten Body per total Mind with one treatment timer',()=>{
  const healing=actionCatalog.find(action=>action.id==='basic-medical-healing')!
- for(const [additionalMind,totalMind,body] of [[0,1,10],[1,2,20],[2,3,30],[3,4,40]]){
+ for(const [additionalMind,totalMind,body] of Array.from({length:10},(_,additionalMind)=>[additionalMind,additionalMind+1,(additionalMind+1)*10])){
   const execution=resolveAction(healing,'heal',{additionalMind},'Patient')
   expect(execution.option).toMatchObject({mind:totalMind,minutes:10,effects:['Restore '+body+' Body.']})
   const records=addActionActivity([],healing,'heal',{additionalMind},defaults,'Patient',undefined,1000,'heal')
@@ -219,5 +219,17 @@ it('Basic Medical heals ten Body per total Mind with one treatment timer',()=>{
   expect(records[0].timer.originalDurationMs).toBe(600000)
   const storage=memory();saveBuildQueue(records,storage)
   expect(loadBuildQueue(storage,1000)[0].actionSnapshot?.option.effects).toEqual(['Restore '+body+' Body.'])
+ }
+})
+
+
+it('Basic Medical caps healing at 100 Body and rejects invalid Mind amounts',()=>{
+ const healing=actionCatalog.find(action=>action.id==='basic-medical-healing')!
+ expect(healing.version).toBe(2)
+ expect(resolveAction(healing,'heal',{},'Patient').option).toMatchObject({mind:1,minutes:10,effects:['Restore 10 Body.']})
+ expect(resolveAction(healing,'heal',{additionalMind:9},'Patient').option).toMatchObject({mind:10,minutes:10,effects:['Restore 100 Body.']})
+ for(const additionalMind of [-1,10,100,0.5]) {
+  expect(()=>resolveAction(healing,'heal',{additionalMind},'Patient')).toThrow('Invalid Additional Mind')
+  expect(()=>addActionActivity([],healing,'heal',{additionalMind},defaults,'Patient')).toThrow('Invalid Additional Mind')
  }
 })

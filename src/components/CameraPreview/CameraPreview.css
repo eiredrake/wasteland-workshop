@@ -1,0 +1,4 @@
+.scan-viewfinder { position:relative; width:100%; max-width:calc(48vh * var(--camera-aspect,.75)); margin:auto; background:var(--color-background); border-radius:var(--panel-radius); overflow:hidden; }
+.scan-viewfinder video,.scan-viewfinder img { display:block; width:100%; object-fit:contain; }
+.scan-viewfinder video[hidden] { display:none; }
+.scan-target-frame { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); box-sizing:border-box; width:var(--scan-frame-width,90%); height:var(--scan-frame-height,90%); border:2px solid var(--color-focus); outline:2px solid var(--color-background); pointer-events:none; }

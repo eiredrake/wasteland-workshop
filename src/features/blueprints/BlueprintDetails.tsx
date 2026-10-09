@@ -1,3 +1,5 @@
+import { hasActiveQueueEntries } from '../builds/BuildQueueService'
+import type { BuildQueue } from '../builds/Build'
 import { useCalendarDay } from '../warehouse/useCalendarDay'
 import { blueprintCraftability } from '../warehouse/CraftabilityService'
 import type { Warehouse } from '../warehouse/Warehouse'
@@ -35,6 +37,7 @@ type BlueprintDetailsProps = {
     status: BlueprintAccessStatus | undefined
   ) => void
   onCraftBlueprint: (blueprint: Blueprint) => void
+  buildQueue?: BuildQueue
   onAddBuild: (blueprint: Blueprint) => void
   onOpenCraftTimer: () => void
 }
@@ -49,6 +52,7 @@ function BlueprintDetails({
   defaultMarkupPercent,
   activeCollection,
   onUpdateCollectionEntry,
+  buildQueue = [],
   onAddBuild,
 }: BlueprintDetailsProps) {
   const [markupPercent, setMarkupPercent] =
@@ -57,6 +61,7 @@ function BlueprintDetails({
   const [shareCard, setShareCard] = useState<ShareCard>()
   const {markRead} = useBlueprintReadHistory()
   useEffect(() => { markRead(blueprint.id) },[blueprint.id,markRead])
+  const queueHasWork = hasActiveQueueEntries(buildQueue)
   const today = useCalendarDay()
   const crafting = blueprint.itemCraftings?.[0]
   const availability = crafting && warehouse && !warehouseError ? blueprintCraftability(crafting,warehouse,today) : undefined
@@ -250,7 +255,7 @@ function BlueprintDetails({
         skills ||
         specialNotes) && (
         <section className="blueprint-details-card blueprint-mechanics-card">
-          {crafting && <button type="button" data-tour-target="blueprint-build" className="blueprint-access-status blueprint-build-button" onClick={() => onAddBuild(blueprint)}>Build</button>}
+          {crafting && <button type="button" data-tour-target="blueprint-build" className={`blueprint-access-status blueprint-build-button${queueHasWork ? ' blueprint-build-queued' : ''}`} onClick={() => onAddBuild(blueprint)}>{queueHasWork ? <span>Add to<br />Queue</span> : 'Build'}</button>}
           <div className="blueprint-mechanics-section blueprint-crafting-skill">
             <h3>Crafting Skill</h3>
             <p>{skills}</p>

@@ -1,3 +1,6 @@
+import { setCollectionBlueprintStatus } from './features/blueprints/BlueprintCollectionService'
+import { acquireScannedBlueprint } from './features/scanner/ScanSession'
+import { createQueueSubmissionGuard } from './features/builds/SubmissionGuard'
 import GuidedTour from './components/GuidedTour/GuidedTour'
 import { guidedTours } from './features/tours/TourRegistry'
 import { useGuidedTours } from './features/tours/useGuidedTours'
@@ -11,7 +14,7 @@ import type { ActionDefinition, ActionConfiguration } from './features/actions/A
 import BlueprintReadSettingsView from './features/settings/BlueprintReadSettingsView'
 import { BlueprintReadProvider } from './features/blueprints/BlueprintReadContext'
 import AppMetadata from './components/AppMetadata/AppMetadata'
-import { masterBlueprintsUpdatedAt } from './features/blueprints/blueprints'
+import { masterBlueprints, masterBlueprintsUpdatedAt } from './features/blueprints/blueprints'
 import BackupSettingsView from './features/backup/BackupSettingsView'
 import WarehouseSettingsView from './features/settings/WarehouseSettingsView'
 import { loadExpirationWarningDays, saveExpirationWarningDays } from './features/settings/WarehouseSettings'
@@ -200,14 +203,15 @@ function App() {
     if (activeBuild) setTimerBuildId(activeBuild.id)
     navigateTo('timer')
   }
+  const [submitQueueActivity] = useState(() => createQueueSubmissionGuard())
   const addBlueprintToBuildQueue = (blueprint: Blueprint) => {
-    if (buildQueue.apply(queue => enqueueBlueprintBuild(queue, blueprint, economicsSettings))) {
+    if (submitQueueActivity(() => buildQueue.apply(queue => enqueueBlueprintBuild(queue, blueprint, economicsSettings)))) {
       navigateTo('builds')
       showToast('Added "' + blueprint.name + '" to the Work Queue.', 'success')
     }
   }
   const addActionToQueue = (definition:ActionDefinition,option:string,configuration:ActionConfiguration,target?:string,session?:string) => {
-    const success=buildQueue.apply(queue=>addActionActivity(queue,definition,option,configuration,economicsSettings,target,session))
+    const success=submitQueueActivity(()=>buildQueue.apply(queue=>addActionActivity(queue,definition,option,configuration,economicsSettings,target,session)))
     if(success){navigateTo('builds');showToast('Added "'+definition.name+'" to the Work Queue.','success')}
     return success
   }
@@ -383,6 +387,15 @@ function App() {
     }
   }
 
+  const acquireBlueprintScan = (collectionId:string,blueprint:Blueprint) => {
+    const canonical=masterBlueprints.find(item=>item.id===blueprint.id)
+    if(!canonical)throw new Error('This Blueprint is no longer in the Master Catalog.')
+    const result=acquireScannedBlueprint(loadBlueprintCollections(),loadActiveBlueprintCollectionId(),collectionId,canonical)
+    if(!result.alreadyOwned)saveBlueprintCollections(result.collections)
+    // Publish only after storage confirms; failed writes leave UI and counters unchanged.
+    setBlueprintCollections(result.collections)
+    return {alreadyOwned:result.alreadyOwned}
+  }
   const updateBlueprintCollectionEntry = (
     blueprintId: number,
     blueprintName: string,
@@ -399,51 +412,10 @@ function App() {
       return
     }
 
-    const updatedCollections =
-      blueprintCollections.map(
-        (collection) => {
-          if (
-            collection.id !==
-            activeBlueprintCollectionId
-          ) {
-            return collection
-          }
-
-          const entriesWithoutBlueprint =
-            collection.entries.filter(
-              (entry) =>
-                entry.blueprintId !==
-                blueprintId
-            )
-
-          if (status === undefined) {
-            return {
-              ...collection,
-              entries:
-                entriesWithoutBlueprint,
-            }
-          }
-
-          return {
-            ...collection,
-            entries: [
-              ...entriesWithoutBlueprint,
-              {
-                blueprintId,
-                status,
-              },
-            ],
-          }
-        }
-      )
-
-    setBlueprintCollections(
-      updatedCollections
-    )
-
-    saveBlueprintCollections(
-      updatedCollections
-    )
+    const updatedCollections=blueprintCollections.map(collection=>collection.id===activeBlueprintCollectionId?setCollectionBlueprintStatus(collection,blueprintId,status):collection)
+    try { saveBlueprintCollections(updatedCollections) }
+    catch { showToast('Unable to save collection changes. Stored data has been kept.','error');return }
+    setBlueprintCollections(updatedCollections)
 
     const collection =
       blueprintCollections.find(
@@ -643,7 +615,7 @@ function App() {
         'workshop' && (
         <WorkshopView warehouse={inventory.warehouse} warehouseError={inventory.error}
           shopping={shopping}
-          onAddBuild={addBlueprintToBuildQueue}
+          buildQueue={buildQueue.builds} onAddBuild={addBlueprintToBuildQueue}
           activeCollection={
             activeBlueprintCollection
           }
@@ -669,7 +641,7 @@ function App() {
         'catalog' && (
         <BlueprintSearch key={tours.active?tourStepId:"catalog"} initialBlueprint={tours.step?.blueprintContext?tourBlueprint:undefined} onBlueprintSelected={blueprint=>{setTourBlueprint(blueprint);setSelectionRevision(value=>value+1)}} warehouse={inventory.warehouse} warehouseError={inventory.error}
           shopping={shopping}
-          onAddBuild={addBlueprintToBuildQueue}
+          buildQueue={buildQueue.builds} onAddBuild={addBlueprintToBuildQueue}
           calculator={calculator}
           defaultMarkupPercent={
             economicsSettings
@@ -693,7 +665,7 @@ function App() {
 
       {currentView ===
         'collections' && (
-        <BlueprintCollectionsView
+        <BlueprintCollectionsView onAcquireScanned={acquireBlueprintScan}
           collections={
             blueprintCollections
           }
