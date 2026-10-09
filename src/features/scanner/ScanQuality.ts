@@ -39,3 +39,23 @@ export function normalizeScanContrast(rgba: Uint8ClampedArray): void {
   rgba[i*4]=rgba[i*4+1]=rgba[i*4+2]=value;rgba[i*4+3]=255
  }
 }
+
+// Advisory normalized edge energy, sampled at a fixed resolution. It cannot prove autofocus lock.
+export function scanSharpness(gray:Uint8Array,width:number,height:number):number {
+ if(width<3||height<3||gray.length!==width*height)return 0
+ let laplacian=0,variance=0,mean=0,count=0
+ for(const pixel of gray)mean+=pixel
+ mean/=gray.length
+ for(const pixel of gray)variance+=(pixel-mean)**2
+ variance/=gray.length
+ if(variance<20)return 0
+ for(let y=1;y<height-1;y++)for(let x=1;x<width-1;x++){
+  const i=y*width+x,edge=gray[i-1]+gray[i+1]+gray[i-width]+gray[i+width]-4*gray[i]
+  laplacian+=edge*edge;count++
+ }
+ return laplacian/count/variance
+}
+export function captureSharpness(canvas:HTMLCanvasElement):number {
+ const sample=document.createElement('canvas');sample.width=768;sample.height=Math.max(3,Math.round(768*canvas.height/canvas.width))
+ try{const context=sample.getContext('2d',{willReadFrequently:true})!;context.drawImage(canvas,0,0,sample.width,sample.height);return scanSharpness(grayscalePixels(context.getImageData(0,0,sample.width,sample.height).data),sample.width,sample.height)}finally{sample.width=sample.height=0}
+}

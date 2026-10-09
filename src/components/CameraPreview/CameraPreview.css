@@ -5,3 +5,7 @@
 
 .scan-target-frame[data-quality="dark"],.scan-target-frame[data-quality="washed-out"],.scan-target-frame[data-quality="moving"] { border-style:dashed; }
 .scan-guidance { color:var(--color-text); line-height:1.4; margin:.75rem 0; }
+
+.scan-magnifier { margin:.75rem 0; }
+.scan-magnified-content { overflow:auto; max-width:100%; border:1px solid var(--color-border); }
+.scan-magnified-content canvas,.scan-magnified-content img { display:block; width:200%; max-width:none; height:auto; }
