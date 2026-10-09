@@ -22,7 +22,7 @@ with sync_playwright() as p:
  nav('Settings');page.locator('#expiration-warning-days').fill('45');page.get_by_role('button',name='Save Expiration Settings',exact=True).click();page.reload();nav('Settings');assert page.locator('#expiration-warning-days').input_value()=='45'
  with tempfile.TemporaryDirectory() as folder:
   with page.expect_download() as download:page.get_by_role('button',name='Export All Data',exact=True).click()
-  path=Path(folder)/'backup.json';download.value.save_as(str(path));data=json.loads(path.read_text(encoding='utf-8'));assert data['schemaVersion']==3
+  path=Path(folder)/'backup.json';download.value.save_as(str(path));data=json.loads(path.read_text(encoding='utf-8'));assert data['schemaVersion']==4
   nav('Work Queue');page.get_by_role('button',name='Select All',exact=True).click();page.get_by_role('button',name='Delete Selected (3)',exact=True).click();assert page.locator('dialog').count()==1;page.get_by_role('button',name='Cancel',exact=True).click();assert len(records())==4
   page.get_by_role('button',name='Delete Selected (3)',exact=True).click();page.get_by_role('button',name='Delete Selected',exact=True).click();assert len(records())==1
   nav('Settings');page.locator('#backup-file').set_input_files(str(path));page.get_by_role('button',name='Replace & Restore',exact=True).click();page.wait_for_timeout(500);assert len(records())==4

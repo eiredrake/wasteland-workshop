@@ -21,6 +21,7 @@ type DatalistColumn<T> = {
 }
 
 type DatalistProps<T> = {
+  initialDetailsItem?: T
   items: T[]
   title?: string
   columns: DatalistColumn<T>[]
@@ -36,6 +37,7 @@ type DatalistProps<T> = {
 
 function Datalist<T>({
   items,
+  initialDetailsItem,
   title,
   columns,
   showAddButton = false,
@@ -54,7 +56,7 @@ function Datalist<T>({
     useState(true)
 
   const [selectedItem, setSelectedItem] =
-    useState<T | null>(null)
+    useState<T | null>(initialDetailsItem??null)
 
   const [previousDetailsResetKey, setPreviousDetailsResetKey] =
     useState(detailsResetKey)
@@ -110,6 +112,7 @@ function Datalist<T>({
   }
 
   const handleRowClick = (item: T) => {
+    onRowClick?.(item)
     if (renderDetails) {
       scrollPosition.current =
         window.scrollY
@@ -121,7 +124,6 @@ function Datalist<T>({
       return
     }
 
-    onRowClick?.(item)
   }
 
   const handleBack = () => {

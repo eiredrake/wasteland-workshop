@@ -1,3 +1,5 @@
+import { loadTourProgress } from '../tours/TourRepository'
+import { openTour } from '../tours/TourProgress'
 import { loadReadHistory } from '../blueprints/BlueprintReadHistory'
 import { BACKUP_FORMAT, migrateBackup, normalizeTimers, object, prepareRestore, type Backup, type BackupData } from './Backup'
 import { commitReplacement, USER_KEYS, userStorage, type UserStorage } from './UserStorage'
@@ -34,17 +36,19 @@ export function snapshotUserData(storage:UserStorage=userStorage):BackupData {
   const warehouse=warehouseRaw===undefined?{credits:0,entries:[]}:version(warehouseRaw,[1,2],'Warehouse')
   const warning=warningRaw===undefined?DEFAULT_EXPIRATION_WARNING_DAYS:version(warningRaw,[1],'Warehouse Settings').expirationWarningDays
   const queue=buildRaw===undefined?[]:version(buildRaw,[1,2],'Work Queue').builds
-  const data={blueprintReadHistory:{readIds:loadReadHistory(storage)},blueprintCollections:{collections,activeCollectionId:storage.getItem(activeKey)},shoppingLists:{lists,...(shopping.activeListId===undefined?{}:{activeListId:shopping.activeListId})},warehouse:{credits:warehouse.credits,entries:warehouse.entries},settings:{economicsOverrides,alarm,warehouse:{expirationWarningDays:warning}},buildQueue:{builds:queue}}
-  return migrateBackup({format:BACKUP_FORMAT,schemaVersion:3,appVersion:packageInfo.version,exportedAt:new Date().toISOString(),data}).data
+  const data={guidedTours:loadTourProgress(storage),blueprintReadHistory:{readIds:loadReadHistory(storage)},blueprintCollections:{collections,activeCollectionId:storage.getItem(activeKey)},shoppingLists:{lists,...(shopping.activeListId===undefined?{}:{activeListId:shopping.activeListId})},warehouse:{credits:warehouse.credits,entries:warehouse.entries},settings:{economicsOverrides,alarm,warehouse:{expirationWarningDays:warning}},buildQueue:{builds:queue}}
+  return migrateBackup({format:BACKUP_FORMAT,schemaVersion:4,appVersion:packageInfo.version,exportedAt:new Date().toISOString(),data}).data
 }
 export function createBackup(storage:UserStorage=userStorage,now=new Date()):Backup {
   const exportedAt=now.toISOString(),data=normalizeTimers(snapshotUserData(storage),exportedAt)
-  return migrateBackup({format:BACKUP_FORMAT,schemaVersion:3,appVersion:packageInfo.version,exportedAt,data})
+  return migrateBackup({format:BACKUP_FORMAT,schemaVersion:4,appVersion:packageInfo.version,exportedAt,data})
 }
 export function serializeBackup(backup:Backup) {return JSON.stringify(migrateBackup(backup),null,2)}
 export function restoreBackup(backup:Backup,storage:UserStorage=localStorage) {
-  const {data}=prepareRestore(backup),[collectionsKey,activeKey,shoppingKey,warehouseKey,economicsKey,alarmKey,warningKey,buildKey,readKey]=USER_KEYS
+  const {data}=prepareRestore(backup),[collectionsKey,activeKey,shoppingKey,warehouseKey,economicsKey,alarmKey,warningKey,buildKey,readKey,tourKey]=USER_KEYS
+  const tours=data.guidedTours??openTour(loadTourProgress(storage),'intro-blueprints')
   const values:Record<string,string|null>={
+    [tourKey]:JSON.stringify({version:1,progress:tours}),
     [collectionsKey]:JSON.stringify(data.blueprintCollections.collections),[activeKey]:data.blueprintCollections.activeCollectionId,
     [shoppingKey]:JSON.stringify({version:1,...data.shoppingLists}),[warehouseKey]:JSON.stringify({version:2,...data.warehouse}),
     [economicsKey]:JSON.stringify({version:1,overrides:data.settings.economicsOverrides}),[alarmKey]:JSON.stringify(data.settings.alarm),

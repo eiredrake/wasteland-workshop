@@ -1,3 +1,4 @@
+import { validateTourProgress, type TourProgress } from '../tours/TourProgress'
 import { isActionExecution } from '../actions/ActionService'
 import type { BlueprintCollection } from '../blueprints/BlueprintCollection'
 import type { ShoppingListState } from '../shopping/ShoppingList'
@@ -15,6 +16,7 @@ import { allBlueprints } from '../blueprints/blueprints'
 export const BACKUP_FORMAT = 'wasteland-workshop-backup'
 export const MAX_BACKUP_BYTES = 20 * 1024 * 1024
 export type BackupData = {
+  guidedTours?: TourProgress
   blueprintReadHistory: { readIds: number[] }
   blueprintCollections: { collections: BlueprintCollection[]; activeCollectionId: string | null }
   shoppingLists: ShoppingListState
@@ -22,7 +24,7 @@ export type BackupData = {
   settings: { economicsOverrides: EconomicsOverrides; alarm: AlarmSettings; warehouse: { expirationWarningDays: number } }
   buildQueue: { builds: BuildQueue }
 }
-export type Backup = { format: typeof BACKUP_FORMAT; schemaVersion: 3; appVersion: string; exportedAt: string; data: BackupData }
+export type Backup = { format: typeof BACKUP_FORMAT; schemaVersion: 4; appVersion: string; exportedAt: string; data: BackupData }
 export function object(value: unknown): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('Expected a data object.')
   return value as Record<string, unknown>
@@ -86,7 +88,7 @@ export function validateActivity(value: unknown) {
   else check(data.completedAt === undefined, 'Unfinished Build has a completion timestamp.')
 }
 export function validateData(value: unknown): BackupData {
-  const data = object(value); keys(data, ['blueprintCollections','shoppingLists','warehouse','settings','buildQueue','blueprintReadHistory'])
+  const data = object(value); keys(data, ['blueprintCollections','shoppingLists','warehouse','settings','buildQueue','blueprintReadHistory','guidedTours'])
   const collectionState = object(data.blueprintCollections); keys(collectionState,['collections','activeCollectionId'])
   const collections = array(collectionState.collections)
   for (const value of collections) {
@@ -130,13 +132,14 @@ export function validateData(value: unknown): BackupData {
   const queue = object(data.buildQueue); keys(queue,['builds']); const builds = array(queue.builds); builds.forEach(validateActivity); unique(builds.map(value => object(value).id))
   check(builds.filter(value => object(value).status === 'Working').length <= 1, 'More than one Working Build.')
   const history=object(data.blueprintReadHistory); keys(history,['readIds']); const readIds=array(history.readIds); check(readIds.every(validId),'Invalid Read Blueprint IDs.'); unique(readIds)
+  if ('guidedTours' in data) validateTourProgress(data.guidedTours)
   return structuredClone(data) as BackupData
 }
 // Explicit migration boundary; v1 migrates to v2. Future versions migrate here before validation.
 export function migrateBackup(value: unknown): Backup {
   const backup = object(value); keys(backup,['format','schemaVersion','appVersion','exportedAt','data'])
   check(backup.format === BACKUP_FORMAT, 'This is not a full Wasteland Workshop backup.')
-  check(backup.schemaVersion === 1 || backup.schemaVersion === 2 || backup.schemaVersion === 3, 'Unsupported backup version. Update Wasteland Workshop before restoring it.')
+  check(backup.schemaVersion === 1 || backup.schemaVersion === 2 || backup.schemaVersion === 3 || backup.schemaVersion === 4, 'Unsupported backup version. Update Wasteland Workshop before restoring it.')
   text(backup.appVersion); text(backup.exportedAt)
   check(/^\d{4}-\d{2}-\d{2}T/.test(backup.exportedAt) && Number.isFinite(Date.parse(backup.exportedAt)), 'Invalid backup timestamp.')
   const data=object(backup.data)
@@ -144,7 +147,7 @@ export function migrateBackup(value: unknown): Backup {
   if(backup.schemaVersion===1){keys(data,['blueprintCollections','shoppingLists','warehouse','settings','buildQueue']);migrated={...data,blueprintReadHistory:{readIds:[]}}}
   const validated=validateData(migrated)
   validated.buildQueue.builds=validated.buildQueue.builds.map(activity=>activity.sourceType?activity:{...activity,sourceType:'Blueprint',sourceId:activity.blueprintId})
-  return {...backup,schemaVersion:3,data:validated} as Backup
+  return {...backup,schemaVersion:4,data:validated} as Backup
 }
 export function parseBackup(json: string): Backup {
   check(new Blob([json]).size <= MAX_BACKUP_BYTES, 'Backup is too large (maximum 20 MB).')

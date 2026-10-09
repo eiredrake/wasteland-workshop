@@ -210,8 +210,8 @@ function BlueprintCollectionsView({
   }
 
   return (
-    <section className="blueprint-collections-page">
-      <header className="blueprint-collections-header">
+    <section data-tour-target="collections" className="blueprint-collections-page">
+      <header data-tour-target="collection-create" className="blueprint-collections-header">
         <div>
           <h2>Blueprint Collections</h2>
 

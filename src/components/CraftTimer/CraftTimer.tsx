@@ -184,7 +184,7 @@ function CraftTimer({
   }
 
   return (
-    <section className="craft-timer">
+    <section data-tour-target="timer" className="craft-timer">
       <div className="craft-timer-heading">
         <span>Timer</span>
 

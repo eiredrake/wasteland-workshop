@@ -104,7 +104,7 @@ describe('Activity persistence and compatibility',()=>{
   expect(()=>loadBuildQueue(storage,1000)).toThrow()
  })
  it('migrates v2 backups and rejects malformed Action snapshots',()=>{
-  const backup=createBackup(memory());expect(migrateBackup({...backup,schemaVersion:2}).schemaVersion).toBe(3)
+  const backup=createBackup(memory());expect(migrateBackup({...backup,schemaVersion:2}).schemaVersion).toBe(4)
   const storage=memory();saveBuildQueue(queue(),storage);const actionBackup=createBackup(storage,new Date(1000))
   actionBackup.data.buildQueue.builds[0].actionSnapshot!.option.mind=-10
   expect(()=>migrateBackup(actionBackup)).toThrow('snapshot')

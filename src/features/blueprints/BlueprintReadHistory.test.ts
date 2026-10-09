@@ -67,12 +67,12 @@ describe('Blueprint read history', () => {
  it('exports and restores read history with replacement rather than merging', () => {
   const source=memory(), destination=memory(); saveReadHistory([4403,99999999],source); saveReadHistory([4439],destination)
   const backup=createBackup(source)
-  expect(backup.schemaVersion).toBe(3); expect(backup.data.blueprintReadHistory.readIds).toEqual([4403,99999999])
+  expect(backup.schemaVersion).toBe(4); expect(backup.data.blueprintReadHistory.readIds).toEqual([4403,99999999])
   restoreBackup(backup,destination); expect(loadReadHistory(destination)).toEqual([4403,99999999])
  })
  it('migrates legacy backups to empty history and clears destination history', () => {
   const current=createBackup(memory()), legacy={...current,schemaVersion:1,data:{...current.data} as Record<string,unknown>}
-  delete legacy.data.blueprintReadHistory
+  delete legacy.data.guidedTours; delete legacy.data.blueprintReadHistory
   const migrated=migrateBackup(legacy); expect(migrated.data.blueprintReadHistory.readIds).toEqual([])
   const destination=memory();saveReadHistory([4403],destination);restoreBackup(migrated,destination)
   expect(loadReadHistory(destination)).toEqual([])

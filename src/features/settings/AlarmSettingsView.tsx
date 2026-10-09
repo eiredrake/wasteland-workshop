@@ -8,7 +8,7 @@ export default function AlarmSettingsView({ settings, onChange }: {
 }) {
   const [result, setResult] = useState('Tap Test Alarm, then confirm you hear the sound and feel vibration.')
   const [testing, setTesting] = useState(false)
-  return <section className="settings-page">
+  return <section data-tour-target="alarm-settings" className="settings-page">
     <h3>Timer Alarm</h3>
     <div className="settings-card">
       {(['sound', 'vibration'] as const).map(key => <div className="settings-row" key={key}>

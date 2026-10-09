@@ -236,7 +236,7 @@ function BlueprintDetails({
   }
 
   return (
-    <section className="blueprint-details">
+    <section data-tour-target="blueprint-details" className="blueprint-details">
       {shareCard && <SharePreview card={shareCard} onClose={() => setShareCard(undefined)} />}
       <header className="blueprint-details-header">
         <h2>{blueprint.name}</h2>
@@ -250,7 +250,7 @@ function BlueprintDetails({
         skills ||
         specialNotes) && (
         <section className="blueprint-details-card blueprint-mechanics-card">
-          {crafting && <button type="button" className="blueprint-access-status blueprint-build-button" onClick={() => onAddBuild(blueprint)}>Build</button>}
+          {crafting && <button type="button" data-tour-target="blueprint-build" className="blueprint-access-status blueprint-build-button" onClick={() => onAddBuild(blueprint)}>Build</button>}
           <div className="blueprint-mechanics-section blueprint-crafting-skill">
             <h3>Crafting Skill</h3>
             <p>{skills}</p>
@@ -319,7 +319,7 @@ function BlueprintDetails({
           <p>Only dated, usable inventory (and non-expiring currency) counts. Material availability only. Skills, Mind, Resolve, crafting space, and other item eligibility rules still apply. Inventory is not reserved or consumed.</p>
         </>}
       </section>}
-      <section className="blueprint-details-card blueprint-access-card">
+      <section data-tour-target="blueprint-membership" className="blueprint-details-card blueprint-access-card">
         <div className="blueprint-card-heading">
           <h3>Blueprint Access</h3>
         </div>

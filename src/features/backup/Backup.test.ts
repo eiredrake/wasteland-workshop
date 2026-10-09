@@ -34,7 +34,7 @@ afterEach(()=>vi.unstubAllGlobals())
 describe('Full portable backup',()=>{
   it('exports every persisted domain, preferences and active IDs with explicit metadata',()=>{
     const store=populated(),before=[...store.values],backup=createBackup(store,new Date(time+1000))
-    expect(backup).toMatchObject({format:BACKUP_FORMAT,schemaVersion:3,appVersion:expect.any(String),exportedAt:'2026-10-08T12:00:01.000Z'})
+    expect(backup).toMatchObject({format:BACKUP_FORMAT,schemaVersion:4,appVersion:expect.any(String),exportedAt:'2026-10-08T12:00:01.000Z'})
     expect(backup.data.settings).toMatchObject({economicsOverrides:{mindCostPerPoint:0},alarm:{sound:false,vibration:false},warehouse:{expirationWarningDays:0}})
     expect(backup.data.blueprintCollections.activeCollectionId).toBe('collection-a')
     expect(backup.data.shoppingLists.activeListId).toBe('list-a')
@@ -59,7 +59,7 @@ describe('Full portable backup',()=>{
   it('excludes Master catalogs and shipped defaults; restoration leaves current catalogs unchanged',()=>{
     const catalog=JSON.stringify(allBlueprints),defaults=resolveEconomicsSettings(),backup=createBackup(memory(),new Date(time))
     expect(backup.data.settings.economicsOverrides).toEqual({})
-    expect(Object.keys(backup.data)).toEqual(['blueprintReadHistory','blueprintCollections','shoppingLists','warehouse','settings','buildQueue'])
+    expect(Object.keys(backup.data)).toEqual(['guidedTours','blueprintReadHistory','blueprintCollections','shoppingLists','warehouse','settings','buildQueue'])
     restoreBackup(backup,memory());expect(JSON.stringify(allBlueprints)).toBe(catalog);expect(resolveEconomicsSettings()).toEqual(defaults)
   })
   it('keeps unresolved IDs and warns, then resolves saved inventory after catalog availability changes',()=>{
@@ -81,7 +81,7 @@ describe('Full portable backup',()=>{
   })
   it('passes v1 through the migration boundary and rejects unknown sections and future versions',()=>{
     const backup=createBackup(memory(),new Date(time));expect(migrateBackup(backup)).toEqual(backup)
-    expect(()=>migrateBackup({...backup,schemaVersion:4})).toThrow('Unsupported')
+    expect(()=>migrateBackup({...backup,schemaVersion:5})).toThrow('Unsupported')
     expect(()=>migrateBackup({...backup,data:{...backup.data,futureData:[]}})).toThrow('Unrecognized')
   })
   it.each(['{bad','{}','[]','{"format":"other","schemaVersion":1}'])('rejects invalid files before changing storage: %s',json=>{

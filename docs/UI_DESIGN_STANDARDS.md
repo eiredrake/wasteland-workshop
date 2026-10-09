@@ -71,3 +71,10 @@ Enforcement is deliberately focused. AST rules cannot determine the semantics of
 Queue Action entry places required configuration and option selection before Add to Queue. Optional target and requirements/details stay collapsed below it. Simple Actions offer the same immediate primary button as Blueprint entry; catalog details retain their full layout.
 
 Timer Settings buttons and compact-timer long presses navigate to the selected activity’s full Timer page. Adjust minutes directly there; no separate adjustment dialog or redundant Timer Settings button on that page. Preserve authoritative running deadlines and the single Working Activity rule.
+
+
+## Guided tours
+
+GuidedTour owns the themed, nonmodal bottom panel, responsive scrolling, gold target highlight and 44px actions. Reuse its data-driven registry and stable data-tour-target anchors for additional tours. Use existing navigation and confirmed application actions; never synthesize demo records, auto-click destructive controls or undo user changes on Previous Step. Suspend around dialogs/import review and restore focus on exit. Reserve space beneath content and keep toasts out of the panel. Help > Guided Tours uses a native disclosure and independent completion markers.
+
+Run `python tools/ui-tour-check.py` for isolated onboarding/replay checks and 8 additional desktop/mobile visual baselines. Its `--record` writes candidates only; inspect and copy individually after review. These complement the existing 34 theme screenshots.

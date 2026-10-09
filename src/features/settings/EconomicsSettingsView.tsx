@@ -83,7 +83,7 @@ export default function EconomicsSettingsView({ currentOverrides, onSave }: {
     </div>
   }
 
-  return <section className="settings-page economics-settings-page">
+  return <section data-tour-target="economics-settings" className="settings-page economics-settings-page">
     <div className="settings-header"><h3>Economics Settings</h3>
       <p>Override the values used throughout Wasteland Workshop. Leave an override blank or reset it to use the default.</p>
     </div>

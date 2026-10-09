@@ -84,7 +84,7 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
     if (active) setPendingResource({ item, listId: active.id })
   }
 
-  return <section className="blueprint-collections-page shopping-page">
+  return <section data-tour-target="shopping-lists" className="blueprint-collections-page shopping-page">
     <header className="blueprint-collections-header">
       <div><h2>Shopping Lists</h2><p>Plan purchases, track acquisitions, and estimate remaining cost.</p></div>
       <div className="blueprint-collection-card-actions">
@@ -141,7 +141,7 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
       <div className="shopping-summary" role="status"><strong>Estimated remaining: {credits(valued.remainingValue)}{valued.unknownNeeded ? ' + unknown values' : ''}</strong>
         <p>{valued.unknownNeeded ? `${valued.unknownNeeded} needed ingredient row(s) have unknown value. ` : ''}Acquired rows and blueprint prints are excluded. Estimates use Economics Settings.</p>
       </div>
-      <form className="blueprint-collection-add shopping-add-resource" onSubmit={event => {
+      <form data-tour-target="shopping-resources" className="blueprint-collection-add shopping-add-resource" onSubmit={event => {
         event.preventDefault()
         const resource = resourceCatalog.find(item => String(item.resourceId) === resourceId)
         if (!resource) { notify('Choose a resource first.', true); return }

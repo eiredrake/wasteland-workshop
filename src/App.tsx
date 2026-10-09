@@ -1,3 +1,6 @@
+import GuidedTour from './components/GuidedTour/GuidedTour'
+import { guidedTours } from './features/tours/TourRegistry'
+import { useGuidedTours } from './features/tours/useGuidedTours'
 import BackButton from './components/BackButton/BackButton'
 import './styles/controls.css'
 import ActionsView from './features/actions/ActionsView'
@@ -16,6 +19,7 @@ import WarehouseView from './features/warehouse/WarehouseView'
 import { useWarehouse } from './features/warehouse/useWarehouse'
 import {
   useEffect,
+  useCallback,
   useState,
 } from 'react'
 
@@ -92,6 +96,8 @@ type AppView =
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [tourBlueprint,setTourBlueprint]=useState<Blueprint>()
+  const [selectionRevision,setSelectionRevision]=useState(0)
 
   const [currentView, setCurrentView] =
     useState<AppView>('workshop')
@@ -148,12 +154,10 @@ function App() {
         activeBlueprintCollectionId
     )
 
-  const navigateTo = (
-    view: AppView
-  ) => {
+  const navigateTo = useCallback((view: AppView) => {
     setCurrentView(view)
     setMenuOpen(false)
-  }
+  },[])
 
   const dismissToast = (
     id: number
@@ -521,11 +525,20 @@ function App() {
     onOpenLists: () => navigateTo('shopping'),
   }
 
+  const memberStatus=activeBlueprintCollection?.entries.find(entry=>entry.blueprintId===tourBlueprint?.id)?.status
+  const tourSignals={
+    'blueprint-selected':tourBlueprint?String(selectionRevision):'',
+    'collection-selected':activeBlueprintCollectionId?`${activeBlueprintCollectionId}:${blueprintCollections.length}`:'',
+    membership:memberStatus?`${tourBlueprint?.id}:${memberStatus}`:'',
+    queued:JSON.stringify(buildQueue.builds.map(build=>build.id))
+  }
+  const tours=useGuidedTours(tourSignals,message=>showToast(message,'warning'),navigateTo)
+  const tourStepId=tours.step?.id
   return (
-    <BlueprintReadProvider><main>
+    <BlueprintReadProvider><main className={tours.active?'tour-active':undefined}>
       <header className="app-header">
         <button
-          className="menu-button"
+          data-tour-target="menu" className="menu-button"
           type="button"
           aria-label="Open menu"
           aria-expanded={menuOpen}
@@ -601,9 +614,10 @@ function App() {
             Settings
           </button>
 
-          <div className="menu-heading">
-            Help
-          </div>
+          <div className="menu-heading">Help</div>
+          <details className="guided-tours-menu"><summary>Guided Tours</summary>
+          {guidedTours.map(tour=><button key={tour.id} type="button" aria-label={tour.title+(tours.progress[tour.id]?.completed?' (completed)':'')} onClick={()=>{setTourBlueprint(undefined);tours.start(tour.id);setMenuOpen(false)}}>{tours.progress[tour.id]?.completed&&<span aria-hidden="true">✓ </span>}{tour.title}</button>)}
+          </details>
 
           <button
             type="button"
@@ -653,7 +667,7 @@ function App() {
 
       {currentView ===
         'catalog' && (
-        <BlueprintSearch warehouse={inventory.warehouse} warehouseError={inventory.error}
+        <BlueprintSearch key={tours.active?tourStepId:"catalog"} initialBlueprint={tours.step?.blueprintContext?tourBlueprint:undefined} onBlueprintSelected={blueprint=>{setTourBlueprint(blueprint);setSelectionRevision(value=>value+1)}} warehouse={inventory.warehouse} warehouseError={inventory.error}
           shopping={shopping}
           onAddBuild={addBlueprintToBuildQueue}
           calculator={calculator}
@@ -729,7 +743,7 @@ function App() {
       {currentView ===
         'settings' && (
         <>
-        <header className="settings-page settings-header"><h2>Settings</h2></header>
+        <header data-tour-target="settings" className="settings-page settings-header"><h2>Settings</h2></header>
         <BlueprintReadSettingsView />
         <BackupSettingsView />
         <WarehouseSettingsView days={expirationWarningDays} onSave={days=>{
@@ -765,6 +779,7 @@ function App() {
         <ValuationAlgorithmView />
       )}
 
+      {tours.active&&<GuidedTour active={tours.active} onMove={tours.move} onExit={tours.exit} onFinish={tours.finish} canUseExisting={tours.step?.condition==='collection-selected'?!!activeBlueprintCollection:tours.step?.condition==='membership'?!!memberStatus:tours.step?.condition==='blueprint-selected'?!!tourBlueprint:tours.step?.condition==='queued'?buildQueue.builds.some(build=>build.blueprintId===tourBlueprint?.id&&build.status!=='Completed'):false}/>}
       <ToastContainer
         toasts={toasts}
         onDismiss={dismissToast}
