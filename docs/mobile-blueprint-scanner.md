@@ -121,3 +121,11 @@ Comparison on the three provided diagnostic PNGs: Paddle read Slappi Revover, Sl
 Validation: 489 tests, lint and production build; ten existing photo variations (eight confident, two name-only confirmation cases); desktop/mobile scanner checks and same-origin network verification. New tests cover primary/fallback choice, name-field association, uncertain context-free/fuzzy readings, local single-thread asset configuration, error diagnostics, and closing before/during initialization. A production preview check covers actual Paddle OCR, diagnostic download, canonical collection persistence, cleanup, no source imports, and no external requests.
 
 Files: ScanRecognition.ts/test, scanner wiring and diagnostic types, Vite asset hosting, pinned package/lock changes, public/ocr-paddle models/licenses/manifest, replay and browser-check tools. Source: https://www.paddleocr.ai/latest/en/version3.x/inference_deployment/cross_platform/browser.html. Scribe.js was considered but was not used as the independent-engine comparison because its built-in browser engine remains Tesseract-based.
+
+### Production MIME failure diagnosed (2026-10-09)
+
+A desktop Chrome diagnostic from version 0.9.14 showed that PaddleOCR never initialized: its dynamic ONNX module import failed. The live `.mjs` URL returned HTTP 200 with `application/octet-stream`, which browsers reject for ES modules. This was a hosting configuration defect, independent of camera quality. That capture used 2560×1440 pixels; the fallback eventually read Slappi Revolver exactly and offered it for confirmation.
+
+The Docker image now installs `nginx.conf`, which explicitly serves `.mjs` files as `application/javascript`. Other assets keep nginx's existing MIME mappings. Missing modules return 404. This requires rebuilding and deploying the container; a browser refresh alone cannot fix the old image.
+
+Verification: nginx configuration validation passed, the module returned the correct JavaScript MIME type, and the real production scanner workflow passed through an isolated nginx container (PaddleOCR, same-origin assets, diagnostic export, acquisition persistence, and camera cleanup). `tools/ui-scanner-production-check.py` accepts `SCANNER_TEST_URL` to test the actual hosting container rather than only Vite preview.
