@@ -19,3 +19,6 @@
 .scanner-aiming-guide figcaption { text-align:center; color:var(--color-text-muted); font-size:.9rem; margin:.5rem; }
 
 .scanner-result:empty { display:none; }
+
+.scanner-result .scanner-acquire { display:inline-flex; align-items:center; gap:.35rem; min-width:0; max-width:min(100%,24rem); width:max-content; }
+.scanner-acquire-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }

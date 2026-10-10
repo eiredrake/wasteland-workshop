@@ -157,3 +157,9 @@ Auto Capture defaults On for each scanner session. Two consecutive preview sampl
 “Where to aim” opens an existing real Freeiron Dry Pack photo with a yellow box around its Item Name row. It is collapsed initially to keep the mobile scanner compact; the bitmap itself is unchanged.
 
 Validation: 507 unit tests, lint and production build; real desktop/mobile automatic capture, manual scanner safety/acquisition and opt-in diagnostics workflows, hidden diagnostics/default preference persistence, live text polygons, loading state, guide image, no preview acquisition, no horizontal overflow and production same-origin OCR checks. Review screenshots are written to tests/visual/actual. Four changed desktop/mobile camera/result baselines were individually reviewed and updated; summary baselines were preserved. Phone performance/battery behavior with interval OCR still needs physical-device testing.
+
+### Clear acquisition badges and centered progress
+
+LoadingIndicator now fills its scanner result row and centers both ring and notice. Confident detections use the existing green status-badge appearance for `Acquire [print name]`; uncertain suggestions use the existing yellow appearance and the instruction “Check the name, then tap Acquire to import the correct print.” Tapping a yellow candidate now explicitly acquires that named candidate in one action, instead of requiring a name-selection tap followed by a second Acquire tap. Recognition alone still never changes the collection. Existing owned, destination-change and save-failure handling remains intact.
+
+Badges are constrained to the available width (up to 24rem). The name ellipsizes while the Acquire verb stays visible; the complete action/name remains in aria-label and title. Desktop/mobile workflow checks cover confidence colors, direct acquisition, storage failures and long-label ellipsis without horizontal overflow. Loading alignment is checked against the result-row center.

@@ -14,6 +14,8 @@ with sync_playwright() as p:
   nav('Blueprint Collections');page.get_by_role('button',name='Scan & Acquire').click()
   page.get_by_role('button',name='Auto Capture: On',exact=True).click()
   expect(page.get_by_text('Loading OCR Library',exact=True)).to_be_visible()
+  spinner=page.locator('.loading-indicator');bounds=spinner.bounding_box();panel=page.locator('.scanner-result').bounding_box();assert abs((bounds['x']+bounds['width']/2)-(panel['x']+panel['width']/2))<1
+  assert spinner.evaluate("e=>getComputedStyle(e).textAlign")=='center'
   page.locator('.scanner-panel').screenshot(path=str(out/f'{label}-scanner-loading.png'))
   expect(page.get_by_text('Loading OCR Library',exact=True)).not_to_be_visible(timeout=60000)
   expect(page.locator('.scan-text-highlights polygon').first).to_be_visible(timeout=30000)
@@ -25,6 +27,7 @@ with sync_playwright() as p:
   page.get_by_text('Where to aim',exact=True).click();expect(page.get_by_alt_text('Real Freeiron Dry Pack blueprint with the Item Name row outlined in yellow')).to_be_visible()
   page.locator('.scanner-aiming-guide').screenshot(path=str(out/f'{label}-scanner-guide.png'))
   page.get_by_role('button',name='Capture Photo').click();expect(page.get_by_role('heading',name='Blueprint identified: Freeiron Dry Pack')).to_be_visible(timeout=60000)
+  badge=page.get_by_role('button',name='Acquire Freeiron Dry Pack',exact=True);expect(badge).to_have_class('blueprint-access-status blueprint-access-status-acquired scanner-acquire')
   expect(page.get_by_text('Loading OCR Library',exact=True)).not_to_be_visible();assert page.get_by_text('Scan Diagnostics',exact=True).count()==0
   page.get_by_role('button',name='Exit Scanner').click();assert page.evaluate("window.cameraTracks.every(t=>t.readyState==='ended')");page.get_by_role('button',name='Done',exact=True).click()
   nav('Settings');page.get_by_label('Scan Diagnostics',exact=True).select_option('true');page.reload();nav('Settings');expect(page.get_by_label('Scan Diagnostics',exact=True)).to_have_value('true')

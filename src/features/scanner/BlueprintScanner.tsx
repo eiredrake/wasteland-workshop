@@ -128,10 +128,10 @@ export default function BlueprintScanner({collection,destinationName,destination
   return()=>{cancelled=true;if(timer!==undefined)window.clearTimeout(timer);void previewRead.current?.finally(()=>{canvas.width=canvas.height=0}).catch(()=>{});if(!previewRead.current)canvas.width=canvas.height=0}
  },[camera,photo,analyzing,focusing,autoCapture,destinationValid])
  function reset(next:boolean){if(busy.current)return;currentOutcome.current=undefined;setPhoto(undefined);setTextBoxes([]);setDiagnosticReport(undefined);setBlurred(false);setMatch(undefined);setSelected(undefined);setOutcome(undefined);setError('');if(next)documentIndex.current=undefined}
- function acquire(){
-  if(busy.current||!selected||!destinationValid||currentOutcome.current==='acquired'||currentOutcome.current==='owned'||documentIndex.current===undefined)return
+ function acquire(blueprint=selected){
+  if(busy.current||!blueprint||!destinationValid||currentOutcome.current==='acquired'||currentOutcome.current==='owned'||documentIndex.current===undefined)return
   busy.current=true
-  try{const result=onAcquire(destinationId,selected);classify(documentIndex.current,result.alreadyOwned?'owned':'acquired');setError('')}
+  try{const result=onAcquire(destinationId,blueprint);classify(documentIndex.current,result.alreadyOwned?'owned':'acquired');setError('')}
   catch(e){setError(e instanceof Error?e.message:'Unable to save acquisition. No success recorded.')}
   finally{busy.current=false}
  }
@@ -145,8 +145,8 @@ export default function BlueprintScanner({collection,destinationName,destination
  {error&&<p role="alert">{error}</p>}
  <div className="scanner-result" aria-live="polite">
  {ocrLoading?<LoadingIndicator label="Loading OCR Library"/>:analyzing&&<LoadingIndicator label="Reading Item Name…"/>}
- {selected&&<><h3>Blueprint identified: {selected.name}</h3>{outcome==='owned'?<p className="scanner-success">Already Acquired</p>:outcome==='acquired'?<p className="scanner-success">Acquired and saved in {destinationName}.</p>:<button type="button" className="primary-button" disabled={!destinationValid||analyzing} onClick={acquire}>Acquire {selected.name}</button>}</>}
- {match?.confidence==='ambiguous'&&!selected&&<><p>Recognition is uncertain. Choose the correct Blueprint before acquiring.</p>{match.candidates.map(c=><button key={c.blueprint.id} className="secondary-button" type="button" onClick={()=>choose(c.blueprint)}>{c.blueprint.name}</button>)}</>}
+ {selected&&<><h3>Blueprint identified: {selected.name}</h3>{outcome==='owned'?<p className="scanner-success">Already Acquired</p>:outcome==='acquired'?<p className="scanner-success">Acquired and saved in {destinationName}.</p>:<button type="button" className={`blueprint-access-status blueprint-access-status-${match?.confidence==='high'?'acquired':'to-acquire'} scanner-acquire`} aria-label={`Acquire ${selected.name}`} title={`Acquire ${selected.name}`} disabled={!destinationValid||analyzing} onClick={()=>acquire()}><span>Acquire</span><span className="scanner-acquire-name">{selected.name}</span></button>}</>}
+ {match?.confidence==='ambiguous'&&!selected&&<><p>Check the name, then tap Acquire to import the correct print.</p>{match.candidates.map(c=><button key={c.blueprint.id} className="blueprint-access-status blueprint-access-status-to-acquire scanner-acquire" type="button" aria-label={`Acquire ${c.blueprint.name}`} title={`Acquire ${c.blueprint.name}`} disabled={!destinationValid||analyzing} onClick={()=>{choose(c.blueprint);acquire(c.blueprint)}}><span>Acquire</span><span className="scanner-acquire-name">{c.blueprint.name}</span></button>)}</>}
  {showDiagnostics&&match?.readText&&match.confidence!=='high'&&<p className="scanner-read-text">Read from photo: “{match.readText}”</p>}
  {match?.confidence==='none'&&<p>Blueprint not identified. Check the captured name and try again.</p>}
  </div>
