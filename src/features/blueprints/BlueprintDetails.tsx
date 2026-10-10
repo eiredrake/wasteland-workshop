@@ -1,3 +1,5 @@
+import { isProcedureBlueprint, procedureAction } from './ProcedureAction'
+import ActionConfigurationForm from '../actions/ActionConfigurationForm'
 import { hasActiveQueueEntries } from '../builds/BuildQueueService'
 import type { BuildQueue } from '../builds/Build'
 import { useCalendarDay } from '../warehouse/useCalendarDay'
@@ -63,6 +65,7 @@ function BlueprintDetails({
   useEffect(() => { markRead(blueprint.id) },[blueprint.id,markRead])
   const queueHasWork = hasActiveQueueEntries(buildQueue)
   const today = useCalendarDay()
+  const procedure = isProcedureBlueprint(blueprint)
   const crafting = blueprint.itemCraftings?.[0]
   const availability = crafting && warehouse && !warehouseError ? blueprintCraftability(crafting,warehouse,today) : undefined
 
@@ -71,7 +74,7 @@ function BlueprintDetails({
     crafting?.craftingTimeInMinute ?? 0
   const skills =
     crafting?.craftingSkills ??
-    'No crafting data'
+    blueprint.metadata?.requirementsToUse ?? 'No crafting data'
 
   const finalProduct =
     crafting?.craftingFinalProducts?.[0]
@@ -86,16 +89,16 @@ function BlueprintDetails({
             word.slice(1)
         )
         .join(' ')
-    : 'Unknown'
+    : blueprint.metadata?.printHeader ?? 'Unknown'
 
   const itemMechanics =
-    finalProduct?.metadata?.mechanics?.trim()
+    (finalProduct?.metadata?.mechanics ?? blueprint.metadata?.mechanics)?.trim()
 
   const uses =
     finalProduct?.metadata?.uses
 
   const requirementsToUse =
-    finalProduct?.metadata?.requirementsToUse
+    finalProduct?.metadata?.requirementsToUse ?? blueprint.metadata?.requirementsToUse
 
   const lifetimeAmount =
     finalProduct?.lifetimeAmount
@@ -111,7 +114,7 @@ function BlueprintDetails({
       : undefined
 
   const durationOfEffect =
-    finalProduct?.metadata?.durationOfEffect
+    finalProduct?.metadata?.durationOfEffect ?? blueprint.metadata?.durationOfEffect
 
   const specialNotes =
     blueprint.metadata?.notes?.trim()
@@ -257,7 +260,7 @@ function BlueprintDetails({
         <section className="blueprint-details-card blueprint-mechanics-card">
           {crafting && <button type="button" data-tour-target="blueprint-build" className={`blueprint-access-status blueprint-build-button${queueHasWork ? ' blueprint-build-queued' : ''}`} onClick={() => onAddBuild(blueprint)}>{queueHasWork ? <span>Add to<br />Queue</span> : 'Build'}</button>}
           <div className="blueprint-mechanics-section blueprint-crafting-skill">
-            <h3>Crafting Skill</h3>
+            <h3>{procedure ? 'Requirements' : 'Crafting Skill'}</h3>
             <p>{skills}</p>
           </div>
 
@@ -274,7 +277,7 @@ function BlueprintDetails({
               </div>
             )}
 
-          {requirementsToUse && (
+          {requirementsToUse && !procedure && (
             <div className="blueprint-mechanics-section">
               <h3>
                 Requirements To Use
@@ -368,8 +371,10 @@ function BlueprintDetails({
         )}
       </section>
 
-      <BlueprintShoppingAction blueprint={blueprint} shopping={shopping} />
+      {!procedure && <BlueprintShoppingAction blueprint={blueprint} shopping={shopping} />}
 
+      {procedure && <ActionConfigurationForm key={blueprint.id} definition={procedureAction(blueprint)} onClose={()=>{}} onAdd={(_option,configuration)=>{onAddBuild({...blueprint,procedureConfiguration:configuration});return true}}/>}
+      {!procedure && <>
       <div className="blueprint-details-grid">
         <section className="blueprint-details-card">
           <h3>Crafting</h3>
@@ -560,6 +565,7 @@ function BlueprintDetails({
           </p>
         )}
       </section>
+      </>}
     </section>
   )
 }

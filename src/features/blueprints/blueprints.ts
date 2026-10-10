@@ -1,3 +1,4 @@
+import { isProcedureBlueprint } from './ProcedureAction'
 import type { Blueprint } from './Blueprint'
 import blueprintData from '../../data/wasteland-blueprints.json'
 
@@ -21,6 +22,7 @@ export const allBlueprints: Blueprint[] =
 
   export const masterBlueprints: Blueprint[] =
   allBlueprints.filter((blueprint) => {
+    if (isProcedureBlueprint(blueprint)) return true
     if (
       (blueprint.itemCraftings?.length ?? 0) ===
       0

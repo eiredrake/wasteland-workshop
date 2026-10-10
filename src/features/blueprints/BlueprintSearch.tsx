@@ -26,7 +26,7 @@ function getBlueprintKind(
       ?.finalProduct.kind
 
   if (!kind) {
-    return 'Unknown'
+    return blueprint.metadata?.printHeader ?? 'Unknown'
   }
 
   return kind
@@ -44,7 +44,7 @@ function getBlueprintCraftingSkill(
 ) {
   return (
     blueprint.itemCraftings?.[0]
-      ?.craftingSkills ?? 'Unknown'
+      ?.craftingSkills ?? blueprint.metadata?.requirementsToUse ?? 'Unknown'
   )
 }
 

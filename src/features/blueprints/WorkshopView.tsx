@@ -186,13 +186,13 @@ function WorkshopView({
           craftingSkill:
             resolvedBlueprint
               .itemCraftings?.[0]
-              ?.craftingSkills ??
+              ?.craftingSkills ?? resolvedBlueprint.metadata?.requirementsToUse ??
             'Unknown',
           kind: formatKind(
             resolvedBlueprint
               .itemCraftings?.[0]
               ?.craftingFinalProducts?.[0]
-              ?.finalProduct.kind
+              ?.finalProduct.kind ?? resolvedBlueprint.metadata?.printHeader ?? undefined
           ),
           updatedAt:
             resolvedBlueprint.updatedAt,

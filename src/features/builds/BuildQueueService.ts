@@ -1,3 +1,6 @@
+import { isProcedureBlueprint, procedureAction } from '../blueprints/ProcedureAction'
+import { addActionActivity } from '../actions/ActionService'
+import { defaultActionConfiguration } from '../actions/ActionConfiguration'
 import { createCompletionTracker } from '../timer/CraftAlarm'
 import { DefaultCostCalculator } from '../../economics/DefaultCostCalculator'
 import { calculateBlueprintCost } from '../../economics/BlueprintCostService'
@@ -43,6 +46,10 @@ export function addBuild(queue: BuildQueue, blueprint: Blueprint, economics: Eco
 // Blueprint Build action starts only when the queue is entirely empty.
 export function enqueueBlueprintBuild(queue: BuildQueue, blueprint: Blueprint, economics: EconomicsSettings,
   now = Date.now(), id: string = crypto.randomUUID()): BuildQueue {
+  if (isProcedureBlueprint(blueprint)) {
+    const definition = procedureAction(blueprint)
+    return addActionActivity(queue, definition, 'perform', blueprint.procedureConfiguration ?? defaultActionConfiguration(definition.options[0]), economics, undefined, undefined, now, id)
+  }
   return addBuild(queue, blueprint, economics, !hasActiveQueueEntries(queue), now, id)
 }
 export function toggleBuildStatus(queue: BuildQueue, id: string, now = Date.now()): BuildQueue {

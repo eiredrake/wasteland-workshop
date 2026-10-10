@@ -54,3 +54,12 @@ Full backup schema is now version 3. Versions 1 and 2 are accepted and migrated.
 These browser checks used isolated test storage and did not replace real user data. Actual Android/iPhone gesture, background and locked-screen testing remains necessary. Existing browser suspension/audio limitations remain; this work adds no server push or native scheduling.
 
 Manual phone review: add a Blueprint and an Action; pause before switching; test long press and time adjustment; complete one and inspect History; edit history notes; export and restore a backup on a disposable browser profile.
+
+
+## Printable procedures
+
+All 25 prints with the Benediction header and Helscape Infection Transfusion (Blueprint #5459) are included in the master catalog and collections. Their queue entries use Action snapshots, preserve the printed requirements/effects and never manufacture inventory outputs. Both the catalog/details entry and the queue Blueprint picker reuse Action configuration.
+
+Duration defaults from the printed roleplay duration; exact fixed activation costs default from the print. Confirm duration and total Mind/Resolve for each performance. Per-target costs, additional mechanics costs, optional expenditures and participant expenditures are shown as printed rules rather than inferred automatically. For example, Turning of the Seasons’ Wheel has conflicting 10-minute duration and 30-minute roleplay text; the user must confirm the appropriate duration. The selected totals are retained in queue/history and portable backups. These entries do not deduct character resources or inventory.
+
+Validate with `python tools/ui-procedures-check.py` (catalog/details and queue entry at five desktop/mobile widths) and ProcedureAction unit tests.

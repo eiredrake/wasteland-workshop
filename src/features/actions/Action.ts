@@ -4,9 +4,10 @@ export type ActionField = { id:string; label:string; required?:boolean } & (
 export type ActionItem = {itemId?:number;name:string;quantity:number}
 export type SessionConstraints = {maxMinutes?:number;maxMind?:number;maxRepetitions?:number;sameField?:string;unitsField?:string;description:string}
 export type ActionOption = {
+ defaults?:ActionConfiguration;
  id:string;name:string;mind:number;resolve:number;minutes:number;requirements:string[];
  inputs:ActionItem[];equipmentUses:ActionItem[];outputs:ActionItem[];effects:string[];fields:ActionField[];
- interruptionRestarts?:boolean; adjustments?:{field:string;baseline:number;mind?:number;minutes?:number;outputQuantity?:number;effectTemplate?:string;effectMultiplier?:number;effectOffset?:number}[]; outputField?:string;
+ interruptionRestarts?:boolean; adjustments?:{field:string;baseline:number;mind?:number;resolve?:number;minutes?:number;outputQuantity?:number;effectTemplate?:string;effectMultiplier?:number;effectOffset?:number}[]; outputField?:string;
  sessionConstraints?:SessionConstraints
 }
 export type ActionDefinition = {
