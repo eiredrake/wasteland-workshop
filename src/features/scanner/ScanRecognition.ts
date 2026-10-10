@@ -42,6 +42,21 @@ export function createScanRecognizer():ScanRecognizer {
     const lines=result.items,match=matchPaddleLines(lines,catalog)
     diagnostic?.({engine:'PaddleOCR PP-OCRv5 mobile',mode:'detection+recognition',variant:'original',width:image.width,height:image.height,milliseconds:Math.round(performance.now()-started),text:lines.map(l=>l.text).join('\n'),confidence:lines.length?lines.reduce((sum,l)=>sum+l.score,0)*100/lines.length:0,names:match.candidates.map(c=>c.blueprint.name),words:lines.map(l=>({text:l.text,confidence:l.score*100})),boxes:lines.map(l=>({text:l.text,poly:l.poly,score:l.score})),image:image.toDataURL('image/png')})
     if(match.confidence!=='none')return match
+    // High-resolution paper texture can overwhelm detection. Retry once at a
+    // smaller scale; keep the original and all existing catalog thresholds.
+    const retry=document.createElement('canvas')
+    retry.width=Math.min(800,image.width);retry.height=Math.round(image.height*retry.width/image.width)
+    try{
+     const context=retry.getContext('2d')
+     if(context){
+      context.filter='grayscale(1) contrast(1.4)';context.drawImage(image,0,0,retry.width,retry.height)
+      const retryStarted=performance.now(),[retried]=await instance.predict(retry)
+      if(closed)throw new Error('Scanner closed.')
+      const retryMatch=matchPaddleLines(retried.items,catalog)
+      diagnostic?.({engine:'PaddleOCR PP-OCRv5 mobile',mode:'detection+recognition',variant:'grayscale reduced-scale',width:retry.width,height:retry.height,milliseconds:Math.round(performance.now()-retryStarted),text:retried.items.map(l=>l.text).join('\n'),confidence:retried.items.length?retried.items.reduce((sum,l)=>sum+l.score,0)*100/retried.items.length:0,names:retryMatch.candidates.map(c=>c.blueprint.name),words:retried.items.map(l=>({text:l.text,confidence:l.score*100})),boxes:retried.items.map(l=>({text:l.text,poly:l.poly,score:l.score})),image:retry.toDataURL('image/png')})
+      if(retryMatch.confidence!=='none')return {...retryMatch,confidence:'ambiguous'}
+     }
+    }finally{retry.width=retry.height=0}
    }catch(error){
     if(closed)throw new Error('Scanner closed.',{cause:error})
     diagnostic?.({engine:'PaddleOCR PP-OCRv5 mobile',mode:'error',variant:'fallback',width:image.width,height:image.height,milliseconds:Math.round(performance.now()-started),text:error instanceof Error?error.message:String(error),confidence:0,names:[],words:[],image:image.toDataURL('image/png')})

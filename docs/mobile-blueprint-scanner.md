@@ -129,3 +129,17 @@ A desktop Chrome diagnostic from version 0.9.14 showed that PaddleOCR never init
 The Docker image now installs `nginx.conf`, which explicitly serves `.mjs` files as `application/javascript`. Other assets keep nginx's existing MIME mappings. Missing modules return 404. This requires rebuilding and deploying the container; a browser refresh alone cannot fix the old image.
 
 Verification: nginx configuration validation passed, the module returned the correct JavaScript MIME type, and the real production scanner workflow passed through an isolated nginx container (PaddleOCR, same-origin assets, diagnostic export, acquisition persistence, and camera cleanup). `tools/ui-scanner-production-check.py` accepts `SCANNER_TEST_URL` to test the actual hosting container rather than only Vite preview.
+
+### Reduced-scale retry for webcam captures
+
+A 0.9.15 desktop diagnostic read the name as disconnected `Frccironl` and `Hokba` on the original 2200-pixel crop. Replaying the same capture in grayscale with 1.4 contrast at 800 pixels read `Freeiron Hawkbi`, enough to offer Freeiron Hawkbill under the unchanged catalog thresholds. The scanner now makes one bounded reduced-scale retry only after an unmatched original pass. Retry results always require confirmation; both inputs and detections are included in opt-in diagnostics, and temporary canvases are released.
+
+The latest cleaned-camera capture now offers the correct blueprint. The preceding capture (read as `Freeiron Hawkba`) still fails; this is an improvement, not a guarantee for every soft image. No diagnostic photos are added to the repository or uploaded. Regression coverage checks reduced-scale fallback and confirmation, alongside existing matching safety and worker cleanup tests.
+
+### Focus controls and diagnostics
+
+The scanner now records camera-supported focus modes and manual-distance range, the requested autofocus mode, request success/failure (including error text), and actual mode/distance when the browser reports them. No camera IDs are recorded. Initialization requests continuous autofocus where available, otherwise single-shot. Unsupported and manual-only cameras keep their default behavior.
+
+A themed Refocus button appears only when single-shot or continuous autofocus is advertised. It prefers single-shot on explicit request, otherwise reapplies continuous mode. Capture is disabled while the request is pending. Feedback confirms only that the request was accepted, never a focus lock; the browser does not provide a portable focus-lock signal. Rejected requests get visible feedback and remain in diagnostics. Late results are ignored after camera interruption or replacement. Manual focus sliders and automatic focus-distance sweeps are not implemented.
+
+Validation: six focus unit tests cover supported modes, actual settings, explicit single-shot, continuous fallback, unsupported/manual-only devices, rejected requests and unavailable capability reporting. 496 tests, lint and build pass. Desktop/mobile scanner workflows (including rejected Refocus feedback) and the production workflow pass. Reviewed new desktop/mobile screenshots; existing visual baselines were preserved because the new control deliberately changes the camera view. Physical camera behavior still requires phone/webcam testing.

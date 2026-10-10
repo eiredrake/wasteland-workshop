@@ -10,6 +10,7 @@ const image={width:800,height:200,toDataURL:()=> 'data:image/png;base64,local'} 
 beforeEach(()=>{
  vi.resetAllMocks();vi.stubGlobal('location',{origin:'https://local.invalid'});vi.stubGlobal('window',{})
  vi.stubGlobal('Worker',class{terminate=mocks.terminate})
+ vi.stubGlobal('document',{createElement:()=>({width:0,height:0,getContext:()=>({filter:'',drawImage:vi.fn()}),toDataURL:()=> 'data:image/png;base64,retry'})})
  mocks.create.mockImplementation(async options=>{options.worker.createWorker();return {predict:mocks.predict,dispose:mocks.dispose}})
  mocks.dispose.mockResolvedValue(undefined);mocks.fallbackCreate.mockReturnValue({recognize:mocks.fallbackRead,close:mocks.fallbackClose});mocks.fallbackClose.mockResolvedValue(undefined);mocks.fallbackRead.mockResolvedValue({confidence:'none',candidates:[]})
 })
@@ -51,4 +52,13 @@ it('terminates initialization in flight and ignores the late reader without laun
  const reader=createScanRecognizer(),recognition=reader.recognize(image,catalog)
  await vi.waitFor(()=>expect(mocks.create).toHaveBeenCalledOnce());await reader.close();expect(mocks.terminate).toHaveBeenCalledOnce()
  resolve({predict:mocks.predict,dispose:mocks.dispose});await expect(recognition).rejects.toThrow('closed');expect(mocks.predict).not.toHaveBeenCalled();expect(mocks.fallbackCreate).not.toHaveBeenCalled()
+})
+
+it('retries an unmatched capture at reduced scale and requires confirmation',async()=>{
+ mocks.predict.mockResolvedValueOnce([{items:[]}]).mockResolvedValueOnce([{items:[line('Inem Niame',10,10),line('Freeiron Hawkbi',140,10),line('Inem Type',10,40)]}])
+ const reader=createScanRecognizer(),diagnostic=vi.fn()
+ const result=await reader.recognize(image,[{...base,id:3,name:'Freeiron Hawkbill'}],diagnostic)
+ expect(result.confidence).toBe('ambiguous');expect(result.candidates[0].blueprint.name).toBe('Freeiron Hawkbill')
+ expect(mocks.fallbackRead).not.toHaveBeenCalled();expect(diagnostic.mock.calls[1][0].variant).toBe('grayscale reduced-scale')
+ await reader.close()
 })

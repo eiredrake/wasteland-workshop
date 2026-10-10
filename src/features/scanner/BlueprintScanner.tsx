@@ -9,6 +9,7 @@ import { createScanRecognizer, type ScanRecognizer, type ScanPassDiagnostic } fr
 import { scanCounters, type ScanOutcome } from './ScanSession'
 import { captureNamePhoto, stillCamera, type StillCamera } from './ScanCapture'
 import { captureSharpness } from './ScanQuality'
+import {requestFocus,type FocusReport} from './ScanFocus'
 import './BlueprintScanner.css'
 type Props={collection:BlueprintCollection|undefined;destinationName:string;destinationId:string;activeId:string|undefined;onAcquire:(collectionId:string,blueprint:Blueprint)=>{alreadyOwned:boolean};onDone:()=>void}
 export default function BlueprintScanner({collection,destinationName,destinationId,activeId,onAcquire,onDone}:Props){
@@ -17,6 +18,8 @@ export default function BlueprintScanner({collection,destinationName,destination
  const photoCamera=useRef<StillCamera|undefined>(undefined)
  const [flashSupported,setFlashSupported]=useState(false),[flashOn,setFlashOn]=useState(false),[blurred,setBlurred]=useState(false)
  const [diagnosticsEnabled,setDiagnosticsEnabled]=useState(false),[diagnosticReport,setDiagnosticReport]=useState<string>()
+ const focusReport=useRef<FocusReport|undefined>(undefined)
+ const [focusSupported,setFocusSupported]=useState(false),[focusing,setFocusing]=useState(false),[focusMessage,setFocusMessage]=useState('')
  const captureCanvas=useRef<HTMLCanvasElement|undefined>(undefined)
  const currentOutcome=useRef<ScanOutcome|undefined>(undefined)
  const documentIndex=useRef<number|undefined>(undefined)
@@ -38,12 +41,9 @@ export default function BlueprintScanner({collection,destinationName,destination
     setFlashSupported(false);setFlashOn(false)
     photoCamera.current=stillCamera(media.getVideoTracks()[0])
     try{const capabilities=await photoCamera.current?.getPhotoCapabilities();if(!disposed&&generation.current===openingGeneration)setFlashSupported(capabilities?.fillLightMode?.includes('flash')??false)}catch{/* Still capture may work without flash capability reporting. */}
-    // Best-effort continuous autofocus where the device exposes it; unsupported devices continue normally.
-    try {
-     const rearTrack=media.getVideoTracks()[0]
-     const capabilities=rearTrack?.getCapabilities?.() as (MediaTrackCapabilities & {focusMode?:string[]})|undefined
-     if(capabilities?.focusMode?.includes('continuous'))await rearTrack.applyConstraints({...rearTrack.getConstraints(),focusMode:'continuous'} as MediaTrackConstraints)
-    }catch{/* Unsupported autofocus retains the camera's default behavior. */}
+    const focus=await requestFocus(media.getVideoTracks()[0])
+    if(disposed||generation.current!==openingGeneration){media.getTracks().forEach(track=>track.stop());return}
+    focusReport.current=focus;setFocusSupported(focus.supportedModes.some(mode=>mode==='continuous'||mode==='single-shot'));setFocusMessage('')
     if(disposed||generation.current!==openingGeneration){media.getTracks().forEach(track=>track.stop());return}
     for(const track of media.getVideoTracks())track.addEventListener('ended',()=>{if(!disposed){setCamera('stopped');setError('The camera was interrupted. Resume Camera to continue.')}})
     if(video.current){video.current.srcObject=media;await video.current.play()}
@@ -55,12 +55,23 @@ export default function BlueprintScanner({collection,destinationName,destination
  },[attempt])
  function classify(index:number,value:ScanOutcome){currentOutcome.current=value;setDocuments(old=>old.map((item,i)=>i===index?value:item));setOutcome(value)}
  function choose(blueprint:Blueprint){setSelected(blueprint);if(collection?.entries.some(e=>e.blueprintId===blueprint.id&&e.status==='acquired')&&documentIndex.current!==undefined)classify(documentIndex.current,'owned')}
+ async function refocus(){
+  const track=stream.current?.getVideoTracks()[0]
+  if(!track||busy.current||focusing)return
+  const job=generation.current;setFocusing(true);setFocusMessage('Requesting autofocus…')
+  try{
+   const report=await requestFocus(track,true)
+   if(job!==generation.current||stream.current?.getVideoTracks()[0]!==track)return
+   focusReport.current=report
+   setFocusMessage(report.result==='applied'?'Autofocus requested. Check that the name is sharp before capturing.':report.result==='failed'?'The camera rejected the autofocus request.':'This camera does not expose autofocus controls.')
+  }finally{setFocusing(false)}
+ }
  async function capture(){
-  if(busy.current||camera!=='ready'||!destinationValid||!video.current)return
+  if(busy.current||focusing||camera!=='ready'||!destinationValid||!video.current)return
   busy.current=true;currentOutcome.current=undefined;setAnalyzing(true);setError('');setMatch(undefined);setSelected(undefined);setOutcome(undefined);setBlurred(false)
   const job=++generation.current;let canvas:HTMLCanvasElement|undefined
   const passes:ScanPassDiagnostic[]=[]
-  const report=diagnosticsEnabled?{schema:1,appVersion:__APP_VERSION__,created:new Date().toISOString(),browser:navigator.userAgent,viewport:{width:window.innerWidth,height:window.innerHeight,pixelRatio:window.devicePixelRatio},camera:{flashRequested:flashOn,flashSupported,width:video.current.videoWidth,height:video.current.videoHeight,settings:Object.fromEntries(Object.entries(stream.current?.getVideoTracks()[0]?.getSettings()??{}).filter(([key])=>['width','height','aspectRatio','frameRate','facingMode','focusMode','exposureMode','torch','zoom'].includes(key))),crop:scanFrameBounds(video.current.videoWidth,video.current.videoHeight),preview:video.current.getBoundingClientRect().toJSON()},capture:undefined as {width:number;height:number;image:string;source:string;sharpness:number;sourceWidth?:number;sourceHeight?:number;reason?:string}|undefined,passes,result:undefined as unknown,error:''}:undefined
+  const report=diagnosticsEnabled?{schema:1,appVersion:__APP_VERSION__,created:new Date().toISOString(),browser:navigator.userAgent,viewport:{width:window.innerWidth,height:window.innerHeight,pixelRatio:window.devicePixelRatio},camera:{focus:focusReport.current,flashRequested:flashOn,flashSupported,width:video.current.videoWidth,height:video.current.videoHeight,settings:Object.fromEntries(Object.entries(stream.current?.getVideoTracks()[0]?.getSettings()??{}).filter(([key])=>['width','height','aspectRatio','frameRate','facingMode','focusMode','exposureMode','torch','zoom'].includes(key))),crop:scanFrameBounds(video.current.videoWidth,video.current.videoHeight),preview:video.current.getBoundingClientRect().toJSON()},capture:undefined as {width:number;height:number;image:string;source:string;sharpness:number;sourceWidth?:number;sourceHeight?:number;reason?:string}|undefined,passes,result:undefined as unknown,error:''}:undefined
   setDiagnosticReport(undefined)
   try{
    const captured=await captureNamePhoto(video.current,photoCamera.current,flashOn,()=>generation.current===job)
@@ -103,11 +114,13 @@ export default function BlueprintScanner({collection,destinationName,destination
  {photo&&blurred&&<p role="status">This capture looks soft or has little text detail. Retake from slightly farther away, hold still and check the enlarged name. Recognition may still work.</p>}
  <CameraPreview videoRef={video} photo={photo} onReady={()=>setCamera('ready')}/>
  {!photo&&<p>Aim at just the Item Name row, not the whole Blueprint. Photos stay on this device and are discarded after scanning.</p>}
+ {focusMessage&&camera==='ready'&&!photo&&<p role="status">{focusMessage}</p>}
  <details><summary>Scan Diagnostics</summary><p>Enable before capturing to save the exact OCR images, recognized text, matching results and camera details. Nothing is uploaded. The download contains the photographed name area; share it only when you choose.</p><label><input type="checkbox" checked={diagnosticsEnabled} disabled={analyzing} onChange={e=>{setDiagnosticsEnabled(e.target.checked);setDiagnosticReport(undefined)}}/> Collect diagnostics for the next capture</label>
  {diagnosticReport&&<button type="button" className="secondary-button" onClick={()=>{const url=URL.createObjectURL(new Blob([diagnosticReport],{type:'application/json'})),link=document.createElement('a');link.href=url;link.download='wasteland-scan-diagnostics.json';document.body.appendChild(link);link.click();link.remove();window.setTimeout(()=>URL.revokeObjectURL(url),30000)}}>Download Scan Diagnostics</button>}</details>
  <div className="scanner-controls">
  {camera==='ready'&&!photo&&flashSupported&&<button type="button" className="secondary-button" aria-pressed={flashOn} disabled={analyzing} onClick={()=>setFlashOn(!flashOn)}>Flash: {flashOn?'On':'Off'}</button>}
- {camera==='ready'&&!photo&&<button type="button" className="primary-button" disabled={analyzing||!destinationValid} onClick={()=>void capture()}>Capture Photo</button>}
+ {camera==='ready'&&!photo&&focusSupported&&<button type="button" className="secondary-button" disabled={analyzing||focusing} onClick={()=>void refocus()}>{focusing?'Requesting Focus…':'Refocus'}</button>}
+ {camera==='ready'&&!photo&&<button type="button" className="primary-button" disabled={analyzing||focusing||!destinationValid} onClick={()=>void capture()}>Capture Photo</button>}
  {camera==='stopped'&&<button type="button" className="secondary-button" disabled={!destinationValid} onClick={()=>{setCamera('opening');setError('');setAttempt(n=>n+1)}}>Resume Camera</button>}
  {camera==='opening'&&<p role="status">Opening camera…</p>}
  {photo&&outcome!=='acquired'&&<button type="button" className="secondary-button" disabled={analyzing} onClick={()=>reset(false)}>Retake Photo / Try Again</button>}
