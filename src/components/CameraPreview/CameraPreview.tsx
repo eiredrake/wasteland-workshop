@@ -2,7 +2,7 @@ import { NAME_STRIP_ASPECT, scanFrameBounds } from './CameraGeometry'
 import { useEffect, useRef, useState, type RefObject } from 'react'
 import { assessScanQuality, grayscalePixels, scanSharpness, scanQualityMessage, type ScanQuality } from '../../features/scanner/ScanQuality'
 import './CameraPreview.css'
-export default function CameraPreview({videoRef,photo,onReady}:{videoRef:RefObject<HTMLVideoElement|null>;photo?:string;onReady:()=>void}) {
+export default function CameraPreview({videoRef,photo,onReady,textBoxes=[],autoCapture=false}:{videoRef:RefObject<HTMLVideoElement|null>;photo?:string;onReady:()=>void;textBoxes?:number[][][];autoCapture?:boolean}) {
  const magnified=useRef<HTMLCanvasElement>(null)
  const [soft,setSoft]=useState(false)
  const [quality,setQuality]=useState<ScanQuality>('aim')
@@ -29,8 +29,9 @@ export default function CameraPreview({videoRef,photo,onReady}:{videoRef:RefObje
   <video ref={videoRef} autoPlay playsInline muted hidden={!!photo} onLoadedMetadata={onReady} aria-label="Live rear camera preview" />
   {photo&&<img src={photo} alt="Temporary capture of the Item Name area"/>}
   {!photo&&<div className="scan-target-frame" data-quality={quality} aria-hidden="true"/>}
+  {textBoxes.length>0&&<svg className="scan-text-highlights" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">{textBoxes.map((poly,index)=><polygon key={index} points={poly.map(([x,y])=>`${x*100},${y*100}`).join(' ')}/>)}</svg>}
  </div>
- {!photo&&<p className="scan-guidance" aria-live="polite">{quality==='aim'&&soft?'The letters may be out of focus. Move slightly farther away and hold still; check the enlarged name.':scanQualityMessage[quality]}</p>}
+ {!photo&&<p className="scan-guidance" aria-live="polite">{quality==='aim'&&soft?'The letters may be out of focus. Move slightly farther away and hold still; check the enlarged name.':autoCapture&&quality==='aim'?'Hold the full name steady. Matching names capture automatically.':scanQualityMessage[quality]}</p>}
  <details className="scan-magnifier"><summary>Enlarge name to check focus</summary><p>Swipe sideways to inspect the entire name. Letters should have clear edges.</p><div className="scan-magnified-content" tabIndex={0} aria-label="Enlarged name preview; scroll horizontally">{photo?<img src={photo} alt="Enlarged captured name"/>:<canvas ref={magnified} width={768} height={226} aria-label="Enlarged live name"/>}</div></details>
  </>
 }

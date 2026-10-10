@@ -7,3 +7,15 @@
 @media(max-width:400px){.scanner-panel{padding:.75rem}.scanner-controls button{flex-grow:1}}
 
 .scanner-read-text { color:var(--color-text-muted); overflow-wrap:anywhere; }
+
+.scanner-destination { margin:.5rem 0; }
+.scanner-counts { margin:.5rem 0; }
+.scanner-aiming-guide { margin:.75rem 0; }
+.scanner-aiming-guide summary { cursor:pointer; min-height:44px; align-content:center; }
+.scanner-aiming-guide figure { margin:.5rem 0; }
+.scanner-example { position:relative; max-width:320px; margin:auto; }
+.scanner-example img { display:block; width:100%; height:auto; border-radius:var(--panel-radius); }
+.scanner-example span { position:absolute; left:8%; top:13%; width:63%; height:3%; border:3px solid var(--color-focus); background:var(--color-warning-tint); box-sizing:border-box; }
+.scanner-aiming-guide figcaption { text-align:center; color:var(--color-text-muted); font-size:.9rem; margin:.5rem; }
+
+.scanner-result:empty { display:none; }

@@ -5,15 +5,19 @@ import { isolateNameRows, prepareNameRow } from './ScanNameRows'
 import { normalizeScanContrast } from './ScanQuality'
 import type { Blueprint } from '../blueprints/Blueprint'
 export type ScanPassDiagnostic={engine?:string;boxes?:{text:string;poly:number[][];score:number}[];mode:string;variant:string;width:number;height:number;milliseconds:number;text:string;confidence:number;names:string[];words:{text:string;confidence:number}[];image:string}
-export type ScanRecognizer={recognize:(image:HTMLCanvasElement,catalog:Blueprint[],diagnostic?:(pass:ScanPassDiagnostic)=>void)=>Promise<ScanMatch>;close:()=>Promise<void>}
-export function createScanRecognizer():ScanRecognizer {
+export type ScanTextBox={text:string;poly:number[][];score:number}
+export type ScanRecognizer={initialize?:()=>Promise<void>;detect?:(image:HTMLCanvasElement)=>Promise<ScanTextBox[]>;recognize:(image:HTMLCanvasElement,catalog:Blueprint[],diagnostic?:(pass:ScanPassDiagnostic)=>void)=>Promise<ScanMatch>;close:()=>Promise<void>}
+export function createScanRecognizer(options:{onLoading?:(loading:boolean)=>void}={}):ScanRecognizer {
  let pending:Promise<Worker>|undefined,closed=false
  const worker=()=>pending??=(async()=>{
+  options.onLoading?.(true)
+  try{
   const {createWorker}=await import('tesseract.js')
   const base=new URL(import.meta.env.BASE_URL+'ocr/',location.origin).href
   const instance=await createWorker('eng',1,{workerPath:base+'worker.min.js',corePath:base,langPath:base,workerBlobURL:false,cacheMethod:'none'})
   if(closed){await instance.terminate();throw new Error('Scanner closed.')}
   return instance
+  }finally{options.onLoading?.(false)}
  })()
  return {
   async recognize(image,catalog,diagnostic){

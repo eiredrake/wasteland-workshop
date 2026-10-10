@@ -17,6 +17,7 @@ describe('local scanner matching',()=>{
  it.each(['Freeiron Dry Pack','FREEIRON DRY PACK','Freeiron-Dry  Pack','FreeironDryPack','Freeiron Dry Pacl'])('matches %s against canonical IDs',name=>{
   const result=matchScanNames([name],catalog);expect(result.candidates[0].blueprint.id).toBe(1);expect(result.confidence).not.toBe('none')
  })
+ it('compares both OCR and catalog names without case sensitivity',()=>{expect(matchScanNames(['hOoCh'],[{...catalog[1],name:'HOOCH'}]).confidence).toBe('high')})
  it('handles common OCR confusions conservatively',()=>expect(matchScanNames(['H00ch'],catalog).confidence).toBe('high'))
  it('requires user choice for duplicate names and plausible fuzzy alternatives',()=>{
   expect(matchScanNames(['Hooch'],[...catalog,{...catalog[1],id:3}]).confidence).toBe('ambiguous')

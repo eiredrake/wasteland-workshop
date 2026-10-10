@@ -62,3 +62,23 @@ it('retries an unmatched capture at reduced scale and requires confirmation',asy
  expect(mocks.fallbackRead).not.toHaveBeenCalled();expect(diagnostic.mock.calls[1][0].variant).toBe('grayscale reduced-scale')
  await reader.close()
 })
+
+it('announces library initialization only while loading and reuses the reader',async()=>{
+ const onLoading=vi.fn(),reader=createScanRecognizer({onLoading})
+ await reader.initialize!();await reader.initialize!()
+ expect(onLoading.mock.calls).toEqual([[true],[false]]);expect(mocks.create).toHaveBeenCalledOnce();await reader.close()
+})
+it('clears loading feedback after initialization failure',async()=>{
+ mocks.create.mockRejectedValue(Error('offline'));const onLoading=vi.fn(),reader=createScanRecognizer({onLoading})
+ await expect(reader.initialize!()).rejects.toThrow('offline');expect(onLoading.mock.calls).toEqual([[true],[false]]);await reader.close()
+})
+it('detects preview text without fallback matching or acquisition',async()=>{
+ mocks.predict.mockResolvedValue([{items:[line('Item Name',10,10),line('noise',10,40,.2)]}]);const reader=createScanRecognizer()
+ expect(await reader.detect!(image)).toEqual([line('Item Name',10,10)]);expect(mocks.fallbackCreate).not.toHaveBeenCalled();await reader.close()
+})
+it('serializes preview and capture predictions and ignores detections after close',async()=>{
+ let resolve!:(value:unknown)=>void;mocks.predict.mockImplementationOnce(()=>new Promise(done=>{resolve=done})).mockResolvedValue([{items:[]}])
+ const reader=createScanRecognizer(),first=reader.detect!(image),second=reader.detect!(image)
+ await vi.waitFor(()=>expect(mocks.predict).toHaveBeenCalledOnce());resolve([{items:[]}]);await first;await second;expect(mocks.predict).toHaveBeenCalledTimes(2)
+ await reader.close();await expect(reader.detect!(image)).rejects.toThrow('closed')
+})
