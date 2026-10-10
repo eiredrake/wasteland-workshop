@@ -696,7 +696,7 @@ function App() {
           notify={(message, error) => showToast(message, error ? 'error' : 'success')} />
       )}
 
-      {currentView === 'warehouse' && <WarehouseView warningDays={expirationWarningDays} warehouse={inventory.warehouse} apply={inventory.apply} error={inventory.error} />}
+      {currentView === 'warehouse' && <WarehouseView warningDays={expirationWarningDays} warehouse={inventory.warehouse} apply={inventory.apply} error={inventory.error} onAdded={message=>showToast(message,'success')} />}
 
       {currentView === 'history' && <WorkHistoryView builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}/>}
       {currentView === 'builds' && <BuildQueueView builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}

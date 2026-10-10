@@ -1,3 +1,4 @@
+import SearchInput from '../../components/SearchInput/SearchInput'
 import RemoveBadge from '../../components/RemoveBadge/RemoveBadge'
 import ConfirmationDialog from '../../components/ConfirmationDialog/ConfirmationDialog'
 import { ingredientItems } from '../blueprints/IngredientCatalog'
@@ -103,8 +104,7 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
     </header>
 
     {(adding || renameId || pendingImport) && <form className="blueprint-collection-add" onSubmit={event => { event.preventDefault(); saveName() }}>
-      <label htmlFor="shopping-list-name">{renameId ? 'Rename List' : pendingImport ? 'Imported List Name' : 'List Name'}</label>
-      <input id="shopping-list-name" value={name} maxLength={200} autoFocus required onChange={event => setName(event.target.value)} onKeyDown={event => { if (event.key === 'Escape') cancelName() }} />
+      <SearchInput label={renameId ? 'Rename List' : pendingImport ? 'Imported List Name' : 'List Name'} showLabel inputType="text" showSearchIcon={false} id="shopping-list-name" value={name} maxLength={200} autoFocus required onValueChange={setName} onKeyDown={event => { if (event.key === 'Escape') cancelName() }} />
       {pendingImport && <p>{pendingImport.items.length} ingredient rows found. Import creates a new list.</p>}
       <div className="blueprint-collection-add-actions">
         <button type="button" className="secondary-button" onClick={cancelName}>Cancel</button>

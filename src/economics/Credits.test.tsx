@@ -40,7 +40,7 @@ describe('whole credit valuations', () => {
  })
  it('renders a legacy fractional warehouse balance without changing it', () => {
   const warehouse={entries:[],credits:179.8}
-  expect(renderToStaticMarkup(<WarehouseView warehouse={warehouse} apply={()=>true} error=""/>)).toContain('180cr')
+  expect(renderToStaticMarkup(<WarehouseView warehouse={warehouse} apply={()=>true} error="" onAdded={()=>{}}/>)).toContain('180cr')
   expect(warehouse.credits).toBe(179.8)
  })
  it('preserves fractional labor, materials and markup inputs', () => {

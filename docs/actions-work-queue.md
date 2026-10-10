@@ -58,8 +58,14 @@ Manual phone review: add a Blueprint and an Action; pause before switching; test
 
 ## Printable procedures
 
-All 25 prints with the Benediction header and Helscape Infection Transfusion (Blueprint #5459) are included in the master catalog and collections. Their queue entries use Action snapshots, preserve the printed requirements/effects and never manufacture inventory outputs. Both the catalog/details entry and the queue Blueprint picker reuse Action configuration.
+All 48 prints with Benediction, Procedure, Necrology Procedure or Dubious Procedure headers are included in the master catalog and collections (header whitespace is normalized). There are 45 queueable procedure Actions, including Helscape Infection Transfusion. Both the details page and the queue Blueprint/Action pickers reuse Action configuration. Printed rules are also preserved in Share Print.
 
-Duration defaults from the printed roleplay duration; exact fixed activation costs default from the print. Confirm duration and total Mind/Resolve for each performance. Per-target costs, additional mechanics costs, optional expenditures and participant expenditures are shown as printed rules rather than inferred automatically. For example, Turning of the Seasons’ Wheel has conflicting 10-minute duration and 30-minute roleplay text; the user must confirm the appropriate duration. The selected totals are retained in queue/history and portable backups. These entries do not deduct character resources or inventory.
+Hypocritical Oath (#6219), Infectus Copiam (#5958) and Nero Extraction (#6221) explicitly create Hypocritical Sample, Bottled Infection and Squid Crystal, respectively. They are visible and collectible, but cannot be queued until their crafting inputs and outputs are reviewed. No fake empty-output Action is created for them. See [the remaining print review](remaining-print-review.md).
 
-Validate with `python tools/ui-procedures-check.py` (catalog/details and queue entry at five desktop/mobile widths) and ProcedureAction unit tests.
+Exact fixed roleplay duration and activation costs default from the print. A duration described as depending on another blueprint, a target count or the mechanics remains blank and is required before submission. Confirm total Mind/Resolve for each performance: per-target costs, optional expenditures, participant costs and additional mechanics costs are not inferred automatically. Consumables remain visible requirements; no character resource or inventory is automatically deducted.
+
+Cutting Corners, Sedlec Engineering Plans, Shared Hands, Synthesis of Prognosis and Turning the Key of Memories are recorded as procedure Actions. Their printed modifiers do not automatically alter another queued activity, its material cost, or its output. Enter the relevant full duration and costs. Linked project modification remains future work.
+
+Source contradictions remain visible. For example, Turning of the Seasons’ Wheel has a 10-minute duration field but 30-minute roleplay text; The Glass Onion Technique has a 5-minute duration field but 1-minute mechanics. Confirm the appropriate duration rather than silently rewriting the catalog. Selected totals and rules are retained in queue/history and portable backups, including older version-1 procedure snapshots.
+
+Validate with `python tools/ui-procedures-check.py` (master/collection details, all new categories, both queue pickers, unknown-duration validation, reload persistence and output-review exclusions at five desktop/mobile widths) and ProcedureAction unit tests.

@@ -1,3 +1,4 @@
+import SearchInput from '../SearchInput/SearchInput'
 import { useId, useRef, useState } from 'react'
 import './SearchablePicker.css'
 
@@ -33,15 +34,13 @@ export default function SearchablePicker<T>({ label, options, getOptionKey, getO
   return <div className="searchable-picker" onBlur={event => {
     if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false)
   }}>
-    <label htmlFor={id}>{label}</label>
-    <input ref={input} id={id} role="combobox" type="text" autoComplete="off"
+    <SearchInput inputRef={input} id={id} label={label} showLabel role="combobox" inputType="text" autoComplete="off"
       aria-autocomplete="list" aria-expanded={expanded} aria-controls={`${id}-options`}
       aria-activedescendant={expanded && highlighted >= 0 ? `${id}-option-${highlighted}` : undefined}
       aria-describedby={open && matches.length === 0 ? `${id}-empty` : undefined}
       placeholder={placeholder} required={required} value={query}
       onFocus={() => setOpen(true)} onClick={() => setOpen(true)}
-      onChange={event => {
-        const text = event.target.value
+      onValueChange={text => {
         setQuery(text); setOpen(true); setHighlighted(-1); setSelectedKey(undefined)
         const exact = options.filter(option => getOptionLabel(option).toLocaleLowerCase() === text.trim().toLocaleLowerCase())
         const selection = exact.length === 1 ? exact[0] : undefined

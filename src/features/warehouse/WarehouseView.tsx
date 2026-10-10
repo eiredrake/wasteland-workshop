@@ -10,8 +10,8 @@ import { addInventoryQuantity, changeInventoryExpiration, changeCredits, setInve
 import type { Warehouse } from './Warehouse'
 import './WarehouseView.css'
 import { formatCredits } from '../../economics/Credits'
-export default function WarehouseView({warehouse,apply,error,warningDays=DEFAULT_EXPIRATION_WARNING_DAYS}: {
-  warningDays?:number; warehouse:Warehouse; apply:(operation:(warehouse:Warehouse)=>Warehouse)=>boolean; error:string
+export default function WarehouseView({warehouse,apply,error,onAdded,warningDays=DEFAULT_EXPIRATION_WARNING_DAYS}: {
+  onAdded:(message:string)=>void; warningDays?:number; warehouse:Warehouse; apply:(operation:(warehouse:Warehouse)=>Warehouse)=>boolean; error:string
 }) {
   const today=useCalendarDay()
   const [expirationDate,setExpirationDate]=useState(''), [sort,setSort]=useState('Name')
@@ -39,7 +39,7 @@ export default function WarehouseView({warehouse,apply,error,warningDays=DEFAULT
             <button className="secondary-button" type="button" disabled={!credits.trim()} onClick={()=>updateCredits('subtract')}>Subtract Credits</button></div>
         </form>
       </section>
-      <form data-tour-target="warehouse-add" className="warehouse-add" onSubmit={event=>{event.preventDefault();if(selected&&quantity.trim()) apply(current=>addInventoryQuantity(current,selected.itemId,Number(quantity),selected.kind==='currency'?undefined:expirationDate))}}>
+      <form data-tour-target="warehouse-add" className="warehouse-add" onSubmit={event=>{event.preventDefault();if(selected&&quantity.trim()&&apply(current=>addInventoryQuantity(current,selected.itemId,Number(quantity),selected.kind==='currency'?undefined:expirationDate))) onAdded('Added '+Number(quantity)+' × '+selected.name+' to the Warehouse.')}}>
         <h3>Add something</h3><SearchablePicker label="Find an item or resource" options={inventoryCatalog} getOptionKey={item=>item.itemId} getOptionLabel={item=>item.name} onChange={item=>{setSelected(item);setExpirationDate('')}} placeholder="Scrap, herbs, gizmos, brews…" required />
         <label htmlFor="warehouse-add-quantity">Quantity to add</label><input id="warehouse-add-quantity" type="number" inputMode="decimal" min="0" step="any" value={quantity} onChange={event=>setQuantity(event.target.value)} required />
         {selected?.kind!=='currency'&&<><label htmlFor="warehouse-add-expiration">Expiration date</label><input id="warehouse-add-expiration" type="date" value={expirationDate} onChange={event=>setExpirationDate(event.target.value)} required /><p className="warehouse-hint">Use the date on the item. Matching items and dates merge into one row.</p></>}

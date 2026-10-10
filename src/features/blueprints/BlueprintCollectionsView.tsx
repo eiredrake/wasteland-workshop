@@ -1,3 +1,4 @@
+import SearchInput from '../../components/SearchInput/SearchInput'
 import BlueprintScanner from '../scanner/BlueprintScanner'
 import type { Blueprint } from './Blueprint'
 import RemoveBadge from '../../components/RemoveBadge/RemoveBadge'
@@ -267,19 +268,12 @@ function BlueprintCollectionsView({
 
       {pendingImport && (
         <div className="blueprint-collection-add">
-          <label htmlFor="import-collection-name">
-            Imported Collection Name
-          </label>
-
-          <input
+          <SearchInput label="Imported Collection Name" showLabel inputType="text" showSearchIcon={false}
             id="import-collection-name"
-            type="text"
             value={importName}
             placeholder="Collection Name"
             autoFocus
-            onChange={(event) =>
-              setImportName(event.target.value)
-            }
+            onValueChange={setImportName}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
                 handleSaveImport()
@@ -323,21 +317,12 @@ function BlueprintCollectionsView({
 
       {addingCollection && (
         <div className="blueprint-collection-add">
-          <label htmlFor="collection-name">
-            Collection Name
-          </label>
-
-          <input
+          <SearchInput label="Collection Name" showLabel inputType="text" showSearchIcon={false}
             id="collection-name"
-            type="text"
             value={collectionName}
             placeholder="New Collection"
             autoFocus
-            onChange={(event) =>
-              setCollectionName(
-                event.target.value
-              )
-            }
+            onValueChange={setCollectionName}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
                 handleAddCollection()

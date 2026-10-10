@@ -1,3 +1,4 @@
+import { isProcedureBlueprint } from './ProcedureAction'
 import { formatCredits } from '../../economics/Credits'
 import type { Blueprint } from './Blueprint'
 import type { CostCalculator } from '../../economics/CostCalculator'
@@ -17,6 +18,17 @@ export function blueprintShareCard(blueprint: Blueprint, calculator: CostCalcula
     add('Crafting Time', `${crafting.craftingTimeInMinute} min`)
     const cost = calculateBlueprintCost(crafting, calculator)
     add('Production Cost', cost.productionCost === undefined ? 'Unknown — one or more component values are unknown.' : formatCredits(cost.productionCost))
+  }
+  if (isProcedureBlueprint(blueprint)) {
+    add('Procedure Type', blueprint.metadata?.printHeader)
+    add('Requirements', blueprint.metadata?.requirementsToUse)
+    add('Duration of Roleplay', blueprint.metadata?.durationOfRoleplay)
+    add('Activation', blueprint.metadata?.activationRequirement)
+    add('Targets', blueprint.metadata?.validTargetDescription)
+    add('Location', blueprint.metadata?.locationOfUse)
+    add('Equipment / Consumables', blueprint.metadata?.equipmentRequiredForUse)
+    add('Procedure Mechanics', blueprint.metadata?.mechanics)
+    add('Roleplay', blueprint.metadata?.descriptionOfRoleplay)
   }
   add('Uses', product?.metadata?.uses)
   if (product?.lifetimeAmount !== null && product?.lifetimeAmount !== undefined && product.lifetimeUnit) add('Expiration', `${product.lifetimeAmount} ${product.lifetimeUnit}${product.lifetimeAmount === 1 ? '' : 's'}`)

@@ -1,5 +1,5 @@
-import { isProcedureBlueprint, procedureAction } from './ProcedureAction'
-import ActionConfigurationForm from '../actions/ActionConfigurationForm'
+import { isProcedureBlueprint } from './ProcedureAction'
+import ProcedureQueueEntry from './ProcedureQueueEntry'
 import { hasActiveQueueEntries } from '../builds/BuildQueueService'
 import type { BuildQueue } from '../builds/Build'
 import { useCalendarDay } from '../warehouse/useCalendarDay'
@@ -309,6 +309,15 @@ function BlueprintDetails({
             </div>
           )}
 
+          {procedure && ([
+            ['Duration of Roleplay', blueprint.metadata?.durationOfRoleplay],
+            ['Activation Requirement', blueprint.metadata?.activationRequirement],
+            ['Valid Targets', blueprint.metadata?.validTargetDescription],
+            ['Location', blueprint.metadata?.locationOfUse],
+            ['Equipment / Consumables', blueprint.metadata?.equipmentRequiredForUse],
+          ] as const).map(([label,value]) => value && <div className="blueprint-mechanics-section" key={label}><h3>{label}</h3><p>{value}</p></div>)}
+          {procedure && blueprint.metadata?.descriptionOfRoleplay && <details><summary>Roleplay description</summary><p>{blueprint.metadata.descriptionOfRoleplay}</p></details>}
+
           {specialNotes && (
             <div className="blueprint-mechanics-section">
               <h3>Special Notes</h3>
@@ -373,7 +382,7 @@ function BlueprintDetails({
 
       {!procedure && <BlueprintShoppingAction blueprint={blueprint} shopping={shopping} />}
 
-      {procedure && <ActionConfigurationForm key={blueprint.id} definition={procedureAction(blueprint)} onClose={()=>{}} onAdd={(_option,configuration)=>{onAddBuild({...blueprint,procedureConfiguration:configuration});return true}}/>}
+      {procedure && <ProcedureQueueEntry key={blueprint.id} blueprint={blueprint} onClose={()=>{}} onAdd={configuration=>{onAddBuild({...blueprint,procedureConfiguration:configuration});return true}}/>}
       {!procedure && <>
       <div className="blueprint-details-grid">
         <section className="blueprint-details-card">

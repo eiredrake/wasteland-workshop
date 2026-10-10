@@ -17,6 +17,10 @@ describe('mechanical Action configuration audit',()=>{
   expect(resolved.option.inputs).toEqual(option.inputs);expect(resolved.option.equipmentUses).toEqual(option.equipmentUses)
   expect(definition).toEqual(before)
  })
+ it('leaves an explicitly unspecified required quantity blank instead of inventing a minimum',()=>{
+  const option = { ...actionCatalog[0].options[0], defaults:{mind:0}, fields:[{id:'minutes',label:'Duration',type:'quantity' as const,min:1,max:60,required:true}] }
+  expect(defaultActionConfiguration(option)).toEqual({})
+ })
  it('retains named herbs, healing Mind and limb quantities',()=>{
   const find=(id:string)=>actionCatalog.find(a=>a.id===id)!
   expect(visibleActionFields(find('master-agricultural').options[1]).map(f=>f.id)).toContain('herb')
