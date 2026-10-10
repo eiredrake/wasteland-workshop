@@ -7,8 +7,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-*.pdn
-
 node_modules
 dist
 dist-ssr
@@ -31,3 +29,5 @@ tools\juno-import\raw\*
 
 # Visual test candidates never replace reviewed baselines automatically.
 tests/visual/actual/
+public/wasteland_workshop_hype.pdn
+public/wasteland_workshop_hype.png
