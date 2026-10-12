@@ -22,3 +22,7 @@
 
 .scanner-result .scanner-acquire { display:inline-flex; align-items:center; gap:.35rem; min-width:0; max-width:min(100%,24rem); width:max-content; }
 .scanner-acquire-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+.photo-import-file,.photo-import-result { overflow-wrap:anywhere; }
+.photo-import-result button { white-space:normal; max-width:100%; overflow-wrap:anywhere; }
+.scanner-panel pre.scanner-read-text { white-space:pre-wrap; }

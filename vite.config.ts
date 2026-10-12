@@ -45,6 +45,16 @@ export default defineConfig({
     generateBundle() {
       this.emitFile({ type: 'asset', fileName: 'version.json', source: JSON.stringify({ version }) })
     },
+  }, {
+    name:'workshop-scanner-offline', enforce:'post',
+    generateBundle(_options,bundle) {
+      const assets=['index.html',...Object.keys(bundle).filter(name=>name.startsWith('assets/')||name.startsWith('ocr/')),...[...paddleAssets.keys()].map(name=>'ocr-paddle/'+name),'ocr-paddle/PP-OCRv5_mobile_det.tar','ocr-paddle/PP-OCRv5_mobile_rec.tar']
+      const cache='workshop-scanner-'+version+'-'+Object.keys(bundle).find(name=>/^assets\/index-.*\.js$/.test(name))?.replace(/[^a-z0-9-]/gi,'')
+      this.emitFile({type:'asset',fileName:'scanner-offline.js',source:`const CACHE=${JSON.stringify(cache)},ASSETS=${JSON.stringify(assets)};
+self.addEventListener('install',event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);try{for(const path of ASSETS){const url=new URL(path,self.registration.scope);const response=await fetch(url,{cache:'reload'});if(!response.ok)throw new Error('Offline asset unavailable');await cache.put(url,response)}await self.skipWaiting()}catch(error){await caches.delete(CACHE);throw error}})()));
+self.addEventListener('activate',event=>event.waitUntil((async()=>{for(const key of await caches.keys())if(key.startsWith('workshop-scanner-')&&key!==CACHE)await caches.delete(key);await self.clients.claim()})()));
+self.addEventListener('fetch',event=>{const url=new URL(event.request.url),scope=new URL(self.registration.scope);if(event.request.method!=='GET'||url.origin!==scope.origin||!url.pathname.startsWith(scope.pathname))return;event.respondWith((async()=>{const cache=await caches.open(CACHE);if(event.request.mode==='navigate'){try{return await fetch(event.request)}catch{return (await cache.match(new URL('index.html',scope)))||Response.error()}}const saved=await cache.match(event.request,{ignoreVary:true});return saved||fetch(event.request)})())});`})
+    },
   }],
   define: { __APP_VERSION__: JSON.stringify(version) },
 })

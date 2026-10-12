@@ -27,7 +27,7 @@ with sync_playwright() as p:
   def nav(label):page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name=label,exact=True).click()
   def collection():return page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[0]")
   def scan():page.get_by_role('button',name='Capture Photo',exact=True).click();expect(page.get_by_role('heading',name='Blueprint identified: Freeiron Dry Pack')).to_be_visible(timeout=30000)
-  nav('Blueprint Collections');assert page.evaluate('window.cameraCalls')==0;page.get_by_role('button',name='Scan & Acquire',exact=True).click();expect(page.get_by_role('button',name='Capture Photo')).to_be_visible()
+  nav('Blueprint Collections');assert page.evaluate('window.cameraCalls')==0;page.get_by_role('button',name='Scan & Acquire',exact=True).click();page.get_by_role('button',name='Use Camera',exact=True).click();expect(page.get_by_role('button',name='Capture Photo')).to_be_visible()
   page.get_by_role('button',name='Auto Capture: On',exact=True).click()
   assert page.evaluate('window.requestedFocus')=='continuous'
   page.get_by_role('button',name='Refocus',exact=True).click();expect(page.get_by_text('The camera rejected the autofocus request.',exact=True)).to_be_visible();assert page.evaluate('window.requestedFocus')=='continuous'
@@ -48,7 +48,7 @@ with sync_playwright() as p:
   expect(page.locator('.scanner-counts')).to_have_text('3 scanned · 1 acquired')
   page.get_by_role('button',name='Exit Scanner').click();expect(page.get_by_role('heading',name='Scan Session Complete')).to_be_visible();capture('summary');assert page.evaluate("window.cameraTracks.every(t=>t.readyState==='ended')")
   page.get_by_role('button',name='Done',exact=True).click();page.reload();assert collection()['entries'][0]['status']=='acquired'
-  nav('Blueprint Collections');page.get_by_role('button',name='Scan & Acquire',exact=True).click();expect(page.get_by_role('button',name='Capture Photo')).to_be_visible();scan();expect(page.get_by_text('Already Acquired',exact=True)).to_be_visible()
+  nav('Blueprint Collections');page.get_by_role('button',name='Scan & Acquire',exact=True).click();page.get_by_role('button',name='Use Camera',exact=True).click();expect(page.get_by_role('button',name='Capture Photo')).to_be_visible();scan();expect(page.get_by_text('Already Acquired',exact=True)).to_be_visible()
   page.evaluate("Object.defineProperty(document,'visibilityState',{configurable:true,value:'hidden'});document.dispatchEvent(new Event('visibilitychange'))")
   expect(page.get_by_role('button',name='Resume Camera')).to_be_visible();assert page.evaluate("window.cameraTracks.every(t=>t.readyState==='ended')")
   page.evaluate("Object.defineProperty(document,'visibilityState',{configurable:true,value:'visible'})");page.get_by_role('button',name='Resume Camera').click();page.get_by_role('button',name='Scan Next Blueprint').click();expect(page.get_by_role('button',name='Capture Photo')).to_be_visible()
@@ -58,7 +58,7 @@ with sync_playwright() as p:
   page.close()
  # Permission denial is helpful and offers no unusable Capture button.
  page=browser.new_page();page.add_init_script("navigator.mediaDevices.getUserMedia=()=>Promise.reject(new DOMException('Denied','NotAllowedError'))")
- page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload();page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire').click();expect(page.get_by_role('alert')).to_contain_text('permission was denied');assert page.get_by_role('button',name='Capture Photo').count()==0
+ page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload();page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire').click();page.get_by_role('button',name='Use Camera',exact=True).click();expect(page.get_by_role('alert')).to_contain_text('permission was denied');assert page.get_by_role('button',name='Capture Photo').count()==0
  page.close()
  # Controlled recognition edge cases; camera frames still use the real capture service.
  page=browser.new_page(viewport={'width':390,'height':844});page.set_default_timeout(10000)
@@ -67,7 +67,7 @@ with sync_playwright() as p:
   if 'real=1' in route.request.url:return route.continue_()
   route.fulfill(content_type='application/javascript',body="""import {captureScanFrame} from '/src/features/scanner/ScanOcr.ts?real=1';export {captureScanFrame};export function matchPaddleLines(){return {confidence:'none',candidates:[]}};export function createScanRecognizer(){return {recognize:async()=>{if(window.ocrFailure)throw new Error('OCR failed');return window.controlledMatch},close:async()=>{}}}""")
  page.route('**/src/features/scanner/ScanRecognition.ts*',recognition_route)
- page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload();page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire').click();expect(page.get_by_role('button',name='Capture Photo')).to_be_visible()
+ page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload();page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire').click();page.get_by_role('button',name='Use Camera',exact=True).click();expect(page.get_by_role('button',name='Capture Photo')).to_be_visible()
  page.evaluate("""async()=>{const {masterBlueprints}=await import('/src/features/blueprints/blueprints.ts');window.controlledMatch={confidence:'ambiguous',candidates:masterBlueprints.filter(b=>[5234,4407].includes(b.id)).map(blueprint=>({blueprint,score:.9}))}}""")
  page.evaluate("window.controlledMatch.candidates.find(c=>c.blueprint.id===4407).blueprint={...window.controlledMatch.candidates.find(c=>c.blueprint.id===4407).blueprint,name:'An Extremely Long Blueprint Print Name To Verify Mobile Ellipsis And Accessibility'}")
  page.get_by_role('button',name='Capture Photo').click();expect(page.get_by_text('Check the name, then tap Acquire',exact=False)).to_be_visible();expect(page.get_by_role('button',name='Acquire Freeiron Dry Pack')).to_be_visible()
@@ -81,14 +81,14 @@ with sync_playwright() as p:
  # Native still-photo flash fires only on capture; diagnostics identify the actual source.
  page=browser.new_page(viewport={'width':390,'height':844})
  page.add_init_script("""window.flashShots=[];window.ImageCapture=class {async getPhotoCapabilities(){return {fillLightMode:['off','flash']}}async takePhoto(settings){window.flashShots.push(settings.fillLightMode);if(window.failPhoto)throw Error('Photo unavailable');return await new Promise(resolve=>window.nativeCanvas.toBlob(resolve))}};navigator.mediaDevices.getUserMedia=async()=>{const c=document.createElement('canvas');c.width=800;c.height=1050;c.getContext('2d').fillRect(0,0,800,1050);window.nativeCanvas=c;return c.captureStream(15)}""")
- page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload();page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire').click()
+ page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload();page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire').click();page.get_by_role('button',name='Use Camera',exact=True).click()
  page.get_by_role('button',name='Flash: Off').click();expect(page.get_by_role('button',name='Flash: On')).to_have_attribute('aria-pressed','true');assert page.evaluate('window.flashShots.length')==0;page.locator('.scanner-panel').screenshot(path=str(out/'mobile-scanner-flash.png'))
  page.get_by_text('Scan Diagnostics',exact=True).click();page.get_by_role('checkbox',name='Collect diagnostics for the next capture').check()
  page.get_by_role('button',name='Capture Photo').click();expect(page.get_by_text('Blueprint not identified.',exact=False)).to_be_visible(timeout=30000);assert page.evaluate('window.flashShots')==['flash']
  with page.expect_download() as exported:page.get_by_role('button',name='Download Scan Diagnostics').click()
  report=json.loads(Path(exported.value.path()).read_text(encoding='utf-8'));assert report['capture']['source']=='still-photo';assert report['capture']['sharpness']==0
  page.get_by_role('button',name='Retake Photo / Try Again').click();page.evaluate('window.failPhoto=true');page.get_by_role('button',name='Capture Photo').click();expect(page.get_by_role('alert')).to_contain_text('Photo unavailable');page.close()
- page=browser.new_page();page.add_init_script("Object.defineProperty(navigator,'mediaDevices',{value:undefined})");page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload();page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire').click();expect(page.get_by_role('alert')).to_contain_text('does not support camera');assert page.get_by_role('button',name='Capture Photo').count()==0
+ page=browser.new_page();page.add_init_script("Object.defineProperty(navigator,'mediaDevices',{value:undefined})");page.goto('http://127.0.0.1:5186');page.evaluate(seed);page.reload();page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire').click();page.get_by_role('button',name='Use Camera',exact=True).click();expect(page.get_by_role('alert')).to_contain_text('does not support camera');assert page.get_by_role('button',name='Capture Photo').count()==0
  page.close();browser.close()
 print('Desktop/mobile scanner passed: real OCR, explicit acquisition, persisted metadata, batch/repeated owned scans, unmatched/retake counters, reopen, interruption, camera release, denial and same-origin requests only.')
 
