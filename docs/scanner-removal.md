@@ -1,6 +1,10 @@
-# Scanner subsystem removal — 2026-10-13
+# Scanner subsystem removal — final production-facing cleanup
 
-The former scanner, photo analysis, OCR, crop UI, result dialogs, diagnostic display and scanner offline cache code are removed on development. Scan & Acquire remains a themed rebuilding placeholder. OCR/photo selection are unavailable. Replacement development requires a separate work order.
+The revised instruction supersedes the original requirement to preserve a placeholder and diagnostics UI. All blueprint scanner/photo-analysis implementation, OCR dependencies/assets, result dialogs, crop UI, scanner navigation, rebuilding placeholder and Scan Diagnostics setting code are removed. There is no new scanner menu item. QR app sharing remains an unrelated feature.
+
+The original deletion inventory follows for audit purposes only; the scanner is not an active feature. Additionally deleted: ScanAcquirePlaceholder and its test; ScannerSettings module/view and their tests; ui-scanner-placeholder-check.py. App imports and Collections state/controls were cleaned up.
+
+Existing collections, acquired blueprints, manual catalog acquisition and backup schema/readers/writers are preserved. No saved user data is deleted, including dormant legacy preferences. The test-server banner remains independent of scanner functionality. No deployment or production container changes occurred. Replacement work requires a subsequent TEST work order.
 
 ## Inventory reviewed before deletion
 
@@ -82,29 +86,4 @@ CameraPreview owned preview/focus/framing; PhotoAdjuster owned rejected crop ges
 
 Removed direct dependencies: @paddleocr/paddleocr-js, onnxruntime-web, tesseract.js and development dependency @tesseract.js-data/eng, with exclusive transitive packages. Removed Vite OCR serving/emission and scanner service-worker generation, and the OCR-only nginx mjs rule.
 
-## Preserved shared features and data
-
-BackButton, SearchInput, SearchablePicker, RemoveBadge, ConfirmationDialog, collection membership service, catalog search/manual acquisition, repositories and deployment workflows remain. Collection/acquisition schemas and records are unchanged. Scan Diagnostics keeps its original name, persisted key/value and Settings integration; wording clearly says it is unavailable during rebuilding.
-
-Existing backup schema 4 did not include the separate Scan Diagnostics preference; restore left it untouched. This removal preserves that existing behavior and all backup readers/writers, without a new incompatible schema. No browser data is deleted or migrated by this work.
-
-Previously installed scanner workers/caches can remain on devices that opted in. This build no longer registers or generates them. Later PWA migration must handle legacy registrations separately without clearing user data.
-
-## Deployment restriction
-
-Production is untouched: no release, deployment, asset replacement or production container changes. Existing Deploy DEV targets workshop-test / workshop-test.foundationsrpg.org; work order names workbench-test / workbench-test.foundationsrpg.org. Staging deployment awaits reconciliation; no production substitute.
-
-## Validation
-
-Placeholder regression checks navigation, absence of camera/photo/OCR activity, retained diagnostics persistence and manual acquisition. Existing suites cover catalog/details, collections, queue/timer/history, shopping/warehouse, settings and backup compatibility. Results are recorded in the completion report.
-
-## Validation results
-
-- 458 tests passed across 36 files; full release/DEV deployment tooling tests passed with disposable Git repositories and mocked Docker commands.
-- ESLint and TypeScript/Vite production build passed. No OCR externalization warnings or OCR-generated assets remain. The ordinary catalog remains bundled.
-- New placeholder browser check passed at 320/360/390/768/1280px, including zero camera/worker/OCR activity, preserved records, manual acquisition and diagnostics persistence.
-- Existing mobile workflow checks passed: catalog/details, queue, timer/persistence, history, Settings, export/restore, shopping/warehouse.
-- Queue mode checks passed desktop/mobile.
-- Generic visual regression reports the previously known mobile-error-state.png mismatch (minor Settings layout difference). Baseline was not changed or failure suppressed.
-
-- Desktop/mobile guided-tour checks passed, including first-run onboarding, real manual acquisition/Build, navigation, completion/replay, keyboard Escape and touch targets.
+Final cleanup validation: 460 tests pass; lint and TypeScript/Vite build pass. Desktop/mobile browser regressions confirm no scanner menu/Collections control or diagnostics setting, saved acquisitions/manual acquisition preserved, and ordinary queue/timer/history/settings/export/restore/shopping/warehouse workflows passing.

@@ -1,5 +1,4 @@
 import SearchInput from '../../components/SearchInput/SearchInput'
-import ScanAcquirePlaceholder from './ScanAcquirePlaceholder'
 import RemoveBadge from '../../components/RemoveBadge/RemoveBadge'
 import ConfirmationDialog from '../../components/ConfirmationDialog/ConfirmationDialog'
 import {
@@ -43,8 +42,6 @@ function BlueprintCollectionsView({
   onDeleteCollection,
   onImportCollection,
 }: BlueprintCollectionsViewProps) {
-  const [scanning,setScanning] = useState<{id:string;name:string}>()
-  const destination=collections.find(c=>c.id===activeCollectionId)
   const [addingCollection, setAddingCollection] =
     useState(false)
 
@@ -213,7 +210,6 @@ function BlueprintCollectionsView({
     setImportName('')
   }
 
-  if(scanning)return <ScanAcquirePlaceholder onBack={()=>setScanning(undefined)}/>
   return (
     <section data-tour-target="collections" className="blueprint-collections-page">
       <header data-tour-target="collection-create" className="blueprint-collections-header">
@@ -229,8 +225,6 @@ function BlueprintCollectionsView({
         <div className="blueprint-collection-header-actions">
           {!addingCollection && !pendingImport && (
             <>
-              <button type="button" className="secondary-button" disabled={!destination} onClick={()=>{if(destination)setScanning({id:destination.id,name:destination.name})}}>Scan &amp; Acquire</button>
-              {!destination&&<p>Select or create an active collection before scanning.</p>}
               <button
                 type="button"
                 className="secondary-button"

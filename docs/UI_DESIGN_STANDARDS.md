@@ -80,10 +80,8 @@ GuidedTour owns the themed, nonmodal bottom panel, responsive scrolling, gold ta
 Run `python tools/ui-tour-check.py` for isolated onboarding/replay checks and 8 additional desktop/mobile visual baselines. Its `--record` writes candidates only; inspect and copy individually after review. These complement the existing 34 theme screenshots.
 
 
-## Scan & Acquire rebuilding placeholder
-
-The previous scanner/photo-analysis subsystem is removed. Preserve Scan & Acquire navigation, shared BackButton and clear unavailable/rebuilding messages. No camera, photo, crop, OCR or acquisition controls. Scan Diagnostics remains in Settings with its persisted value, but is unavailable until a future implementation. See [removal inventory](scanner-removal.md). No replacement scanner is authorized here.
-
 ## App sharing
 
 AppShare reuses native dialog/button foundations. Its black-on-white QR with four-module quiet zone is a functional scanning asset. Keep the readable URL, selectable clipboard fallback and keyboard dismissal/focus restoration. Run `python tools/ui-app-share-check.py` for responsive layouts, offline display, independent decoding and two individually reviewed comparisons. Physical second-phone scanning remains required for release signoff.
+
+TestVersionBanner owns the full-width green TEST VERSION strip above the shared app header. It uses runtime exact hostname matching for workshop-test.foundationsrpg.org and workbench-test.foundationsrpg.org; the same merged build remains unmarked on production. It is informational, outside the constrained main column and present across every view.

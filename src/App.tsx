@@ -1,3 +1,4 @@
+import TestVersionBanner from './components/TestVersionBanner/TestVersionBanner'
 import AppShare from './components/AppShare/AppShare'
 import { setCollectionBlueprintStatus } from './features/blueprints/BlueprintCollectionService'
 import { createQueueSubmissionGuard } from './features/builds/SubmissionGuard'
@@ -15,7 +16,6 @@ import { BlueprintReadProvider } from './features/blueprints/BlueprintReadContex
 import AppMetadata from './components/AppMetadata/AppMetadata'
 import { masterBlueprintsUpdatedAt } from './features/blueprints/blueprints'
 import BackupSettingsView from './features/backup/BackupSettingsView'
-import ScannerSettingsView from './features/settings/ScannerSettingsView'
 import WarehouseSettingsView from './features/settings/WarehouseSettingsView'
 import { loadExpirationWarningDays, saveExpirationWarningDays } from './features/settings/WarehouseSettings'
 import WarehouseView from './features/warehouse/WarehouseView'
@@ -498,7 +498,7 @@ function App() {
   const tours=useGuidedTours(tourSignals,message=>showToast(message,'warning'),navigateTo)
   const tourStepId=tours.step?.id
   return (
-    <BlueprintReadProvider><main className={tours.active?'tour-active':undefined}>
+    <BlueprintReadProvider><TestVersionBanner/><main className={tours.active?'tour-active':undefined}>
       {appShareOpen && <AppShare onClose={() => { setAppShareOpen(false); requestAnimationFrame(() => document.querySelector<HTMLButtonElement>('[data-tour-target="menu"]')?.focus()) }} />}
       <header className="app-header">
         <button
@@ -708,7 +708,6 @@ function App() {
         <>
         <header data-tour-target="settings" className="settings-page settings-header"><h2>Settings</h2></header>
         <BlueprintReadSettingsView />
-        <ScannerSettingsView />
         <BackupSettingsView />
         <WarehouseSettingsView days={expirationWarningDays} onSave={days=>{
           try {saveExpirationWarningDays(days);setExpirationWarningDays(days);showToast('Expiration settings saved.','success');return true}
