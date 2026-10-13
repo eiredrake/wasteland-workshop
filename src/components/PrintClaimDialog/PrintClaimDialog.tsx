@@ -1,11 +1,12 @@
 import { useEffect,useId,useRef } from 'react'
+import BackButton from '../BackButton/BackButton'
 import './PrintClaimDialog.css'
-export default function PrintClaimDialog({name,onCancel,onClaim,disabled=false,error}:{name:string;onCancel:()=>void;onClaim:()=>void;disabled?:boolean;error?:string}){
+export default function PrintClaimDialog({name,onCancel,onClaim,onRetry,disabled=false,error}:{name?:string;onCancel:()=>void;onClaim?:()=>void;onRetry?:()=>void;disabled?:boolean;error?:string}){
  const dialog=useRef<HTMLDialogElement>(null),label=useId()
  useEffect(()=>{const element=dialog.current;element?.showModal();return()=>element?.close()},[])
- return <dialog ref={dialog} className="print-claim-dialog" aria-labelledby={label} onCancel={event=>{event.preventDefault();onCancel()}}>
- <p id={label}>Print is identified as <strong>{name}</strong></p>
+ return <dialog ref={dialog} className={`print-claim-dialog${name?'':' print-claim-failed'}`} aria-labelledby={label} onCancel={event=>{event.preventDefault();onCancel()}}>
+ <p id={label}>{name?<><span className="blueprint-access-status blueprint-access-status-acquired">Blueprint identified</span><strong>{name}</strong></>:'Unable to identify blueprint'}</p>
  {error&&<p role="alert">{error}</p>}
- <div className="print-claim-actions"><button autoFocus type="button" className="blueprint-access-status blueprint-access-status-untracked" onClick={onCancel}>Cancel</button><button type="button" className="blueprint-access-status blueprint-access-status-acquired" disabled={disabled} onClick={onClaim}>Claim</button></div>
+ <div className="print-claim-actions"><BackButton onClick={onCancel}>Back</BackButton>{name?<button type="button" className="blueprint-access-status blueprint-access-status-acquired" disabled={disabled} onClick={onClaim}>Claim Blueprint</button>:<button type="button" className="blueprint-access-status blueprint-access-status-to-acquire" disabled={disabled} onClick={onRetry}>Try again</button>}</div>
  </dialog>
 }

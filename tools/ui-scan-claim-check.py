@@ -21,20 +21,31 @@ with sync_playwright() as p:
   page.get_by_role('button',name='Capture Photo',exact=True).click();dialog=page.locator('dialog.print-claim-dialog');expect(dialog).to_be_visible(timeout=60000)
   assert dialog.locator('strong').inner_text()=='Freeiron Dry Pack'
   assert dialog.evaluate('(e)=>getComputedStyle(e).borderTopColor')=='rgb(116, 140, 88)'
-  for name in ['Cancel','Claim']:
-   button=dialog.get_by_role('button',name=name,exact=True);r=button.bounding_box();assert r['width']==r['height']==80
+  expect(dialog.get_by_text('Blueprint identified',exact=True)).to_be_visible()
+  assert 'back-button' in dialog.get_by_role('button',name='Back',exact=True).get_attribute('class')
   assert page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[0].entries.length")==0
   page.locator('.scanner-panel').screenshot(path=str(out/f'claim-dialog-{width}.png'))
   page.keyboard.press('Escape');expect(dialog).not_to_be_visible();assert page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[0].entries.length")==0
-  page.get_by_role('button',name='Capture Photo',exact=True).click();expect(dialog).to_be_visible(timeout=60000);dialog.get_by_role('button',name='Claim',exact=True).click();expect(dialog).not_to_be_visible()
+  open_scanner();page.get_by_role('button',name='Use Camera',exact=True).click();page.get_by_role('button',name='Auto Capture: On',exact=True).click();page.get_by_role('button',name='Capture Photo',exact=True).click();expect(dialog).to_be_visible(timeout=60000);dialog.get_by_role('button',name='Claim Blueprint',exact=True).click();expect(dialog).not_to_be_visible()
   assert page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[0].entries[0].status")=='acquired'
   page.get_by_role('button',name='Back to Collections',exact=True).click();assert page.locator('.scanner-panel').count()==0 and page.evaluate("window.tracks.every(t=>t.readyState==='ended')")
   open_scanner()
   with page.expect_file_chooser() as chooser:page.get_by_role('button',name='Choose Photo',exact=True).click()
   chooser.value.set_files(str(root/'tests/fixtures/scanner/freeiron-dry-pack.jpg'));expect(page.locator('.photo-adjuster img')).to_be_visible()
-  page.get_by_role('textbox',name='Recognized Text').fill('Freeiron Dry Pack');page.get_by_role('button',name='Search Catalog').click();page.get_by_role('button',name='Freeiron Dry Pack',exact=True).click();expect(dialog).to_be_visible();dialog.get_by_role('button',name='Claim',exact=True).click();expect(page.get_by_text('Already Acquired',exact=True)).to_be_visible()
+  assert page.get_by_role('textbox',name='Recognized Text').count()==0
+  assert page.get_by_role('button',name='Search Catalog').count()==0
+  page.get_by_role('button',name='Analyze Photo',exact=True).click();expect(dialog).to_be_visible(timeout=60000);dialog.get_by_role('button',name='Claim Blueprint',exact=True).click();expect(page.get_by_text('Already Acquired',exact=True)).to_be_visible()
+  from PIL import Image
+  blank=out/'unidentified-photo.png';Image.new('RGB',(800,600),'white').save(blank)
+  with page.expect_file_chooser() as chooser:page.get_by_role('button',name='Choose Different Photo',exact=True).click()
+  chooser.value.set_files(str(blank));expect(page.locator('.photo-adjuster img')).to_be_visible()
+  page.get_by_role('button',name='Analyze Photo',exact=True).click();expect(dialog).to_be_visible(timeout=60000)
+  expect(dialog.get_by_text('Unable to identify blueprint',exact=True)).to_be_visible()
+  assert dialog.evaluate('(e)=>getComputedStyle(e).borderTopColor')==dialog.evaluate("e=>{const t=document.createElement('span');t.style.color='var(--color-selection)';e.append(t);const c=getComputedStyle(t).color;t.remove();return c}")
+  page.locator('.scanner-panel').screenshot(path=str(out/f'failure-dialog-{width}.png'))
+  dialog.get_by_role('button',name='Try again',exact=True).click();expect(dialog).not_to_be_visible()
   assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
   page.get_by_role('button',name='Back to Collections',exact=True).click();assert page.locator('.scanner-panel').count()==0
   page.close()
  b.close()
-print('Scanner changes passed on desktop/mobile: tap-point focus, no closeup/native-capture button, green/gold circular Claim modal, cancel/Escape, explicit claim, photo confirmation and Back resource cleanup.')
+print('Scanner changes passed on desktop/mobile: tap-point focus, no closeup/native-capture button, green/gold identification modal, yellow failure modal, no manual text search, retry, explicit claim, photo confirmation and Back/Escape resource cleanup.')

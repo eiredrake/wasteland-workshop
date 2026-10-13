@@ -20,7 +20,7 @@ import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator
 import './BlueprintScanner.css'
 type Props={collection:BlueprintCollection|undefined;destinationName:string;destinationId:string;activeId:string|undefined;onAcquire:(collectionId:string,blueprint:Blueprint)=>{alreadyOwned:boolean};onDone:()=>void}
 export default function BlueprintScanner({collection,destinationName,destinationId,activeId,onAcquire,onDone}:Props){
- const [claimOpen,setClaimOpen]=useState(false)
+ const [claimOpen,setClaimOpen]=useState(false),[failureOpen,setFailureOpen]=useState(false)
  const [inputMethod,setInputMethod]=useState<'entry'|'camera'|'photo'>('entry')
  const video=useRef<HTMLVideoElement>(null),stream=useRef<MediaStream|undefined>(undefined),recognizer=useRef<ScanRecognizer|undefined>(undefined),generation=useRef(0),busy=useRef(false)
  const [camera,setCamera]=useState<'opening'|'ready'|'stopped'>('opening'),[error,setError]=useState(''),[analyzing,setAnalyzing]=useState(false),[photo,setPhoto]=useState<string>(),[match,setMatch]=useState<ScanMatch>(),[selected,setSelected]=useState<Blueprint>(),[documents,setDocuments]=useState<ScanOutcome[]>([]),[outcome,setOutcome]=useState<ScanOutcome>(),[attempt,setAttempt]=useState(0)
@@ -103,8 +103,8 @@ export default function BlueprintScanner({collection,destinationName,destination
    if(generation.current!==job)return
    if(report)report.result={confidence:result.confidence,candidates:result.candidates.map(c=>({id:c.blueprint.id,name:c.blueprint.name,score:c.score}))}
    setMatch(result)
-   if(result.confidence==='high')choose(result.candidates[0].blueprint)
-  }catch(e){if(report)report.error=e instanceof Error?e.message:String(e);if(generation.current===job){setError(e instanceof Error?'Recognition failed: '+e.message:'Recognition failed. Try again.');closeRecognition()}}
+   if(result.confidence==='high')choose(result.candidates[0].blueprint);else setFailureOpen(true)
+  }catch(e){if(report)report.error=e instanceof Error?e.message:String(e);if(generation.current===job){setFailureOpen(true);setError(e instanceof Error?'Recognition failed: '+e.message:'Recognition failed. Try again.');closeRecognition()}}
   finally{if(report&&generation.current===job)setDiagnosticReport(JSON.stringify(report,null,2));if(canvas)canvas.width=canvas.height=0;if(captureCanvas.current===canvas)captureCanvas.current=undefined;if(generation.current===job){busy.current=false;setAnalyzing(false)}}
  }
  const autoCaptureNow=useEffectEvent(()=>void capture())
@@ -133,7 +133,7 @@ export default function BlueprintScanner({collection,destinationName,destination
   void (async()=>{try{await current.initialize?.()}catch{/* Manual capture retains the local fallback. */return}if(!cancelled)void update()})()
   return()=>{cancelled=true;if(timer!==undefined)window.clearTimeout(timer);void previewRead.current?.finally(()=>{canvas.width=canvas.height=0}).catch(()=>{});if(!previewRead.current)canvas.width=canvas.height=0}
  },[camera,photo,analyzing,focusing,autoCapture,destinationValid,inputMethod])
- function reset(next:boolean){if(busy.current)return;setClaimOpen(false);currentOutcome.current=undefined;setPhoto(undefined);setTextBoxes([]);setDiagnosticReport(undefined);setBlurred(false);setMatch(undefined);setSelected(undefined);setOutcome(undefined);setError('');if(next)documentIndex.current=undefined}
+ function reset(next:boolean){if(busy.current)return;setClaimOpen(false);setFailureOpen(false);currentOutcome.current=undefined;setPhoto(undefined);setTextBoxes([]);setDiagnosticReport(undefined);setBlurred(false);setMatch(undefined);setSelected(undefined);setOutcome(undefined);setError('');if(next)documentIndex.current=undefined}
  function acquire(blueprint=selected){
   if(currentOutcome.current==='owned'){setClaimOpen(false);return}
   if(busy.current||!blueprint||!destinationValid||currentOutcome.current==='acquired'||documentIndex.current===undefined)return
@@ -155,8 +155,8 @@ export default function BlueprintScanner({collection,destinationName,destination
  <div className="scanner-result" aria-live="polite">
  {ocrLoading?<LoadingIndicator label="Loading OCR Library"/>:analyzing&&<LoadingIndicator label="Reading Item Name…"/>}
  {selected&&<><h3>Blueprint identified: {selected.name}</h3>{outcome==='owned'?<p className="scanner-success">Already Acquired</p>:outcome==='acquired'?<p className="scanner-success">Acquired and saved in {destinationName}.</p>:<button type="button" className="secondary-button" onClick={()=>setClaimOpen(true)}>Review Identified Print</button>}</>}
- {match?.confidence==='ambiguous'&&!selected&&<><p>Select the correct print to review and claim.</p>{match.candidates.map(c=><button key={c.blueprint.id} className="blueprint-access-status blueprint-access-status-to-acquire scanner-acquire" type="button" disabled={!destinationValid||analyzing} onClick={()=>choose(c.blueprint)}><span className="scanner-acquire-name">{c.blueprint.name}</span></button>)}</>}
- {claimOpen&&selected&&<PrintClaimDialog name={selected.name} error={error} disabled={!destinationValid||analyzing} onCancel={()=>reset(true)} onClaim={()=>acquire()}/>}
+ {claimOpen&&selected&&<PrintClaimDialog name={selected.name} error={error} disabled={!destinationValid||analyzing} onCancel={exit} onClaim={()=>acquire()}/>}
+ {failureOpen&&<PrintClaimDialog error={error} onCancel={exit} onRetry={()=>reset(false)}/>}
  {showDiagnostics&&match?.readText&&match.confidence!=='high'&&<p className="scanner-read-text">Read from photo: “{match.readText}”</p>}
  {match?.confidence==='none'&&<p>Blueprint not identified. Check the captured name and try again.</p>}
  </div>
