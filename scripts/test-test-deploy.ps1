@@ -33,9 +33,11 @@ function docker {
         return
     }
     if ($args[0] -eq 'image') { return '[{"Id":"sha256:test"}]' }
-    if ($args[0] -eq 'inspect') {
-        if ($args[1] -cne 'workbench-test') { throw 'Wrong container.' }
+    if ($args[0] -eq 'container' -and $args[1] -eq 'inspect') {
+        if ($args[2] -cne 'workbench-test') { throw 'Wrong container.' }
         if ($global:testDeployScenario -eq 'first') { $global:LASTEXITCODE = 1; $global:testDeployScenario = 'success'; return }
+        if ($global:testDeployScenario -eq 'unlabeled') { return '[{"Config":{"Labels":{"maintainer":"nginx"}}}]' }
+        if ($global:testDeployScenario -eq 'null-labels') { return '[{"Config":{"Labels":null}}]' }
         $project = if ($global:testDeployScenario -eq 'wrong-project') { 'production' } else { 'workbench-test' }
         return (@(@{Image='sha256:test'; State=@{Running=$true}; Config=@{Labels=@{'com.docker.compose.project'=$project}}}) | ConvertTo-Json -Depth 8)
     }
@@ -57,7 +59,7 @@ foreach ($branch in @('main','development','')) {
 $global:testScannerBranch = 'scanner-implementation'
 & "$PSScriptRoot/deploy-test.ps1" -Preview
 if ($global:testDeployBuilds -or $global:testDeployUpdates) { throw 'Preview mutated Docker.' }
-foreach ($scenario in @('wrong-project', 'network-missing', 'build-failed')) {
+foreach ($scenario in @('wrong-project', 'unlabeled', 'null-labels', 'network-missing', 'build-failed')) {
     $global:testDeployScenario = $scenario
     $rejected = $false
     try { & "$PSScriptRoot/deploy-test.ps1" } catch { $rejected = $true }
@@ -66,4 +68,4 @@ foreach ($scenario in @('wrong-project', 'network-missing', 'build-failed')) {
 $global:testDeployScenario = 'first'
 & "$PSScriptRoot/deploy-test.ps1"
 if ($global:testDeployUpdates -ne 1) { throw 'First deployment did not update test.' }
-Write-Host 'PASS: scanner branch guards, workbench-test target, test isolation, preview, ownership, network/build failure guards, first deployment and health target.'
+Write-Host 'PASS: scanner branch guards, workbench-test target, test isolation, preview, typed container inspection, missing/null ownership labels, network/build failure guards, first deployment and health target.'

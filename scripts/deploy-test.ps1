@@ -19,10 +19,13 @@ try {
     $service = $config.services.'workbench-test'
     if ($config.name -cne 'workbench-test' -or $service.container_name -cne 'workbench-test' -or $service.image -cne $image) { throw 'Unexpected test Compose target.' }
     $null = Invoke-Checked docker @('network', 'inspect', 'proxy-tier')
-    $existing = Invoke-TestDockerProbe inspect workbench-test
+    $existing = Invoke-TestDockerProbe container inspect workbench-test
     if ($LASTEXITCODE -eq 0) {
         $app = @($existing | ConvertFrom-Json)[0]
-        if ($app.Config.Labels.'com.docker.compose.project' -cne 'workbench-test') { throw 'Existing test container belongs to another Compose project.' }
+        $projectLabel = $null
+        if ($null -ne $app.Config.Labels) { $projectLabel = $app.Config.Labels.PSObject.Properties['com.docker.compose.project'] }
+        if ($null -eq $projectLabel) { throw 'Existing workbench-test container has no Compose ownership label. Inspect it before replacing it.' }
+        if ($projectLabel.Value -cne 'workbench-test') { throw 'Existing test container belongs to another Compose project.' }
     }
     Write-Host "Build current working tree ($number) and deploy $image to https://workbench-test.foundationsrpg.org via proxy-tier, container port 80."
     if ($Preview) { Write-Host 'Preview passed. No images or containers changed.'; return }
@@ -39,7 +42,7 @@ try {
         if ($LASTEXITCODE -eq 0) {
             try {
                 $served = $raw | ConvertFrom-Json
-                $runningRaw = & docker inspect workbench-test
+                $runningRaw = & docker container inspect workbench-test
                 if ($LASTEXITCODE -eq 0) {
                     $running = @($runningRaw | ConvertFrom-Json)[0]
                     if ($served.version -ceq $number -and $running.Image -ceq $built.Id -and $running.State.Running) {
