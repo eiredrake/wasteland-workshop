@@ -1,10 +1,10 @@
-import { NAME_STRIP_ASPECT, scanFrameBounds } from './CameraGeometry'
-import { useEffect, useRef, useState, type RefObject } from 'react'
-import { assessScanQuality, grayscalePixels, scanSharpness, scanQualityMessage, type ScanQuality } from '../../features/scanner/ScanQuality'
+import { cameraFocusPoint, NAME_STRIP_ASPECT, scanFrameBounds } from './CameraGeometry'
+import { useEffect, useState, type RefObject } from 'react'
+import { assessScanQuality, grayscalePixels, scanQualityMessage, type ScanQuality } from '../../features/scanner/ScanQuality'
 import './CameraPreview.css'
-export default function CameraPreview({videoRef,photo,onReady,textBoxes=[],autoCapture=false}:{videoRef:RefObject<HTMLVideoElement|null>;photo?:string;onReady:()=>void;textBoxes?:number[][][];autoCapture?:boolean}) {
- const magnified=useRef<HTMLCanvasElement>(null)
- const [soft,setSoft]=useState(false)
+export default function CameraPreview({videoRef,photo,onReady,onFocusPoint,textBoxes=[],autoCapture=false}:{videoRef:RefObject<HTMLVideoElement|null>;photo?:string;onReady:()=>void;textBoxes?:number[][][];autoCapture?:boolean;onFocusPoint?:(point:{x:number;y:number})=>void}) {
+ const [tap,setTap]=useState<{x:number;y:number}>()
+ useEffect(()=>{if(!tap)return;const timer=window.setTimeout(()=>setTap(undefined),1500);return()=>window.clearTimeout(timer)},[tap])
  const [quality,setQuality]=useState<ScanQuality>('aim')
  useEffect(()=>{
   if(photo)return
@@ -19,19 +19,17 @@ export default function CameraPreview({videoRef,photo,onReady,textBoxes=[],autoC
     context.drawImage(video,frame.x,frame.y,frame.width,frame.height,0,0,192,56)
     const gray=grayscalePixels(context.getImageData(0,0,192,56).data)
     setQuality(assessScanQuality(gray,previous));previous=gray
-    const zoom=magnified.current,zoomContext=zoom?.getContext('2d',{willReadFrequently:true})
-    if(zoom&&zoomContext){zoomContext.drawImage(video,frame.x,frame.y,frame.width,frame.height,0,0,zoom.width,zoom.height);setSoft(scanSharpness(grayscalePixels(zoomContext.getImageData(0,0,zoom.width,zoom.height).data),zoom.width,zoom.height)<.08)}
    }catch{/* Guidance must never prevent manual capture. */}
   },500)
   return()=>{window.clearInterval(timer);previous=undefined;canvas.width=canvas.height=0}
  },[photo,videoRef])
- return <><div className="scan-viewfinder" style={{aspectRatio:NAME_STRIP_ASPECT}}>
+ return <><div className="scan-viewfinder" style={{aspectRatio:NAME_STRIP_ASPECT}} role={!photo?'button':undefined} tabIndex={!photo?0:undefined} aria-label={!photo?'Tap live preview to focus':undefined} onKeyDown={event=>{if(!photo&&(event.key==='Enter'||event.key===' ')){event.preventDefault();onFocusPoint?.({x:.5,y:.5});setTap({x:.5,y:.5})}}} onClick={event=>{const video=videoRef.current;if(photo||!video?.videoWidth)return;const rect=event.currentTarget.getBoundingClientRect(),x=event.clientX-rect.left,y=event.clientY-rect.top;setTap({x:x/rect.width,y:y/rect.height});onFocusPoint?.(cameraFocusPoint(video.videoWidth,video.videoHeight,rect.width,rect.height,x,y))}}>
   <video ref={videoRef} autoPlay playsInline muted hidden={!!photo} onLoadedMetadata={onReady} aria-label="Live rear camera preview" />
   {photo&&<img src={photo} alt="Temporary capture of the Item Name area"/>}
   {!photo&&<div className="scan-target-frame" data-quality={quality} aria-hidden="true"/>}
+  {!photo&&tap&&<span className="scan-focus-point" aria-hidden="true" style={{left:tap.x*100+'%',top:tap.y*100+'%'}}/>}
   {textBoxes.length>0&&<svg className="scan-text-highlights" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">{textBoxes.map((poly,index)=><polygon key={index} points={poly.map(([x,y])=>`${x*100},${y*100}`).join(' ')}/>)}</svg>}
  </div>
- {!photo&&<p className="scan-guidance" aria-live="polite">{quality==='aim'&&soft?'The letters may be out of focus. Move slightly farther away and hold still; check the enlarged name.':autoCapture&&quality==='aim'?'Hold the full name steady. Matching names capture automatically.':scanQualityMessage[quality]}</p>}
- <details className="scan-magnifier"><summary>Enlarge name to check focus</summary><p>Swipe sideways to inspect the entire name. Letters should have clear edges.</p><div className="scan-magnified-content" tabIndex={0} aria-label="Enlarged name preview; scroll horizontally">{photo?<img src={photo} alt="Enlarged captured name"/>:<canvas ref={magnified} width={768} height={226} aria-label="Enlarged live name"/>}</div></details>
+ {!photo&&<p className="scan-guidance" aria-live="polite">{autoCapture&&quality==='aim'?'Hold the full name steady. Matching names capture automatically.':scanQualityMessage[quality]} Tap the live view to request focus.</p>}
  </>
 }

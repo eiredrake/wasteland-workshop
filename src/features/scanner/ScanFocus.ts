@@ -11,3 +11,15 @@ export async function requestFocus(track:MediaStreamTrack,refocus=false):Promise
  try{const settings=track.getSettings() as FocusSettings;report.actualMode=settings.focusMode;report.actualDistance=settings.focusDistance}catch{/* A stopped track may no longer expose settings. */}
  return report
 }
+
+export async function requestFocusAt(track:MediaStreamTrack,point:{x:number;y:number}):Promise<FocusReport&{point:{x:number;y:number};pointResult:'applied'|'unconfirmed'|'unsupported'|'failed'}>{
+ const report=inspectFocus(track),mode=report.supportedModes.includes('single-shot')?'single-shot':report.supportedModes.includes('continuous')?'continuous':undefined
+ const supported=navigator.mediaDevices?.getSupportedConstraints?.() as (MediaTrackSupportedConstraints&{pointsOfInterest?:boolean})|undefined
+ if(!supported?.pointsOfInterest||!mode)return {...await requestFocus(track,true),point,pointResult:'unsupported'}
+ try{
+  await track.applyConstraints({...track.getConstraints(),advanced:[...(track.getConstraints().advanced??[]),{focusMode:mode,pointsOfInterest:[point]}]} as unknown as MediaTrackConstraints)
+  const settings=track.getSettings() as MediaTrackSettings&{pointsOfInterest?:{x:number;y:number}[]}
+  const actual=settings.pointsOfInterest?.[0]
+  return {...report,result:'applied',requestedMode:mode,point,pointResult:actual&&Math.abs(actual.x-point.x)<.02&&Math.abs(actual.y-point.y)<.02?'applied':'unconfirmed'}
+ }catch{return {...await requestFocus(track,true),point,pointResult:'failed'}}
+}

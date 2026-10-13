@@ -12,10 +12,11 @@ with sync_playwright() as p:
  page.evaluate("""()=>{localStorage.clear();localStorage.setItem('wasteland-workshop-scanner-settings',JSON.stringify({version:1,diagnostics:true}));localStorage.setItem('wasteland-workshop-guided-tours',JSON.stringify({version:1,progress:{'intro-blueprints':{viewed:true}}}));localStorage.setItem('wasteland-workshop-blueprint-collections',JSON.stringify([{id:'scan',name:'Scanner Collection',entries:[]} ]));localStorage.setItem('wasteland-workshop-active-blueprint-collection','scan')}""");page.reload()
  page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire').click();page.get_by_role('button',name='Use Camera',exact=True).click();page.get_by_role('button',name='Auto Capture: On',exact=True).click();page.get_by_text('Scan Diagnostics',exact=True).click();page.get_by_role('checkbox',name='Collect diagnostics for the next capture').check();page.get_by_role('button',name='Capture Photo').click()
  expect(page.get_by_role('heading',name='Blueprint identified: Freeiron Dry Pack')).to_be_visible()
+ page.get_by_role('button',name='Claim',exact=True).click()
  with page.expect_download() as exported:page.get_by_role('button',name='Download Scan Diagnostics').click()
  report=json.loads(Path(exported.value.path()).read_text(encoding='utf-8'));assert report['passes'][0]['engine']=='PaddleOCR PP-OCRv5 mobile'
- page.get_by_role('button',name='Acquire Freeiron Dry Pack',exact=True).click();expect(page.get_by_text('Acquired and saved in Scanner Collection.')).to_be_visible();assert page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[0].entries[0].blueprintId")==5234
- page.get_by_role('button',name='Exit Scanner').click();expect(page.get_by_role('heading',name='Scan Session Complete')).to_be_visible();assert page.evaluate("window.cameraTracks.every(t=>t.readyState==='ended')")
+ expect(page.get_by_text('Acquired and saved in Scanner Collection.')).to_be_visible();assert page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[0].entries[0].blueprintId")==5234
+ page.get_by_role('button',name='Back to Collections').click();assert page.locator('.scanner-panel').count()==0;assert page.evaluate("window.cameraTracks.every(t=>t.readyState==='ended')")
  assert not errors,errors;assert all(url.startswith((base_url+'/','data:','blob:')) for url in requests),requests;assert not any('/src/' in url for url in requests),requests
  browser.close()
 print('Production scanner passed: PaddleOCR, local assets only, diagnostic export, canonical acquisition/persistence and camera cleanup.')

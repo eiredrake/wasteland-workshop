@@ -18,11 +18,12 @@ with sync_playwright() as p:
   assert page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[0].entries.length")==0
   expect(page.locator('.scanner-counts')).to_contain_text('1 scanned')
   page.locator('.scanner-panel').screenshot(path=str(out/f'{label}-scanner-auto-result.png'))
-  page.get_by_role('button',name='Acquire Freeiron Dry Pack',exact=True).click();expect(page.get_by_text('Acquired and saved in Scanner Collection.',exact=True)).to_be_visible()
+  page.get_by_role('button',name='Claim',exact=True).click();expect(page.get_by_text('Acquired and saved in Scanner Collection.',exact=True)).to_be_visible()
   page.get_by_role('button',name='Scan Next Blueprint',exact=True).click()
   expect(page.get_by_text('Already Acquired',exact=True)).to_be_visible(timeout=60000);expect(page.locator('.scanner-counts')).to_contain_text('2 scanned')
+  page.get_by_role('button',name='Claim',exact=True).click()
   assert page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[0].entries.length")==1
-  page.get_by_role('button',name='Exit Scanner',exact=True).click();assert page.evaluate("window.cameraTracks.every(t=>t.readyState==='ended')")
+  page.get_by_role('button',name='Back to Collections',exact=True).click();assert page.evaluate("window.cameraTracks.every(t=>t.readyState==='ended')")
   page.close()
  browser.close()
 print('Automatic capture passed on desktop/mobile: no shutter click, stable exact matching, explicit acquisition, one capture per review, repeated owned blueprint, next scan and camera cleanup.')

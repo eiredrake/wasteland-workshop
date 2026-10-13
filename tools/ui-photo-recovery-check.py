@@ -12,11 +12,11 @@ with sync_playwright() as p:
   with page.expect_file_chooser() as chooser:page.get_by_role('button',name='Choose Photo',exact=True).click()
   chooser.value.set_files(str(root/'tests/fixtures/scanner/freeiron-dry-pack.jpg'));expect(page.locator('.photo-adjuster img')).to_be_visible()
  choose();page.get_by_role('button',name='Analyze Photo',exact=True).click();expect(page.get_by_role('heading',name='Possible Matches')).to_be_visible()
- assert page.get_by_role('button',name='Acquire',exact=True).count()==0
- page.get_by_role('button',name='Freeiron Dry Pack',exact=True).click();assert page.get_by_role('button',name='Acquire',exact=True).is_enabled()
+ assert page.get_by_role('button',name='Claim',exact=True).count()==0
+ page.get_by_role('button',name='Freeiron Dry Pack',exact=True).click();assert page.get_by_role('button',name='Claim',exact=True).is_enabled()
  page.evaluate("""()=>{const set=Storage.prototype.setItem;window.restoreStorage=()=>Storage.prototype.setItem=set;Storage.prototype.setItem=function(key,value){if(key==='wasteland-workshop-blueprint-collections')throw new Error('Simulated write failure');return set.call(this,key,value)}}""")
- page.get_by_role('button',name='Acquire',exact=True).click();expect(page.get_by_role('alert')).to_be_visible();assert page.get_by_text('Acquired and saved.',exact=True).count()==0
- page.evaluate('()=>{window.restoreStorage()}');page.get_by_role('button',name='Try Again').click();expect(page.get_by_role('heading',name='Possible Matches')).to_be_visible();expect(page.locator('.scanner-counts')).to_contain_text('1 scanned')
+ page.get_by_role('button',name='Claim',exact=True).click();expect(page.locator('dialog').get_by_role('alert')).to_be_visible();assert page.get_by_text('Acquired and saved.',exact=True).count()==0
+ page.evaluate('()=>{window.restoreStorage()}');page.locator('dialog').get_by_role('button',name='Cancel',exact=True).click();page.get_by_role('button',name='Try Again').click();expect(page.get_by_role('heading',name='Possible Matches')).to_be_visible();expect(page.locator('.scanner-counts')).to_contain_text('1 scanned')
  before=page.evaluate('window.inputs.at(-1)');page.get_by_text('Adjust Crop and Rotation',exact=True).click();page.get_by_role('button',name='Rotate Right 90°').click();page.get_by_role('button',name='Analyze Photo',exact=True).click();expect(page.get_by_role('heading',name='Possible Matches')).to_be_visible();rotated=page.evaluate('window.inputs.at(-1)');assert before[0]<before[1] and rotated[0]>rotated[1]
  page.get_by_role('button',name='Crop Title Region').click();page.get_by_role('button',name='Analyze Photo',exact=True).click();expect(page.get_by_role('heading',name='Possible Matches')).to_be_visible();cropped=page.evaluate('window.inputs.at(-1)');assert cropped[0]<=rotated[0] and cropped[1]<rotated[1] and cropped[0]/cropped[1]>rotated[0]/rotated[1]
  page.get_by_role('button',name='Reset Adjustments').click();page.get_by_role('button',name='Analyze Photo',exact=True).click();expect(page.get_by_role('heading',name='Possible Matches')).to_be_visible();assert page.evaluate('window.inputs.at(-1)')==before
@@ -26,6 +26,6 @@ with sync_playwright() as p:
  assert page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[0].entries.length")==0
  assert page.evaluate('window.readerClosed')>0
  choose();page.evaluate("window.mode='error'");page.get_by_role('button',name='Analyze Photo',exact=True).click();expect(page.get_by_role('alert')).to_contain_text('Recognition failed')
- page.get_by_role('button',name='Cancel',exact=True).click();choose();page.evaluate("window.mode='pending'");page.get_by_role('button',name='Analyze Photo',exact=True).click();page.get_by_role('button',name='Exit Scanner').click();page.evaluate('window.resolvePhoto()');expect(page.get_by_role('heading',name='Scan Session Complete')).to_be_visible()
+ page.get_by_role('button',name='Cancel',exact=True).click();choose();page.evaluate("window.mode='pending'");page.get_by_role('button',name='Analyze Photo',exact=True).click();page.get_by_role('button',name='Back to Collections').click();page.evaluate('window.resolvePhoto()');assert page.locator('.scanner-panel').count()==0
  browser.close()
 print('Photo recovery checks passed: ambiguous selection, failed save, retry counters, duplicate Analyze prevention, OCR failure, cancellation and exit with late OCR results.')

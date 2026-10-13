@@ -1,3 +1,5 @@
+import BackButton from '../../components/BackButton/BackButton'
+import PrintClaimDialog from '../../components/PrintClaimDialog/PrintClaimDialog'
 import PhotoImport from './PhotoImport'
 import { useEffect, useRef, useState, useEffectEvent } from 'react'
 import { scanFrameBounds } from '../../components/CameraPreview/CameraGeometry'
@@ -12,15 +14,16 @@ import { createScanRecognizer, type ScanRecognizer, type ScanPassDiagnostic } fr
 import { scanCounters, type ScanOutcome } from './ScanSession'
 import { captureNamePhoto, stillCamera, type StillCamera } from './ScanCapture'
 import { captureSharpness } from './ScanQuality'
-import {requestFocus,type FocusReport} from './ScanFocus'
+import {requestFocus,requestFocusAt,type FocusReport} from './ScanFocus'
 import {loadScannerDiagnostics} from '../settings/ScannerSettings'
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator'
 import './BlueprintScanner.css'
 type Props={collection:BlueprintCollection|undefined;destinationName:string;destinationId:string;activeId:string|undefined;onAcquire:(collectionId:string,blueprint:Blueprint)=>{alreadyOwned:boolean};onDone:()=>void}
 export default function BlueprintScanner({collection,destinationName,destinationId,activeId,onAcquire,onDone}:Props){
+ const [claimOpen,setClaimOpen]=useState(false)
  const [inputMethod,setInputMethod]=useState<'entry'|'camera'|'photo'>('entry')
  const video=useRef<HTMLVideoElement>(null),stream=useRef<MediaStream|undefined>(undefined),recognizer=useRef<ScanRecognizer|undefined>(undefined),generation=useRef(0),busy=useRef(false)
- const [camera,setCamera]=useState<'opening'|'ready'|'stopped'>('opening'),[error,setError]=useState(''),[analyzing,setAnalyzing]=useState(false),[photo,setPhoto]=useState<string>(),[match,setMatch]=useState<ScanMatch>(),[selected,setSelected]=useState<Blueprint>(),[summary,setSummary]=useState(false),[documents,setDocuments]=useState<ScanOutcome[]>([]),[outcome,setOutcome]=useState<ScanOutcome>(),[attempt,setAttempt]=useState(0)
+ const [camera,setCamera]=useState<'opening'|'ready'|'stopped'>('opening'),[error,setError]=useState(''),[analyzing,setAnalyzing]=useState(false),[photo,setPhoto]=useState<string>(),[match,setMatch]=useState<ScanMatch>(),[selected,setSelected]=useState<Blueprint>(),[documents,setDocuments]=useState<ScanOutcome[]>([]),[outcome,setOutcome]=useState<ScanOutcome>(),[attempt,setAttempt]=useState(0)
  const photoCamera=useRef<StillCamera|undefined>(undefined)
  const [flashSupported,setFlashSupported]=useState(false),[flashOn,setFlashOn]=useState(false),[blurred,setBlurred]=useState(false)
  const [diagnosticsEnabled,setDiagnosticsEnabled]=useState(false),[diagnosticReport,setDiagnosticReport]=useState<string>()
@@ -69,16 +72,16 @@ export default function BlueprintScanner({collection,destinationName,destination
   return()=>{disposed=true;invalidate();releaseCamera();closeRecognition();document.removeEventListener('visibilitychange',hidden)}
  },[attempt,inputMethod])
  function classify(index:number,value:ScanOutcome){currentOutcome.current=value;setDocuments(old=>old.map((item,i)=>i===index?value:item));setOutcome(value)}
- function choose(blueprint:Blueprint){setSelected(blueprint);if(collection?.entries.some(e=>e.blueprintId===blueprint.id&&e.status==='acquired')&&documentIndex.current!==undefined)classify(documentIndex.current,'owned')}
- async function refocus(){
+ function choose(blueprint:Blueprint){setSelected(blueprint);setClaimOpen(true);if(collection?.entries.some(e=>e.blueprintId===blueprint.id&&e.status==='acquired')&&documentIndex.current!==undefined)classify(documentIndex.current,'owned')}
+ async function refocus(point?:{x:number;y:number}){
   const track=stream.current?.getVideoTracks()[0]
   if(!track||busy.current||focusing)return
   const job=generation.current;setFocusing(true);setFocusMessage('Requesting autofocus…')
   try{
-   const report=await requestFocus(track,true)
+   const report=point?await requestFocusAt(track,point):await requestFocus(track,true)
    if(job!==generation.current||stream.current?.getVideoTracks()[0]!==track)return
    focusReport.current=report
-   setFocusMessage(report.result==='applied'?'Autofocus requested. Check that the name is sharp before capturing.':report.result==='failed'?'The camera rejected the autofocus request.':'This camera does not expose autofocus controls.')
+   setFocusMessage('pointResult' in report?report.pointResult==='applied'?'Focus requested at that spot.':report.pointResult==='unconfirmed'?'Focus point requested. Check that the letters are sharp.':report.result==='unsupported'?'This camera does not expose focus controls.':report.result==='failed'?'The camera rejected the focus request.':'Focus at a specific spot is unavailable; autofocus was requested instead.':report.result==='applied'?'Autofocus requested. Check that the name is sharp before capturing.':report.result==='failed'?'The camera rejected the autofocus request.':'This camera does not expose autofocus controls.')
   }finally{setFocusing(false)}
  }
  async function capture(){
@@ -130,17 +133,18 @@ export default function BlueprintScanner({collection,destinationName,destination
   void (async()=>{try{await current.initialize?.()}catch{/* Manual capture retains the local fallback. */return}if(!cancelled)void update()})()
   return()=>{cancelled=true;if(timer!==undefined)window.clearTimeout(timer);void previewRead.current?.finally(()=>{canvas.width=canvas.height=0}).catch(()=>{});if(!previewRead.current)canvas.width=canvas.height=0}
  },[camera,photo,analyzing,focusing,autoCapture,destinationValid,inputMethod])
- function reset(next:boolean){if(busy.current)return;currentOutcome.current=undefined;setPhoto(undefined);setTextBoxes([]);setDiagnosticReport(undefined);setBlurred(false);setMatch(undefined);setSelected(undefined);setOutcome(undefined);setError('');if(next)documentIndex.current=undefined}
+ function reset(next:boolean){if(busy.current)return;setClaimOpen(false);currentOutcome.current=undefined;setPhoto(undefined);setTextBoxes([]);setDiagnosticReport(undefined);setBlurred(false);setMatch(undefined);setSelected(undefined);setOutcome(undefined);setError('');if(next)documentIndex.current=undefined}
  function acquire(blueprint=selected){
-  if(busy.current||!blueprint||!destinationValid||currentOutcome.current==='acquired'||currentOutcome.current==='owned'||documentIndex.current===undefined)return
+  if(currentOutcome.current==='owned'){setClaimOpen(false);return}
+  if(busy.current||!blueprint||!destinationValid||currentOutcome.current==='acquired'||documentIndex.current===undefined)return
   busy.current=true
-  try{const result=onAcquire(destinationId,blueprint);classify(documentIndex.current,result.alreadyOwned?'owned':'acquired');setError('')}
+  try{const result=onAcquire(destinationId,blueprint);classify(documentIndex.current,result.alreadyOwned?'owned':'acquired');setError('');setClaimOpen(false)}
   catch(e){setError(e instanceof Error?e.message:'Unable to save acquisition. No success recorded.')}
   finally{busy.current=false}
  }
- function exit(){invalidate();releaseCamera();closeRecognition();setPhoto(undefined);setDiagnosticReport(undefined);setAnalyzing(false);setSummary(true)}
+ function exit(){invalidate();releaseCamera();closeRecognition();busy.current=false;onDone()}
  const counters=scanCounters(documents)
- if(summary)return <section className="scanner-panel"><h2>Scan Session Complete</h2><p>{counters.scanned} Blueprints scanned · {counters.acquired} marked Acquired · {counters.owned} already Acquired · {counters.unmatched} unmatched</p><button type="button" className="primary-button" onClick={onDone}>Done</button></section>
+
  return <section className="scanner-panel" data-tour-blocked="true" aria-label="Blueprint scanner"><h2>Scan &amp; Acquire</h2><p className="scanner-destination">To: <strong>{destinationName}</strong></p>
  <p className="scanner-counts" aria-live="polite">{counters.scanned} scanned · {counters.acquired} acquired</p>
 
@@ -150,13 +154,14 @@ export default function BlueprintScanner({collection,destinationName,destination
  {inputMethod==='camera'&&<>
  <div className="scanner-result" aria-live="polite">
  {ocrLoading?<LoadingIndicator label="Loading OCR Library"/>:analyzing&&<LoadingIndicator label="Reading Item Name…"/>}
- {selected&&<><h3>Blueprint identified: {selected.name}</h3>{outcome==='owned'?<p className="scanner-success">Already Acquired</p>:outcome==='acquired'?<p className="scanner-success">Acquired and saved in {destinationName}.</p>:<button type="button" className={`blueprint-access-status blueprint-access-status-${match?.confidence==='high'?'acquired':'to-acquire'} scanner-acquire`} aria-label={`Acquire ${selected.name}`} title={`Acquire ${selected.name}`} disabled={!destinationValid||analyzing} onClick={()=>acquire()}><span>Acquire</span><span className="scanner-acquire-name">{selected.name}</span></button>}</>}
- {match?.confidence==='ambiguous'&&!selected&&<><p>Check the name, then tap Acquire to import the correct print.</p>{match.candidates.map(c=><button key={c.blueprint.id} className="blueprint-access-status blueprint-access-status-to-acquire scanner-acquire" type="button" aria-label={`Acquire ${c.blueprint.name}`} title={`Acquire ${c.blueprint.name}`} disabled={!destinationValid||analyzing} onClick={()=>{choose(c.blueprint);acquire(c.blueprint)}}><span>Acquire</span><span className="scanner-acquire-name">{c.blueprint.name}</span></button>)}</>}
+ {selected&&<><h3>Blueprint identified: {selected.name}</h3>{outcome==='owned'?<p className="scanner-success">Already Acquired</p>:outcome==='acquired'?<p className="scanner-success">Acquired and saved in {destinationName}.</p>:<button type="button" className="secondary-button" onClick={()=>setClaimOpen(true)}>Review Identified Print</button>}</>}
+ {match?.confidence==='ambiguous'&&!selected&&<><p>Select the correct print to review and claim.</p>{match.candidates.map(c=><button key={c.blueprint.id} className="blueprint-access-status blueprint-access-status-to-acquire scanner-acquire" type="button" disabled={!destinationValid||analyzing} onClick={()=>choose(c.blueprint)}><span className="scanner-acquire-name">{c.blueprint.name}</span></button>)}</>}
+ {claimOpen&&selected&&<PrintClaimDialog name={selected.name} error={error} disabled={!destinationValid||analyzing} onCancel={()=>reset(true)} onClaim={()=>acquire()}/>}
  {showDiagnostics&&match?.readText&&match.confidence!=='high'&&<p className="scanner-read-text">Read from photo: “{match.readText}”</p>}
  {match?.confidence==='none'&&<p>Blueprint not identified. Check the captured name and try again.</p>}
  </div>
  {photo&&blurred&&!analyzing&&match?.confidence!=='high'&&<p role="status">Name looks soft. Check focus before retaking.</p>}
- <CameraPreview videoRef={video} photo={photo} autoCapture={autoCapture} textBoxes={textBoxes} onReady={()=>setCamera('ready')}/>
+ <CameraPreview videoRef={video} photo={photo} autoCapture={autoCapture} textBoxes={textBoxes} onFocusPoint={point=>void refocus(point)} onReady={()=>setCamera('ready')}/>
 
  {focusMessage&&camera==='ready'&&!photo&&<p role="status">{focusMessage}</p>}
  {showDiagnostics&&<details><summary>Scan Diagnostics</summary><p>Enable before capturing to save the exact OCR images, recognized text, matching results and camera details. Nothing is uploaded. The download contains the photographed name area; share it only when you choose.</p><label><input type="checkbox" checked={diagnosticsEnabled} disabled={analyzing} onChange={e=>{setDiagnosticsEnabled(e.target.checked);setDiagnosticReport(undefined)}}/> Collect diagnostics for the next capture</label>
@@ -171,7 +176,7 @@ export default function BlueprintScanner({collection,destinationName,destination
  {photo&&outcome!=='acquired'&&<button type="button" className="secondary-button" disabled={analyzing} onClick={()=>reset(false)}>Retake Photo / Try Again</button>}
  {photo&&<button type="button" className="primary-button" disabled={analyzing} onClick={()=>reset(true)}>Scan Next Blueprint</button>}
  <button type="button" className="secondary-button" onClick={()=>{invalidate();releaseCamera();closeRecognition();busy.current=false;setAnalyzing(false);reset(true);setInputMethod('photo')}}>Choose Photo</button>
- <button type="button" className="secondary-button" onClick={exit}>Exit Scanner</button>
+ <BackButton onClick={exit}>Back to Collections</BackButton>
  </div>
  {!photo&&<details className="scanner-aiming-guide"><summary>Where to aim</summary><p>Fill the frame with the complete Item Name row. Yellow highlights show detected text; they do not confirm a match.</p><figure><div className="scanner-example"><img src={import.meta.env.BASE_URL+'scanner/aiming-example.jpg'} alt="Real Freeiron Dry Pack blueprint with the Item Name row outlined in yellow" loading="lazy"/><span aria-hidden="true"/></div><figcaption>Aim at this row. The rest of the blueprint is not needed.</figcaption></figure></details>}
  </>}

@@ -21,7 +21,8 @@ with sync_playwright() as p:
  expect(page.locator('.photo-adjuster img')).to_be_visible()
  page.get_by_text('Adjust Crop and Rotation',exact=True).click();page.get_by_role('button',name='Crop Title Region').click();page.get_by_role('button',name='Analyze Photo',exact=True).click()
  expect(page.get_by_role('button',name='Freeiron Dry Pack',exact=True)).to_be_visible(timeout=60000)
- page.get_by_role('button',name='Freeiron Dry Pack',exact=True).click();page.get_by_role('button',name='Acquire',exact=True).click();expect(page.get_by_text('Acquired and saved.',exact=True)).to_be_visible()
+ if not page.locator('dialog.print-claim-dialog').is_visible():page.get_by_role('button',name='Freeiron Dry Pack',exact=True).click()
+ page.get_by_role('button',name='Claim',exact=True).click();expect(page.get_by_text('Acquired and saved.',exact=True)).to_be_visible()
  assert page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[0].entries[0].blueprintId")==5234
  assert page.evaluate("JSON.stringify(localStorage).includes('data:image')")==False
  browser.close()

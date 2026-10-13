@@ -17,9 +17,7 @@ with tempfile.TemporaryDirectory() as folder,sync_playwright() as p:
   if '/5187' in base:pass
   page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire',exact=True).click()
   assert page.evaluate('window.cameraCalls')==0
-  with page.expect_file_chooser() as chooser:page.get_by_role('button',name='Take Photo',exact=True).click()
-  assert chooser.value.element.get_attribute('capture')=='environment'
-  chooser.value.set_files([])
+  assert page.get_by_role('button',name='Take Photo',exact=True).count()==0
   with page.expect_file_chooser() as chooser:page.get_by_role('button',name='Choose Photo',exact=True).click()
   assert chooser.value.is_multiple() and chooser.value.element.get_attribute('capture') is None
   chooser.value.set_files([str(root/'tests/fixtures/scanner/freeiron-dry-pack.jpg'),str(png),str(bad),str(webp)])
@@ -33,23 +31,24 @@ with tempfile.TemporaryDirectory() as folder,sync_playwright() as p:
   page.get_by_role('button',name='Analyze Photo',exact=True).click()
   expect(page.get_by_role('button',name='Freeiron Dry Pack',exact=True)).to_be_visible(timeout=60000)
   assert page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[0].entries[0].status")=='to-acquire'
-  candidate=page.get_by_role('button',name='Freeiron Dry Pack',exact=True);candidate.click()
+  candidate=page.get_by_role('button',name='Freeiron Dry Pack',exact=True);
+  if not page.locator('dialog.print-claim-dialog').is_visible():candidate.click()
   page.locator('.scanner-panel').screenshot(path=str(out/f'{label}-photo-result.png'))
-  page.get_by_role('button',name='Acquire',exact=True).click();expect(page.get_by_text('Acquired and saved.',exact=True)).to_be_visible()
+  page.get_by_role('button',name='Claim',exact=True).click();expect(page.get_by_text('Acquired and saved.',exact=True)).to_be_visible()
   page.get_by_role('button',name='Next Photo',exact=True).click();expect(image).to_be_visible()
   # Manual correction is an explicit catalog search, never a new catalog entry.
   page.get_by_role('textbox',name='Recognized Text').fill('freeiron dry pack');page.get_by_role('button',name='Search Catalog').click()
-  page.get_by_role('button',name='Freeiron Dry Pack',exact=True).click();page.get_by_role('button',name='Acquire',exact=True).click();expect(page.get_by_text('Already Acquired',exact=True)).to_be_visible()
+  page.get_by_role('button',name='Freeiron Dry Pack',exact=True).click();page.get_by_role('button',name='Claim',exact=True).click();expect(page.get_by_text('Already Acquired',exact=True)).to_be_visible()
   page.get_by_role('button',name='Next Photo',exact=True).click();expect(page.get_by_role('alert')).to_contain_text('could not decode')
   page.get_by_role('button',name='Next Photo',exact=True).click();expect(image).to_be_visible()
   page.get_by_role('textbox',name='Recognized Text').fill('Hooch');page.get_by_role('button',name='Search Catalog').click()
-  page.get_by_role('button',name='Hooch',exact=True).click();page.get_by_role('button',name='Acquire',exact=True).click()
+  page.get_by_role('button',name='Hooch',exact=True).click();page.get_by_role('button',name='Claim',exact=True).click()
   entries=page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[0].entries");assert len(entries)==2 and entries[0]['note']=='retain'
   for check_width in [320,360,390,768,1280]:
    page.set_viewport_size({'width':check_width,'height':900});assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
   page.set_viewport_size({'width':width,'height':900})
-  page.get_by_role('button',name='Exit Scanner').click();expect(page.get_by_role('heading',name='Scan Session Complete')).to_be_visible()
-  expect(page.get_by_text('4 Blueprints scanned · 2 marked Acquired · 1 already Acquired · 1 unmatched',exact=True)).to_be_visible()
+  page.get_by_role('button',name='Back to Collections').click();assert page.locator('.scanner-panel').count()==0
+
   assert page.evaluate('window.cameraCalls')==0 and all(url.startswith((base+'/','blob:','data:')) for url in requests)
   context.close()
  browser.close()
