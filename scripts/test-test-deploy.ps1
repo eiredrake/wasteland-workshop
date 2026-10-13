@@ -7,10 +7,10 @@ $number = (Get-Content "$PSScriptRoot/../package.json" -Raw | ConvertFrom-Json).
 function docker {
     $global:LASTEXITCODE = 0
     if ($args -contains 'compose') {
-        if ($args[2] -cne 'workbench-test' -or $args[4] -notlike '*docker-compose.test.yml') { throw 'Wrong Compose target.' }
-        if ($args -contains 'config') { return '{"name":"workbench-test","services":{"workbench-test":{"container_name":"workbench-test","image":"workbench-test:latest"}}}' }
+        if ($args[2] -cne 'workshop-test' -or $args[4] -notlike '*docker-compose.test.yml') { throw 'Wrong Compose target.' }
+        if ($args -contains 'config') { return '{"name":"workshop-test","services":{"workshop-test":{"container_name":"workshop-test","image":"workshop-test:latest"}}}' }
         if ($args -contains 'up') {
-            if ($args[-1] -cne 'workbench-test' -or !($args -contains '--no-build') -or !($args -contains '--no-deps')) { throw 'Unsafe update.' }
+            if ($args[-1] -cne 'workshop-test' -or !($args -contains '--no-build') -or !($args -contains '--no-deps')) { throw 'Unsafe update.' }
             $global:testDeployUpdates++; return
         }
     }
@@ -19,20 +19,20 @@ function docker {
         return
     }
     if ($args[0] -eq 'build') {
-        if ($args -notcontains 'workbench-test:latest') { throw 'Wrong build image.' }
+        if ($args -notcontains 'workshop-test:latest') { throw 'Wrong build image.' }
         $global:testDeployBuilds++
         if ($global:testDeployScenario -eq 'build-failed') { $global:LASTEXITCODE = 1 }
         return
     }
     if ($args[0] -eq 'image') { return '[{"Id":"sha256:test"}]' }
     if ($args[0] -eq 'inspect') {
-        if ($args[1] -cne 'workbench-test') { throw 'Wrong container.' }
+        if ($args[1] -cne 'workshop-test') { throw 'Wrong container.' }
         if ($global:testDeployScenario -eq 'first') { $global:LASTEXITCODE = 1; $global:testDeployScenario = 'success'; return }
-        $project = if ($global:testDeployScenario -eq 'wrong-project') { 'production' } else { 'workbench-test' }
+        $project = if ($global:testDeployScenario -eq 'wrong-project') { 'production' } else { 'workshop-test' }
         return (@(@{Image='sha256:test'; State=@{Running=$true}; Config=@{Labels=@{'com.docker.compose.project'=$project}}}) | ConvertTo-Json -Depth 8)
     }
     if ($args[0] -eq 'exec') {
-        if ($args[1] -cne 'workbench-test' -or $args[-1] -cne 'http://127.0.0.1:80/version.json') { throw 'Wrong health target.' }
+        if ($args[1] -cne 'workshop-test' -or $args[-1] -cne 'http://127.0.0.1:80/version.json') { throw 'Wrong health target.' }
         return (@{version=$number} | ConvertTo-Json)
     }
     throw "Unexpected Docker command: $args"
