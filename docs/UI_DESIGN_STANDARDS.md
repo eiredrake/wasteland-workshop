@@ -87,3 +87,5 @@ AppShare reuses native dialog/button foundations. Its black-on-white QR with fou
 TestVersionBanner owns the full-width green TEST VERSION strip above the shared app header. It uses runtime exact hostname matching for workshop-test.foundationsrpg.org; the same merged build remains unmarked on production. It is informational, outside the constrained main column and present across every view.
 
 ConfirmationDialog supports success/danger tones and a single OK action for result messages, retaining its destructive-confirmation defaults. Choose Image uses the canonical primary-button-cream variant, gold focus and centered layout. Phase 1 only reads the returned filename; accept is a picker hint, never application validation.
+
+ImagePicker is the shared native file-acquisition control, with its own code/CSS folder, canonical orange/cream button and unfiltered File callback. Scan Prints keeps Choose Image and disabled Live Camera (Coming Soon) as separate centered entry points. Do not infer native picker providers or activate a camera from returned Files.

@@ -1,1 +1,2 @@
-.scan-prints-entry-actions { display:flex; justify-content:center; margin:2rem 0; }
+.scan-prints-entry-actions { display:flex; flex-direction:column; align-items:center; gap:1.5rem; margin:2rem 0; }
+.scan-prints-camera-entry { display:flex; flex-direction:column; align-items:center; gap:.5rem; color:var(--color-text-muted); }
