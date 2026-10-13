@@ -1,3 +1,4 @@
+import type {ScannerSettings} from '../settings/ScannerSettings'
 import { validateTourProgress, type TourProgress } from '../tours/TourProgress'
 import { isActionExecution } from '../actions/ActionService'
 import type { BlueprintCollection } from '../blueprints/BlueprintCollection'
@@ -21,7 +22,7 @@ export type BackupData = {
   blueprintCollections: { collections: BlueprintCollection[]; activeCollectionId: string | null }
   shoppingLists: ShoppingListState
   warehouse: Warehouse
-  settings: { economicsOverrides: EconomicsOverrides; alarm: AlarmSettings; warehouse: { expirationWarningDays: number } }
+  settings: { scanner?:ScannerSettings; economicsOverrides: EconomicsOverrides; alarm: AlarmSettings; warehouse: { expirationWarningDays: number } }
   buildQueue: { builds: BuildQueue }
 }
 export type Backup = { format: typeof BACKUP_FORMAT; schemaVersion: 4; appVersion: string; exportedAt: string; data: BackupData }
@@ -126,7 +127,7 @@ export function validateData(value: unknown): BackupData {
     if ('expirationDate' in entry) check(validExpirationDate(entry.expirationDate) && inventoryItemById.get(entry.itemId)?.kind !== 'currency', 'Invalid inventory expiration date.')
   }
   unique(entries.map(value => {const entry=object(value);return lotKey(entry.itemId as number,entry.expirationDate as string|undefined)}))
-  const settings = object(data.settings); keys(settings,['economicsOverrides','alarm','warehouse']); overrides(settings.economicsOverrides)
+  const settings = object(data.settings); keys(settings,['economicsOverrides','alarm','warehouse','scanner']);if(settings.scanner!==undefined){const scanner=object(settings.scanner);keys(scanner,['diagnostics','includeImages']);check(typeof scanner.diagnostics==='boolean'&&typeof scanner.includeImages==='boolean','Invalid scanner preferences.')}  overrides(settings.economicsOverrides)
   const alarm = object(settings.alarm); keys(alarm,['sound','vibration']); check(typeof alarm.sound === 'boolean' && typeof alarm.vibration === 'boolean', 'Invalid alarm preferences.')
   const warehouseSettings = object(settings.warehouse); keys(warehouseSettings,['expirationWarningDays']); check(validWarningDays(warehouseSettings.expirationWarningDays), 'Invalid expiration warning days.')
   const queue = object(data.buildQueue); keys(queue,['builds']); const builds = array(queue.builds); builds.forEach(validateActivity); unique(builds.map(value => object(value).id))

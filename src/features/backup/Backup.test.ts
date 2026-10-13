@@ -1,3 +1,4 @@
+import {loadScannerSettings,saveScannerSettings} from '../settings/ScannerSettings'
 import { describe, expect, it, vi, afterEach } from 'vitest'
 import { BACKUP_FORMAT, parseBackup, prepareRestore, migrateBackup } from './Backup'
 import { createBackup, restoreBackup, serializeBackup } from './BackupRepository'
@@ -32,6 +33,10 @@ function populated() {
 }
 afterEach(()=>vi.unstubAllGlobals())
 describe('Full portable backup',()=>{
+  it('exports/restores scanner settings and accepts older backups without them',()=>{
+    const source=populated();saveScannerSettings({diagnostics:true,includeImages:true},source);const backup=createBackup(source,new Date(time)),destination=memory();restoreBackup(backup,destination);expect(loadScannerSettings(destination)).toEqual({diagnostics:true,includeImages:true});delete backup.data.settings.scanner;restoreBackup(backup,destination);expect(loadScannerSettings(destination)).toEqual({diagnostics:false,includeImages:false})
+  })
+
   it('exports every persisted domain, preferences and active IDs with explicit metadata',()=>{
     const store=populated(),before=[...store.values],backup=createBackup(store,new Date(time+1000))
     expect(backup).toMatchObject({format:BACKUP_FORMAT,schemaVersion:4,appVersion:expect.any(String),exportedAt:'2026-10-08T12:00:01.000Z'})

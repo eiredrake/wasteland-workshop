@@ -1,3 +1,4 @@
+import ScannerSettingsView from './features/settings/ScannerSettingsView'
 import ScanPrintsView from './features/scanner/ScanPrintsView'
 import TestVersionBanner from './components/TestVersionBanner/TestVersionBanner'
 import AppShare from './components/AppShare/AppShare'
@@ -715,6 +716,7 @@ function App() {
         <header data-tour-target="settings" className="settings-page settings-header"><h2>Settings</h2></header>
         <BlueprintReadSettingsView />
         <BackupSettingsView />
+        <ScannerSettingsView />
         <WarehouseSettingsView days={expirationWarningDays} onSave={days=>{
           try {saveExpirationWarningDays(days);setExpirationWarningDays(days);showToast('Expiration settings saved.','success');return true}
           catch {showToast('Expiration settings could not be saved.','error');return false}
