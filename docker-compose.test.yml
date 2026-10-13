@@ -1,11 +1,11 @@
-name: workshop-test
+name: workbench-test
 services:
-  workshop-test:
-    container_name: workshop-test
+  workbench-test:
+    container_name: workbench-test
     build:
       context: .
       dockerfile: Dockerfile
-    image: workshop-test:latest
+    image: workbench-test:latest
     restart: unless-stopped
     networks:
       - proxy-tier

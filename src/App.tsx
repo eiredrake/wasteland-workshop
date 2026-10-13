@@ -1,3 +1,4 @@
+import ScanPrintsView from './features/scanner/ScanPrintsView'
 import TestVersionBanner from './components/TestVersionBanner/TestVersionBanner'
 import AppShare from './components/AppShare/AppShare'
 import { setCollectionBlueprintStatus } from './features/blueprints/BlueprintCollectionService'
@@ -87,6 +88,7 @@ type AppView =
   | 'workshop'
   | 'catalog'
   | 'collections'
+  | 'scan-prints'
   | 'warehouse'
   | 'shopping'
   | 'builds'
@@ -552,6 +554,8 @@ function App() {
             Blueprint Collections
           </button>
 
+          <button type="button" onClick={() => navigateTo('scan-prints')}>Scan Prints</button>
+
           <button type="button" onClick={() => navigateTo('shopping')}>
             Shopping Lists
           </button>
@@ -678,6 +682,8 @@ function App() {
           }
         />
       )}
+
+      {currentView === 'scan-prints' && <ScanPrintsView/>}
 
       {currentView === 'shopping' && (
         <ShoppingListsView state={shoppingState} onChange={updateShoppingState}
