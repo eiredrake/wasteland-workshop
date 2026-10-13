@@ -88,4 +88,4 @@ TestVersionBanner owns the full-width green TEST VERSION strip above the shared 
 
 ConfirmationDialog supports success/danger tones and a single OK action for result messages, retaining its destructive-confirmation defaults. Choose Image uses the canonical primary-button-cream variant, gold focus and centered layout. Phase 1 only reads the returned filename; accept is a picker hint, never application validation.
 
-ImagePicker is the shared native file-acquisition control, with its own code/CSS folder, canonical orange/cream button and unfiltered File callback. Scan Prints keeps Choose Image and disabled Live Camera (Coming Soon) as separate centered entry points. Do not infer native picker providers or activate a camera from returned Files.
+ImagePicker is the shared native file-acquisition control, with its own code/CSS folder, canonical orange/cream button and unfiltered File callback. Scan Prints currently shows only centered Choose Image; the planned independent Live Camera path has no visible controls yet. Do not infer native picker providers or activate a camera from returned Files.

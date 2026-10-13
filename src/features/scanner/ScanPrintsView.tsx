@@ -11,7 +11,6 @@ export default function ScanPrintsView(){
  return <section aria-label="Scan Prints"><h2>Scan Prints</h2>
  <div className="scan-prints-entry-actions">
  <ImagePicker buttonRef={chooseButton} onSelected={file=>setResult({filename:file.name})} onError={failure}/>
- <div className="scan-prints-camera-entry"><button type="button" className="secondary-button" disabled aria-describedby="live-camera-coming-soon">Live Camera</button><span id="live-camera-coming-soon">Coming Soon</span></div>
  </div>
  {result&&<ConfirmationDialog title={'filename' in result?'FILE SELECTED':'FILE SELECTION FAILED'} tone={'filename' in result?'success':'danger'} showCancel={false} confirmLabel="OK" onConfirm={close} onCancel={close} message={'filename' in result?<><span className="confirmation-dialog-message-line">Filename:</span><span className="confirmation-dialog-message-line">{result.filename}</span><span className="confirmation-dialog-message-line">File selection successful.</span></>:<><span className="confirmation-dialog-message-line">Reason:</span><span className="confirmation-dialog-message-line">{result.error}</span></>}/>}
  </section>
