@@ -15,10 +15,10 @@ function docker {
     $global:testDockerCalls++
     $global:LASTEXITCODE = 0
     if ($args -contains 'compose') {
-        if ($args[2] -cne 'workbench-test' -or $args[4] -notlike '*docker-compose.test.yml') { throw 'Wrong Compose target.' }
-        if ($args -contains 'config') { return '{"name":"workbench-test","services":{"workbench-test":{"container_name":"workbench-test","image":"workbench-test:latest"}}}' }
+        if ($args[2] -cne 'workshop-test' -or $args[4] -notlike '*docker-compose.test.yml') { throw 'Wrong Compose target.' }
+        if ($args -contains 'config') { return '{"name":"workshop-test","services":{"workshop-test":{"container_name":"workshop-test","image":"workshop-test:latest"}}}' }
         if ($args -contains 'up') {
-            if ($args[-1] -cne 'workbench-test' -or !($args -contains '--no-build') -or !($args -contains '--no-deps')) { throw 'Unsafe update.' }
+            if ($args[-1] -cne 'workshop-test' -or !($args -contains '--no-build') -or !($args -contains '--no-deps')) { throw 'Unsafe update.' }
             $global:testDeployUpdates++; return
         }
     }
@@ -27,22 +27,22 @@ function docker {
         return
     }
     if ($args[0] -eq 'build') {
-        if ($args -notcontains 'workbench-test:latest') { throw 'Wrong build image.' }
+        if ($args -notcontains 'workshop-test:latest') { throw 'Wrong build image.' }
         $global:testDeployBuilds++
         if ($global:testDeployScenario -eq 'build-failed') { $global:LASTEXITCODE = 1 }
         return
     }
     if ($args[0] -eq 'image') { return '[{"Id":"sha256:test"}]' }
     if ($args[0] -eq 'container' -and $args[1] -eq 'inspect') {
-        if ($args[2] -cne 'workbench-test') { throw 'Wrong container.' }
+        if ($args[2] -cne 'workshop-test') { throw 'Wrong container.' }
         if ($global:testDeployScenario -eq 'first') { $global:LASTEXITCODE = 1; $global:testDeployScenario = 'success'; return }
         if ($global:testDeployScenario -eq 'unlabeled') { return '[{"Config":{"Labels":{"maintainer":"nginx"}}}]' }
         if ($global:testDeployScenario -eq 'null-labels') { return '[{"Config":{"Labels":null}}]' }
-        $project = if ($global:testDeployScenario -eq 'wrong-project') { 'production' } else { 'workbench-test' }
+        $project = if ($global:testDeployScenario -eq 'wrong-project') { 'production' } else { 'workshop-test' }
         return (@(@{Image='sha256:test'; State=@{Running=$true}; Config=@{Labels=@{'com.docker.compose.project'=$project}}}) | ConvertTo-Json -Depth 8)
     }
     if ($args[0] -eq 'exec') {
-        if ($args[1] -cne 'workbench-test' -or $args[-1] -cne 'http://127.0.0.1:80/version.json') { throw 'Wrong health target.' }
+        if ($args[1] -cne 'workshop-test' -or $args[-1] -cne 'http://127.0.0.1:80/version.json') { throw 'Wrong health target.' }
         return (@{version=$number} | ConvertTo-Json)
     }
     throw "Unexpected Docker command: $args"
@@ -68,8 +68,8 @@ foreach ($scenario in @('wrong-project', 'unlabeled', 'null-labels', 'network-mi
 $global:testDeployScenario = 'first'
 & "$PSScriptRoot/deploy-test.ps1"
 if ($global:testDeployUpdates -ne 1) { throw 'First deployment did not update test.' }
-Write-Host 'PASS: scanner branch guards, workbench-test target, test isolation, preview, typed container inspection, missing/null ownership labels, network/build failure guards, first deployment and health target.'
+Write-Host 'PASS: scanner branch guards, workshop-test target, test isolation, preview, typed container inspection, missing/null ownership labels, network/build failure guards, first deployment and health target.'
 
 $deploymentSource = Get-Content "$PSScriptRoot/deploy-test.ps1" -Raw
-if ($deploymentSource -notmatch 'https://workshop-test\.foundationsrpg\.org' -or $deploymentSource -match 'https://workbench-test\.foundationsrpg\.org') { throw 'Incorrect public DEV URL.' }
-Write-Host 'PASS: workbench-test container uses workshop-test public URL.'
+if ($deploymentSource -notmatch 'https://workshop-test\.foundationsrpg\.org') { throw 'Incorrect public DEV URL.' }
+Write-Host 'PASS: workshop-test container uses workshop-test public URL.'

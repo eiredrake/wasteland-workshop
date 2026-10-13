@@ -4,7 +4,7 @@ from playwright.sync_api import sync_playwright,expect
 root=Path(__file__).resolve().parents[1];out=root/'tests/visual/actual';out.mkdir(parents=True,exist_ok=True)
 with sync_playwright() as p:
  b=p.chromium.launch()
- for host in ['workshop-test.foundationsrpg.org','workbench-test.foundationsrpg.org','workshop.foundationsrpg.org']:
+ for host in ['workshop-test.foundationsrpg.org','workshop.foundationsrpg.org']:
   for width in [320,390,1280]:
    page=b.new_page(viewport={'width':width,'height':900})
    def local(route):route.fulfill(response=route.fetch(url=route.request.url.replace(host,'127.0.0.1:5186')))
