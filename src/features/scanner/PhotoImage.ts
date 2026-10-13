@@ -3,9 +3,9 @@ import type { Blueprint } from '../blueprints/Blueprint'
 export type PhotoCrop = {x:number;y:number;width:number;height:number}
 export const fullPhotoCrop: PhotoCrop = {x:0,y:0,width:1,height:1}
 export const titlePhotoCrop: PhotoCrop = {x:.04,y:.10,width:.78,height:.18}
-export const PHOTO_ACCEPT = 'image/jpeg,image/png,image/webp,image/heic,image/heif,.jpg,.jpeg,.png,.webp,.heic,.heif'
+export const PHOTO_ACCEPT = 'image/jpeg,image/jpg,image/png,image/webp,image/heic,image/heif,.jpg,.jpeg,.png,.webp,.heic,.heif'
 export function supportedPhoto(file:Pick<File,'name'|'type'|'size'>):boolean {
- return file.size>0 && file.size<=30*1024*1024 && (/^image\/(jpeg|png|webp|heic|heif)$/i.test(file.type)||/\.(jpe?g|png|webp|heic|heif)$/i.test(file.name))
+ return file.size>0 && file.size<=30*1024*1024 && (/^image\/(jpe?g|png|webp|heic|heif)$/i.test(file.type)||/\.(jpe?g|png|webp|heic|heif)$/i.test(file.name))
 }
 export function photoGeometry(width:number,height:number,rotation:number,crop:PhotoCrop) {
  if(![width,height].every(n=>Number.isFinite(n)&&n>0)||![0,90,180,270].includes(rotation)||![crop.x,crop.y,crop.width,crop.height].every(Number.isFinite)||crop.x<0||crop.y<0||crop.width<=0||crop.height<=0||crop.x+crop.width>1.00001||crop.y+crop.height>1.00001)throw new Error('Select a crop inside the photo.')
@@ -16,7 +16,10 @@ export async function decodePhoto(file:File):Promise<HTMLCanvasElement> {
  if(!supportedPhoto(file))throw new Error('Choose a JPEG, PNG or WebP image, or a HEIC/HEIF photo supported by this browser (up to 30 MB).')
  let bitmap:ImageBitmap|undefined
  try{
-  bitmap=await createImageBitmap(file,{imageOrientation:'from-image'})
+  // Some camera/file providers label JPEGs image/jpg or omit their MIME type.
+  const jpeg=/\.jpe?g$/i.test(file.name)||/^image\/jpe?g$/i.test(file.type)
+  const input=jpeg&&file.type!=='image/jpeg'?file.slice(0,file.size,'image/jpeg'):file
+  bitmap=await createImageBitmap(input,{imageOrientation:'from-image'})
   if(bitmap.width*bitmap.height>60000000)throw new Error('This photo is too large. Choose a smaller copy.')
   const scale=Math.min(1,2560/Math.max(bitmap.width,bitmap.height)),canvas=document.createElement('canvas')
   canvas.width=Math.max(1,Math.round(bitmap.width*scale));canvas.height=Math.max(1,Math.round(bitmap.height*scale))

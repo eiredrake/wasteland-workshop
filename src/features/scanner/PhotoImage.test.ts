@@ -1,9 +1,18 @@
 import { describe,it,expect,vi,afterEach } from 'vitest'
-import { fullPhotoCrop,photoGeometry,supportedPhoto,decodePhoto,recognizePhoto } from './PhotoImage'
+import { PHOTO_ACCEPT,fullPhotoCrop,photoGeometry,supportedPhoto,decodePhoto,recognizePhoto } from './PhotoImage'
 import type { ScanRecognizer } from './ScanRecognition'
 afterEach(()=>vi.unstubAllGlobals())
 describe('photo inputs and geometry',()=>{
- it.each(['image/jpeg','image/png','image/webp','image/heic','image/heif'])('accepts supported format %s',type=>expect(supportedPhoto({type,name:'photo',size:20})).toBe(true))
+ it.each(['image/jpeg','image/jpg','image/png','image/webp','image/heic','image/heif'])('accepts supported format %s',type=>expect(supportedPhoto({type,name:'photo',size:20})).toBe(true))
+ it.each(['photo.jpg','photo.JPG','photo.jpeg','photo.JPEG'])('accepts JPEG extension without a MIME type: %s',name=>expect(supportedPhoto({name,type:'',size:20})).toBe(true))
+ it('file picker explicitly accepts JPG and JPEG extensions and MIME labels',()=>{expect(PHOTO_ACCEPT.split(',')).toEqual(expect.arrayContaining(['.jpg','.jpeg','image/jpg','image/jpeg']))})
+ it.each(['image/jpg','','application/octet-stream'])('normalizes JPEG file type before decoding: %s',async type=>{
+  const close=vi.fn(),decode=vi.fn(async()=>({width:100,height:100,close}));vi.stubGlobal('createImageBitmap',decode)
+  vi.stubGlobal('document',{createElement:()=>({width:0,height:0,getContext:()=>({drawImage:vi.fn()})})})
+  const file=new File(['jpeg bytes'],'camera.JPG',{type});await decodePhoto(file)
+  const input=decode.mock.calls[0] as unknown as [Blob,unknown]
+  expect(input[0].type).toBe('image/jpeg');expect(await input[0].text()).toBe('jpeg bytes');expect(close).toHaveBeenCalledOnce()
+ })
  it('rejects unsupported, empty and oversized files',()=>{for(const file of [{type:'text/plain',name:'notes.txt',size:10},{type:'image/jpeg',name:'empty.jpg',size:0},{type:'image/jpeg',name:'huge.jpg',size:31*1024*1024}])expect(supportedPhoto(file)).toBe(false)})
  it('rotates actual dimensions and applies normalized crop bounds',()=>{expect(photoGeometry(1200,800,90,{x:.25,y:.1,width:.5,height:.2})).toEqual({width:800,height:1200,x:200,y:120,cropWidth:400,cropHeight:240});expect(photoGeometry(1200,800,0,fullPhotoCrop).cropWidth).toBe(1200);expect(()=>photoGeometry(100,100,0,{x:.9,y:0,width:.5,height:1})).toThrow()})
  it('honors EXIF orientation and releases decoded bitmap after resizing',async()=>{

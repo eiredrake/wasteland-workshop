@@ -85,7 +85,7 @@ def main():
     output = {
         "schemaVersion": 1,
         "generatedAt": datetime.now(
-            timezone.utc
+            timezone.utc  # noqa: UP017
         ).isoformat(),
         "source": "Project Juno",
         "blueprintCount": len(
