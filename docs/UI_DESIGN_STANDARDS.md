@@ -85,3 +85,5 @@ Run `python tools/ui-tour-check.py` for isolated onboarding/replay checks and 8 
 AppShare reuses native dialog/button foundations. Its black-on-white QR with four-module quiet zone is a functional scanning asset. Keep the readable URL, selectable clipboard fallback and keyboard dismissal/focus restoration. Run `python tools/ui-app-share-check.py` for responsive layouts, offline display, independent decoding and two individually reviewed comparisons. Physical second-phone scanning remains required for release signoff.
 
 TestVersionBanner owns the full-width green TEST VERSION strip above the shared app header. It uses runtime exact hostname matching for workshop-test.foundationsrpg.org; the same merged build remains unmarked on production. It is informational, outside the constrained main column and present across every view.
+
+ConfirmationDialog supports success/danger tones and a single OK action for result messages, retaining its destructive-confirmation defaults. Choose Image uses the canonical primary-button-cream variant, gold focus and centered layout. Phase 1 only reads the returned filename; accept is a picker hint, never application validation.

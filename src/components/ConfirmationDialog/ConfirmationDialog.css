@@ -10,3 +10,9 @@
 .confirmation-dialog p { color: var(--color-text-muted); line-height: 1.5; overflow-wrap: anywhere; }
 .confirmation-dialog-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
 .confirmation-dialog-actions button { min-height: 44px; }
+
+:root main dialog.confirmation-dialog-success { border-color:var(--color-success); border-top-color:var(--color-success); }
+:root main dialog.confirmation-dialog-danger { border-color:var(--color-danger); border-top-color:var(--color-danger); }
+:root main dialog.confirmation-dialog-success h3:first-child { color:var(--color-success-text); border-bottom-color:var(--color-success); }
+:root main dialog.confirmation-dialog-danger h3:first-child { color:var(--color-danger-text); border-bottom-color:var(--color-danger); }
+.confirmation-dialog-message-line { display:block; overflow-wrap:anywhere; }
