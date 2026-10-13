@@ -19,3 +19,5 @@ foreach ($file in Get-ChildItem $PSScriptRoot -Filter '*.ps1') {
 }
 Write-Host 'PASS: version validation, package/lockfile consistency, and PowerShell syntax.'
 & "$PSScriptRoot/test-workflows.ps1"
+Invoke-Checked (Get-Process -Id $PID).Path @('-NoProfile', '-File', "$PSScriptRoot/test-test-deploy.ps1")
+Invoke-Checked node @((Join-Path $repo 'tools/vscode-tentacles/test-extension.cjs'))

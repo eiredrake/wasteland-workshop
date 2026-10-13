@@ -1,0 +1,15 @@
+name: workbench-test
+services:
+  workbench-test:
+    container_name: workbench-test
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: workbench-test:latest
+    restart: unless-stopped
+    networks:
+      - proxy-tier
+
+networks:
+  proxy-tier:
+    external: true
