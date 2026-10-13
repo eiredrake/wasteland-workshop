@@ -69,3 +69,7 @@ $global:testDeployScenario = 'first'
 & "$PSScriptRoot/deploy-test.ps1"
 if ($global:testDeployUpdates -ne 1) { throw 'First deployment did not update test.' }
 Write-Host 'PASS: scanner branch guards, workbench-test target, test isolation, preview, typed container inspection, missing/null ownership labels, network/build failure guards, first deployment and health target.'
+
+$deploymentSource = Get-Content "$PSScriptRoot/deploy-test.ps1" -Raw
+if ($deploymentSource -notmatch 'https://workshop-test\.foundationsrpg\.org' -or $deploymentSource -match 'https://workbench-test\.foundationsrpg\.org') { throw 'Incorrect public DEV URL.' }
+Write-Host 'PASS: workbench-test container uses workshop-test public URL.'

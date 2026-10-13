@@ -554,7 +554,7 @@ function App() {
             Blueprint Collections
           </button>
 
-          <button type="button" onClick={() => navigateTo('scan-prints')}>Scan Prints</button>
+          {activeBlueprintCollection&&<button type="button" onClick={() => navigateTo('scan-prints')}>Scan Prints</button>}
 
           <button type="button" onClick={() => navigateTo('shopping')}>
             Shopping Lists
@@ -683,7 +683,7 @@ function App() {
         />
       )}
 
-      {currentView === 'scan-prints' && <ScanPrintsView/>}
+      {currentView === 'scan-prints' && activeBlueprintCollection && <ScanPrintsView/>}
 
       {currentView === 'shopping' && (
         <ShoppingListsView state={shoppingState} onChange={updateShoppingState}

@@ -27,7 +27,7 @@ try {
         if ($null -eq $projectLabel) { throw 'Existing workbench-test container has no Compose ownership label. Inspect it before replacing it.' }
         if ($projectLabel.Value -cne 'workbench-test') { throw 'Existing test container belongs to another Compose project.' }
     }
-    Write-Host "Build current working tree ($number) and deploy $image to https://workbench-test.foundationsrpg.org via proxy-tier, container port 80."
+    Write-Host "Build current working tree ($number) and deploy $image to https://workshop-test.foundationsrpg.org via proxy-tier, container port 80."
     if ($Preview) { Write-Host 'Preview passed. No images or containers changed.'; return }
     Assert-ScannerBranch
     Invoke-Checked docker @('build', '--label', "org.opencontainers.image.version=$number", '-t', $image, '.')
@@ -46,7 +46,7 @@ try {
                 if ($LASTEXITCODE -eq 0) {
                     $running = @($runningRaw | ConvertFrom-Json)[0]
                     if ($served.version -ceq $number -and $running.Image -ceq $built.Id -and $running.State.Running) {
-                        Write-Host 'Healthy: workbench-test:80. Open https://workbench-test.foundationsrpg.org on your device.'
+                        Write-Host 'Healthy: workbench-test:80. Open https://workshop-test.foundationsrpg.org on your device.'
                         return
                     }
                 }
