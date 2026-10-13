@@ -1,6 +1,5 @@
 import AppShare from './components/AppShare/AppShare'
 import { setCollectionBlueprintStatus } from './features/blueprints/BlueprintCollectionService'
-import { acquireScannedBlueprint } from './features/scanner/ScanSession'
 import { createQueueSubmissionGuard } from './features/builds/SubmissionGuard'
 import GuidedTour from './components/GuidedTour/GuidedTour'
 import { guidedTours } from './features/tours/TourRegistry'
@@ -14,7 +13,7 @@ import type { ActionDefinition, ActionConfiguration } from './features/actions/A
 import BlueprintReadSettingsView from './features/settings/BlueprintReadSettingsView'
 import { BlueprintReadProvider } from './features/blueprints/BlueprintReadContext'
 import AppMetadata from './components/AppMetadata/AppMetadata'
-import { masterBlueprints, masterBlueprintsUpdatedAt } from './features/blueprints/blueprints'
+import { masterBlueprintsUpdatedAt } from './features/blueprints/blueprints'
 import BackupSettingsView from './features/backup/BackupSettingsView'
 import ScannerSettingsView from './features/settings/ScannerSettingsView'
 import WarehouseSettingsView from './features/settings/WarehouseSettingsView'
@@ -388,15 +387,6 @@ function App() {
     }
   }
 
-  const acquireBlueprintScan = (collectionId:string,blueprint:Blueprint) => {
-    const canonical=masterBlueprints.find(item=>item.id===blueprint.id)
-    if(!canonical)throw new Error('This Blueprint is no longer in the Master Catalog.')
-    const result=acquireScannedBlueprint(loadBlueprintCollections(),loadActiveBlueprintCollectionId(),collectionId,canonical)
-    if(!result.alreadyOwned)saveBlueprintCollections(result.collections)
-    // Publish only after storage confirms; failed writes leave UI and counters unchanged.
-    setBlueprintCollections(result.collections)
-    return {alreadyOwned:result.alreadyOwned}
-  }
   const updateBlueprintCollectionEntry = (
     blueprintId: number,
     blueprintName: string,
@@ -667,7 +657,7 @@ function App() {
 
       {currentView ===
         'collections' && (
-        <BlueprintCollectionsView onAcquireScanned={acquireBlueprintScan}
+        <BlueprintCollectionsView
           collections={
             blueprintCollections
           }

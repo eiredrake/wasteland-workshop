@@ -1,9 +1,0 @@
-:root main dialog.print-claim-dialog { border:2px solid var(--color-success); text-align:center; }
-:root main dialog.print-claim-failed { border-color:var(--color-selection); }
-.print-claim-dialog strong { display:block; margin-top:.75rem; color:var(--color-focus); font-size:1.4rem; overflow-wrap:anywhere; }
-.print-claim-actions { display:flex; flex-wrap:nowrap; align-items:center; justify-content:center; gap:.5rem; margin-top:1.5rem; }
-
-:root main .print-claim-actions > button { margin:0; align-self:center; }
-
-:root main .print-claim-actions > .blueprint-access-status { white-space:normal; flex-shrink:1; min-height:44px; }
-.print-claim-actions > .back-button { flex-shrink:0; }

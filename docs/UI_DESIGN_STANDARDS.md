@@ -80,23 +80,10 @@ GuidedTour owns the themed, nonmodal bottom panel, responsive scrolling, gold ta
 Run `python tools/ui-tour-check.py` for isolated onboarding/replay checks and 8 additional desktop/mobile visual baselines. Its `--record` writes candidates only; inspect and copy individually after review. These complement the existing 34 theme screenshots.
 
 
-## Blueprint scanning
+## Scan & Acquire rebuilding placeholder
 
-CameraPreview (`src/components/CameraPreview/`) owns the wide Item Name live viewfinder and aligned centered gold capture frame with a dark outline. Scanner controls reuse primary/secondary button foundations and status/error announcements. Display the destination and identified name before Acquire, keep explicit confirmation separate from recognition, and retain the camera session between captures. Do not use width or user-agent checks as permission detection. Verify narrow/landscape layouts, camera cleanup and the six scanner comparisons with `python tools/ui-scanner-check.py`. Its `--record` writes review candidates only.
-
+The previous scanner/photo-analysis subsystem is removed. Preserve Scan & Acquire navigation, shared BackButton and clear unavailable/rebuilding messages. No camera, photo, crop, OCR or acquisition controls. Scan Diagnostics remains in Settings with its persisted value, but is unavailable until a future implementation. See [removal inventory](scanner-removal.md). No replacement scanner is authorized here.
 
 ## App sharing
 
 AppShare reuses native dialog/button foundations. Its black-on-white QR with four-module quiet zone is a functional scanning asset. Keep the readable URL, selectable clipboard fallback and keyboard dismissal/focus restoration. Run `python tools/ui-app-share-check.py` for responsive layouts, offline display, independent decoding and two individually reviewed comparisons. Physical second-phone scanning remains required for release signoff.
-
-Scanner LoadingIndicator (`src/components/LoadingIndicator/`) owns the accessible ring/status layout and reduced-motion behavior. CameraPreview also owns translucent yellow text-detection polygons; feature code supplies normalized coordinates, keeping highlights aligned in live and captured views. The aiming guide uses a real blueprint photo and CSS outline, inside a collapsed native disclosure. Scanner diagnostics are hidden by default and exposed through the global scanner setting. Auto Capture waits for two consecutive unique exact catalog matches, then follows the existing captured-photo review; Acquire remains explicit. Reuse the themed button foundations for its toggle and manual shutter.
-
-Run `python tools/ui-scanner-cleanup-check.py` and `python tools/ui-scanner-auto-check.py` for real desktop/mobile loading, text polygons, global diagnostic preference, guidance, automatic capture and collection-confirmation checks. They export review screenshots without automatically changing baselines. `SCANNER_TEST_URL` on the automatic-capture check can target the built production app. Physical phone performance still requires verification.
-
-
-PhotoAdjuster (`src/components/PhotoAdjuster/`) owns the aspect-preserving selected-photo preview and gold rectangular crop. Drag selection has labeled percentage fields as a keyboard alternative. Photo import reuses SearchInput, LoadingIndicator, status badges and ordinary themed buttons; native capture and library inputs remain separate. Keep crop/rotation tools in a disclosure, explicit Analyze/Acquire, the active destination, one-at-a-time batch processing and the shared exit summary. Run the photo import/recovery/offline checks documented in `docs/scanner-photo-import.md`; physical native-camera/HEIC checks remain a phone signoff step.
-
-
-Scanner identification uses PrintClaimDialog (`src/components/PrintClaimDialog/`): native modal, green theme border, green Blueprint identified badge, gold canonical print name, canonical Back button and green Claim Blueprint badge. Uncertain, unmatched and failed recognition use a yellow-border Unable to identify blueprint modal with gold Try again and canonical Back. Back and Escape return to Collections without acquisition; only Claim applies acquisition and failed saves keep the dialog open. CameraPreview has no magnifier: tap/click the live preview to request a crop-aware focus point, or use Enter/Space for its center. Unsupported point controls fall back to exposed autofocus; requests are not reported as confirmed focus unless actual settings confirm them. Scanner entry uses primary Use Camera/Choose Photo and canonical Back to Collections, returning directly with resources released. The native Take Photo input and exit-summary screen are removed per the updated UX request.
-
-Scanner results never expose a Recognized Text field or Search Catalog button. Only confident unique identification permits Claim Blueprint; uncertain matches ask the user to try again. Both live capture and photo import use the same result dialog.

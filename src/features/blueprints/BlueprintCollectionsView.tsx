@@ -1,6 +1,5 @@
 import SearchInput from '../../components/SearchInput/SearchInput'
-import BlueprintScanner from '../scanner/BlueprintScanner'
-import type { Blueprint } from './Blueprint'
+import ScanAcquirePlaceholder from './ScanAcquirePlaceholder'
 import RemoveBadge from '../../components/RemoveBadge/RemoveBadge'
 import ConfirmationDialog from '../../components/ConfirmationDialog/ConfirmationDialog'
 import {
@@ -27,7 +26,6 @@ type PendingImport = {
 type BlueprintCollectionsViewProps = {
   collections: BlueprintCollection[]
   activeCollectionId: string | undefined
-  onAcquireScanned: (collectionId:string,blueprint:Blueprint)=>{alreadyOwned:boolean}
   onAddCollection: (name: string) => void
   onSetActiveCollection: (collectionId: string) => void
   onDeleteCollection: (collectionId: string) => void
@@ -40,7 +38,6 @@ type BlueprintCollectionsViewProps = {
 function BlueprintCollectionsView({
   collections,
   activeCollectionId,
-  onAcquireScanned,
   onAddCollection,
   onSetActiveCollection,
   onDeleteCollection,
@@ -216,7 +213,7 @@ function BlueprintCollectionsView({
     setImportName('')
   }
 
-  if(scanning)return <BlueprintScanner destinationId={scanning.id} destinationName={scanning.name} collection={collections.find(c=>c.id===scanning.id)} activeId={activeCollectionId} onAcquire={onAcquireScanned} onDone={()=>setScanning(undefined)}/>
+  if(scanning)return <ScanAcquirePlaceholder onBack={()=>setScanning(undefined)}/>
   return (
     <section data-tour-target="collections" className="blueprint-collections-page">
       <header data-tour-target="collection-create" className="blueprint-collections-header">

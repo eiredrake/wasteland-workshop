@@ -1,5 +1,0 @@
-.photo-adjuster { position:relative; touch-action:none; max-width:100%; margin:1rem auto; width:max-content; }
-.photo-adjuster img { display:block; max-width:100%; max-height:65vh; width:auto; height:auto; object-fit:contain; user-select:none; }
-.photo-crop { position:absolute; box-sizing:border-box; border:2px solid var(--color-focus); background:var(--color-warning-tint); pointer-events:none; }
-.photo-crop-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem; }
-.photo-crop-fields input { width:100%; }

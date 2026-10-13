@@ -1,5 +1,5 @@
 import type { BlueprintAccessStatus, BlueprintCollection } from './BlueprintCollection'
-// Shared membership mutation for badges and confirmed scanner acquisitions.
+// Shared membership mutation for manual blueprint status badges.
 export function setCollectionBlueprintStatus(collection:BlueprintCollection,blueprintId:number,status:BlueprintAccessStatus|undefined):BlueprintCollection {
  const entry=collection.entries.find(e=>e.blueprintId===blueprintId)
  if(entry?.status===status)return collection
