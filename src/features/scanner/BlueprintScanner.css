@@ -26,3 +26,6 @@
 .photo-import-file,.photo-import-result { overflow-wrap:anywhere; }
 .photo-import-result button { white-space:normal; max-width:100%; overflow-wrap:anywhere; }
 .scanner-panel pre.scanner-read-text { white-space:pre-wrap; }
+
+:root main .scanner-controls { align-items:center; }
+:root main .scanner-controls > .back-button { margin:0; align-self:center; }

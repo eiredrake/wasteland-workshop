@@ -150,12 +150,12 @@ export default function BlueprintScanner({collection,destinationName,destination
 
  {!destinationValid&&<p role="alert">The destination collection changed or was deleted. Exit and select the correct collection before scanning.</p>}
  {error&&<p role="alert">{error}</p>}
- {inputMethod!=='camera'&&<PhotoImport valid={destinationValid} diagnostics={showDiagnostics} onAcquire={blueprint=>onAcquire(destinationId,blueprint)} onOutcome={(value,newPhoto)=>{if(newPhoto){documentIndex.current=documents.length;setDocuments(old=>[...old,value])}else if(documentIndex.current!==undefined)classify(documentIndex.current,value)}} onExit={exit} onCamera={()=>{documentIndex.current=undefined;setCamera('opening');setInputMethod('camera')}}/>}
+ {inputMethod!=='camera'&&<PhotoImport isAcquired={blueprint=>!!collection?.entries.some(entry=>entry.blueprintId===blueprint.id&&entry.status==='acquired')} valid={destinationValid} diagnostics={showDiagnostics} onAcquire={blueprint=>onAcquire(destinationId,blueprint)} onOutcome={(value,newPhoto)=>{if(newPhoto){documentIndex.current=documents.length;setDocuments(old=>[...old,value])}else if(documentIndex.current!==undefined)classify(documentIndex.current,value)}} onExit={exit} onCamera={()=>{documentIndex.current=undefined;setCamera('opening');setInputMethod('camera')}}/>}
  {inputMethod==='camera'&&<>
  <div className="scanner-result" aria-live="polite">
  {ocrLoading?<LoadingIndicator label="Loading OCR Library"/>:analyzing&&<LoadingIndicator label="Reading Item Name…"/>}
  {selected&&<><h3>Blueprint identified: {selected.name}</h3>{outcome==='owned'?<p className="scanner-success">Already Acquired</p>:outcome==='acquired'?<p className="scanner-success">Acquired and saved in {destinationName}.</p>:<button type="button" className="secondary-button" onClick={()=>setClaimOpen(true)}>Review Identified Print</button>}</>}
- {claimOpen&&selected&&<PrintClaimDialog name={selected.name} error={error} disabled={!destinationValid||analyzing} onCancel={exit} onClaim={()=>acquire()}/>}
+ {claimOpen&&selected&&<PrintClaimDialog alreadyAcquired={!!collection?.entries.some(entry=>entry.blueprintId===selected.id&&entry.status==='acquired')} name={selected.name} error={error} disabled={!destinationValid||analyzing} onCancel={exit} onClaim={()=>acquire()}/>}
  {failureOpen&&<PrintClaimDialog error={error} onCancel={exit} onRetry={()=>reset(false)}/>}
  {showDiagnostics&&match?.readText&&match.confidence!=='high'&&<p className="scanner-read-text">Read from photo: “{match.readText}”</p>}
  {match?.confidence==='none'&&<p>Blueprint not identified. Check the captured name and try again.</p>}
@@ -167,6 +167,7 @@ export default function BlueprintScanner({collection,destinationName,destination
  {showDiagnostics&&<details><summary>Scan Diagnostics</summary><p>Enable before capturing to save the exact OCR images, recognized text, matching results and camera details. Nothing is uploaded. The download contains the photographed name area; share it only when you choose.</p><label><input type="checkbox" checked={diagnosticsEnabled} disabled={analyzing} onChange={e=>{setDiagnosticsEnabled(e.target.checked);setDiagnosticReport(undefined)}}/> Collect diagnostics for the next capture</label>
  {diagnosticReport&&<button type="button" className="secondary-button" onClick={()=>{const url=URL.createObjectURL(new Blob([diagnosticReport],{type:'application/json'})),link=document.createElement('a');link.href=url;link.download='wasteland-scan-diagnostics.json';document.body.appendChild(link);link.click();link.remove();window.setTimeout(()=>URL.revokeObjectURL(url),30000)}}>Download Scan Diagnostics</button>}</details>}
  <div className="scanner-controls">
+ <BackButton onClick={exit}>Back to Collections</BackButton>
  {camera==='ready'&&!photo&&<button type="button" className="secondary-button" aria-pressed={autoCapture} disabled={analyzing} onClick={()=>{setAutoCapture(value=>!value);setTextBoxes([])}}>Auto Capture: {autoCapture?'On':'Off'}</button>}
  {camera==='ready'&&!photo&&flashSupported&&<button type="button" className="secondary-button" aria-pressed={flashOn} disabled={analyzing} onClick={()=>setFlashOn(!flashOn)}>Flash: {flashOn?'On':'Off'}</button>}
  {camera==='ready'&&!photo&&focusSupported&&<button type="button" className="secondary-button" disabled={analyzing||focusing} onClick={()=>void refocus()}>{focusing?'Requesting Focus…':'Refocus'}</button>}
@@ -176,7 +177,6 @@ export default function BlueprintScanner({collection,destinationName,destination
  {photo&&outcome!=='acquired'&&<button type="button" className="secondary-button" disabled={analyzing} onClick={()=>reset(false)}>Retake Photo / Try Again</button>}
  {photo&&<button type="button" className="primary-button" disabled={analyzing} onClick={()=>reset(true)}>Scan Next Blueprint</button>}
  <button type="button" className="secondary-button" onClick={()=>{invalidate();releaseCamera();closeRecognition();busy.current=false;setAnalyzing(false);reset(true);setInputMethod('photo')}}>Choose Photo</button>
- <BackButton onClick={exit}>Back to Collections</BackButton>
  </div>
  {!photo&&<details className="scanner-aiming-guide"><summary>Where to aim</summary><p>Fill the frame with the complete Item Name row. Yellow highlights show detected text; they do not confirm a match.</p><figure><div className="scanner-example"><img src={import.meta.env.BASE_URL+'scanner/aiming-example.jpg'} alt="Real Freeiron Dry Pack blueprint with the Item Name row outlined in yellow" loading="lazy"/><span aria-hidden="true"/></div><figcaption>Aim at this row. The rest of the blueprint is not needed.</figcaption></figure></details>}
  </>}

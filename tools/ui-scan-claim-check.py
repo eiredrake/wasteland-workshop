@@ -11,7 +11,7 @@ with sync_playwright() as p:
   page.add_init_script("""window.focusRequests=[];navigator.mediaDevices.getSupportedConstraints=()=>({pointsOfInterest:true});navigator.mediaDevices.getUserMedia=async()=>{const c=document.createElement('canvas');c.width=800;c.height=1050;const ctx=c.getContext('2d'),image=new Image();image.src="""+json.dumps(photo)+""";await image.decode();const sx=image.width*.075,sy=image.height*.12,sw=image.width*.65,scale=720/sw;ctx.fillStyle='white';ctx.fillRect(0,0,800,1050);ctx.drawImage(image,40-sx*scale,(1050-720/3.4)/2-sy*scale,image.width*scale,image.height*scale);const stream=c.captureStream(15),track=stream.getVideoTracks()[0];window.tracks=stream.getTracks();track.getCapabilities=()=>({focusMode:['continuous','single-shot']});track.getConstraints=()=>({});track.applyConstraints=async value=>{window.focusRequests.push(value)};track.getSettings=()=>({focusMode:'single-shot',pointsOfInterest:window.focusRequests.at(-1)?.advanced?.at(-1)?.pointsOfInterest});return stream}""")
   page.goto('http://127.0.0.1:5186');page.evaluate("""()=>{localStorage.clear();localStorage.setItem('wasteland-workshop-guided-tours',JSON.stringify({version:1,progress:{'intro-blueprints':{viewed:true}}}));localStorage.setItem('wasteland-workshop-blueprint-collections',JSON.stringify([{id:'scan',name:'Scanner Collection',entries:[]} ]));localStorage.setItem('wasteland-workshop-active-blueprint-collection','scan')}""");page.reload()
   def open_scanner():page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Blueprint Collections',exact=True).click();page.get_by_role('button',name='Scan & Acquire',exact=True).click()
-  open_scanner();assert page.get_by_role('button',name='Take Photo',exact=True).count()==0
+  open_scanner();assert page.locator('.scanner-controls').first.locator('button').first.inner_text().endswith('Back to Collections');assert page.get_by_role('button',name='Take Photo',exact=True).count()==0
   assert 'primary-button' in page.get_by_role('button',name='Use Camera',exact=True).get_attribute('class')
   page.get_by_role('button',name='Use Camera',exact=True).click();page.get_by_role('button',name='Auto Capture: On',exact=True).click()
   view=page.get_by_role('button',name='Tap live preview to focus');box=view.bounding_box();view.click(position={'x':box['width']*.2,'y':box['height']*.7})
@@ -22,6 +22,8 @@ with sync_playwright() as p:
   assert dialog.locator('strong').inner_text()=='Freeiron Dry Pack'
   assert dialog.evaluate('(e)=>getComputedStyle(e).borderTopColor')=='rgb(116, 140, 88)'
   expect(dialog.get_by_text('Blueprint identified',exact=True)).to_be_visible()
+  rects=[dialog.get_by_role('button',name=n,exact=True).bounding_box() for n in ['Back','Claim Blueprint']]
+  if abs(rects[0]['y']-rects[1]['y'])<20:assert abs((rects[0]['y']+rects[0]['height']/2)-(rects[1]['y']+rects[1]['height']/2))<1
   assert 'back-button' in dialog.get_by_role('button',name='Back',exact=True).get_attribute('class')
   assert page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[0].entries.length")==0
   page.locator('.scanner-panel').screenshot(path=str(out/f'claim-dialog-{width}.png'))
@@ -34,10 +36,10 @@ with sync_playwright() as p:
   chooser.value.set_files(str(root/'tests/fixtures/scanner/freeiron-dry-pack.jpg'));expect(page.locator('.photo-adjuster img')).to_be_visible()
   assert page.get_by_role('textbox',name='Recognized Text').count()==0
   assert page.get_by_role('button',name='Search Catalog').count()==0
-  page.get_by_role('button',name='Analyze Photo',exact=True).click();expect(dialog).to_be_visible(timeout=60000);dialog.get_by_role('button',name='Claim Blueprint',exact=True).click();expect(page.get_by_text('Already Acquired',exact=True)).to_be_visible()
+  page.get_by_role('button',name='Analyze Photo',exact=True).click();expect(dialog).to_be_visible(timeout=60000);expect(dialog.get_by_role('button',name='Already acquired',exact=True)).to_be_disabled();page.locator('.scanner-panel').screenshot(path=str(out/f'already-acquired-{width}.png'));dialog.get_by_role('button',name='Back',exact=True).click();open_scanner()
   from PIL import Image
   blank=out/'unidentified-photo.png';Image.new('RGB',(800,600),'white').save(blank)
-  with page.expect_file_chooser() as chooser:page.get_by_role('button',name='Choose Different Photo',exact=True).click()
+  with page.expect_file_chooser() as chooser:page.get_by_role('button',name='Choose Photo',exact=True).click()
   chooser.value.set_files(str(blank));expect(page.locator('.photo-adjuster img')).to_be_visible()
   page.get_by_role('button',name='Analyze Photo',exact=True).click();expect(dialog).to_be_visible(timeout=60000)
   expect(dialog.get_by_text('Unable to identify blueprint',exact=True)).to_be_visible()

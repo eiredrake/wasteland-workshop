@@ -11,7 +11,7 @@ import { type ScanMatch } from './ScanMatching'
 import { createScanRecognizer, type ScanRecognizer, type ScanPassDiagnostic } from './ScanRecognition'
 import { adjustPhoto, decodePhoto, fullPhotoCrop, PHOTO_ACCEPT, recognizePhoto, titlePhotoCrop, type PhotoCrop } from './PhotoImage'
 
-export default function PhotoImport({valid,onAcquire,onOutcome,onExit,onCamera,diagnostics}:{valid:boolean;onAcquire:(blueprint:Blueprint)=>{alreadyOwned:boolean};onOutcome:(outcome:ScanOutcome,newPhoto:boolean)=>void;onExit:()=>void;onCamera:()=>void;diagnostics:boolean}) {
+export default function PhotoImport({isAcquired,valid,onAcquire,onOutcome,onExit,onCamera,diagnostics}:{isAcquired:(blueprint:Blueprint)=>boolean;valid:boolean;onAcquire:(blueprint:Blueprint)=>{alreadyOwned:boolean};onOutcome:(outcome:ScanOutcome,newPhoto:boolean)=>void;onExit:()=>void;onCamera:()=>void;diagnostics:boolean}) {
  const claimed=useRef(false)
  const [claimOpen,setClaimOpen]=useState(false),[failureOpen,setFailureOpen]=useState(false)
  const offline=useSyncExternalStore(subscribeScannerOffline,scannerOfflineStatus,scannerOfflineStatus)
@@ -56,7 +56,7 @@ export default function PhotoImport({valid,onAcquire,onOutcome,onExit,onCamera,d
  const locked=analyzing||loading||outcome==='acquired'||outcome==='owned'
  return <section aria-label="Photo import">
  <input ref={input} type="file" accept={PHOTO_ACCEPT} multiple hidden onChange={event=>{const batch=Array.from(event.target.files??[]);event.target.value='';if(batch.length)void load(batch,0)}}/>
- <div className="scanner-controls"><button type="button" className="primary-button" disabled={loading||analyzing||!valid} onClick={choose}>{files.length?'Choose Different Photo':'Choose Photo'}</button><button type="button" className="primary-button" onClick={()=>{release();onCamera()}}>Use Camera</button><BackButton onClick={()=>{release();onExit()}}>Back to Collections</BackButton></div>
+ <div className="scanner-controls"><BackButton onClick={()=>{release();onExit()}}>Back to Collections</BackButton><button type="button" className="primary-button" disabled={loading||analyzing||!valid} onClick={choose}>{files.length?'Choose Different Photo':'Choose Photo'}</button><button type="button" className="primary-button" onClick={()=>{release();onCamera()}}>Use Camera</button></div>
  {import.meta.env.PROD&&(offline==='online-only'||offline==='unavailable')&&<details><summary>Offline Use</summary><p>Prepare while online before your event. Both OCR engines use about 150 MB of device storage. Your photographs are never cached.</p><button type="button" className="secondary-button" onClick={()=>void prepareScannerOffline()}>Prepare Offline Scanning</button></details>}
  {offline==='preparing'&&<p role="status">Preparing offline scanning… Keep the app online until this finishes.</p>}
  {offline==='ready'&&<p>Scanner assets ready for offline use.</p>}
@@ -71,7 +71,7 @@ export default function PhotoImport({valid,onAcquire,onOutcome,onExit,onCamera,d
  <div className="photo-crop-fields">{(['x','y','width','height'] as const).map(key=><label key={key}>{({x:'Left',y:'Top',width:'Width',height:'Height'})[key]} (%)<input type="number" min={key==='width'||key==='height'?1:0} max="100" disabled={locked} value={Math.round(crop[key]*100)} onChange={event=>{const n=Number(event.target.value)/100,next={...crop,[key]:n};next.x=Math.max(0,Math.min(next.x,.99));next.y=Math.max(0,Math.min(next.y,.99));next.width=Math.max(.01,Math.min(next.width,1-next.x));next.height=Math.max(.01,Math.min(next.height,1-next.y));clearResult();setCrop(next)}}/></label>)}</div></details>
  <div className="scanner-controls"><button type="button" className="primary-button" disabled={locked||!valid} onClick={()=>void analyze()}>{match?'Try Again':'Analyze Photo'}</button><button type="button" className="secondary-button" onClick={cancel}>Cancel</button></div>
  </>}
- {claimOpen&&selected&&<PrintClaimDialog name={selected.name} error={error} disabled={locked||!valid} onCancel={()=>{release();onExit()}} onClaim={acquire}/>}
+ {claimOpen&&selected&&<PrintClaimDialog alreadyAcquired={isAcquired(selected)} name={selected.name} error={error} disabled={locked||!valid} onCancel={()=>{release();onExit()}} onClaim={acquire}/>}
  {failureOpen&&<PrintClaimDialog error={error} onCancel={()=>{release();onExit()}} onRetry={()=>{setFailureOpen(false);setError('');setMatch(undefined)}}/>}
  {selected&&<p>{selected.name}</p>}
  {outcome==='acquired'||outcome==='owned'?<p className="scanner-success">{outcome==='owned'?'Already Acquired':'Acquired and saved.'}</p>:selected&&<button type="button" className="primary-button" disabled={locked||!valid} onClick={()=>setClaimOpen(true)}>Review Identified Print</button>}
