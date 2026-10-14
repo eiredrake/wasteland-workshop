@@ -17,6 +17,16 @@ describe('Compact timer gestures', () => {
     vi.advanceTimersByTime(1000)
     expect(tap).toHaveBeenCalledTimes(1); expect(settings).not.toHaveBeenCalled()
   })
+  it('allows a touch click after pointer release and leave', () => {
+    const tap=vi.fn(), press=createTimerPress(tap,vi.fn())
+    press.begin(100,100); press.end(); press.cancel(); press.click()
+    expect(tap).toHaveBeenCalledOnce()
+  })
+  it('ignores hover movement and leaving before a keyboard click', () => {
+    const tap=vi.fn(), press=createTimerPress(tap,vi.fn())
+    press.move(100,100); press.cancel(); press.click()
+    expect(tap).toHaveBeenCalledOnce()
+  })
   it('long press opens settings once and release does not pause/resume', () => {
     const tap = vi.fn(), settings = vi.fn(), press = createTimerPress(tap,settings)
     press.begin(10,10); vi.advanceTimersByTime(500); vi.advanceTimersByTime(1000)

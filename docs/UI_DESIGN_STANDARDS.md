@@ -110,3 +110,8 @@ Scan Image reuses ImagePicker with image/* and capture=environment to request th
 
 
 ExportDialog is the shared native themed JSON/CSV format chooser for Work History, Warehouse and Shopping Lists. It reuses canonical select/button/dialog foundations and SaveFile for supported save-location pickers, with normal Downloads fallback elsewhere. Keep cancellation nonmutating, errors recoverable, save progress truthful and focus restored to the launching action.
+
+
+## Dropdown ordering
+
+All named dropdown and combobox options are alphabetical ascending by the displayed name. SearchablePicker enforces this through alphabeticalOptions; dynamic native selects use the same helper. Compare case-insensitively, ignore punctuation for names such as quoted print titles, and use natural ascending numbers. Sort copies; never reorder catalogs, change selected IDs, or replace an Action's defined default. Nonselectable/default prompts such as Select a list remain first. Numeric markup values remain ascending. Keep static category/sort/toggle/format choices alphabetical as well.

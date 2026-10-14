@@ -1,3 +1,4 @@
+import {alphabeticalOptions} from '../../components/OptionOrder'
 import {useEffect,useRef,useState} from 'react'
 import {CameraSession,captureStill,cameraError} from '../../services/scanner/CameraAcquisition'
 import {fittedView,targetingBox,targetInImage,sourceBox} from '../../services/scanner/ReviewGeometry'
@@ -48,7 +49,7 @@ export default function CameraAcquisitionView({session,onCaptured,onError,onCanc
  }
  return <div className="scanner-camera">
  <h3>Camera Preview</h3>
- {devices.length>1&&<div className="scanner-camera-select"><label htmlFor="scanner-camera-device">Camera</label><select id="scanner-camera-device" value={deviceId} disabled={opening||paused} onChange={event=>{setReady(false);setOpening(true);setPaused(false);setDeviceId(event.target.value)}}><option value="">Preferred camera</option>{devices.map((device,index)=><option key={device.deviceId} value={device.deviceId}>{device.label||'Camera '+(index+1)}</option>)}</select></div>}
+ {devices.length>1&&<div className="scanner-camera-select"><label htmlFor="scanner-camera-device">Camera</label><select id="scanner-camera-device" value={deviceId} disabled={opening||paused} onChange={event=>{setReady(false);setOpening(true);setPaused(false);setDeviceId(event.target.value)}}><option value="">Preferred camera</option>{alphabeticalOptions(devices.map((device,index)=>({device,label:device.label||'Camera '+(index+1)})),item=>item.label).map(({device,label})=><option key={device.deviceId} value={device.deviceId}>{label}</option>)}</select></div>}
  <div ref={viewport} className="scanner-viewport">
  <video ref={video} autoPlay muted playsInline aria-label="Live camera preview" onLoadedData={()=>{if(!paused&&!suspended.current&&video.current?.videoWidth&&video.current?.videoHeight)setReady(true)}} onError={()=>{const error=scannerError('CAMERA_INITIALIZATION_FAILED','camera','The camera preview could not be displayed.');record({type:'CAMERA_PREVIEW_FAILED',stage:'camera',scanId:id.current,sourceType:'CAMERA_CAPTURE',status:'FAILED',error});onError(error)}}/>
  {size.width>0&&<button type="button" className="scanner-target scanner-target-capture" aria-label="Capture still image inside targeting box" disabled={!ready||opening||paused} style={{left:box.x,top:box.y,width:box.width,height:box.height}} onClick={()=>{void capture()}}/>}

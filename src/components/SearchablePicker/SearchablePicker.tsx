@@ -1,3 +1,4 @@
+import {alphabeticalOptions} from '../OptionOrder'
 import SearchInput from '../SearchInput/SearchInput'
 import { useId, useRef, useState } from 'react'
 import './SearchablePicker.css'
@@ -21,7 +22,7 @@ export default function SearchablePicker<T>({ label, options, getOptionKey, getO
   const [highlighted, setHighlighted] = useState(-1)
   const [selectedKey, setSelectedKey] = useState<string | number>()
   const normalized = query.trim().toLocaleLowerCase()
-  const matches = options.filter(option => getOptionLabel(option).toLocaleLowerCase().includes(normalized))
+  const matches = alphabeticalOptions(options.filter(option => getOptionLabel(option).toLocaleLowerCase().includes(normalized)),getOptionLabel)
   const expanded = open && matches.length > 0
   const select = (option: T) => {
     setQuery(getOptionLabel(option))

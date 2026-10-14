@@ -16,7 +16,7 @@ import type { ActionDefinition, ActionConfiguration } from './features/actions/A
 import BlueprintReadSettingsView from './features/settings/BlueprintReadSettingsView'
 import { BlueprintReadProvider } from './features/blueprints/BlueprintReadContext'
 import AppMetadata from './components/AppMetadata/AppMetadata'
-import { masterBlueprintsUpdatedAt } from './features/blueprints/blueprints'
+import { allBlueprints, masterBlueprintsUpdatedAt } from './features/blueprints/blueprints'
 import BackupSettingsView from './features/backup/BackupSettingsView'
 import WarehouseSettingsView from './features/settings/WarehouseSettingsView'
 import { loadExpirationWarningDays, saveExpirationWarningDays } from './features/settings/WarehouseSettings'
@@ -103,6 +103,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [appShareOpen, setAppShareOpen] = useState(false)
   const [tourBlueprint,setTourBlueprint]=useState<Blueprint>()
+  const [queueBlueprint,setQueueBlueprint]=useState<Blueprint>()
   const [selectionRevision,setSelectionRevision]=useState(0)
 
   const [currentView, setCurrentView] =
@@ -621,7 +622,7 @@ function App() {
 
       {currentView ===
         'catalog' && (
-        <BlueprintSearch key={tours.active?tourStepId:"catalog"} initialBlueprint={tours.step?.blueprintContext?tourBlueprint:undefined} onBlueprintSelected={blueprint=>{setTourBlueprint(blueprint);setSelectionRevision(value=>value+1)}} warehouse={inventory.warehouse} warehouseError={inventory.error}
+        <BlueprintSearch key={tours.active?tourStepId:"catalog"} initialBlueprint={tours.step?.blueprintContext?tourBlueprint:queueBlueprint} onBlueprintSelected={blueprint=>{setTourBlueprint(blueprint);setSelectionRevision(value=>value+1)}} warehouse={inventory.warehouse} warehouseError={inventory.error}
           shopping={shopping}
           buildQueue={buildQueue.builds} onAddBuild={addBlueprintToBuildQueue}
           calculator={calculator}
@@ -685,7 +686,7 @@ function App() {
       {currentView === 'warehouse' && <WarehouseView warningDays={expirationWarningDays} warehouse={inventory.warehouse} apply={inventory.apply} error={inventory.error} onAdded={message=>showToast(message,'success')} />}
 
       {currentView === 'history' && <WorkHistoryView builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}/>}
-      {currentView === 'builds' && <BuildQueueView builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}
+      {currentView === 'builds' && <BuildQueueView onBlueprint={id=>{const blueprint=allBlueprints.find(item=>item.id===id);if(!blueprint){showToast('This Blueprint is no longer available in the catalog.');return}setQueueBlueprint(blueprint);navigateTo('catalog')}} builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}
         onTimer={id => { setTimerBuildId(id); navigateTo('timer') }}><QueueEntry onBlueprint={addBlueprintToBuildQueue} onAction={addActionToQueue}/></BuildQueueView>}
 
       {currentView === 'timer' && <>

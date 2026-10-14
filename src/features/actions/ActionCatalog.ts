@@ -55,3 +55,11 @@ export const pendingActionVerification=[
  'Disease Remission: requirements must come from the specific disease procedure.',
  'Skill Assistants: the assistant regains 2 Mind; linked multi-participant Activities remain future work.'
 ]
+
+const firstAid=option('first-aid','First Aid',0,10/60)
+firstAid.effects=['Restore 5 Body to another character.']
+firstAid.requirements=["Call First Aid and perform 10 seconds of Full Engagement Role-Play within arm’s length of the Target.", 'Requires and expends one available First Aid use.', 'Taking damage, using any other skill (including Default Skills), or losing arm’s-length contact interrupts treatment: the use is spent and no Body is restored.', 'Does not stop the Target’s Bleed Out timer.']
+const stabilize=option('stabilize','Stabilize',0,2)
+stabilize.effects=['Restore 1 Body to another character without expending a First Aid use.']
+stabilize.requirements=['Requires at least one available First Aid use.', "Perform 2 uninterrupted minutes of Full Engagement Role-Play within arm’s length of the Target, then call Stabilize.", 'Does not stop the Target’s Bleed Out timer.']
+actionCatalog.push({...action('first-aid','First Aid','First Aid',39,[firstAid,stabilize],'Another character'),category:'Medical',description:'Emergency treatment using the First Aid Impact Skill, or its Stabilize alternative.'})

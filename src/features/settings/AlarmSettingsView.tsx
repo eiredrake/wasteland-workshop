@@ -15,7 +15,7 @@ export default function AlarmSettingsView({ settings, onChange }: {
         <label htmlFor={`alarm-${key}`}>{key === 'sound' ? 'Alarm Sound' : 'Vibration'}</label>
         <select id={`alarm-${key}`} value={String(settings[key])}
           onChange={event => { onChange({ ...settings, [key]: event.target.value === 'true' }); setResult('Settings changed. Tap Test Alarm to check them.') }}>
-          <option value="true">On</option><option value="false">Off</option>
+          <option value="false">Off</option><option value="true">On</option>
         </select>
       </div>)}
       <div className="settings-actions"><button className="secondary-button" type="button" disabled={testing} onClick={async () => {

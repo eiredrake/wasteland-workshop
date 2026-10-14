@@ -20,7 +20,7 @@ export default function ExportDialog({title:heading,description,subject,createFi
   <h3 id={title}>{heading}</h3>
   <p>{description}</p>
   <label htmlFor={label}>File format</label>{' '}
-  <select id={label} value={format} disabled={saving} onChange={event=>setFormat(event.target.value as ExportFormat)}><option value="json">JSON — complete records</option><option value="csv">CSV — spreadsheet</option></select>
+  <select id={label} value={format} disabled={saving} onChange={event=>setFormat(event.target.value as ExportFormat)}><option value="csv">CSV — spreadsheet</option><option value="json">JSON — complete records</option></select>
   <p>{picker?'Choose the file name and save location in the next window.':'The file will download to the browser download folder (usually Downloads).'}</p>
   {error&&<p role="alert">{error}</p>}
   <div className="confirmation-dialog-actions"><button type="button" className="secondary-button" autoFocus disabled={saving} onClick={onClose}>Cancel</button><button type="button" className="primary-button" disabled={saving} onClick={()=>{void save()}}>{saving?'Saving...':picker?'Save File':'Download File'}</button></div>

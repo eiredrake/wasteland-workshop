@@ -50,9 +50,9 @@ export default function WarehouseView({warehouse,apply,error,onAdded,warningDays
         <button className="primary-button" type="submit" disabled={!selected||!quantity.trim()||Number(quantity)<=0||(selected.kind!=='currency'&&!expirationDate)}>Add to Warehouse</button>
       </form>
       <div data-tour-target="warehouse-filters" className="warehouse-filters"><SearchInput id="warehouse-search" label="Search inventory" showLabel value={search} onValueChange={setSearch} placeholder="Find what you own…"/>
-        <div><label htmlFor="warehouse-expiration-filter">Expiration</label><select id="warehouse-expiration-filter" value={expirationFilter} onChange={event=>setExpirationFilter(event.target.value)}><option>Unexpired</option><option>Expired</option><option>All</option></select></div>
-        <div><label htmlFor="warehouse-category">Type</label><select id="warehouse-category" value={category} onChange={event=>setCategory(event.target.value)}><option value="All">All types</option><option>Resources</option><option>Items</option></select></div>
-        <div><label htmlFor="warehouse-sort">Sort by</label><select id="warehouse-sort" value={sort} onChange={event=>setSort(event.target.value)}><option>Name</option><option>Expiration: soonest first</option><option>Expiration: latest first</option></select></div>
+        <div><label htmlFor="warehouse-expiration-filter">Expiration</label><select id="warehouse-expiration-filter" value={expirationFilter} onChange={event=>setExpirationFilter(event.target.value)}><option>All</option><option>Expired</option><option>Unexpired</option></select></div>
+        <div><label htmlFor="warehouse-category">Type</label><select id="warehouse-category" value={category} onChange={event=>setCategory(event.target.value)}><option value="All">All types</option><option>Items</option><option>Resources</option></select></div>
+        <div><label htmlFor="warehouse-sort">Sort by</label><select id="warehouse-sort" value={sort} onChange={event=>setSort(event.target.value)}><option>Expiration: latest first</option><option>Expiration: soonest first</option><option>Name</option></select></div>
       </div>
       <p>{warehouse.entries.length} inventory lots</p>
       <ul data-tour-target="warehouse-inventory" className="warehouse-list">{rows.map(row=><li key={lotKey(row.itemId,row.expirationDate)} className={'warehouse-lot-'+expirationStatus(row.itemId,row.expirationDate,warningDays,today)}>
