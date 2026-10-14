@@ -425,6 +425,56 @@ function BlueprintDetails({
           </dl>
         </section>
 
+      <section className="blueprint-details-card blueprint-components-card">
+        <h3>Components</h3>
+
+        {!costs ||
+        costs.components.length === 0 ? (
+          <p>
+            No component data available.
+          </p>
+        ) : (
+          <div className="blueprint-components">
+            {costs.components.map(
+              (component) => (
+                <div
+                  className="blueprint-component-row"
+                  key={
+                    component.itemId
+                  }
+                >
+                  <strong>
+                    {component.name}
+                  </strong>
+
+                  <span>
+                    {component.quantity}
+                    {component.unitCost !==
+                      undefined &&
+                      ` × ${formatCredits(component.unitCost)}cr`}
+                  </span>
+
+                  <strong className="blueprint-component-total">
+                    {component.totalCost ===
+                    undefined
+                      ? 'Unknown'
+                      : `${formatCredits(component.totalCost)}cr`}
+                  </strong>
+                </div>
+              )
+            )}
+          </div>
+        )}
+
+        {costs?.hasUnknownComponentCosts && (
+          <p className="blueprint-cost-warning">
+            * Cost estimate is incomplete
+            because one or more component
+            values are unknown.
+          </p>
+        )}
+      </section>
+
         <section className="blueprint-details-card">
           <h3>Cost Summary</h3>
 
@@ -525,55 +575,7 @@ function BlueprintDetails({
         </section>
       </div>
 
-      <section className="blueprint-details-card blueprint-components-card">
-        <h3>Components</h3>
 
-        {!costs ||
-        costs.components.length === 0 ? (
-          <p>
-            No component data available.
-          </p>
-        ) : (
-          <div className="blueprint-components">
-            {costs.components.map(
-              (component) => (
-                <div
-                  className="blueprint-component-row"
-                  key={
-                    component.itemId
-                  }
-                >
-                  <strong>
-                    {component.name}
-                  </strong>
-
-                  <span>
-                    {component.quantity}
-                    {component.unitCost !==
-                      undefined &&
-                      ` × ${formatCredits(component.unitCost)}cr`}
-                  </span>
-
-                  <strong className="blueprint-component-total">
-                    {component.totalCost ===
-                    undefined
-                      ? 'Unknown'
-                      : `${formatCredits(component.totalCost)}cr`}
-                  </strong>
-                </div>
-              )
-            )}
-          </div>
-        )}
-
-        {costs?.hasUnknownComponentCosts && (
-          <p className="blueprint-cost-warning">
-            * Cost estimate is incomplete
-            because one or more component
-            values are unknown.
-          </p>
-        )}
-      </section>
       </>}
     </section>
   )

@@ -365,29 +365,14 @@ function App() {
     )
   }
 
-  const setActiveBlueprintCollection = (
-    collectionId: string
-  ) => {
-    setActiveBlueprintCollectionId(
-      collectionId
-    )
-
-    saveActiveBlueprintCollectionId(
-      collectionId
-    )
-
-    const collection =
-      blueprintCollections.find(
-        (item) =>
-          item.id === collectionId
-      )
-
-    if (collection) {
-      showToast(
-        `"${collection.name}" is now the active blueprint collection.`,
-        'info'
-      )
-    }
+  const setActiveBlueprintCollection = (collectionId:string) => {
+    const collection=blueprintCollections.find(item=>item.id===collectionId)
+    if(!collection)return false
+    try { saveActiveBlueprintCollectionId(collectionId) }
+    catch { showToast('Unable to switch active collections. Please try again.','error');return false }
+    setActiveBlueprintCollectionId(collectionId)
+    showToast('"'+collection.name+'" is now the active blueprint collection.','info')
+    return true
   }
 
   const updateBlueprintCollectionEntry = (
@@ -681,6 +666,10 @@ function App() {
           onSetActiveCollection={
             setActiveBlueprintCollection
           }
+          onOpenCollection={collectionId=>{
+            if(collectionId!==activeBlueprintCollectionId&&!setActiveBlueprintCollection(collectionId))return
+            navigateTo('workshop')
+          }}
         />
       )}
 

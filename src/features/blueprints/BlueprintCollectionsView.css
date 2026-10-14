@@ -138,3 +138,9 @@
   flex-wrap: wrap;
   gap: 0.65rem;
 }
+/* Extend the native name button across the card; independent actions stay above it. */
+.blueprint-collection-card { position:relative; }
+.blueprint-collection-open::after { content:""; position:absolute; inset:0; border-radius:var(--panel-radius); }
+.blueprint-collection-open:focus-visible::after { outline:2px solid var(--color-focus); outline-offset:3px; }
+.blueprint-collection-open { max-width:100%; white-space:normal; overflow-wrap:anywhere; text-align:left; }
+.blueprint-collection-card-actions { position:relative; z-index:1; }

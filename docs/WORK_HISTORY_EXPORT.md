@@ -1,0 +1,13 @@
+# Work History export
+
+Work History offers Export Work History when completed activities exist. The shared-themed dialog lets the user choose JSON or CSV and cancel without changing data. It exports the entire completed list, newest first; queued, working and paused activities are excluded.
+
+JSON uses format wasteland-workshop-work-history, schemaVersion 1, exportedAt (UTC), activityCount and activities. Each activity retains the original saved record, notes, source/version, recipe, action execution snapshot, captured economics/overrides and timer. This standalone report is not an Export All Data backup or an import/restore format. Export All Data already includes work history alongside the rest of the user's data.
+
+CSV is UTF-8 with a BOM, quoted cells and CRLF rows. Main columns include name, source, timestamps (UTC), planned duration, Mind/Resolve, recorded production cost estimate and notes. Additional JSON columns retain full recipe, economic settings, overrides, action snapshot and timer. Quotes, commas, line breaks and Unicode are preserved. Formula-like text is apostrophe-prefixed for spreadsheet use; JSON retains the original text.
+
+A supported showSaveFilePicker opens directly from Save File, with the chosen type and a dated suggested filename. Success is shown only after write and close complete. Cancelling the native picker keeps the format dialog available and never triggers a download. Write failures abort the writable stream and offer retry through the same dialog. Unsupported browsers get a normal download to the browser's configured download folder (usually Downloads), as requested; browser settings retain final control over location. Download status says started, not saved.
+
+History, queue state, notes, timers and inventory are unchanged by export. Empty history disables Export Work History. Dialog dismissal restores focus to the export button.
+
+Validation: 590 unit tests passed, lint/build passed. New tests cover completion filtering, ordering, immutability, full JSON records, CSV quoting/Unicode/multiline/formula handling and empty data; save tests cover immediate picker invocation, typed filename, completed writes, cancellation and failed writes. Browser checks verify actual downloaded JSON/CSV contents against saved history and exercise mocked native picker success/cancel/write failure/retry, no mutation, keyboard dismissal, focus restoration and empty history. Chrome widths 320/360/390/768/1280 and Firefox 390/1280 are covered. Mobile/desktop dialogs and error state were visually inspected. Native OS save dialogs are browser-owned and not automated.

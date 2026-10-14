@@ -107,3 +107,6 @@ Run tools/ui-unified-scanner-check.py for file/camera/static review/gesture/conf
 ## Native camera acquisition (TEST v0.0.13)
 
 Scan Image reuses ImagePicker with image/* and capture=environment to request the operating system's rear-camera still-photo interface. Choose Image retains its unrestricted input with no accept/capture attributes. Both return a File to the same full-read, orientation normalization, static review, Confirm Image, OCR and acquisition flow. Retake reopens native capture; cancel retains the existing review. The OS controls focus and capture UI; unsupported desktop browsers may show a file picker. Scan Prints no longer opens a getUserMedia preview or processes live camera frames.
+
+
+ExportDialog is the shared native themed JSON/CSV format chooser for Work History, Warehouse and Shopping Lists. It reuses canonical select/button/dialog foundations and SaveFile for supported save-location pickers, with normal Downloads fallback elsewhere. Keep cancellation nonmutating, errors recoverable, save progress truthful and focus restored to the launching action.

@@ -1,3 +1,5 @@
+import ExportDialog from '../../components/ExportDialog/ExportDialog'
+import {createShoppingListExport} from './ShoppingListExport'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import RemoveBadge from '../../components/RemoveBadge/RemoveBadge'
 import ConfirmationDialog from '../../components/ConfirmationDialog/ConfirmationDialog'
@@ -11,7 +13,7 @@ import { testResourceEconomics } from '../../economics/testResourceEconomics'
 import { allBlueprints } from '../blueprints/blueprints'
 import type { BlueprintAccessStatus, BlueprintCollection } from '../blueprints/BlueprintCollection'
 import type { BlueprintAcquisitionItem, ResourceShoppingItem, ShoppingListState } from './ShoppingList'
-import { exportShoppingList, parseShoppingListImport } from './ShoppingListRepository'
+import { parseShoppingListImport } from './ShoppingListRepository'
 import { addResources, addShoppingList, deleteShoppingList, getBlueprintAcquisitions, getResourceCatalog, removeResource, renameShoppingList, replaceShoppingList, selectShoppingList, toggleResource, valueShoppingList, type ValuedResource } from './ShoppingListService'
 import '../blueprints/BlueprintCollectionsView.css'
 import './ShoppingLists.css'
@@ -55,6 +57,10 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
   onUpdateBlueprint: (id: number, name: string, status: BlueprintAccessStatus | undefined) => void
   notify: (message: string, error?: boolean) => void
 }) {
+  const [exportingList,setExportingList]=useState<string>()
+  const exportButton=useRef<HTMLButtonElement|null>(null)
+  const closeExport=()=>{setExportingList(undefined);requestAnimationFrame(()=>exportButton.current?.focus())}
+  const exportedList=state.lists.find(list=>list.id===exportingList)
   const [deletingList,setDeletingList]=useState<string>()
   const [pendingResource, setPendingResource] = useState<{ item: ResourceShoppingItem; listId: string }>()
   const [pendingBlueprint, setPendingBlueprint] = useState<BlueprintAcquisitionItem>()
@@ -120,13 +126,7 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
         <div className="blueprint-collection-card-actions">
           {list.id !== state.activeListId && <button type="button" className="secondary-button" onClick={() => commit(selectShoppingList(state, list.id), `"${list.name}" is the active shopping list.`)}>Set Active</button>}
           <button type="button" className="secondary-button" onClick={() => { cancelName(); setRenameId(list.id); setName(list.name) }}>Rename</button>
-          <button type="button" className="secondary-button" onClick={() => {
-            const url = URL.createObjectURL(new Blob([exportShoppingList(list)], { type: 'application/json' }))
-            const link = document.createElement('a')
-            link.href = url; link.download = `${list.name.replace(/[^a-z0-9]+/gi, '-').replace(/^-+|-+$/g, '') || 'shopping-list'}.json`
-            document.body.appendChild(link); link.click(); link.remove()
-            setTimeout(() => URL.revokeObjectURL(url), 1000)
-          }}>Export</button>
+          <button type="button" className="secondary-button" onClick={event=>{exportButton.current=event.currentTarget;setExportingList(list.id)}}>Export</button>
           <RemoveBadge label={`Delete list ${list.name}`} onClick={()=>setDeletingList(list.id)}/>
         </div>
       </div>)}
@@ -191,6 +191,7 @@ export default function ShoppingListsView({ state, onChange, calculator, activeC
         if (list && !commit(replaceShoppingList(state, removeResource(list, pendingResource.item.resourceId)), 'Resource removed.')) return
         setPendingResource(undefined)
       }} />}
+    {exportedList&&<ExportDialog title="Export Shopping List" subject="Shopping list" description={'Export "'+exportedList.name+'", including needed and acquired resources and Blueprints to Acquire from the active collection. JSON can be imported as a resource list; blueprint targets are included for reference.'} createFile={format=>createShoppingListExport(exportedList,blueprints,activeCollection,calculator,format)} onClose={closeExport} onExported={message=>notify(message)}/>}
     {pendingBlueprint && <ShoppingConfirmationDialog title="Remove blueprint?"
       message={`Remove "${pendingBlueprint.name}" from "${activeCollection?.name ?? 'the active Blueprint Collection'}"? This also removes it from Blueprints to Acquire.`}
       onCancel={() => setPendingBlueprint(undefined)} onConfirm={() => {

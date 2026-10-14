@@ -43,3 +43,12 @@ Scan Image now requests a rear-camera still using the shared ImagePicker (accept
 Browser regression coverage simulates native photo returns, same-name recapture, EXIF rotation, initial capture cancellation and retake cancellation; it verifies no OCR before Confirm Image, source diagnostics and no getUserMedia calls.
 
 Validation for native capture: 582 unit tests passed; lint and production build passed. Chrome and Firefox local regressions passed at 390/1280. TEST v0.0.13 deployed through scripts/deploy-test.ps1. Physical mobile camera launch and autofocus remain unverified; no phone was available. Production image/container was not deployed.
+
+
+### Collection card navigation — TEST v0.0.15
+
+Clicking/tapping the active collection card opens Workshop with that collection's blueprints. Another collection opens the shared Switch Active Collection confirmation; Switch and Open Workshop uses the existing active-collection setter and then navigates to Workshop. Cancel/Escape leaves collection and navigation unchanged and restores focus to the collection button. Cards expose native buttons with keyboard Enter/Space support and a stretched card target. Export, Delete and Set Active remain independent actions.
+
+Active collection persistence now completes before UI state changes. A save failure shows an error and keeps the old collection and Collections screen. Shared ConfirmationDialog supports an optional primary confirmation variant so switching is not styled as destructive.
+
+Validation: 582 tests passed; lint and build passed. tools/ui-collection-open-check.py passed at 320/360/390/768/1280, covering active-card opening, switch/cancel/Escape, keyboard interaction, persisted selection after reload, export/delete/Set Active isolation, and storage failure. Mobile prompt and desktop cards inspected. General visual suite reported three differences (desktop/mobile Settings error-state screenshots include the previously added scanner diagnostics section; mobile Shopping Add List hover shade differs). These scenes do not use the changed collection controls or confirmation variant. Baselines were not updated; remaining comparisons passed.

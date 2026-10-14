@@ -27,6 +27,7 @@ type BlueprintCollectionsViewProps = {
   activeCollectionId: string | undefined
   onAddCollection: (name: string) => void
   onSetActiveCollection: (collectionId: string) => void
+  onOpenCollection: (collectionId: string) => void
   onDeleteCollection: (collectionId: string) => void
   onImportCollection: (
     name: string,
@@ -39,6 +40,7 @@ function BlueprintCollectionsView({
   activeCollectionId,
   onAddCollection,
   onSetActiveCollection,
+  onOpenCollection,
   onDeleteCollection,
   onImportCollection,
 }: BlueprintCollectionsViewProps) {
@@ -111,6 +113,14 @@ function BlueprintCollectionsView({
     URL.revokeObjectURL(url)
   }
 
+  const [openingCollection,setOpeningCollection]=useState<BlueprintCollection>()
+  const collectionOpener=useRef<HTMLButtonElement|null>(null)
+  const cancelOpen=()=>{setOpeningCollection(undefined);requestAnimationFrame(()=>collectionOpener.current?.focus())}
+  const requestOpen=(collection:BlueprintCollection,opener:HTMLButtonElement)=>{
+    collectionOpener.current=opener
+    if(collection.id===activeCollectionId)onOpenCollection(collection.id)
+    else setOpeningCollection(collection)
+  }
   const [deletingCollection,setDeletingCollection]=useState<BlueprintCollection>()
   const handleDeleteCollection=(collection:BlueprintCollection)=>setDeletingCollection(collection)
 
@@ -386,7 +396,7 @@ function BlueprintCollectionsView({
               >
                 <div className="blueprint-collection-card-header">
                   <div>
-                    <h3>{collection.name}</h3>
+                    <h3><button type="button" className="secondary-button blueprint-collection-open" aria-label={"Open collection "+collection.name} onClick={event=>requestOpen(collection,event.currentTarget)}>{collection.name}</button></h3>
 
                     <p>
                       {acquiredCount} acquired ·{' '}
@@ -435,6 +445,7 @@ function BlueprintCollectionsView({
           })}
         </div>
       )}
+    {openingCollection&&<ConfirmationDialog title="Switch Active Collection?" message={'Make "'+openingCollection.name+'" your active collection and open it in Workshop?'} confirmLabel="Switch and Open Workshop" confirmVariant="primary" onCancel={cancelOpen} onConfirm={()=>{onOpenCollection(openingCollection.id);setOpeningCollection(undefined)}}/>}
     {deletingCollection&&<ConfirmationDialog title="Delete Collection?" message={`Delete "${deletingCollection.name}"? This cannot be undone. Master Blueprints are kept.`} confirmLabel="Delete Collection" onCancel={()=>setDeletingCollection(undefined)} onConfirm={()=>{onDeleteCollection(deletingCollection.id);setDeletingCollection(undefined)}}/>}
 </section>
   )
