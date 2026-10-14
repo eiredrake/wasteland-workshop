@@ -684,7 +684,7 @@ function App() {
         />
       )}
 
-      {currentView === 'scan-prints' && activeBlueprintCollection && <ScanPrintsView/>}
+      {currentView === 'scan-prints' && activeBlueprintCollection && <ScanPrintsView onToCollections={()=>navigateTo('collections')}/>}
 
       {currentView === 'shopping' && (
         <ShoppingListsView state={shoppingState} onChange={updateShoppingState}

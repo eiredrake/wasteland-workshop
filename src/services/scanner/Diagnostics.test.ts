@@ -14,3 +14,15 @@ it('does not retain or export image payloads, even when future image inclusion i
 it('records actual load/request/result events with shared scan correlation and structured errors',async()=>{
  const recorder=new DiagnosticRecorder();recorder.configure(true);const service=new OcrService(new MockOcrProvider(),recorder.lifecycle,event=>recorder.record(event));await service.initialize();await service.scanImage({image:new Blob(['x']),sourceType:'FILE',width:10,height:10,target:{x:0,y:0,width:10,height:10},correlationId:'actual-scan'});const events=JSON.parse(recorder.exportJson()).records;expect(events.map((event:{type:string})=>event.type)).toEqual(['OCR_LOAD_STARTED','OCR_LOAD_SUCCEEDED','OCR_SCAN_REQUEST','OCR_SCAN_RESULT']);expect(events[2].scanId).toBe(events[3].scanId);expect(events[3].error.code).toBe('OCR_NOT_IMPLEMENTED')
 })
+
+it('exports real OCR, exact candidates, matches, and staged errors without retention when disabled',()=>{
+ const recorder=new DiagnosticRecorder();const input={type:'BLUEPRINT_MATCH_RESULT',stage:'matching' as const,scanId:'scan',text:'AA Blade',candidates:['aa blade'],matchCount:1,matchedIds:[1],confidence:87}
+ recorder.record(input);expect(recorder.count).toBe(0);recorder.configure(true);recorder.record(input)
+ expect(JSON.parse(recorder.exportJson()).records[0]).toMatchObject(input);recorder.configure(false);expect(recorder.count).toBe(0)
+})
+
+it('retains source/coordinate/extracted dimensions but never a camera frame payload',()=>{
+ const recorder=new DiagnosticRecorder();recorder.configure(true)
+ const event={type:'SCAN_STARTED',stage:'target' as const,sourceType:'CAMERA_CAPTURE' as const,acquisitionId:'capture',scanId:'scan',target:{x:100,y:50,width:600,height:100},transformation:{viewportWidth:300,viewportHeight:225,scale:.5,offsetX:-20,offsetY:-10,targetX:27,targetY:80,targetWidth:246,targetHeight:50},extractedWidth:600,extractedHeight:100,frames:['must not retain']}
+ recorder.record(event);const exported=JSON.parse(recorder.exportJson()).records[0];expect(exported).toMatchObject({sourceType:'CAMERA_CAPTURE',target:event.target,transformation:event.transformation,extractedWidth:600,extractedHeight:100});expect(exported.frames).toBeUndefined();recorder.configure(false);expect(recorder.count).toBe(0)
+})

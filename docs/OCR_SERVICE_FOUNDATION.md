@@ -1,5 +1,6 @@
 # Mock OCR service foundation
 
+Historical phase report. Current behavior is documented in SCANNER_UNIFIED_ACQUISITION.md and scanner-development.md.
 `src/services/ocr/OcrTypes.ts` defines async provider initialize/scanImage/dispose, identity/version/state, structured outcomes/errors and static image requests. Image source is an encoded Blob (including File) or RGBA buffer. FILE and CAMERA_CAPTURE both use original-image pixel width/height and x/y/width/height target coordinates, never screen pixels. Finite positive dimensions and in-bounds positive targets are validated; extraction/decoding are not implemented.
 
 OcrService owns one provider, one shared initialization Promise and typed timestamped lifecycle events: OCR_LOAD_STARTED, OCR_LOAD_SUCCEEDED, OCR_LOAD_FAILED. Successful initialization stays reusable; failed initialization permits retry. Subscribers unsubscribe; state remains directly readable for late mounts. Replacement/disposal wait for initialization/in-flight scans and dispose old resources. ScannerRuntime configures only MockOcrProvider; initialize is called on Scan Prints entry, never app startup. The default mock resolves on the next async turn; tests inject controlled preparation/failure. No fake text, progress percentage or identification is returned. scanImage yields OCR_NOT_IMPLEMENTED.

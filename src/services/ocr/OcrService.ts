@@ -1,6 +1,7 @@
 import type {DiagnosticInput} from '../scanner/Diagnostics'
 import {scannerError,ScannerFailure,validateScanRequest,type OcrProvider,type OcrState,type OcrLoadEvent,type ScanImageRequest,type OcrResult,type Outcome} from './OcrTypes'
 export class OcrService {
+ initializationDurationMs?:number
  state:OcrState='NOT_LOADED';error?:import('./OcrTypes').ScannerError
  private pending?:Promise<void>;private replacing=false
  private listeners=new Set<(event:OcrLoadEvent)=>void>();private scans=new Set<Promise<Outcome<OcrResult>>>()
@@ -12,22 +13,22 @@ export class OcrService {
  initialize=():Promise<void>=>{
   if(this.replacing)return Promise.reject(new ScannerFailure(scannerError('OCR_NOT_READY','initialization','The OCR provider is being replaced.')))
   if(this.pending)return this.pending
-  this.state='LOADING';this.error=undefined
+  this.state='LOADING';this.error=undefined;this.initializationDurationMs=undefined
   const started=performance.now()
   // Assign the shared promise before publishing LOADING, including re-entrant subscribers.
-  this.pending=Promise.resolve().then(()=>this.provider.initialize()).then(()=>{this.state='READY';this.emit('OCR_LOAD_SUCCEEDED',performance.now()-started)},error=>{this.state='FAILED';this.pending=undefined;const failure=scannerError('OCR_INITIALIZATION_FAILED','initialization',error instanceof Error?error.message:String(error));this.error=failure;this.emit('OCR_LOAD_FAILED',performance.now()-started);throw new ScannerFailure(failure)})
+  this.pending=Promise.resolve().then(()=>this.provider.initialize()).then(()=>{this.state='READY';this.initializationDurationMs=performance.now()-started;this.emit('OCR_LOAD_SUCCEEDED',this.initializationDurationMs)},error=>{this.state='FAILED';this.pending=undefined;const failure=scannerError('OCR_INITIALIZATION_FAILED','initialization',error instanceof Error?error.message:String(error));this.error=failure;this.emit('OCR_LOAD_FAILED',performance.now()-started);throw new ScannerFailure(failure)})
   this.emit('OCR_LOAD_STARTED');return this.pending
  }
  scanImage(request:ScanImageRequest):Promise<Outcome<OcrResult>>{
   const scanId=request.correlationId??crypto.randomUUID(),started=performance.now()
-  this.recordScan({type:'OCR_SCAN_REQUEST',stage:'recognition',scanId,providerId:this.provider.id,providerVersion:this.provider.version,width:request.width,height:request.height,target:request.target})
+  this.recordScan({type:'OCR_SCAN_REQUEST',stage:'recognition',scanId,providerId:this.provider.id,providerVersion:this.provider.version,width:request.width,height:request.height,target:request.target,sourceType:request.sourceType})
   const operation=Promise.resolve().then(async():Promise<Outcome<OcrResult>>=>{
    if(this.state!=='READY'||this.replacing)return {ok:false,error:scannerError('OCR_NOT_READY','recognition','OCR must be initialized before recognition.')}
    const invalid=validateScanRequest(request);if(invalid)return {ok:false,error:invalid}
    try{return await this.provider.scanImage({...request,correlationId:scanId})}catch(error){return {ok:false,error:scannerError('OCR_RECOGNITION_FAILED','recognition',error instanceof Error?error.message:String(error))}}
-  }).then(result=>{this.recordScan({type:'OCR_SCAN_RESULT',stage:result.ok?'recognition':result.error.stage,scanId,providerId:this.provider.id,providerVersion:this.provider.version,durationMs:performance.now()-started,status:result.ok?'SUCCESS':'FAILED',text:result.ok?result.value.text:undefined,error:result.ok?undefined:result.error});return result})
+  }).then(result=>{this.recordScan({type:'OCR_SCAN_RESULT',stage:result.ok?'recognition':result.error.stage,scanId,providerId:this.provider.id,providerVersion:this.provider.version,durationMs:performance.now()-started,status:result.ok?'SUCCESS':'FAILED',text:result.ok?result.value.text:undefined,sourceType:request.sourceType,extractedWidth:result.ok&&typeof result.value.metadata?.inputWidth==='number'?result.value.metadata.inputWidth:undefined,extractedHeight:result.ok&&typeof result.value.metadata?.inputHeight==='number'?result.value.metadata.inputHeight:undefined,confidence:result.ok?result.value.confidence:undefined,error:result.ok?undefined:result.error});return result})
   this.scans.add(operation);void operation.finally(()=>this.scans.delete(operation));return operation
  }
- async replaceProvider(provider:OcrProvider){if(this.replacing)throw new ScannerFailure(scannerError('OCR_NOT_READY','initialization','Provider replacement is already in progress.'));this.replacing=true;try{await this.pending?.catch(()=>{});await Promise.allSettled(this.scans);await this.provider.dispose();this.provider=provider;this.pending=undefined;this.state='NOT_LOADED';this.error=undefined}finally{this.replacing=false}}
- async dispose(){this.replacing=true;try{await this.pending?.catch(()=>{});await Promise.allSettled(this.scans);await this.provider.dispose();this.pending=undefined;this.state='NOT_LOADED';this.error=undefined;this.listeners.clear()}finally{this.replacing=false}}
+ async replaceProvider(provider:OcrProvider){if(this.replacing)throw new ScannerFailure(scannerError('OCR_NOT_READY','initialization','Provider replacement is already in progress.'));this.replacing=true;try{await this.pending?.catch(()=>{});await Promise.allSettled(this.scans);await this.provider.dispose();this.provider=provider;this.pending=undefined;this.state='NOT_LOADED';this.error=undefined;this.initializationDurationMs=undefined}finally{this.replacing=false}}
+ async dispose(){this.replacing=true;try{await this.pending?.catch(()=>{});await Promise.allSettled(this.scans);await this.provider.dispose();this.pending=undefined;this.state='NOT_LOADED';this.error=undefined;this.initializationDurationMs=undefined;this.listeners.clear()}finally{this.replacing=false}}
 }

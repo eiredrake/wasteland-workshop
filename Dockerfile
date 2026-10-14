@@ -8,7 +8,8 @@ RUN npm ci
 
 COPY . .
 
-RUN npm run build
+ARG TEST_VERSION=0.0.0
+RUN VITE_TEST_VERSION=$TEST_VERSION npm run build
 
 
 FROM nginx:alpine

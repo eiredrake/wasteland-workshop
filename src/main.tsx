@@ -15,3 +15,5 @@ try {
 
 }
 void start()
+
+if(import.meta.env.PROD&&'serviceWorker' in navigator){window.addEventListener('load',()=>{void navigator.serviceWorker.register(import.meta.env.BASE_URL+'service-worker.js').catch(error=>console.error('Offline installation failed',error))})}

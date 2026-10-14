@@ -86,8 +86,19 @@ AppShare reuses native dialog/button foundations. Its black-on-white QR with fou
 
 TestVersionBanner owns the full-width green TEST VERSION strip above the shared app header. It uses runtime exact hostname matching for workshop-test.foundationsrpg.org; the same merged build remains unmarked on production. It is informational, outside the constrained main column and present across every view.
 
-ConfirmationDialog supports success/danger tones and a single OK action for result messages, retaining its destructive-confirmation defaults. Choose Image uses the canonical primary-button-cream variant, gold focus and centered layout. Phase 1 only reads the returned filename; accept is a picker hint, never application validation.
+ConfirmationDialog supports success/danger tones and a single OK action for result messages, retaining its destructive-confirmation defaults. Choose Image uses the canonical primary-button-cream variant, gold focus and centered layout. Picker acquisition accepts every returned File; decoding and recognition failures are separate. Accept is a picker hint, never application validation.
 
-ImagePicker is the shared native file-acquisition control, with its own code/CSS folder, canonical orange/cream button and unfiltered File callback. Scan Prints currently shows only centered Choose Image; the planned independent Live Camera path has no visible controls yet. Do not infer native picker providers or activate a camera from returned Files.
+ImagePicker is the shared native file-acquisition control, with its own code/CSS folder, canonical orange/cream button and unfiltered File callback. Scan Prints shows centered, horizontal Choose Image and Scan Image acquisition buttons. Scan Image opens the camera; only Confirm Image submits OCR. Both sources enter the same static review. Do not infer native picker providers or activate a camera from returned Files.
 
-LoadingDialog owns the accessible native loading modal and indeterminate gold spinner, with reduced-motion support and no progress percentage. OCR status/retry uses shared ConfirmationDialog; scanner diagnostics use existing Settings/select/disclosure/button styling. FILE SELECTED remains acquisition success, never mock recognition success.
+LoadingDialog owns the accessible native loading modal and indeterminate gold spinner, with reduced-motion support and no progress percentage. OCR status/retry uses shared ConfirmationDialog; scanner diagnostics use existing Settings/select/disclosure/button styling. FILE SELECTED remains acquisition success, never recognition success.
+
+Static OCR reuses LoadingDialog for Scanning Image and green/red ConfirmationDialog for actual matching outcomes. See SCANNER_UNIFIED_ACQUISITION.md for current acquisition/review behavior and OCR_TESSERACT_IMPLEMENTATION.md for historical provider work.
+
+
+## Unified scanner viewport
+
+The authorized static review/camera pattern uses ScannerViewport.css and the camera-background theme token: a black rectangular viewport, stationary gold/yellow dotted target with a dark outline, and source image beneath it. Camera target is a native accessible capture button; static target is noninteractive decoration. BackButton labels To Collections. Ordinary actions use canonical primary/secondary buttons and native themed camera select.
+
+Only the static image pans/zooms; the target remains fixed. Pointer capture and touch-action:none are scoped to the review viewport. Outside it, page scrolling remains normal. Zoom In/Out, Reset View and keyboard arrows/+/-/Home provide alternatives to touch gestures. No adjustable crop handles. Confirm Image is the only OCR submission action. CAMERA ERROR and IMAGE ERROR use the shared danger dialog.
+
+Run tools/ui-unified-scanner-check.py for file/camera/static review/gesture/confirmation checks. Native WebKit selects use the existing dark color-scheme foundation.
