@@ -26,3 +26,20 @@ it('retains source/coordinate/extracted dimensions but never a camera frame payl
  const event={type:'SCAN_STARTED',stage:'target' as const,sourceType:'CAMERA_CAPTURE' as const,acquisitionId:'capture',scanId:'scan',target:{x:100,y:50,width:600,height:100},transformation:{viewportWidth:300,viewportHeight:225,scale:.5,offsetX:-20,offsetY:-10,targetX:27,targetY:80,targetWidth:246,targetHeight:50},extractedWidth:600,extractedHeight:100,frames:['must not retain']}
  recorder.record(event);const exported=JSON.parse(recorder.exportJson()).records[0];expect(exported).toMatchObject({sourceType:'CAMERA_CAPTURE',target:event.target,transformation:event.transformation,extractedWidth:600,extractedHeight:100});expect(exported.frames).toBeUndefined();recorder.configure(false);expect(recorder.count).toBe(0)
 })
+
+it('retains only one explicitly enabled crop, never embeds pixels, and releases it on clear or opt-out',()=>{
+ const recorder=new DiagnosticRecorder(),blob=new Blob(['PRIVATE PIXELS'],{type:'image/png'}),request={image:blob,width:100,height:80,target:{x:10,y:5,width:60,height:40},sourceType:'FILE' as const,correlationId:'one'}
+ recorder.captureCrop(blob,request);expect(recorder.getCrop()).toBeUndefined()
+ recorder.configure(true);recorder.captureCrop(blob,request);expect(recorder.getCrop()).toBeUndefined()
+ recorder.configure(true,true);recorder.captureCrop(blob,request);expect(recorder.getCrop()?.blob).toBe(blob);expect(recorder.getCrop()).toMatchObject({scanId:'one',width:60,height:40,target:request.target})
+ recorder.captureCrop(new Blob(['two']),{...request,correlationId:'two'});expect(recorder.getCrop()?.scanId).toBe('two');expect(recorder.exportJson()).not.toContain('PRIVATE PIXELS')
+ recorder.configure(true,false);expect(recorder.getCrop()).toBeUndefined()
+ recorder.configure(true,true);recorder.captureCrop(blob,request);recorder.clear();expect(recorder.getCrop()).toBeUndefined()
+})
+it('clears a stale crop when a new crop exceeds the retention bound',()=>{
+ const recorder=new DiagnosticRecorder();recorder.configure(true,true)
+ const request={image:new Blob(['x']),width:10,height:10,target:{x:0,y:0,width:10,height:10},sourceType:'FILE' as const,correlationId:'large'}
+ recorder.captureCrop(request.image,request)
+ recorder.captureCrop(new Blob([new Uint8Array(8*1024*1024+1)]),request);expect(recorder.getCrop()).toBeUndefined()
+ expect(JSON.parse(recorder.exportJson()).records.at(-1)).toMatchObject({type:'OCR_INPUT_IMAGE_SKIPPED',scanId:'large'})
+})

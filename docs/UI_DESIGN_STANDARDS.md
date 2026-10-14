@@ -102,3 +102,8 @@ The authorized static review/camera pattern uses ScannerViewport.css and the cam
 Only the static image pans/zooms; the target remains fixed. Pointer capture and touch-action:none are scoped to the review viewport. Outside it, page scrolling remains normal. Zoom In/Out, Reset View and keyboard arrows/+/-/Home provide alternatives to touch gestures. No adjustable crop handles. Confirm Image is the only OCR submission action. CAMERA ERROR and IMAGE ERROR use the shared danger dialog.
 
 Run tools/ui-unified-scanner-check.py for file/camera/static review/gesture/confirmation checks. Native WebKit selects use the existing dark color-scheme foundation.
+
+
+## Native camera acquisition (TEST v0.0.13)
+
+Scan Image reuses ImagePicker with image/* and capture=environment to request the operating system's rear-camera still-photo interface. Choose Image retains its unrestricted input with no accept/capture attributes. Both return a File to the same full-read, orientation normalization, static review, Confirm Image, OCR and acquisition flow. Retake reopens native capture; cancel retains the existing review. The OS controls focus and capture UI; unsupported desktop browsers may show a file picker. Scan Prints no longer opens a getUserMedia preview or processes live camera frames.

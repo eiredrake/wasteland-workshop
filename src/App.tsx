@@ -428,7 +428,7 @@ function App() {
         'success'
       )
 
-      return
+      return true
     }
 
     if (status === 'to-acquire') {
@@ -684,7 +684,7 @@ function App() {
         />
       )}
 
-      {currentView === 'scan-prints' && activeBlueprintCollection && <ScanPrintsView onToCollections={()=>navigateTo('collections')}/>}
+      {currentView === 'scan-prints' && activeBlueprintCollection && <ScanPrintsView activeCollection={activeBlueprintCollection} onAcquire={blueprint=>updateBlueprintCollectionEntry(blueprint.id,blueprint.name,'acquired')===true} onToCollections={()=>navigateTo('collections')}/>}
 
       {currentView === 'shopping' && (
         <ShoppingListsView state={shoppingState} onChange={updateShoppingState}

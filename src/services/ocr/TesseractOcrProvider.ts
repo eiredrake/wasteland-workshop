@@ -16,8 +16,9 @@ async function createLocalWorker():Promise<RecognitionWorker>{
 export class TesseractOcrProvider implements OcrProvider {
  readonly id='tesseract';readonly version=TESSERACT_VERSION;state:OcrState='NOT_LOADED'
  private worker?:RecognitionWorker;private pending?:Promise<void>;private queue:Promise<void>=Promise.resolve();private disposing=false
+ private readonly onInput?:(blob:Blob,request:ScanImageRequest)=>void
  private readonly factory:WorkerFactory
- constructor(factory:WorkerFactory=createLocalWorker){this.factory=factory}
+ constructor(factory:WorkerFactory=createLocalWorker,onInput?:(blob:Blob,request:ScanImageRequest)=>void){this.factory=factory;this.onInput=onInput}
  initialize():Promise<void>{
   if(this.disposing)return Promise.reject(new Error('OCR resources are being released.'))
   if(this.pending)return this.pending
@@ -32,6 +33,8 @@ export class TesseractOcrProvider implements OcrProvider {
    const started=performance.now()
    try{
     const region=await extractImageRegion(request);if(!region.ok)return region
+    // Observe the exact same Blob passed below; diagnostics must never change recognition.
+    try{this.onInput?.(region.value,request)}catch{/* Diagnostic capture must not fail OCR. */}
     const {width,height}=request.target
     const output=await this.worker.recognize(region.value,{rectangle:{left:0,top:0,width,height}},{text:true})
     return {ok:true,value:{text:output.data.text,providerId:this.id,providerVersion:this.version,correlationId:request.correlationId,durationMs:performance.now()-started,metadata:{inputWidth:width,inputHeight:height},...(Number.isFinite(output.data.confidence)?{confidence:output.data.confidence}:{})}}

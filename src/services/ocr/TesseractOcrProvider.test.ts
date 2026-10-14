@@ -33,3 +33,14 @@ it('serializes scans and waits for in-flight work before cleanup',async()=>{
  const first=provider.scanImage(request),second=provider.scanImage(request);await vi.waitFor(()=>expect(recognize).toHaveBeenCalledTimes(1))
  finish();await first;await second;await provider.dispose();expect(recognize).toHaveBeenCalledTimes(2);expect(terminate).toHaveBeenCalledTimes(1)
 })
+
+it('observes the exact same extracted Blob passed to Tesseract before recognition',async()=>{
+ const recognize=vi.fn(async(blob:Blob)=>{void blob;return {data:{text:'Hooch',confidence:80}}}),capture=vi.fn(),provider=new TesseractOcrProvider(async()=>({recognize,terminate:vi.fn()}) as unknown as RecognitionWorker,capture)
+ await provider.initialize();expect((await provider.scanImage(request)).ok).toBe(true)
+ expect(capture).toHaveBeenCalledWith(recognize.mock.calls[0][0],request)
+ expect(capture.mock.invocationCallOrder[0]).toBeLessThan(recognize.mock.invocationCallOrder[0])
+})
+it('does not let diagnostic capture failures change OCR',async()=>{
+ const provider=new TesseractOcrProvider(async()=>({recognize:vi.fn(async()=>({data:{text:'Hooch',confidence:80}})),terminate:vi.fn()}) as unknown as RecognitionWorker,()=>{throw Error('Diagnostic failure')})
+ await provider.initialize();expect(await provider.scanImage(request)).toMatchObject({ok:true,value:{text:'Hooch'}})
+})

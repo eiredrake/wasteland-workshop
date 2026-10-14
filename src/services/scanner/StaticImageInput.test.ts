@@ -25,15 +25,15 @@ it('uses the same oriented normalization for camera and file sources',async()=>{
  expect(drawImage).toHaveBeenCalledWith(bitmap,0,0,200,100);expect(bitmap.close).toHaveBeenCalled();expect(canvas.width).toBe(0)
 })
 
-it('preserves a header-read rejection and never starts decoding',async()=>{
+it('preserves a full-file read rejection and never starts decoding',async()=>{
  const {DiagnosticRecorder}=await import('./Diagnostics'),log=new DiagnosticRecorder();log.configure(true)
  const file=new File(['pixels'],'provider.jpg',{type:'image/jpeg',lastModified:123})
- vi.spyOn(file,'slice').mockReturnValue({arrayBuffer:()=>Promise.reject(new DOMException('Provider content unavailable','NotReadableError'))} as Blob)
+ vi.spyOn(file,'arrayBuffer').mockRejectedValue(new DOMException('Provider content unavailable','NotReadableError'))
  const result=await prepareStaticImage(file,'FILE','read-id',undefined,event=>log.record(event))
  expect(result).toMatchObject({ok:false,error:{code:'IMAGE_READ_FAILED',details:{exceptionName:'NotReadableError',exceptionMessage:'Provider content unavailable'}}})
  const records=JSON.parse(log.exportJson()).records
  expect(records.map((r:{type:string})=>r.type)).toEqual(['IMAGE_READ_STARTED','IMAGE_READ_FAILED'])
- expect(records[1]).toMatchObject({scanId:'read-id',operation:'read-header',api:'Blob.slice().arrayBuffer()',lastModified:123,readScope:'first 4 bytes only',exceptionName:'NotReadableError'})
+ expect(records[1]).toMatchObject({scanId:'read-id',operation:'read-full-file',api:'File.arrayBuffer()',lastModified:123,readScope:'entire file',exceptionName:'NotReadableError'})
 })
 it('preserves both decoder exceptions and releases the URL only after the delayed fallback',async()=>{
  const {DiagnosticRecorder}=await import('./Diagnostics'),log=new DiagnosticRecorder();log.configure(true)
@@ -66,4 +66,21 @@ it('keeps overlapping acquisitions and their URL cleanup independent',async()=>{
  resolvers[1]();expect((await second).ok).toBe(true);expect(revoke).toHaveBeenCalledTimes(1)
  resolvers[0]();expect((await first).ok).toBe(true);expect(revoke).toHaveBeenCalledTimes(2)
  revoke.mockRestore()
+})
+
+it('reads once and decodes an independent memory blob rather than the provider file',async()=>{
+ const file=new File(['all image bytes'],'provider.jpg',{type:'image/jpeg'}),read=vi.spyOn(file,'arrayBuffer')
+ vi.stubGlobal('Image',class{decode(){return Promise.reject(Error('fallback'))}})
+ const bitmap={width:30,height:20,close:vi.fn()},decode=vi.fn(async(blob:Blob)=>{expect(blob).not.toBe(file);expect(blob.type).toBe('image/jpeg');expect(await blob.text()).toBe('all image bytes');return bitmap})
+ vi.stubGlobal('createImageBitmap',decode)
+ vi.stubGlobal('document',{createElement:()=>({width:0,height:0,getContext:()=>({drawImage:vi.fn()}),toBlob:(done:(b:Blob)=>void)=>done(new Blob(['png']))})})
+ const {DiagnosticRecorder}=await import('./Diagnostics'),log=new DiagnosticRecorder();log.configure(true)
+ expect((await prepareStaticImage(file,'FILE','snapshot-id',undefined,e=>log.record(e))).ok).toBe(true)
+ expect(read).toHaveBeenCalledTimes(1);expect(decode).toHaveBeenCalledTimes(1)
+ expect(JSON.parse(log.exportJson()).records.find((e:{type:string})=>e.type==='IMAGE_READ_SUCCEEDED')).toMatchObject({operation:'read-full-file',byteLength:file.size,readScope:'entire file'})
+})
+it('rejects an incomplete full-file read before creating a decoder',async()=>{
+ const file=new File(['many bytes'],'x.jpg');vi.spyOn(file,'arrayBuffer').mockResolvedValue(new ArrayBuffer(4))
+ const image=vi.fn();vi.stubGlobal('Image',image)
+ expect(await prepareStaticImage(file)).toMatchObject({ok:false,error:{code:'IMAGE_READ_FAILED',details:{exceptionName:'NotReadableError'}}});expect(image).not.toHaveBeenCalled()
 })
