@@ -28,6 +28,7 @@ type DatalistProps<T> = {
   showAddButton?: boolean
   getRowKey: (item: T) => string | number
   onRowClick?: (item: T) => void
+  onDetailsClose?: () => void
   onAdd?: () => void
   emptyMessage?: string
   renderDetails?: (item: T) => ReactNode
@@ -43,6 +44,7 @@ function Datalist<T>({
   showAddButton = false,
   getRowKey,
   onRowClick,
+  onDetailsClose,
   onAdd,
   emptyMessage = 'No items found.',
   renderDetails,
@@ -127,6 +129,7 @@ function Datalist<T>({
   }
 
   const handleBack = () => {
+    onDetailsClose?.()
     setSelectedItem(null)
 
     requestAnimationFrame(() => {

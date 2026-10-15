@@ -1,3 +1,6 @@
+import {runningInstalledApp} from './features/pwa/InstalledApp'
+import {appRoute,readAppRoute,type AppView} from './features/pwa/AppRoute'
+import PwaStatus from './features/pwa/PwaStatus'
 import ScannerSettingsView from './features/settings/ScannerSettingsView'
 import ScanPrintsView from './features/scanner/ScanPrintsView'
 import TestVersionBanner from './components/TestVersionBanner/TestVersionBanner'
@@ -24,6 +27,7 @@ import WarehouseView from './features/warehouse/WarehouseView'
 import { useWarehouse } from './features/warehouse/useWarehouse'
 import {
   useEffect,
+  useLayoutEffect,
   useCallback,
   useState,
 } from 'react'
@@ -85,29 +89,17 @@ import type {
   ToastType,
 } from './components/Toast/Toast'
 
-type AppView =
-  | 'workshop'
-  | 'catalog'
-  | 'collections'
-  | 'scan-prints'
-  | 'warehouse'
-  | 'shopping'
-  | 'builds'
-  | 'history'
-  | 'timer'
-  | 'settings'
-  | 'about'
-  | 'algorithm'
 
 function App() {
+  const [appInstalled,setAppInstalled]=useState(runningInstalledApp)
   const [menuOpen, setMenuOpen] = useState(false)
   const [appShareOpen, setAppShareOpen] = useState(false)
   const [tourBlueprint,setTourBlueprint]=useState<Blueprint>()
-  const [queueBlueprint,setQueueBlueprint]=useState<Blueprint>()
+  const [queueBlueprint,setQueueBlueprint]=useState<Blueprint|undefined>(()=>allBlueprints.find(item=>item.id===readAppRoute(location.hash).blueprintId))
   const [selectionRevision,setSelectionRevision]=useState(0)
 
   const [currentView, setCurrentView] =
-    useState<AppView>('workshop')
+    useState<AppView>(()=>readAppRoute(location.hash).view)
 
   const [
     economicsOverrides,
@@ -161,7 +153,15 @@ function App() {
         activeBlueprintCollectionId
     )
 
-  const navigateTo = useCallback((view: AppView) => {
+  useLayoutEffect(()=>{
+    const restoreRoute=()=>{const route=readAppRoute(location.hash);setCurrentView(route.view);setQueueBlueprint(allBlueprints.find(item=>item.id===route.blueprintId));setMenuOpen(false)}
+    window.addEventListener('hashchange',restoreRoute)
+    window.addEventListener('popstate',restoreRoute)
+    return ()=>{window.removeEventListener('hashchange',restoreRoute);window.removeEventListener('popstate',restoreRoute)}
+  },[])
+  const navigateTo = useCallback((view: AppView,blueprintId?:number) => {
+    if(view==='catalog')setQueueBlueprint(allBlueprints.find(item=>item.id===blueprintId))
+    history.pushState(null,'',appRoute(view,blueprintId))
     setCurrentView(view)
     setMenuOpen(false)
   },[])
@@ -559,6 +559,8 @@ function App() {
             Timer
           </button>
 
+          <div className="menu-heading">Application</div>
+          {!appInstalled&&<button type="button" onClick={()=>navigateTo('install-app')}>Install app</button>}
           <button
             type="button"
             onClick={() =>
@@ -567,6 +569,8 @@ function App() {
           >
             Settings
           </button>
+
+          <button type="button" onClick={()=>navigateTo('update-app')}>Update app</button>
 
           <div className="menu-heading">Help</div>
           <details className="guided-tours-menu"><summary>Guided Tours</summary>
@@ -622,7 +626,7 @@ function App() {
 
       {currentView ===
         'catalog' && (
-        <BlueprintSearch key={tours.active?tourStepId:"catalog"} initialBlueprint={tours.step?.blueprintContext?tourBlueprint:queueBlueprint} onBlueprintSelected={blueprint=>{setTourBlueprint(blueprint);setSelectionRevision(value=>value+1)}} warehouse={inventory.warehouse} warehouseError={inventory.error}
+        <BlueprintSearch onBlueprintClosed={()=>{if(!tours.active)history.replaceState(null,'',appRoute('catalog'))}} key={tours.active?tourStepId:"catalog-"+(queueBlueprint?.id??"list")} initialBlueprint={tours.step?.blueprintContext?tourBlueprint:queueBlueprint} onBlueprintSelected={blueprint=>{if(!tours.active)history.replaceState(null,'',appRoute('catalog',blueprint.id));setTourBlueprint(blueprint);setSelectionRevision(value=>value+1)}} warehouse={inventory.warehouse} warehouseError={inventory.error}
           shopping={shopping}
           buildQueue={buildQueue.builds} onAddBuild={addBlueprintToBuildQueue}
           calculator={calculator}
@@ -686,7 +690,7 @@ function App() {
       {currentView === 'warehouse' && <WarehouseView warningDays={expirationWarningDays} warehouse={inventory.warehouse} apply={inventory.apply} error={inventory.error} onAdded={message=>showToast(message,'success')} />}
 
       {currentView === 'history' && <WorkHistoryView builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}/>}
-      {currentView === 'builds' && <BuildQueueView onBlueprint={id=>{const blueprint=allBlueprints.find(item=>item.id===id);if(!blueprint){showToast('This Blueprint is no longer available in the catalog.');return}setQueueBlueprint(blueprint);navigateTo('catalog')}} builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}
+      {currentView === 'builds' && <BuildQueueView onBlueprint={id=>{const blueprint=allBlueprints.find(item=>item.id===id);if(!blueprint){showToast('This Blueprint is no longer available in the catalog.');return}navigateTo('catalog',blueprint.id)}} builds={buildQueue.builds} apply={buildQueue.apply} error={buildQueue.error}
         onTimer={id => { setTimerBuildId(id); navigateTo('timer') }}><QueueEntry onBlueprint={addBlueprintToBuildQueue} onAction={addActionToQueue}/></BuildQueueView>}
 
       {currentView === 'timer' && <>
@@ -741,6 +745,7 @@ function App() {
       )}
 
       {tours.active&&<GuidedTour active={tours.active} onMove={tours.move} onExit={tours.exit} onFinish={tours.finish} canUseExisting={tours.step?.condition==='collection-selected'?!!activeBlueprintCollection:tours.step?.condition==='membership'?!!memberStatus:tours.step?.condition==='blueprint-selected'?!!tourBlueprint:tours.step?.condition==='queued'?buildQueue.builds.some(build=>build.blueprintId===tourBlueprint?.id&&build.status!=='Completed'):false}/>}
+      <PwaStatus onInstalledChange={setAppInstalled} screen={currentView==='install-app'?'install':currentView==='update-app'?'update':undefined} />
       <ToastContainer
         toasts={toasts}
         onDismiss={dismissToast}
