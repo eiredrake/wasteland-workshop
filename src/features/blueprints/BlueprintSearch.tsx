@@ -99,6 +99,7 @@ function getNextStatus(
 
 type BlueprintSearchProps = {
   initialBlueprint?: Blueprint
+  onBlueprintClosed?:()=>void
   onBlueprintSelected?: (blueprint:Blueprint)=>void
   warehouse?: Warehouse
   warehouseError?: string
@@ -124,6 +125,7 @@ type BlueprintSearchProps = {
 function BlueprintSearch({
   initialBlueprint,
   onBlueprintSelected,
+  onBlueprintClosed,
   warehouse,
   warehouseError,
   shopping,
@@ -336,11 +338,12 @@ function BlueprintSearch({
 
   return (
     <section data-tour-target="blueprint-catalog">
-      <div data-tour-target="blueprint-search"><SearchInput label="Search blueprints" value={searchText} onValueChange={setSearchText} placeholder="Search blueprints..."/></div>
+      <div data-tour-target="blueprint-search"><SearchInput label="Search blueprints" value={searchText} onValueChange={value=>{onBlueprintClosed?.();setSearchText(value)}} placeholder="Search blueprints..."/></div>
 
       <Datalist<Blueprint>
         initialDetailsItem={initialBlueprint}
         onRowClick={onBlueprintSelected}
+        onDetailsClose={onBlueprintClosed}
         title={`Blueprints (${filteredBlueprints.length})`}
         items={filteredBlueprints}
         columns={

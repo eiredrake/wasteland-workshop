@@ -6,3 +6,5 @@ Dockerfile*
 README.md
 .vscode
 *.log
+tests
+**/__pycache__

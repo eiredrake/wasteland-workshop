@@ -1,0 +1,43 @@
+# Offline-first PWA conversion
+
+## Inventory before implementation
+
+- Build: Vite 8 + React + TypeScript (`vite.config.ts`, `src/main.tsx`). Normal npm build remains the only production build process.
+- Navigation: App.tsx switches React views in memory, without a router. Previously refresh reset the view. Lightweight hash routes now retain each section and catalog Blueprint ID; no storage migration or new router dependency.
+- Hosting: existing multi-stage Dockerfile runs npm ci/build and copies dist into nginx:alpine. Existing Compose production service/port/network are unchanged.
+- Previous offline implementation: tools/ocr-assets.ts hand-built a worker and minimal manifest. It cached a manually enumerated shell and OCR assets; navigation was network-first, all navigation failures could receive HTML, and it lacked install/update UI, complete identity/colors/maskable metadata, and missing-asset protection in the server.
+- Branding: app header uses Wasteland Workshop text and rust/cream/charcoal theme; public hype-banner.png contains the branding. Existing app-icon PNGs and favicon were Vite placeholders. New PNGs reuse the app wordmark/colors, with all important maskable content inside the central safe area. Apple icon is 180px.
+- Data: existing localStorage USER_KEYS, restore journal, revision lock, and Web Locks remain unchanged. No IndexedDB/Dexie/backend/account/sync changes. Same origin is essential for keeping existing data.
+- Export/import: BackupRepository and Backup provide existing schema-4 JSON backups and restore; collection/shopping imports and history/warehouse/shopping JSON/CSV downloads are browser-only. File picker support varies; existing download fallback remains.
+- Catalogs: src/data/wasteland-blueprints.json imported into Blueprint catalog; resources/components come from bundled catalog modules, economics is local calculation/settings. All are part of the revisioned JS bundle. IDs and structures are unchanged.
+- Runtime network inventory: app source has no fetch/XHR/WebSocket/backend calls. Tesseract dynamically imports a bundled chunk, then reads same-origin worker, embedded-WASM core variants and English language data under /ocr/tesseract-7.0.0/. All are precached before offline-ready. No CDN model/font/script dependency. App uses system fonts, local images, Web Audio and device APIs.
+- Network-only operations: initial download, receiving new app versions, visiting external sharing/help links and recipient opening a shared URL. Browser-native share/camera/clipboard/file support depends on OS/browser permissions, not a server. Camera hardware cannot be simulated as physical device acceptance. Alarms retain existing browser/background limitations.
+- Version: package.json/lockfile supplies __APP_VERSION__; TEST_VERSION supplies the TEST banner and version.json. PWA revisions derive from emitted content, not a user-data schema or manually edited version list.
+
+## Build and cache policy
+
+vite-plugin-pwa 2 with Workbox generateSW runs inside normal Vite build and Docker. service-worker.js retains the existing URL and scope to upgrade existing installations. registerType=prompt: downloads finish before an update is offered; user chooses Update and reload. No forced reload during edits/timers. Checks occur on reconnect/foreground and hourly while visible/online. Closing all old clients also allows normal waiting-worker activation.
+
+The Workbox precache covers every generated JS chunk, HTML/CSS, JSON/reference/configuration, local fonts/icons/images, OCR worker and all three embedded WASM cores, English gzip data and license notices. 8MiB per-file limit accommodates OCR files; build errors detect oversized omitted entries. Source maps and Paint.NET source artwork are excluded. Initial caching is atomic at worker activation: an incomplete install does not replace the working worker. Offline readiness is shown only after an installed worker/cache is available.
+
+Navigation serves cached index.html without contacting the container. Hash routes include #/catalog/5328, #/collections, #/warehouse, #/builds and #/history. Unknown hashes default safely to Workshop. The online nginx SPA fallback supports extensionless navigation too. API paths, assets/ocr directories and paths ending in an extension are excluded from navigation fallback; missing files return errors rather than HTML-as-JS. HTML, worker, manifest and version metadata revalidate online. No runtime API caching is introduced.
+
+PWA Cache Storage contains distributed app assets only, never localStorage data. Workbox cleans its outdated precaches after activation. Existing legacy workshop-app caches are retained during rollout rather than risking a still-open old client; they are not used by the new worker. Clearing site/browser data or OS eviction can remove offline assets and user data: exported backups remain important. iOS installed home-screen storage may be isolated from an existing browser tab depending on OS behavior; export/import remains the existing transfer path, not synchronization.
+
+## Installation and recovery
+
+Use the same HTTPS production URL. Wait for “Ready for offline use” under Install app and offline status. Android/desktop: Install app from supported browser menu (or Install Workshop when the browser exposes it). iOS/iPadOS: Safari Share > Add to Home Screen > Open as Web App. No native application store package is introduced. Browser Firefox desktop may support offline operation without exposing a native install command.
+
+First installation and asset caching require connectivity; subsequent navigation/refresh/relaunch/OCR work with the host stopped. Updates need connectivity. Failed update downloads keep the previous worker usable. Apply updates after saving open edits; saved local data and absolute timer deadlines survive reload. Service workers/installation require a secure context (HTTPS, or localhost for tests). Do not delete site storage to solve update issues; retry online instead.
+
+## Validation
+
+Run npm test, npm run lint, npm run build and python tools/ui-pwa-check.py. The browser test uses the built dist, persistent isolated profiles, server shutdown before offline restart, cached-asset auditing, section/detail refresh, real OCR, exports and user-data checks. Docker validation builds the ordinary Dockerfile and runs an isolated nginx container; production is not changed by validation. Physical Android/iOS/Desktop install prompts and home-screen launch must also be checked on real supported devices; automation is not a claim of physical-device testing.
+
+### Recorded verification
+
+605 unit tests, lint and production build passed. Chromium, Firefox and Windows WebKit persistent-profile tests passed cold browser restart with the HTTP server stopped, all required section/detail refreshes, first-ever offline OCR and JSON export. Chromium additionally exercised queue creation, pause/resume, history completion, full backup export/restore, failed update retention and user-accepted update with unchanged saved data. Update controls were inspected at 320/360/390/768/1280px without overflow. A failed first installation (missing English data) reported failure and recovered on retry. Migration from the actual v1.0.0 legacy worker retained inventory and worked offline after activation. Physical device installation still needs Android/iPhone/iPad/desktop owner testing.
+
+Reproduce update tests by creating an alternate production build: set VITE_TEST_VERSION to a distinct value, run npm exec vite build -- --outDir tests/visual/actual/pwa-update-dist, unset that variable, then set PWA_UPDATE_DIST to that directory when running tools/ui-pwa-check.py. PWA_BROWSER=firefox or webkit selects the engine. WebKit automation's offline override bypasses its worker in this environment, so that engine uses the stopped HTTP server as the offline boundary. tools/ui-pwa-upgrade-check.py expects a copy of the old production dist in tests/visual/actual/pwa-legacy-dist; docker cp from a running old container is read-only. All test profiles and candidate screenshots are isolated and ignored by Git.
+
+Final ordinary Docker image workshop-pwa-qa:local (sha256:eff33e571d997bb2c4d76929756ac435e5105d028443a85a9939d44d3803e993) passed nginx fallback/404/cache-header checks and Chrome manifest parsing. Its QA container was stopped before a persistent-profile cold launch and Blueprint-detail refresh; both succeeded offline with HTTP cache cleared. The QA container was removed afterward. Existing production v1.0.0 was not changed. Full release/deployment tooling fixtures also passed.
