@@ -16,7 +16,7 @@
 
 ## Build and cache policy
 
-vite-plugin-pwa 2 with Workbox generateSW runs inside normal Vite build and Docker. service-worker.js retains the existing URL and scope to upgrade existing installations. registerType=prompt: downloads finish before an update is offered; user chooses Update and reload. No forced reload during edits/timers. Checks occur on reconnect/foreground and hourly while visible/online. Closing all old clients also allows normal waiting-worker activation.
+vite-plugin-pwa 2 with Workbox generateSW runs inside normal Vite build and Docker. service-worker.js retains the existing URL and scope to upgrade existing installations. registerType=prompt: downloads finish before an update is offered; user opens the always-available Update app menu screen and chooses Update and reload. The button appears only after the download finishes; update/install controls are not embedded in other sections. Check for updates supports a manual check. No forced reload during edits/timers. Checks occur on reconnect/foreground and hourly while visible/online. Closing all old clients also allows normal waiting-worker activation.
 
 The Workbox precache covers every generated JS chunk, HTML/CSS, JSON/reference/configuration, local fonts/icons/images, OCR worker and all three embedded WASM cores, English gzip data and license notices. 8MiB per-file limit accommodates OCR files; build errors detect oversized omitted entries. Source maps and Paint.NET source artwork are excluded. Initial caching is atomic at worker activation: an incomplete install does not replace the working worker. Offline readiness is shown only after an installed worker/cache is available.
 
@@ -26,7 +26,7 @@ PWA Cache Storage contains distributed app assets only, never localStorage data.
 
 ## Installation and recovery
 
-Use the same HTTPS production URL. Wait for “Ready for offline use” under Install app and offline status. Android/desktop: Install app from supported browser menu (or Install Workshop when the browser exposes it). iOS/iPadOS: Safari Share > Add to Home Screen > Open as Web App. No native application store package is introduced. Browser Firefox desktop may support offline operation without exposing a native install command.
+Use the same HTTPS production URL. Open the main menu > Update app. Wait for “Ready for offline use” under Install app and offline status. Android/desktop: Install app from supported browser menu (or Install Workshop when the browser exposes it). iOS/iPadOS: Safari Share > Add to Home Screen > Open as Web App. No native application store package is introduced. Browser Firefox desktop may support offline operation without exposing a native install command.
 
 First installation and asset caching require connectivity; subsequent navigation/refresh/relaunch/OCR work with the host stopped. Updates need connectivity. Failed update downloads keep the previous worker usable. Apply updates after saving open edits; saved local data and absolute timer deadlines survive reload. Service workers/installation require a secure context (HTTPS, or localhost for tests). Do not delete site storage to solve update issues; retry online instead.
 

@@ -566,6 +566,8 @@ function App() {
             Settings
           </button>
 
+          <button type="button" onClick={()=>navigateTo('update-app')}>Update app</button>
+
           <div className="menu-heading">Help</div>
           <details className="guided-tours-menu"><summary>Guided Tours</summary>
           {guidedTours.map(tour=><button key={tour.id} type="button" aria-label={tour.title+(tours.progress[tour.id]?.completed?' (completed)':'')} onClick={()=>{setTourBlueprint(undefined);tours.start(tour.id);setMenuOpen(false)}}>{tours.progress[tour.id]?.completed&&<span aria-hidden="true">✓ </span>}{tour.title}</button>)}
@@ -739,7 +741,7 @@ function App() {
       )}
 
       {tours.active&&<GuidedTour active={tours.active} onMove={tours.move} onExit={tours.exit} onFinish={tours.finish} canUseExisting={tours.step?.condition==='collection-selected'?!!activeBlueprintCollection:tours.step?.condition==='membership'?!!memberStatus:tours.step?.condition==='blueprint-selected'?!!tourBlueprint:tours.step?.condition==='queued'?buildQueue.builds.some(build=>build.blueprintId===tourBlueprint?.id&&build.status!=='Completed'):false}/>}
-      {import.meta.env.PROD&&<PwaStatus />}
+      {import.meta.env.PROD&&<PwaStatus visible={currentView==='update-app'} />}
       <ToastContainer
         toasts={toasts}
         onDismiss={dismissToast}

@@ -30,7 +30,7 @@ with tempfile.TemporaryDirectory(prefix='workshop-pwa-') as profile,sync_playwri
  browser=getattr(p,engine)
  context=browser.launch_persistent_context(profile,viewport={'width':390,'height':1000},accept_downloads=True);page=context.pages[0];page.set_default_timeout(60000)
  page.goto(base);page.evaluate(seed);page.evaluate("()=>localStorage.setItem('wasteland-workshop-guided-tours',JSON.stringify({version:1,progress:{'intro-blueprints':{viewed:true,completed:true},actions:{viewed:true,completed:true}}}))");page.reload()
- page.wait_for_function('navigator.serviceWorker.controller!==null');page.get_by_text('Install app and offline status',exact=True).click();expect(page.get_by_role('status')).to_contain_text('Ready for offline use')
+ page.wait_for_function('navigator.serviceWorker.controller!==null');nav(page,'Update app');page.get_by_text('Install app and offline status',exact=True).click();expect(page.get_by_role('status')).to_contain_text('Ready for offline use')
  manifest=page.evaluate("async()=>await (await fetch('/manifest.webmanifest')).json()")
  assert manifest['id']=='/' and manifest['scope']=='/' and manifest['display']=='standalone';assert any(i.get('purpose')=='maskable' for i in manifest['icons'])
  urls=cached(page)
@@ -78,13 +78,13 @@ with tempfile.TemporaryDirectory(prefix='workshop-pwa-') as profile,sync_playwri
   sw=(state['directory']/'service-worker.js').read_text(encoding='utf-8');state['fail']=re.search(r'url:"(assets/index-[^"]+\.js)"',sw)[1]
   page.evaluate('async()=>{const r=await navigator.serviceWorker.ready;await r.update()}');page.wait_for_function('''async()=>{const r=await navigator.serviceWorker.ready;return !r.installing&&!r.waiting}''');expect(page.get_by_role('button',name='Update and reload')).to_have_count(0)
   page.reload();expect(page.get_by_role('heading',name='Warehouse',exact=True)).to_be_visible();print('Failed update retained working app and data.',flush=True)
-  state['fail']=None;page.evaluate('async()=>{const r=await navigator.serviceWorker.ready;await r.update()}');expect(page.get_by_role('button',name='Update and reload')).to_be_visible(timeout=60000)
+  state['fail']=None;nav(page,'Update app');page.get_by_role('button',name='Check for updates',exact=True).click();expect(page.get_by_role('button',name='Update and reload')).to_be_visible(timeout=60000)
   for width in [320,360,390,768,1280]:
    page.set_viewport_size({'width':width,'height':1000});page.get_by_role('button',name='Update and reload').scroll_into_view_if_needed();assert page.evaluate('document.documentElement.scrollWidth<=innerWidth');page.screenshot(path=str(out/f'update-{engine}-{width}.png'))
   # Waiting update must not activate before the user requests it.
   assert page.evaluate('async()=>!!(await navigator.serviceWorker.ready).waiting')
-  page.get_by_role('button',name='Update and reload').click();page.wait_for_function('async()=>!(await navigator.serviceWorker.ready).waiting');page.reload();expect(page.get_by_role('heading',name='Warehouse',exact=True)).to_be_visible()
+  nav(page,'Work Queue');expect(page.get_by_role('button',name='Update and reload')).to_have_count(0);nav(page,'Update app');page.get_by_role('button',name='Update and reload').click();page.wait_for_function('async()=>!(await navigator.serviceWorker.ready).waiting');page.reload();expect(page.get_by_role('heading',name='Update app',exact=True)).to_be_visible()
   assert page.evaluate('keys=>Object.fromEntries(keys.map(k=>[k,localStorage.getItem(k)]))',stored_keys)==before
-  server.shutdown();server.server_close();context.set_offline(True);page.reload();expect(page.get_by_role('heading',name='Warehouse',exact=True)).to_be_visible();print('Accepted update survived server shutdown and preserved user data.',flush=True)
+  server.shutdown();server.server_close();context.set_offline(True);page.reload();expect(page.get_by_role('heading',name='Update app',exact=True)).to_be_visible();print('Accepted update survived server shutdown and preserved user data.',flush=True)
  context.close()
 (out/(engine+'-result.json')).write_text(json.dumps({'offlineColdRestart':True,'serverStopped':True,'allSectionsRefresh':True,'firstOfflineOcr':True,'dataPreserved':True,'externalRequests':external,'cachedAssets':urls,'updateTested':bool(update)},indent=2),encoding='utf-8')
