@@ -11,7 +11,7 @@ import { credits, duration } from './BuildFormatting'
 import '../blueprints/BlueprintCollectionsView.css'
 import './BuildQueueView.css'
 import '../actions/ActionConfigurationForm.css'
-export default function BuildQueueView({builds,apply,onTimer,error,children}:{builds:BuildQueue;apply:(operation:(queue:BuildQueue)=>BuildQueue)=>boolean;onTimer:(id:string)=>void;error:string;children?:ReactNode}) {
+export default function BuildQueueView({builds,apply,onTimer,onBlueprint,error,children}:{builds:BuildQueue;apply:(operation:(queue:BuildQueue)=>BuildQueue)=>boolean;onTimer:(id:string)=>void;onBlueprint?:(id:number)=>void;error:string;children?:ReactNode}) {
  const [selected,setSelected]=useState<string[]>([]),[detailsId,setDetailsId]=useState<string>(),[deleting,setDeleting]=useState<string[]>()
  const pending=builds.filter(activity=>activity.status!=='Completed'),active=workingBuild(builds),details=pending.find(activity=>activity.id===detailsId)
  const movable=pending.filter(activity=>activity.status!=='Working').map(activity=>activity.id),selection=selected.filter(id=>movable.includes(id))
@@ -23,7 +23,7 @@ export default function BuildQueueView({builds,apply,onTimer,error,children}:{bu
   const working=build.status==='Working',blocked=!!active&&!working,position=movable.indexOf(build.id)
   const timerVisible=working||(!active&&index===0)
   return <li className={'blueprint-collection-card build-card build-card-'+build.status.toLowerCase()} key={build.id}>
-   <div className="build-row-heading"><label className="build-checkbox"><input type="checkbox" checked={selection.includes(build.id)} disabled={working} aria-label={'Select Activity '+(index+1)+': '+build.blueprintName} onChange={event=>setSelected(event.target.checked?[...selection,build.id]:selection.filter(id=>id!==build.id))}/></label><strong>{build.blueprintName}</strong>
+   <div className="build-row-heading"><label className="build-checkbox"><input type="checkbox" checked={selection.includes(build.id)} disabled={working} aria-label={'Select Activity '+(index+1)+': '+build.blueprintName} onChange={event=>setSelected(event.target.checked?[...selection,build.id]:selection.filter(id=>id!==build.id))}/></label>{build.sourceType!=='Action'&&build.blueprintId!==undefined&&onBlueprint?<button type="button" className="build-name" onClick={()=>onBlueprint(build.blueprintId!)} aria-label={'View Blueprint '+build.blueprintName}>{build.blueprintName}</button>:<strong>{build.blueprintName}</strong>}
    <BuildStatusBadge readOnly={timerVisible} actionOverride="move to top and start" build={build} blocked={blocked} onToggle={()=>apply(queue=>startBuildAtTop(queue,build.id))}/></div>
    {timerVisible&&<BuildCraftTimer build={build} blocked={blocked} onToggle={()=>apply(queue=>toggleBuildStatus(queue,build.id))} onSettings={()=>onTimer(build.id)}/>}
    <details open={working}><summary className="work-summary"><span>{duration(build.timer.originalDurationMs)}</span>{build.recipe.craftingMindCost>0&&<span>{build.recipe.craftingMindCost} Mind</span>}{(build.recipe.craftingResolveCost??0)>0&&<span>{build.recipe.craftingResolveCost} Resolve</span>}<span>Details</span></summary>

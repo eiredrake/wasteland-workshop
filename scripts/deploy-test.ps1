@@ -1,7 +1,11 @@
 [CmdletBinding()]
-param([switch]$Preview)
+param([switch]$Preview, [string]$TestVersion, [string]$VersionStatePath)
 . "$PSScriptRoot/common.ps1"
+Assert-ScannerBranch
 $number = Get-AppVersion
+if (!$VersionStatePath) { $VersionStatePath = Join-Path $repo 'test-version.json' }
+if (!$TestVersion) { $TestVersion = (Get-Content -LiteralPath $VersionStatePath -Raw | ConvertFrom-Json).nextVersion }
+$TestVersion = Resolve-Version $TestVersion
 $image = 'workshop-test:latest'
 function Invoke-TestDockerProbe {
     # Windows PowerShell 5.1 promotes native stderr to terminating errors under Stop.
@@ -18,17 +22,22 @@ try {
     $service = $config.services.'workshop-test'
     if ($config.name -cne 'workshop-test' -or $service.container_name -cne 'workshop-test' -or $service.image -cne $image) { throw 'Unexpected test Compose target.' }
     $null = Invoke-Checked docker @('network', 'inspect', 'proxy-tier')
-    $existing = Invoke-TestDockerProbe inspect workshop-test
+    $existing = Invoke-TestDockerProbe container inspect workshop-test
     if ($LASTEXITCODE -eq 0) {
         $app = @($existing | ConvertFrom-Json)[0]
-        if ($app.Config.Labels.'com.docker.compose.project' -cne 'workshop-test') { throw 'Existing test container belongs to another Compose project.' }
+        $projectLabel = $null
+        if ($null -ne $app.Config.Labels) { $projectLabel = $app.Config.Labels.PSObject.Properties['com.docker.compose.project'] }
+        if ($null -eq $projectLabel) { throw 'Existing workshop-test container has no Compose ownership label. Inspect it before replacing it.' }
+        if ($projectLabel.Value -cne 'workshop-test') { throw 'Existing test container belongs to another Compose project.' }
     }
-    Write-Host "Build current working tree ($number) and deploy $image to https://workshop-test.foundationsrpg.org via proxy-tier, container port 80."
+    Write-Host "Build TEST v$TestVersion (app $number) and deploy $image to https://workshop-test.foundationsrpg.org via proxy-tier, container port 80."
     if ($Preview) { Write-Host 'Preview passed. No images or containers changed.'; return }
-    Invoke-Checked docker @('build', '--label', "org.opencontainers.image.version=$number", '-t', $image, '.')
+    Assert-ScannerBranch
+    Invoke-Checked docker @('build', '--build-arg', "TEST_VERSION=$TestVersion", '--label', "org.opencontainers.image.version=$number", '-t', $image, '.')
     $raw = & docker image inspect $image
     if ($LASTEXITCODE -ne 0) { throw 'Cannot inspect built test image.' }
     $built = @($raw | ConvertFrom-Json)[0]
+    Assert-ScannerBranch
     Invoke-Checked docker ($compose + @('up', '-d', '--no-deps', '--no-build', '--pull', 'never', 'workshop-test'))
     for ($attempt=0; $attempt -lt 30; $attempt++) {
         # Probe inside the container so this also works with a remote Docker context.
@@ -36,10 +45,14 @@ try {
         if ($LASTEXITCODE -eq 0) {
             try {
                 $served = $raw | ConvertFrom-Json
-                $runningRaw = & docker inspect workshop-test
+                $runningRaw = & docker container inspect workshop-test
                 if ($LASTEXITCODE -eq 0) {
                     $running = @($runningRaw | ConvertFrom-Json)[0]
-                    if ($served.version -ceq $number -and $running.Image -ceq $built.Id -and $running.State.Running) {
+                    if ($served.version -ceq $number -and $served.testVersion -ceq $TestVersion -and $running.Image -ceq $built.Id -and $running.State.Running) {
+                        $parts = $TestVersion.Split('.')
+                        $nextVersion = "$($parts[0]).$($parts[1]).$([int]$parts[2]+1)"
+                        @{nextVersion=$nextVersion} | ConvertTo-Json | Set-Content -LiteralPath $VersionStatePath -Encoding utf8
+                        Write-Host "Deployed TEST v$TestVersion. Next TEST deployment: v$nextVersion."
                         Write-Host 'Healthy: workshop-test:80. Open https://workshop-test.foundationsrpg.org on your device.'
                         return
                     }

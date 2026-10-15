@@ -96,3 +96,8 @@
 :root main .blueprint-build-button.blueprint-build-queued { background:var(--color-primary); color:var(--color-text); border-color:var(--color-primary); white-space:normal; line-height:1.2; }
 :root main .blueprint-build-button.blueprint-build-queued:hover:not(:disabled) { background:var(--color-primary-hover); border-color:var(--color-primary-hover); }
 :root main .blueprint-build-button.blueprint-build-queued:active:not(:disabled) { filter:brightness(.95); }
+
+:root main .primary-button.primary-button-cream { color:var(--color-text); }
+
+/* Keep native select surfaces readable in WebKit while retaining native keyboard/picker behavior. */
+:root main select { color-scheme:dark; }

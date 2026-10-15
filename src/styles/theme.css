@@ -1,5 +1,6 @@
 :root {
   /* Main surfaces */
+  --color-camera-background: #000;
   --color-background: #181816;
   --color-surface: #242421;
   --color-surface-raised: #30302b;

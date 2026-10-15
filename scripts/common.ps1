@@ -13,3 +13,10 @@ function Resolve-Version([string]$Value) {
     if ($Value -cnotmatch '^v?(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$') { throw 'Use a version such as 0.1.0 or v0.1.0.' }
     $Value.TrimStart('v')
 }
+
+function Assert-ScannerBranch {
+    $branch = & git -C $repo branch --show-current
+    if ($LASTEXITCODE -ne 0) { throw 'Cannot verify active Git branch. Build/deployment stopped.' }
+    if ($branch -cne 'scanner-implementation') { throw "DEV scanner build/deployment requires scanner-implementation. Active branch: $branch" }
+    Write-Host "Verified active branch: $branch"
+}

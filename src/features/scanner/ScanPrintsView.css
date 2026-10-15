@@ -1,0 +1,12 @@
+.scan-prints-entry-actions { display:flex; flex-wrap:wrap; flex-direction:row; justify-content:center; align-items:center; gap:.75rem; margin:2rem 0; }
+
+.scanner-diagnostic-actions { display:flex; flex-wrap:wrap; gap:.75rem; margin:1rem 0; }
+
+.scan-selected-filename { max-width:100%; overflow-wrap:anywhere; text-align:center; }
+
+.scanner-match-candidates { display:flex; flex-direction:column; gap:.75rem; margin-top:1rem; }
+
+.scanner-ocr-input { margin:1rem 0; overflow-wrap:anywhere; }
+.scanner-ocr-input img { display:block; width:100%; height:auto; margin:1rem 0; }
+
+.scanner-manual-dialog .searchable-picker-options { position:static; max-height:min(16rem, 30dvh); }

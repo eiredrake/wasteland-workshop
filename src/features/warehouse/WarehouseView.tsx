@@ -1,9 +1,11 @@
+import ExportDialog from '../../components/ExportDialog/ExportDialog'
+import {createWarehouseExport} from './WarehouseExport'
 import RemoveBadge from '../../components/RemoveBadge/RemoveBadge'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import { DEFAULT_EXPIRATION_WARNING_DAYS } from '../settings/WarehouseSettings'
 import { expirationStatus, lotKey } from './Expiration'
 import { useCalendarDay } from './useCalendarDay'
-import { useState } from 'react'
+import { useRef,useState } from 'react'
 import SearchablePicker from '../../components/SearchablePicker/SearchablePicker'
 import { inventoryCatalog, inventoryItemById, type InventoryItem } from './InventoryCatalog'
 import { addInventoryQuantity, changeInventoryExpiration, changeCredits, setInventoryQuantity, subtractInventoryQuantity } from './WarehouseService'
@@ -14,6 +16,8 @@ export default function WarehouseView({warehouse,apply,error,onAdded,warningDays
   onAdded:(message:string)=>void; warningDays?:number; warehouse:Warehouse; apply:(operation:(warehouse:Warehouse)=>Warehouse)=>boolean; error:string
 }) {
   const today=useCalendarDay()
+  const [exporting,setExporting]=useState(false),[exportStatus,setExportStatus]=useState(''),exportButton=useRef<HTMLButtonElement>(null)
+  const closeExport=()=>{setExporting(false);requestAnimationFrame(()=>exportButton.current?.focus())}
   const [expirationDate,setExpirationDate]=useState(''), [sort,setSort]=useState('Name')
   const [selected,setSelected]=useState<InventoryItem>(), [quantity,setQuantity]=useState('1'), [credits,setCredits]=useState(''), [search,setSearch]=useState(''), [category,setCategory]=useState('All'), [expirationFilter,setExpirationFilter]=useState('Unexpired')
   const rows=warehouse.entries.map(entry=>({...entry,item:inventoryItemById.get(entry.itemId) ?? {itemId:entry.itemId,name:`Unknown Item #${entry.itemId}`,kind:'unavailable',category:'Items'}})).filter(row => (category==='All'||row.item.category===category)&&(expirationFilter==='All'||(expirationFilter==='Expired'?expirationStatus(row.itemId,row.expirationDate,warningDays,today)==='expired':expirationStatus(row.itemId,row.expirationDate,warningDays,today)!=='expired'))&&row.item.name.toLowerCase().includes(search.trim().toLowerCase())).sort((a,b)=>{
@@ -28,7 +32,7 @@ export default function WarehouseView({warehouse,apply,error,onAdded,warningDays
     if (apply(current=>changeCredits(current,action,Number(credits)))) setCredits('')
   }
   return <section data-tour-target="warehouse" className="warehouse-page">
-    <h2>Warehouse</h2><p>What you have on hand. Inventory changes only when you update it here.</p>
+    <h2>Warehouse</h2><button ref={exportButton} type="button" className="secondary-button" disabled={!!error} onClick={()=>{setExportStatus('');setExporting(true)}}>Export Warehouse</button>{exportStatus&&<p role="status">{exportStatus}</p>}<p>What you have on hand. Inventory changes only when you update it here.</p>
     {error && <p role="alert">{error}</p>}
     <fieldset disabled={!!error} className="warehouse-controls">
       <section data-tour-target="warehouse-credits" className="warehouse-credits"><h3>Credits on hand</h3><strong className="warehouse-balance">{formatCredits(warehouse.credits)}</strong>
@@ -46,9 +50,9 @@ export default function WarehouseView({warehouse,apply,error,onAdded,warningDays
         <button className="primary-button" type="submit" disabled={!selected||!quantity.trim()||Number(quantity)<=0||(selected.kind!=='currency'&&!expirationDate)}>Add to Warehouse</button>
       </form>
       <div data-tour-target="warehouse-filters" className="warehouse-filters"><SearchInput id="warehouse-search" label="Search inventory" showLabel value={search} onValueChange={setSearch} placeholder="Find what you own…"/>
-        <div><label htmlFor="warehouse-expiration-filter">Expiration</label><select id="warehouse-expiration-filter" value={expirationFilter} onChange={event=>setExpirationFilter(event.target.value)}><option>Unexpired</option><option>Expired</option><option>All</option></select></div>
-        <div><label htmlFor="warehouse-category">Type</label><select id="warehouse-category" value={category} onChange={event=>setCategory(event.target.value)}><option value="All">All types</option><option>Resources</option><option>Items</option></select></div>
-        <div><label htmlFor="warehouse-sort">Sort by</label><select id="warehouse-sort" value={sort} onChange={event=>setSort(event.target.value)}><option>Name</option><option>Expiration: soonest first</option><option>Expiration: latest first</option></select></div>
+        <div><label htmlFor="warehouse-expiration-filter">Expiration</label><select id="warehouse-expiration-filter" value={expirationFilter} onChange={event=>setExpirationFilter(event.target.value)}><option>All</option><option>Expired</option><option>Unexpired</option></select></div>
+        <div><label htmlFor="warehouse-category">Type</label><select id="warehouse-category" value={category} onChange={event=>setCategory(event.target.value)}><option value="All">All types</option><option>Items</option><option>Resources</option></select></div>
+        <div><label htmlFor="warehouse-sort">Sort by</label><select id="warehouse-sort" value={sort} onChange={event=>setSort(event.target.value)}><option>Expiration: latest first</option><option>Expiration: soonest first</option><option>Name</option></select></div>
       </div>
       <p>{warehouse.entries.length} inventory lots</p>
       <ul data-tour-target="warehouse-inventory" className="warehouse-list">{rows.map(row=><li key={lotKey(row.itemId,row.expirationDate)} className={'warehouse-lot-'+expirationStatus(row.itemId,row.expirationDate,warningDays,today)}>
@@ -65,5 +69,6 @@ export default function WarehouseView({warehouse,apply,error,onAdded,warningDays
       {!rows.length&&<p>{warehouse.entries.length?'No matching inventory.':'Your Warehouse is empty. Add what you own above.'}</p>}
       <p className="warehouse-hint">Edit On hand to set a quantity. Edit a date to merge it with any matching lot. Undated older inventory needs a date before it counts toward crafting. Zero removes the row. Adding or removing items does not change Credits.</p>
     </fieldset>
+    {exporting&&<ExportDialog title="Export Warehouse" subject="Warehouse" description="Export all inventory lots, including expired and undated items, and credits on hand. Current filters do not limit the export." createFile={format=>createWarehouseExport(warehouse,format)} onClose={closeExport} onExported={setExportStatus}/>}
   </section>
 }

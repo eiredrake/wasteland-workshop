@@ -1,3 +1,4 @@
+import {alphabeticalOptions} from '../../components/OptionOrder'
 import { useState } from 'react'
 import type { Blueprint } from '../blueprints/Blueprint'
 import type { ShoppingList } from './ShoppingList'
@@ -20,7 +21,7 @@ export default function BlueprintShoppingAction({ blueprint, shopping }: { bluep
       <label htmlFor="blueprint-shopping-target">Shopping List</label>
       <select id="blueprint-shopping-target" value={targetId} onChange={event => setSelectedId(event.target.value)}>
         <option value="">Select a list</option>
-        {shopping.lists.map(list => <option key={list.id} value={list.id}>{list.name}{list.id === shopping.activeListId ? ' (Active)' : ''}</option>)}
+        {alphabeticalOptions(shopping.lists,list=>list.name).map(list => <option key={list.id} value={list.id}>{list.name}{list.id === shopping.activeListId ? ' (Active)' : ''}</option>)}
       </select>
       <button type="button" className="primary-button" disabled={!targetId || !hasComponents}
         onClick={() => shopping.onAddComponents(blueprint, targetId)}>Add All Components</button>

@@ -84,4 +84,34 @@ Run `python tools/ui-tour-check.py` for isolated onboarding/replay checks and 8 
 
 AppShare reuses native dialog/button foundations. Its black-on-white QR with four-module quiet zone is a functional scanning asset. Keep the readable URL, selectable clipboard fallback and keyboard dismissal/focus restoration. Run `python tools/ui-app-share-check.py` for responsive layouts, offline display, independent decoding and two individually reviewed comparisons. Physical second-phone scanning remains required for release signoff.
 
-TestVersionBanner owns the full-width green TEST VERSION strip above the shared app header. It uses runtime exact hostname matching for workshop-test.foundationsrpg.org and workbench-test.foundationsrpg.org; the same merged build remains unmarked on production. It is informational, outside the constrained main column and present across every view.
+TestVersionBanner owns the full-width green TEST VERSION strip above the shared app header. It uses runtime exact hostname matching for workshop-test.foundationsrpg.org; the same merged build remains unmarked on production. It is informational, outside the constrained main column and present across every view.
+
+ConfirmationDialog supports success/danger tones and a single OK action for result messages, retaining its destructive-confirmation defaults. Choose Image uses the canonical primary-button-cream variant, gold focus and centered layout. Picker acquisition accepts every returned File; decoding and recognition failures are separate. Accept is a picker hint, never application validation.
+
+ImagePicker is the shared native file-acquisition control, with its own code/CSS folder, canonical orange/cream button and unfiltered File callback. Scan Prints shows centered, horizontal Choose Image and Scan Image acquisition buttons. Scan Image opens the camera; only Confirm Image submits OCR. Both sources enter the same static review. Do not infer native picker providers or activate a camera from returned Files.
+
+LoadingDialog owns the accessible native loading modal and indeterminate gold spinner, with reduced-motion support and no progress percentage. OCR status/retry uses shared ConfirmationDialog; scanner diagnostics use existing Settings/select/disclosure/button styling. FILE SELECTED remains acquisition success, never recognition success.
+
+Static OCR reuses LoadingDialog for Scanning Image and green/red ConfirmationDialog for actual matching outcomes. See SCANNER_UNIFIED_ACQUISITION.md for current acquisition/review behavior and OCR_TESSERACT_IMPLEMENTATION.md for historical provider work.
+
+
+## Unified scanner viewport
+
+The authorized static review/camera pattern uses ScannerViewport.css and the camera-background theme token: a black rectangular viewport, stationary gold/yellow dotted target with a dark outline, and source image beneath it. Camera target is a native accessible capture button; static target is noninteractive decoration. BackButton labels To Collections. Ordinary actions use canonical primary/secondary buttons and native themed camera select.
+
+Only the static image pans/zooms; the target remains fixed. Pointer capture and touch-action:none are scoped to the review viewport. Outside it, page scrolling remains normal. Zoom In/Out, Reset View and keyboard arrows/+/-/Home provide alternatives to touch gestures. No adjustable crop handles. Confirm Image is the only OCR submission action. CAMERA ERROR and IMAGE ERROR use the shared danger dialog.
+
+Run tools/ui-unified-scanner-check.py for file/camera/static review/gesture/confirmation checks. Native WebKit selects use the existing dark color-scheme foundation.
+
+
+## Native camera acquisition (TEST v0.0.13)
+
+Scan Image reuses ImagePicker with image/* and capture=environment to request the operating system's rear-camera still-photo interface. Choose Image retains its unrestricted input with no accept/capture attributes. Both return a File to the same full-read, orientation normalization, static review, Confirm Image, OCR and acquisition flow. Retake reopens native capture; cancel retains the existing review. The OS controls focus and capture UI; unsupported desktop browsers may show a file picker. Scan Prints no longer opens a getUserMedia preview or processes live camera frames.
+
+
+ExportDialog is the shared native themed JSON/CSV format chooser for Work History, Warehouse and Shopping Lists. It reuses canonical select/button/dialog foundations and SaveFile for supported save-location pickers, with normal Downloads fallback elsewhere. Keep cancellation nonmutating, errors recoverable, save progress truthful and focus restored to the launching action.
+
+
+## Dropdown ordering
+
+All named dropdown and combobox options are alphabetical ascending by the displayed name. SearchablePicker enforces this through alphabeticalOptions; dynamic native selects use the same helper. Compare case-insensitively, ignore punctuation for names such as quoted print titles, and use natural ascending numbers. Sort copies; never reorder catalogs, change selected IDs, or replace an Action's defined default. Nonselectable/default prompts such as Select a list remain first. Numeric markup values remain ascending. Keep static category/sort/toggle/format choices alphabetical as well.
