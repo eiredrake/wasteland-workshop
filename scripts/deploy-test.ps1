@@ -1,7 +1,7 @@
 [CmdletBinding()]
-param([switch]$Preview, [string]$TestVersion, [string]$VersionStatePath)
+param([switch]$Preview, [string]$TestVersion, [string]$VersionStatePath, [string]$ExpectedBranch='scanner-implementation')
 . "$PSScriptRoot/common.ps1"
-Assert-ScannerBranch
+Assert-ScannerBranch -ExpectedBranch $ExpectedBranch
 $number = Get-AppVersion
 if (!$VersionStatePath) { $VersionStatePath = Join-Path $repo 'test-version.json' }
 if (!$TestVersion) { $TestVersion = (Get-Content -LiteralPath $VersionStatePath -Raw | ConvertFrom-Json).nextVersion }
@@ -32,12 +32,12 @@ try {
     }
     Write-Host "Build TEST v$TestVersion (app $number) and deploy $image to https://workshop-test.foundationsrpg.org via proxy-tier, container port 80."
     if ($Preview) { Write-Host 'Preview passed. No images or containers changed.'; return }
-    Assert-ScannerBranch
+    Assert-ScannerBranch -ExpectedBranch $ExpectedBranch
     Invoke-Checked docker @('build', '--build-arg', "TEST_VERSION=$TestVersion", '--label', "org.opencontainers.image.version=$number", '-t', $image, '.')
     $raw = & docker image inspect $image
     if ($LASTEXITCODE -ne 0) { throw 'Cannot inspect built test image.' }
     $built = @($raw | ConvertFrom-Json)[0]
-    Assert-ScannerBranch
+    Assert-ScannerBranch -ExpectedBranch $ExpectedBranch
     Invoke-Checked docker ($compose + @('up', '-d', '--no-deps', '--no-build', '--pull', 'never', 'workshop-test'))
     for ($attempt=0; $attempt -lt 30; $attempt++) {
         # Probe inside the container so this also works with a remote Docker context.

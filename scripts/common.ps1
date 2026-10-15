@@ -15,8 +15,9 @@ function Resolve-Version([string]$Value) {
 }
 
 function Assert-ScannerBranch {
+    param([string]$ExpectedBranch = 'scanner-implementation')
     $branch = & git -C $repo branch --show-current
     if ($LASTEXITCODE -ne 0) { throw 'Cannot verify active Git branch. Build/deployment stopped.' }
-    if ($branch -cne 'scanner-implementation') { throw "DEV scanner build/deployment requires scanner-implementation. Active branch: $branch" }
+    if ($branch -cne $ExpectedBranch) { throw "DEV scanner build/deployment requires $ExpectedBranch. Active branch: $branch" }
     Write-Host "Verified active branch: $branch"
 }

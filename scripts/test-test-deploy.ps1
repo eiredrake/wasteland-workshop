@@ -61,6 +61,11 @@ foreach ($branch in @('main','development','')) {
     try { & "$PSScriptRoot/dev-build.ps1" } catch { $rejected = $_.Exception.Message -like '*requires scanner-implementation*' }
     if (!$rejected) { throw 'DEV build allowed wrong/detached branch.' }
 }
+$global:testScannerBranch = 'offline-first-pwa'
+& "$PSScriptRoot/deploy-test.ps1" -ExpectedBranch offline-first-pwa -VersionStatePath $versionState -Preview
+$rejected=$false
+try { & "$PSScriptRoot/deploy-test.ps1" -ExpectedBranch scanner-implementation -VersionStatePath $versionState -Preview } catch { $rejected=$_.Exception.Message -like '*requires scanner-implementation*' }
+if (!$rejected) { throw 'Explicit branch mismatch was allowed.' }
 $global:testScannerBranch = 'scanner-implementation'
 & "$PSScriptRoot/deploy-test.ps1" -VersionStatePath $versionState -Preview
 if ($global:testDeployBuilds -or $global:testDeployUpdates) { throw 'Preview mutated Docker.' }
