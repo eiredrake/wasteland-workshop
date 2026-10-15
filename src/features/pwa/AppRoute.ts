@@ -1,4 +1,4 @@
-export const appViews=['workshop','catalog','collections','scan-prints','warehouse','shopping','builds','history','timer','settings','update-app','about','algorithm'] as const
+export const appViews=['workshop','catalog','collections','scan-prints','warehouse','shopping','builds','history','timer','settings','install-app','update-app','about','algorithm'] as const
 export type AppView=typeof appViews[number]
 export function readAppRoute(hash:string){
  const [view,id]=hash.replace(/^#\/?/,'').split('/')

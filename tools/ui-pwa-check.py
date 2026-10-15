@@ -30,7 +30,7 @@ with tempfile.TemporaryDirectory(prefix='workshop-pwa-') as profile,sync_playwri
  browser=getattr(p,engine)
  context=browser.launch_persistent_context(profile,viewport={'width':390,'height':1000},accept_downloads=True);page=context.pages[0];page.set_default_timeout(60000)
  page.goto(base);page.evaluate(seed);page.evaluate("()=>localStorage.setItem('wasteland-workshop-guided-tours',JSON.stringify({version:1,progress:{'intro-blueprints':{viewed:true,completed:true},actions:{viewed:true,completed:true}}}))");page.reload()
- page.wait_for_function('navigator.serviceWorker.controller!==null');nav(page,'Update app');page.get_by_text('Install app and offline status',exact=True).click();expect(page.get_by_role('status')).to_contain_text('Ready for offline use')
+ page.wait_for_function('navigator.serviceWorker.controller!==null');nav(page,'Update app');expect(page.get_by_text('Ready for offline use.',exact=True)).to_be_visible()
  manifest=page.evaluate("async()=>await (await fetch('/manifest.webmanifest')).json()")
  assert manifest['id']=='/' and manifest['scope']=='/' and manifest['display']=='standalone';assert any(i.get('purpose')=='maskable' for i in manifest['icons'])
  urls=cached(page)

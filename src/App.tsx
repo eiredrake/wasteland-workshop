@@ -557,6 +557,8 @@ function App() {
             Timer
           </button>
 
+          <div className="menu-heading">Application</div>
+          <button type="button" onClick={()=>navigateTo('install-app')}>Install app</button>
           <button
             type="button"
             onClick={() =>
@@ -741,7 +743,7 @@ function App() {
       )}
 
       {tours.active&&<GuidedTour active={tours.active} onMove={tours.move} onExit={tours.exit} onFinish={tours.finish} canUseExisting={tours.step?.condition==='collection-selected'?!!activeBlueprintCollection:tours.step?.condition==='membership'?!!memberStatus:tours.step?.condition==='blueprint-selected'?!!tourBlueprint:tours.step?.condition==='queued'?buildQueue.builds.some(build=>build.blueprintId===tourBlueprint?.id&&build.status!=='Completed'):false}/>}
-      {import.meta.env.PROD&&<PwaStatus visible={currentView==='update-app'} />}
+      <PwaStatus screen={currentView==='install-app'?'install':currentView==='update-app'?'update':undefined} />
       <ToastContainer
         toasts={toasts}
         onDismiss={dismissToast}

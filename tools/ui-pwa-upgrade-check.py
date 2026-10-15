@@ -16,9 +16,9 @@ s=ThreadingHTTPServer(('127.0.0.1',0),H);threading.Thread(target=s.serve_forever
 with sync_playwright() as p:
  b=p.chromium.launch()
  # First install fails atomically if a required model is unavailable.
- c=b.new_context();page=c.new_page();page.set_default_timeout(15000);state['fail']=True;page.goto(base);page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Update app',exact=True).click();page.get_by_text('Install app and offline status',exact=True).click();expect(page.get_by_role('status')).to_contain_text('could not finish',timeout=30000)
+ c=b.new_context();page=c.new_page();page.set_default_timeout(15000);state['fail']=True;page.goto(base);page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Update app',exact=True).click();expect(page.get_by_role('status')).to_contain_text('could not finish',timeout=30000)
  assert page.evaluate('navigator.serviceWorker.controller===null')
- state['fail']=False;page.reload();page.wait_for_function('navigator.serviceWorker.controller!==null',timeout=30000);page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Update app',exact=True).click();page.get_by_text('Install app and offline status',exact=True).click();expect(page.get_by_role('status')).to_contain_text('Ready for offline use');c.close();print('Failed first installation reports failure and recovers online.',flush=True)
+ state['fail']=False;page.reload();page.wait_for_function('navigator.serviceWorker.controller!==null',timeout=30000);page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Update app',exact=True).click();expect(page.get_by_text('Ready for offline use.',exact=True)).to_be_visible();c.close();print('Failed first installation reports failure and recovers online.',flush=True)
  state['dir']=root/'tests/visual/actual/pwa-legacy-dist';c=b.new_context();page=c.new_page();page.set_default_timeout(30000);page.goto(base);page.wait_for_function('navigator.serviceWorker.controller!==null')
  page.evaluate("()=>localStorage.setItem('wasteland-workshop-warehouse',JSON.stringify({version:2,credits:47,entries:[{itemId:3866,quantity:7}]}))");before=page.evaluate("localStorage.getItem('wasteland-workshop-warehouse')")
  assert any(k.startswith('workshop-app-') for k in page.evaluate('caches.keys()'))
