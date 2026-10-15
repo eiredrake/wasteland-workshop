@@ -1,10 +1,12 @@
+import {runningInstalledApp,isWorkshopApp} from './InstalledApp'
 import { useEffect, useRef, useState } from 'react'
 import { useRegisterSW } from 'virtual:pwa-register/react'
 import InformationPanel from '../../components/InformationPanel/InformationPanel'
 
 type InstallPrompt = Event & { prompt: () => Promise<void>; userChoice: Promise<{ outcome: string }> }
-export default function PwaStatus({screen}:{screen?:'install'|'update'}) {
- const [installed,setInstalled]=useState(()=>window.matchMedia('(display-mode: standalone)').matches||(navigator as Navigator&{standalone?:boolean}).standalone===true)
+export default function PwaStatus({screen,onInstalledChange}:{screen?:'install'|'update';onInstalledChange:(installed:boolean)=>void}) {
+ const [installed,setInstalled]=useState(runningInstalledApp)
+ const confirmedInstall=useRef(false)
  const [installMessage,setInstallMessage]=useState('')
  const apple=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)
  const [install,setInstall]=useState<InstallPrompt>()
@@ -12,6 +14,7 @@ export default function PwaStatus({screen}:{screen?:'install'|'update'}) {
  const [checking,setChecking]=useState(false)
  const [checkMessage,setCheckMessage]=useState('')
  const registration=useRef<ServiceWorkerRegistration>(undefined)
+ useEffect(()=>{onInstalledChange(installed)},[installed,onInstalledChange])
  const {offlineReady:[ready,setReady],needRefresh:[update],updateServiceWorker}=useRegisterSW({immediate:true,
   onRegisteredSW(_url,value){registration.current=value;if(value?.active)setReady(true)
    const watch=()=>{const worker=value?.installing;worker?.addEventListener('statechange',()=>{if(worker.state==='redundant'&&!value?.active)setError('Offline setup could not finish. Reconnect and reload to retry. Existing data is kept.')})}
@@ -26,13 +29,20 @@ export default function PwaStatus({screen}:{screen?:'install'|'update'}) {
   const check=()=>{if(navigator.onLine&&document.visibilityState==='visible')void registration.current?.update().catch(()=>{/* Keep using the installed version. */})}
   const prompt=(event:Event)=>{event.preventDefault();setInstall(event as InstallPrompt)}
   const mode=window.matchMedia('(display-mode: standalone)')
-  const modeChanged=()=>setInstalled(mode.matches||(navigator as Navigator&{standalone?:boolean}).standalone===true)
+  const modeChanged=()=>setInstalled(runningInstalledApp()||confirmedInstall.current)
+  const checkInstalled=async()=>{
+   const api=(navigator as Navigator&{getInstalledRelatedApps?:()=>Promise<{platform?:string;id?:string;url?:string}[]>}).getInstalledRelatedApps
+   if(!api)return
+   try{const apps=await api.call(navigator);if(mounted)setInstalled(runningInstalledApp()||confirmedInstall.current||(Array.isArray(apps)&&apps.some(app=>isWorkshopApp(app,location.origin))))}catch{/* Unsupported/denied checks do not hide installation. */}
+  }
+  const visible=()=>{if(document.visibilityState==='visible')void checkInstalled()}
+  void checkInstalled();document.addEventListener('visibilitychange',visible)
   mode.addEventListener('change',modeChanged)
-  const done=()=>{setInstalled(true);setInstall(undefined);setInstallMessage('')}
+  const done=()=>{confirmedInstall.current=true;setInstalled(true);setInstall(undefined);setInstallMessage('')}
   window.addEventListener('beforeinstallprompt',prompt);window.addEventListener('appinstalled',done)
   window.addEventListener('online',check);document.addEventListener('visibilitychange',check)
   const timer=window.setInterval(check,60*60*1000)
-  return ()=>{mode.removeEventListener('change',modeChanged);mounted=false;navigator.serviceWorker?.removeEventListener('controllerchange',controlled);clearInterval(timer);window.removeEventListener('beforeinstallprompt',prompt);window.removeEventListener('appinstalled',done);window.removeEventListener('online',check);document.removeEventListener('visibilitychange',check)}
+  return ()=>{document.removeEventListener('visibilitychange',visible);mode.removeEventListener('change',modeChanged);mounted=false;navigator.serviceWorker?.removeEventListener('controllerchange',controlled);clearInterval(timer);window.removeEventListener('beforeinstallprompt',prompt);window.removeEventListener('appinstalled',done);window.removeEventListener('online',check);document.removeEventListener('visibilitychange',check)}
  },[setReady])
  async function checkForUpdates(){
   setChecking(true);setCheckMessage('')

@@ -21,6 +21,22 @@ with sync_playwright() as p:
   assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
   button=page.get_by_role('button',name='Install Workshop');button.focus();page.keyboard.press('Enter');expect(page.get_by_text('Installation requested.',exact=False)).to_be_visible();assert page.evaluate('window.installCalls')==1
   offer('dismissed');button.click();expect(page.get_by_text('Installation canceled.',exact=False)).to_be_visible();offer(fail=True);button.click();expect(page.get_by_text('The browser could not open installation.',exact=False)).to_be_visible()
-  page.evaluate("window.dispatchEvent(new Event('appinstalled'))");expect(page.get_by_text('Already installed.',exact=False)).to_be_visible();expect(button).to_have_count(0);page.reload();expect(page.get_by_role('heading',name='Install app',exact=True)).to_be_visible();c.close()
- c=b.new_context(user_agent='Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Version/18.0 Mobile/15E148 Safari/604.1',viewport={'width':390,'height':844});page=c.new_page();page.goto(base+'/#/install-app');expect(page.get_by_text('Tap Share, then Add to Home Screen.',exact=True)).to_be_visible();expect(page.get_by_role('button',name='Install Workshop')).to_have_count(0);page.screenshot(path=str(out/'install-iphone-instructions.png'));c.close();b.close()
+  page.evaluate("window.dispatchEvent(new Event('appinstalled'))");expect(page.get_by_text('Already installed.',exact=False)).to_be_visible();expect(button).to_have_count(0);page.get_by_role('button',name='Open menu').click();expect(page.get_by_role('button',name='Install app',exact=True)).to_have_count(0);expect(page.get_by_role('button',name='Settings',exact=True)).to_be_visible();expect(page.get_by_role('button',name='Update app',exact=True)).to_be_visible();page.reload();expect(page.get_by_role('heading',name='Install app',exact=True)).to_be_visible();c.close()
+ c=b.new_context(user_agent='Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Version/18.0 Mobile/15E148 Safari/604.1',viewport={'width':390,'height':844});page=c.new_page();page.goto(base+'/#/install-app');expect(page.get_by_text('Tap Share, then Add to Home Screen.',exact=True)).to_be_visible();expect(page.get_by_role('button',name='Install Workshop')).to_have_count(0);page.screenshot(path=str(out/'install-iphone-instructions.png'));c.close()
+ for mode in ['standalone','ios-standalone','related','unrelated','denied','unknown']:
+  c=b.new_context(viewport={'width':390,'height':900})
+  c.add_init_script("""(()=>{
+   const mode=MODE;
+   if(mode==='standalone'){const original=window.matchMedia.bind(window);window.matchMedia=query=>{const result=original(query);if(query==='(display-mode: standalone)')Object.defineProperty(result,'matches',{value:true});return result}}
+   if(mode==='ios-standalone')Object.defineProperty(navigator,'standalone',{value:true});
+   if(['related','unrelated','denied'].includes(mode))Object.defineProperty(navigator,'getInstalledRelatedApps',{value:async()=>{if(mode==='denied')throw Error('blocked');return [{platform:'webapp',id:mode==='related'?location.origin+'/':'https://other.example/'}]}});
+   if(mode==='unknown')Object.defineProperty(navigator,'getInstalledRelatedApps',{value:undefined});
+  })()""".replace('MODE',repr(mode)))
+  page=c.new_page();page.goto(base);page.get_by_role('button',name='Open menu').click();item=page.get_by_role('button',name='Install app',exact=True)
+  if mode in ['standalone','ios-standalone','related']:expect(item).to_have_count(0)
+  else:expect(item).to_be_visible()
+  expect(page.get_by_role('button',name='Settings',exact=True)).to_be_visible();expect(page.get_by_role('button',name='Update app',exact=True)).to_be_visible()
+  if mode=='standalone':page.screenshot(path=str(out/'installed-app-menu.png'))
+  c.close()
+ b.close()
 s.shutdown();s.server_close();print('Install grouping, five widths, prompt retained across navigation, keyboard, acceptance/cancel/error/installed states and iPhone instructions passed')

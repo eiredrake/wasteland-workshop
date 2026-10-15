@@ -1,3 +1,4 @@
+import {runningInstalledApp} from './features/pwa/InstalledApp'
 import {appRoute,readAppRoute,type AppView} from './features/pwa/AppRoute'
 import PwaStatus from './features/pwa/PwaStatus'
 import ScannerSettingsView from './features/settings/ScannerSettingsView'
@@ -90,6 +91,7 @@ import type {
 
 
 function App() {
+  const [appInstalled,setAppInstalled]=useState(runningInstalledApp)
   const [menuOpen, setMenuOpen] = useState(false)
   const [appShareOpen, setAppShareOpen] = useState(false)
   const [tourBlueprint,setTourBlueprint]=useState<Blueprint>()
@@ -558,7 +560,7 @@ function App() {
           </button>
 
           <div className="menu-heading">Application</div>
-          <button type="button" onClick={()=>navigateTo('install-app')}>Install app</button>
+          {!appInstalled&&<button type="button" onClick={()=>navigateTo('install-app')}>Install app</button>}
           <button
             type="button"
             onClick={() =>
@@ -743,7 +745,7 @@ function App() {
       )}
 
       {tours.active&&<GuidedTour active={tours.active} onMove={tours.move} onExit={tours.exit} onFinish={tours.finish} canUseExisting={tours.step?.condition==='collection-selected'?!!activeBlueprintCollection:tours.step?.condition==='membership'?!!memberStatus:tours.step?.condition==='blueprint-selected'?!!tourBlueprint:tours.step?.condition==='queued'?buildQueue.builds.some(build=>build.blueprintId===tourBlueprint?.id&&build.status!=='Completed'):false}/>}
-      <PwaStatus screen={currentView==='install-app'?'install':currentView==='update-app'?'update':undefined} />
+      <PwaStatus onInstalledChange={setAppInstalled} screen={currentView==='install-app'?'install':currentView==='update-app'?'update':undefined} />
       <ToastContainer
         toasts={toasts}
         onDismiss={dismissToast}

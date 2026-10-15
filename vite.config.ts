@@ -9,7 +9,7 @@ export default defineConfig({
  plugins:[react(),ocrAssets(),VitePWA({
   filename:'service-worker.js', registerType:'prompt', injectRegister:false,
   includeAssets:['app-icon-192.png','app-icon-512.png','app-icon-maskable.png','apple-touch-icon.png'],
-  manifest:{id:'/',name:'Wasteland Workshop',short_name:'Workshop',description:'Plan, craft, and manage your Wasteland Workshop offline.',start_url:'/',scope:'/',display:'standalone',background_color:'#181816',theme_color:'#181816',icons:[
+  manifest:{id:'/',prefer_related_applications:false,related_applications:[{platform:'webapp',url:'/manifest.webmanifest',id:'/'}],name:'Wasteland Workshop',short_name:'Workshop',description:'Plan, craft, and manage your Wasteland Workshop offline.',start_url:'/',scope:'/',display:'standalone',background_color:'#181816',theme_color:'#181816',icons:[
     {src:'/app-icon-192.png',sizes:'192x192',type:'image/png',purpose:'any'},
     {src:'/app-icon-512.png',sizes:'512x512',type:'image/png',purpose:'any'},
     {src:'/app-icon-maskable.png',sizes:'512x512',type:'image/png',purpose:'maskable'}]},
