@@ -7,11 +7,13 @@ export function blueprintUsageRequirements(blueprint: Blueprint): string[] {
 }
 // Search both the print and its crafted outputs: descriptions belong to the
 // output metadata in the catalog, rather than the Blueprint name/columns.
+// Special Notes remain visible but are excluded: repeated assistant Mind
+// instructions otherwise swamp searches for actual item effects.
 function blueprintReferenceFields(blueprint: Blueprint): string[] {
   const outputs = (blueprint.itemCraftings ?? []).flatMap(recipe => recipe.craftingFinalProducts.map(product => product.finalProduct))
   return [blueprint.name, blueprint.kind, ...outputs.flatMap(output => [output.name, output.kind]),
     ...[blueprint.metadata, ...outputs.map(output => output.metadata)].flatMap(metadata => metadata ? [
-      metadata.mechanics, metadata.notes, metadata.requirementsToUse, metadata.printHeader,
+      metadata.mechanics, metadata.requirementsToUse, metadata.printHeader,
       metadata.descriptionOfRoleplay, metadata.activationRequirement, metadata.validTargetDescription,
     ] : []),
   ].filter((field): field is string => typeof field === 'string' && field.trim() !== '')

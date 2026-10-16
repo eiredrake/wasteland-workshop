@@ -46,12 +46,12 @@ describe('description search and operators', () => {
     expect(expected.length).toBeGreaterThan(1)
     expect(expected.every(b => matchesBlueprintSearch(b, 'mind', [b.name]))).toBe(true)
   })
-  it('searches Blueprint descriptions and notes as well as every output', () => {
+  it('searches Blueprint descriptions but excludes Special Notes', () => {
     const blueprint = structuredClone(brew)
     blueprint.metadata!.mechanics = 'Unique description'
     blueprint.metadata!.notes = 'Special annotation'
     expect(matchesBlueprintSearch(blueprint, 'unique description', [])).toBe(true)
-    expect(matchesBlueprintSearch(blueprint, 'special annotation', [])).toBe(true)
+    expect(matchesBlueprintSearch(blueprint, 'special annotation', [])).toBe(false)
   })
   it('keeps plain text as a contiguous phrase', () => {
     expect(matchesBlueprintSearch(brew, 'mind brew', [])).toBe(false)
@@ -83,4 +83,19 @@ describe('description search and operators', () => {
     expect(matchesBlueprintSearch(brew, '"a+b|c"', ['A+B|C'])).toBe(true)
     expect(matchesBlueprintSearch(brew, 'regain   20 mind', [])).toBe(true)
   })
+})
+
+
+it('does not match assistant Mind boilerplate or use it to exclude real effects', () => {
+  const blueprint = structuredClone(allBlueprints.find(b => b.id === 4403)!)
+  blueprint.name = 'Example Tool'
+  blueprint.metadata!.notes = 'A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.'
+  for (const recipe of blueprint.itemCraftings!) for (const product of recipe.craftingFinalProducts) {
+    product.finalProduct.name = 'Example Tool'
+    product.finalProduct.metadata!.mechanics = 'Repairs a broken door.'
+    product.finalProduct.metadata!.notes = 'Mind appears only in special notes.'
+  }
+  expect(matchesBlueprintSearch(blueprint, 'mind', [])).toBe(false)
+  expect(matchesBlueprintSearch(blueprint, 'door-mind', [])).toBe(true)
+  expect(matchesBlueprintSearch(blueprint, 'door', [])).toBe(true)
 })
