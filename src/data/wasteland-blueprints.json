@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-06T22:31:32.737264+00:00",
+  "generatedAt": "2026-10-16T04:10:42.406189+00:00",
   "source": "Project Juno",
   "blueprintCount": 655,
   "masterBlueprintCount": 607,
@@ -10,7 +10,7 @@
       "id": 6322,
       "name": "\"Dodge This\" Ramprow (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:38:33Z",
+      "updatedAt": "2026-10-14T23:55:38Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -62,7 +62,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6323,
-                "name": "\"Dodge This\" Ramprow",
+                "name": "\"Dodge This\" Ramprow (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_augment",
                 "lifetimeAmount": 12,
@@ -129,7 +129,7 @@
       "id": 5756,
       "name": "\"Members Only\" Rotating Crypto-Lock",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:41Z",
+      "updatedAt": "2026-10-15T00:06:56Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. Installation of a lock requires 1 minute of uninterrupted time and  the Basic Artisan skill.",
@@ -395,7 +395,7 @@
       "id": 6347,
       "name": "\"Rode In On\" Shell (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:41:05Z",
+      "updatedAt": "2026-10-14T23:55:47Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -461,7 +461,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6346,
-                "name": "\"Rode In On\" Shell",
+                "name": "\"Rode In On\" Shell (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "gizmo",
                 "lifetimeAmount": 12,
@@ -528,7 +528,7 @@
       "id": 4671,
       "name": ".22 Caliber Bone Screws",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:39Z",
+      "updatedAt": "2026-10-15T00:06:18Z",
       "metadata": {
         "mechanics": "",
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. ",
@@ -1221,7 +1221,7 @@
       "id": 5494,
       "name": "Able Door",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:41Z",
+      "updatedAt": "2026-10-15T00:06:32Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. \n\nInstallation of a door requires 5 minutes of uninterrupted time and  the Basic Artisan skill.",
@@ -3238,7 +3238,7 @@
       "id": 6252,
       "name": "Angry Anchor Battle Barge (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:29:10Z",
+      "updatedAt": "2026-10-14T23:55:51Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -3332,7 +3332,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6253,
-                "name": "Angry Anchor Battle Barge",
+                "name": "Angry Anchor Battle Barge (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_watercraft",
                 "lifetimeAmount": 24,
@@ -3399,7 +3399,7 @@
       "id": 6258,
       "name": "Angry Anchor Cargo Clipper (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:27:51Z",
+      "updatedAt": "2026-10-14T23:55:55Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. ",
@@ -3493,7 +3493,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6259,
-                "name": "Angry Anchor Cargo Clipper",
+                "name": "Angry Anchor Cargo Clipper (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_watercraft",
                 "lifetimeAmount": 24,
@@ -3560,7 +3560,7 @@
       "id": 6250,
       "name": "Angry Anchor Cruiser (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:29:47Z",
+      "updatedAt": "2026-10-14T23:56:01Z",
       "metadata": {
         "mechanics": "",
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -3654,7 +3654,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6251,
-                "name": "Angry Anchor Cruiser",
+                "name": "Angry Anchor Cruiser (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_watercraft",
                 "lifetimeAmount": 24,
@@ -3721,7 +3721,7 @@
       "id": 6254,
       "name": "Angry Anchor Lil Red Corvette (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:29:12Z",
+      "updatedAt": "2026-10-14T23:56:07Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -3815,7 +3815,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6255,
-                "name": "Angry Anchor Lil Red Corvette",
+                "name": "Angry Anchor Lil Red Corvette (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_watercraft",
                 "lifetimeAmount": 24,
@@ -4428,7 +4428,7 @@
       "id": 4677,
       "name": "Angry Anchor Securebox Wiring",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:39Z",
+      "updatedAt": "2026-10-15T00:10:39Z",
       "metadata": {
         "mechanics": null,
         "notes": "A single Gizmo: Key card  (same expiration as lock) is produced along with this lock that will open the lock, with a unique number on each card to connect them. At creation, every additional Basic Scrap expended creates an additional Key with the same number. Additional keys can later be produced with this blueprint, requiring possession of an existing key, Basic Artisan, 10 minutes, 5 mind, and 1 Basic Scrap.\n\nA Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.\n\nInstallation of a lock requires 1 minute of uninterrupted time and  the Basic Artisan skill.",
@@ -4561,7 +4561,7 @@
       "id": 6321,
       "name": "Angry Anchor Ship Charges (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T02:13:27Z",
+      "updatedAt": "2026-10-14T23:56:11Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -4613,7 +4613,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6320,
-                "name": "Angry Anchor Ship Charges",
+                "name": "Angry Anchor Ship Charges (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "gizmo",
                 "lifetimeAmount": 12,
@@ -5079,7 +5079,7 @@
       "id": 6257,
       "name": "Angry Anchor Windjammer (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:29:21Z",
+      "updatedAt": "2026-10-14T23:56:31Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. ",
@@ -5173,7 +5173,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6256,
-                "name": "Angry Anchor Windjammer",
+                "name": "Angry Anchor Windjammer (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_watercraft",
                 "lifetimeAmount": null,
@@ -5240,7 +5240,7 @@
       "id": 4599,
       "name": "Angry Anchor Work Ship",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:38Z",
+      "updatedAt": "2026-10-15T00:18:22Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -5367,11 +5367,11 @@
                   "durationOfRoleplay": null,
                   "descriptionOfRoleplay": null,
                   "activationRequirement": null,
-                  "vehicleArmor": null,
-                  "vehicleHull": null,
-                  "vehicleSpeed": null,
-                  "vehicleTurnRadius": null,
-                  "vehicleCrewCapacity": null,
+                  "vehicleArmor": "10",
+                  "vehicleHull": "40",
+                  "vehicleSpeed": "1",
+                  "vehicleTurnRadius": "Standard",
+                  "vehicleCrewCapacity": "6",
                   "allowBlueprintCopying": null,
                   "__typename": "ItemMetadata"
                 },
@@ -5961,7 +5961,7 @@
       "id": 6199,
       "name": "Anti-Conveyance Missile Equipment (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:43:39Z",
+      "updatedAt": "2026-10-14T23:56:36Z",
       "metadata": {
         "mechanics": "",
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -6041,7 +6041,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6198,
-                "name": "Anti-Conveyance Missile Equipment",
+                "name": "Anti-Conveyance Missile Equipment (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "bolt_action_two_handed",
                 "lifetimeAmount": 24,
@@ -7368,7 +7368,7 @@
       "id": 6333,
       "name": "Bandit's Smokey Screen (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:39:16Z",
+      "updatedAt": "2026-10-14T23:56:42Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -7434,7 +7434,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6332,
-                "name": "Bandit's Smokey Screen",
+                "name": "Bandit's Smokey Screen (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_augment",
                 "lifetimeAmount": 12,
@@ -9916,7 +9916,7 @@
       "id": 6316,
       "name": "Bigol 'Poon Grenadas (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:30:12Z",
+      "updatedAt": "2026-10-14T23:56:45Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -9968,7 +9968,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6317,
-                "name": "Bigol 'Poon Grenadas",
+                "name": "Bigol 'Poon Grenadas (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_augment",
                 "lifetimeAmount": 12,
@@ -10168,7 +10168,7 @@
       "id": 6326,
       "name": "Bigol Clunky Tire Chains (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:30:28Z",
+      "updatedAt": "2026-10-14T23:56:48Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -10220,7 +10220,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6327,
-                "name": "Bigol Clunky Tire Chains",
+                "name": "Bigol Clunky Tire Chains (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_augment",
                 "lifetimeAmount": 12,
@@ -10434,7 +10434,7 @@
       "id": 6268,
       "name": "Bigol Iron Juggernaut (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:30:26Z",
+      "updatedAt": "2026-10-14T23:56:57Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. ",
@@ -10528,7 +10528,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6269,
-                "name": "Bigol Iron Juggernaut",
+                "name": "Bigol Iron Juggernaut (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle",
                 "lifetimeAmount": 24,
@@ -10742,7 +10742,7 @@
       "id": 4600,
       "name": "Bigol Personal-Zeppelin",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:38Z",
+      "updatedAt": "2026-10-15T02:24:45Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -10843,7 +10843,7 @@
                 "lifetimeUnit": "month",
                 "childItemClassifications": [],
                 "metadata": {
-                  "mechanics": "The user may spend 5 Mind to bypass any game mechanics that relate to entering the game space. They may bring 1 other Target with them for 5 Mind.",
+                  "mechanics": "The user may spend 5 Mind to bypass any game mechanics that relate to entering the game space. They may bring other Crew members with them for 5 Mind.",
                   "notes": null,
                   "printHeader": null,
                   "requirementsToUse": "Master Travel",
@@ -10855,11 +10855,11 @@
                   "durationOfRoleplay": null,
                   "descriptionOfRoleplay": null,
                   "activationRequirement": null,
-                  "vehicleArmor": null,
-                  "vehicleHull": null,
-                  "vehicleSpeed": null,
-                  "vehicleTurnRadius": null,
-                  "vehicleCrewCapacity": null,
+                  "vehicleArmor": "0",
+                  "vehicleHull": "30",
+                  "vehicleSpeed": "2",
+                  "vehicleTurnRadius": "Very Wide",
+                  "vehicleCrewCapacity": "2",
                   "allowBlueprintCopying": null,
                   "__typename": "ItemMetadata"
                 },
@@ -10903,7 +10903,7 @@
       "id": 6260,
       "name": "Bigol Six by Six (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:30:13Z",
+      "updatedAt": "2026-10-14T23:57:00Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. ",
@@ -10997,7 +10997,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6261,
-                "name": "Bigol Six by Six",
+                "name": "Bigol Six by Six (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle",
                 "lifetimeAmount": 24,
@@ -11197,7 +11197,7 @@
       "id": 6267,
       "name": "Bigol Two-Up All Terrain Vehicle (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:30:44Z",
+      "updatedAt": "2026-10-14T23:57:08Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. ",
@@ -11291,7 +11291,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6266,
-                "name": "Bigol Two-Up All Terrain Vehicle",
+                "name": "Bigol Two-Up All Terrain Vehicle (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle",
                 "lifetimeAmount": 24,
@@ -11358,7 +11358,7 @@
       "id": 6264,
       "name": "Bigol Whip (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:30:17Z",
+      "updatedAt": "2026-10-14T23:57:11Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. ",
@@ -11452,7 +11452,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6265,
-                "name": "Bigol Whip",
+                "name": "Bigol Whip (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle",
                 "lifetimeAmount": 24,
@@ -11519,7 +11519,7 @@
       "id": 6343,
       "name": "Bigol Zero Point Anchor (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:30:30Z",
+      "updatedAt": "2026-10-14T23:57:15Z",
       "metadata": {
         "mechanics": "",
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -11571,7 +11571,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6342,
-                "name": "Bigol Zero Point Anchor",
+                "name": "Bigol Zero Point Anchor (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "gizmo",
                 "lifetimeAmount": 12,
@@ -14549,7 +14549,7 @@
       "id": 6287,
       "name": "Boarding Hooks  (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:32:14Z",
+      "updatedAt": "2026-10-14T23:57:48Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -14601,7 +14601,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6286,
-                "name": "Boarding Hooks ",
+                "name": "Boarding Hooks (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "gizmo",
                 "lifetimeAmount": 12,
@@ -16640,7 +16640,7 @@
       "id": 6348,
       "name": "Candlepin Pyromaniac (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T02:11:54Z",
+      "updatedAt": "2026-10-14T23:58:23Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -16706,7 +16706,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6349,
-                "name": "Candlepin Pyromaniac",
+                "name": "Candlepin Pyromaniac (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_augment",
                 "lifetimeAmount": 12,
@@ -20183,7 +20183,7 @@
       "id": 6189,
       "name": "Cranial Injection Rounds",
       "kind": "blueprint",
-      "updatedAt": "2026-10-05T22:58:58Z",
+      "updatedAt": "2026-10-14T23:58:25Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -23325,7 +23325,7 @@
       "id": 6334,
       "name": "Dee Four's Caltrop Scatterer (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:39:26Z",
+      "updatedAt": "2026-10-14T23:58:32Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -23377,7 +23377,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6335,
-                "name": "Dee Four's Caltrop Scatterer",
+                "name": "Dee Four's Caltrop Scatterer (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_augment",
                 "lifetimeAmount": 12,
@@ -23995,7 +23995,7 @@
       "id": 6279,
       "name": "Diesel Power'd Uni-Tire (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:31:35Z",
+      "updatedAt": "2026-10-14T23:58:36Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. ",
@@ -24047,17 +24047,17 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6278,
-                "name": "Diesel Power'd Uni-Tire",
+                "name": "Diesel Power'd Uni-Tire (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle",
                 "lifetimeAmount": null,
                 "lifetimeUnit": "month",
                 "childItemClassifications": [],
                 "metadata": {
-                  "mechanics": "During Virtual vehicle combat, when using Avoid to negate damage to the driver or vehicle, the reroll is done at a +2 to the Difficulty Class. This vehicle can be stored inside another vehicle at the expensive of one Crew slot (although it cannot be occupied while stored).\n\n",
+                  "mechanics": "User may expend one Balance instead of having Basic Travel to use for one scene. During Virtual vehicle combat, when using Avoid to negate damage to the driver or vehicle, the reroll is done at a +2 to the Difficulty Class. This vehicle can be stored inside another vehicle at the expensive of one Crew slot (although it cannot be occupied while stored).\n\n",
                   "notes": null,
                   "printHeader": null,
-                  "requirementsToUse": null,
+                  "requirementsToUse": "Balance or Basic Travel",
                   "uses": null,
                   "durationOfEffect": null,
                   "validTargetDescription": null,
@@ -24233,7 +24233,7 @@
       "id": 6338,
       "name": "Dinner Bell Gas Canister (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:40:37Z",
+      "updatedAt": "2026-10-15T00:11:20Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -24884,7 +24884,7 @@
       "id": 6228,
       "name": "Diving Bell",
       "kind": "blueprint",
-      "updatedAt": "2026-10-05T22:59:08Z",
+      "updatedAt": "2026-10-14T23:58:48Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -24950,7 +24950,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6229,
-                "name": "Diving Bell",
+                "name": "Diving Bell (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "gizmo",
                 "lifetimeAmount": 12,
@@ -25388,7 +25388,7 @@
       "id": 4708,
       "name": "Double Door",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:39Z",
+      "updatedAt": "2026-10-15T00:07:22Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. \n\nInstallation of a door requires 5 minutes of uninterrupted time and  the Basic Artisan skill.",
@@ -27053,7 +27053,7 @@
       "id": 4715,
       "name": "EZ Code Access",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:39Z",
+      "updatedAt": "2026-10-15T00:07:38Z",
       "metadata": {
         "mechanics": null,
         "notes": "A single Gizmo: Key (same expiration as lock) card is produced along with this lock that will open the lock, with a unique number on each card to connect them. At creation, every additional Basic Scrap expended creates an additional Key with the same number. Additional keys can later be produced with this blueprint, requiring possession of an existing key, Basic Artisan, 10 minutes, 5 mind, and 1 Basic Scrap.\n\nA Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.\n\nInstallation of a lock requires 1 minute of uninterrupted time and  the Basic Artisan skill.",
@@ -30836,7 +30836,7 @@
       "id": 5238,
       "name": "Frustrating Tumbler Lock",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:40Z",
+      "updatedAt": "2026-10-15T00:07:52Z",
       "metadata": {
         "mechanics": null,
         "notes": "A single Gizmo: Key card (same expiration as lock) is produced along with this lock that will open the lock, with a unique number on each card to connect them. At creation, every additional Basic Scrap expended creates an additional Key with the same number. Additional keys can later be produced with this blueprint, requiring possession of an existing key, Basic Artisan, 10 minutes, 5 mind, and 1 Basic Scrap.\n\nA Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.\n\nInstallation of a lock requires 1 minute of uninterrupted time and  the Basic Artisan skill.",
@@ -33065,7 +33065,7 @@
       "id": 6191,
       "name": "Give-Em-Flak Trap",
       "kind": "blueprint",
-      "updatedAt": "2026-10-05T22:59:13Z",
+      "updatedAt": "2026-10-14T23:52:11Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -34151,11 +34151,11 @@
                   "durationOfRoleplay": null,
                   "descriptionOfRoleplay": null,
                   "activationRequirement": null,
-                  "vehicleArmor": null,
-                  "vehicleHull": null,
-                  "vehicleSpeed": null,
-                  "vehicleTurnRadius": null,
-                  "vehicleCrewCapacity": null,
+                  "vehicleArmor": "20",
+                  "vehicleHull": "40",
+                  "vehicleSpeed": "2",
+                  "vehicleTurnRadius": "Standard",
+                  "vehicleCrewCapacity": "4",
                   "allowBlueprintCopying": null,
                   "__typename": "ItemMetadata"
                 },
@@ -34199,7 +34199,7 @@
       "id": 6340,
       "name": "Glitter Gulch Red Fuel (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:40:51Z",
+      "updatedAt": "2026-10-14T23:58:56Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Culinary Assistant helping with the creation of this item regains 2 Mind.",
@@ -34265,7 +34265,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6341,
-                "name": "Glitter Gulch Red Fuel",
+                "name": "Glitter Gulch Red Fuel (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "gizmo",
                 "lifetimeAmount": 12,
@@ -35586,11 +35586,11 @@
                   "durationOfRoleplay": null,
                   "descriptionOfRoleplay": null,
                   "activationRequirement": null,
-                  "vehicleArmor": null,
-                  "vehicleHull": null,
-                  "vehicleSpeed": null,
-                  "vehicleTurnRadius": null,
-                  "vehicleCrewCapacity": null,
+                  "vehicleArmor": "10",
+                  "vehicleHull": "40",
+                  "vehicleSpeed": "2",
+                  "vehicleTurnRadius": "Tight",
+                  "vehicleCrewCapacity": "2",
                   "allowBlueprintCopying": null,
                   "__typename": "ItemMetadata"
                 },
@@ -38103,9 +38103,9 @@
     },
     {
       "id": 6280,
-      "name": "Guzzoline",
+      "name": "Guzzoline (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-05T22:59:18Z",
+      "updatedAt": "2026-10-14T23:59:15Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Culinary Assistant helping with the creation of this item regains 2 Mind.",
@@ -38157,14 +38157,14 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6281,
-                "name": "Guzzoline",
+                "name": "Guzzoline (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "gizmo",
                 "lifetimeAmount": 12,
                 "lifetimeUnit": "month",
                 "childItemClassifications": [],
                 "metadata": {
-                  "mechanics": "This Gizmo is often expended to fuel vehicles and gizmos as noted on those items.",
+                  "mechanics": "This Gizmo is often expended to fuel vehicles as per Virtual Players Guide vehicle combat section or by gizmos as noted on those items.",
                   "notes": null,
                   "printHeader": null,
                   "requirementsToUse": "None",
@@ -38385,7 +38385,7 @@
       "id": 6283,
       "name": "Hang On Straps (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:31:54Z",
+      "updatedAt": "2026-10-14T23:59:19Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -38437,7 +38437,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6282,
-                "name": "Hang On Straps",
+                "name": "Hang On Straps (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "gizmo",
                 "lifetimeAmount": 6,
@@ -40746,7 +40746,7 @@
       "id": 6275,
       "name": "Helscape \"No Ticket\" Zeppelin  (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:31:06Z",
+      "updatedAt": "2026-10-14T23:59:24Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. ",
@@ -40840,7 +40840,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6274,
-                "name": "Helscape \"No Ticket\" Zeppelin ",
+                "name": "Helscape \"No Ticket\" Zeppelin (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_airship",
                 "lifetimeAmount": 24,
@@ -41040,7 +41040,7 @@
       "id": 6329,
       "name": "Helscape Ballista Turret (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:38:58Z",
+      "updatedAt": "2026-10-14T23:59:26Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -41106,7 +41106,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6328,
-                "name": "Helscape Ballista Turret",
+                "name": "Helscape Ballista Turret (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_augment",
                 "lifetimeAmount": 12,
@@ -41600,7 +41600,7 @@
       "id": 6271,
       "name": "Helscape Hidden-Burn Airship (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:31:09Z",
+      "updatedAt": "2026-10-14T23:59:32Z",
       "metadata": {
         "mechanics": "",
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. ",
@@ -41694,7 +41694,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6270,
-                "name": "Helscape Hidden-Burn Airship",
+                "name": "Helscape Hidden-Burn Airship (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_airship",
                 "lifetimeAmount": 24,
@@ -41935,7 +41935,7 @@
       "id": 6272,
       "name": "Helscape Luftbaloon (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:31:19Z",
+      "updatedAt": "2026-10-14T23:59:38Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. ",
@@ -42029,7 +42029,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6273,
-                "name": "Helscape Luftbaloon",
+                "name": "Helscape Luftbaloon (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_airship",
                 "lifetimeAmount": 24,
@@ -42048,11 +42048,11 @@
                   "durationOfRoleplay": null,
                   "descriptionOfRoleplay": null,
                   "activationRequirement": null,
-                  "vehicleArmor": null,
-                  "vehicleHull": null,
-                  "vehicleSpeed": null,
-                  "vehicleTurnRadius": null,
-                  "vehicleCrewCapacity": null,
+                  "vehicleArmor": "0",
+                  "vehicleHull": "30",
+                  "vehicleSpeed": "2",
+                  "vehicleTurnRadius": "Very Wide",
+                  "vehicleCrewCapacity": "2",
                   "allowBlueprintCopying": null,
                   "__typename": "ItemMetadata"
                 },
@@ -42831,7 +42831,7 @@
       "id": 6224,
       "name": "Holy Sanctuary",
       "kind": "blueprint",
-      "updatedAt": "2026-10-05T22:59:36Z",
+      "updatedAt": "2026-10-14T23:59:40Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -43977,7 +43977,7 @@
       "id": 4739,
       "name": "Iron Nail Buckshot Rounds",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:39Z",
+      "updatedAt": "2026-10-15T00:08:09Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -46960,7 +46960,7 @@
       "id": 4744,
       "name": "M.M. Necro-Info Head Jar",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:39Z",
+      "updatedAt": "2026-10-15T00:11:32Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -47376,7 +47376,7 @@
       "id": 6185,
       "name": "Man-Freeing Crowbar",
       "kind": "blueprint",
-      "updatedAt": "2026-10-05T22:59:44Z",
+      "updatedAt": "2026-10-14T23:59:59Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. ",
@@ -48865,7 +48865,7 @@
       "id": 6197,
       "name": "Me Fistos Shoulder Length Vambraces",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T15:22:29Z",
+      "updatedAt": "2026-10-15T00:14:58Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -48938,7 +48938,7 @@
                 "lifetimeUnit": "month",
                 "childItemClassifications": [],
                 "metadata": {
-                  "mechanics": "While wielding these brawlers, any and all strikes that impacts the user's brawlers or arms from the hands to elbows counts as blocked, including Ranged Attacks. Requires armor costuming from elbows to fingers and wielding these Knucks at the time for use.",
+                  "mechanics": "While wielding these brawlers, any and all strikes that impacts the user's brawlers or arms from the hands to elbows counts as blocked, including Ranged Attacks. Call 'Blocked, Vambrace!' as necessary. Requires armor costuming from elbows to fingers and wielding these Knucks at the time for use.",
                   "notes": null,
                   "printHeader": null,
                   "requirementsToUse": "None",
@@ -50153,7 +50153,7 @@
       "id": 6226,
       "name": "Mercy",
       "kind": "blueprint",
-      "updatedAt": "2026-10-05T22:59:51Z",
+      "updatedAt": "2026-10-15T00:00:05Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Culinary Assistant helping with the creation of this item regains 2 Mind.",
@@ -51863,7 +51863,7 @@
       "id": 6318,
       "name": "Moulen Last Ride Demolitions Kit (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T02:13:42Z",
+      "updatedAt": "2026-10-15T00:00:11Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -51929,7 +51929,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6319,
-                "name": "Moulen Last Ride Demolitions Kit",
+                "name": "Moulen Last Ride Demolitions Kit (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "gizmo",
                 "lifetimeAmount": 12,
@@ -52689,7 +52689,7 @@
       "id": 6263,
       "name": "Mountain Doom Buggy (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T02:16:04Z",
+      "updatedAt": "2026-10-15T00:00:20Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. ",
@@ -52783,7 +52783,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6262,
-                "name": "Mountain Doom Buggy",
+                "name": "Mountain Doom Buggy (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle",
                 "lifetimeAmount": 24,
@@ -52983,7 +52983,7 @@
       "id": 4524,
       "name": "Mountain Rifle",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:38Z",
+      "updatedAt": "2026-10-15T00:21:31Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -53070,7 +53070,7 @@
                 "lifetimeUnit": "month",
                 "childItemClassifications": [],
                 "metadata": {
-                  "mechanics": "When expending a use of Dead to Rights, the user may call \"Line of Sight\" and point to a Target within 50 feet before the skill call.",
+                  "mechanics": "Anti-Vehicle. When expending a use of Dead to Rights, the user may call \"Line of Sight\" and point to a Target within 50 feet before the skill call.",
                   "notes": null,
                   "printHeader": null,
                   "requirementsToUse": "Dead to Rights",
@@ -53249,7 +53249,7 @@
       "id": 4528,
       "name": "Mountain-Piercing Gun",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:38Z",
+      "updatedAt": "2026-10-15T00:21:38Z",
       "metadata": {
         "mechanics": null,
         "notes": "None",
@@ -53322,7 +53322,7 @@
                 "lifetimeUnit": "month",
                 "childItemClassifications": [],
                 "metadata": {
-                  "mechanics": "May expend a use of Piercing Strike to make a single Ranged attack for 10 Body.",
+                  "mechanics": "Anti-Vehicle. May expend a use of Piercing Strike to make a single Ranged attack for 10 Body.",
                   "notes": null,
                   "printHeader": null,
                   "requirementsToUse": "Piercing Strike",
@@ -55811,11 +55811,11 @@
                   "durationOfRoleplay": null,
                   "descriptionOfRoleplay": null,
                   "activationRequirement": null,
-                  "vehicleArmor": null,
-                  "vehicleHull": null,
-                  "vehicleSpeed": null,
-                  "vehicleTurnRadius": null,
-                  "vehicleCrewCapacity": null,
+                  "vehicleArmor": "0",
+                  "vehicleHull": "60",
+                  "vehicleSpeed": "1",
+                  "vehicleTurnRadius": "Very Wide",
+                  "vehicleCrewCapacity": "10",
                   "allowBlueprintCopying": null,
                   "__typename": "ItemMetadata"
                 },
@@ -56384,7 +56384,7 @@
       "id": 6284,
       "name": "On The Go Patch Kit (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:32:04Z",
+      "updatedAt": "2026-10-15T00:00:23Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -56436,7 +56436,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6285,
-                "name": "On The Go Patch Kit",
+                "name": "On The Go Patch Kit (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "gizmo",
                 "lifetimeAmount": 12,
@@ -56753,9 +56753,9 @@
     },
     {
       "id": 6288,
-      "name": "Ooph Frag You Grenadas (Virtual Only)",
+      "name": "OOPH Frag You Grenadas (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:38:18Z",
+      "updatedAt": "2026-10-15T00:12:15Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -56807,7 +56807,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6289,
-                "name": "Ooph Frag You Grenadas",
+                "name": "Ooph Frag You Grenadas (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_augment",
                 "lifetimeAmount": 12,
@@ -56874,7 +56874,7 @@
       "id": 6325,
       "name": "OOPH Ironside Plating (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:38:45Z",
+      "updatedAt": "2026-10-15T00:00:29Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -56940,7 +56940,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6324,
-                "name": "OOPH Ironside Plating",
+                "name": "OOPH Ironside Plating (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_augment",
                 "lifetimeAmount": 12,
@@ -57951,7 +57951,7 @@
       "id": 6194,
       "name": "Overdrive Injection",
       "kind": "blueprint",
-      "updatedAt": "2026-10-05T23:00:09Z",
+      "updatedAt": "2026-10-15T00:00:45Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Culinary Assistant helping with the creation of this item regains 2 Mind.",
@@ -59567,7 +59567,7 @@
       "id": 4769,
       "name": "Piscis Expulsion Device",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:39Z",
+      "updatedAt": "2026-10-15T00:30:21Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -59621,12 +59621,12 @@
                 "id": 4339,
                 "name": "Piscis Expulsion Device",
                 "grade": "ungraded",
-                "kind": "gizmo",
+                "kind": "vehicle_augment",
                 "lifetimeAmount": 12,
                 "lifetimeUnit": "month",
                 "childItemClassifications": [],
                 "metadata": {
-                  "mechanics": "Requires Vehicle to Use. The user may spend 5 Mind points to drop bombs on Basic or Proficient vehicles to cause \"Break: Vehicle\" during modules when vehicles are in use. This may require a projectile to be thrown or other gameified mechanic for measuring success based on the module.",
+                  "mechanics": "Mounted Anti-Vehicle Ranged Weapon. During Virtual vehicle combat, does 5 Armor and 5 Hull damage to vehicles. ",
                   "notes": null,
                   "printHeader": null,
                   "requirementsToUse": "Master Travel",
@@ -61818,7 +61818,7 @@
       "id": 6187,
       "name": "Raider Suffering",
       "kind": "blueprint",
-      "updatedAt": "2026-10-05T23:00:13Z",
+      "updatedAt": "2026-10-15T00:00:37Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Culinary Assistant helping with the creation of this item regains 2 Mind.",
@@ -62699,7 +62699,7 @@
       "id": 6344,
       "name": "Red X Trauma Seat (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T02:12:17Z",
+      "updatedAt": "2026-10-15T00:00:52Z",
       "metadata": {
         "mechanics": "",
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -62765,7 +62765,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6345,
-                "name": "Red X Trauma Seat",
+                "name": "Red X Trauma Seat (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_augment",
                 "lifetimeAmount": 12,
@@ -67575,7 +67575,7 @@
       "id": 5180,
       "name": "Ship Yard",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:40Z",
+      "updatedAt": "2026-10-15T00:05:23Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -73629,7 +73629,7 @@
       "id": 5491,
       "name": "Stock Lock",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:41Z",
+      "updatedAt": "2026-10-15T00:09:48Z",
       "metadata": {
         "mechanics": "",
         "notes": "A single Gizmo: Key card  (same expiration as lock) is produced along with this lock that will open the lock, with a unique number on each card to connect them. At creation, every additional Basic Scrap expended creates an additional Key with the same number. Additional keys can later be produced with this blueprint, requiring possession of an existing key, Basic Artisan, 10 minutes, 5 mind, and 1 Basic Scrap.\n\nA Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.\n\nInstallation of a lock requires 1 minute of uninterrupted time and  the Basic Artisan skill.",
@@ -74560,7 +74560,7 @@
       "id": 5292,
       "name": "Sturdy Door",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:40Z",
+      "updatedAt": "2026-10-15T00:10:06Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.\n\nInstallation of a door requires 5 minutes of uninterrupted time and  the Basic Artisan skill.",
@@ -77330,7 +77330,7 @@
       "id": 6276,
       "name": "The Holy Roller (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:31:29Z",
+      "updatedAt": "2026-10-15T00:01:30Z",
       "metadata": {
         "mechanics": "",
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. ",
@@ -77424,7 +77424,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6277,
-                "name": "The Holy Roller",
+                "name": "The Holy Roller (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle",
                 "lifetimeAmount": 24,
@@ -78931,7 +78931,7 @@
       "id": 4795,
       "name": "The Whore-Door",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:39Z",
+      "updatedAt": "2026-10-15T00:10:18Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.\n\nInstallation of a door requires 5 minutes of uninterrupted time and  the Basic Artisan skill.",
@@ -81612,7 +81612,7 @@
       "id": 6330,
       "name": "Tow Hookers (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:39:08Z",
+      "updatedAt": "2026-10-15T00:01:05Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -81664,7 +81664,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6331,
-                "name": "Tow Hookers",
+                "name": "Tow Hookers (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_augment",
                 "lifetimeAmount": 12,
@@ -84639,7 +84639,7 @@
       "id": 6337,
       "name": "Unimportant Parts (Virtual Only)",
       "kind": "blueprint",
-      "updatedAt": "2026-10-06T00:39:39Z",
+      "updatedAt": "2026-10-15T00:01:10Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind.",
@@ -84691,7 +84691,7 @@
               "stack": 1,
               "finalProduct": {
                 "id": 6336,
-                "name": "Unimportant Parts",
+                "name": "Unimportant Parts (Virtual Only)",
                 "grade": "ungraded",
                 "kind": "vehicle_augment",
                 "lifetimeAmount": 12,
@@ -87915,7 +87915,7 @@
       "id": 4604,
       "name": "Zeppelin Tow Cabin",
       "kind": "blueprint",
-      "updatedAt": "2026-10-04T04:08:38Z",
+      "updatedAt": "2026-10-15T02:24:35Z",
       "metadata": {
         "mechanics": null,
         "notes": "A Skilled Artisan Assistant helping with the creation of this item regains 2 Mind. When crafted, must have an unexpired Bigol Personal-Zeppelin to attach the augment to.",
@@ -88002,7 +88002,7 @@
                 "lifetimeUnit": "month",
                 "childItemClassifications": [],
                 "metadata": {
-                  "mechanics": "Increases capacity of Bigol Personal-Zeppelin to bring additional people to a maximum of 10 people at the cost of 2 Mind each",
+                  "mechanics": "Increases Crew Capacity of any Airship by 6. \n\nIn Virtual play, the extra crew can be exchanged for storing a single land vehicle on the airship. This vehicle cannot be occupied while stored.",
                   "notes": null,
                   "printHeader": null,
                   "requirementsToUse": "Master Travel",

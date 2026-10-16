@@ -15,7 +15,7 @@ BLUEPRINT_LIST_FILE = os.path.join(
     "blueprint-list.json",
 )
 
-DELAY_BETWEEN_BLUEPRINTS_SECONDS = .5
+DELAY_BETWEEN_BLUEPRINTS_SECONDS = 5.0
 ITEM_TIMEOUT_SECONDS = 30
 
 parser = argparse.ArgumentParser(
@@ -28,10 +28,18 @@ parser.add_argument(
     help="Fetch every blueprint and overwrite existing raw files.",
 )
 
+parser.add_argument("--delay", type=float, default=5.0,
+                    help="Seconds between prints (minimum 5; default 5).")
+parser.add_argument("--profile", help="Optional persistent browser profile directory.")
+parser.add_argument("--close-when-done", action="store_true")
 args = parser.parse_args()
+if args.delay < 5:
+    parser.error("--delay must be at least 5 seconds")
+DELAY_BETWEEN_BLUEPRINTS_SECONDS = args.delay
 
 blueprint_list_captured = False
 captured_item_ids = set()
+stop_reason = None
 
 
 def save_json(filename, data):
@@ -53,9 +61,14 @@ def save_json(filename, data):
 
 
 def handle_response(response):
-    global blueprint_list_captured
+    global blueprint_list_captured, stop_reason
 
     if "/graphql" not in response.url:
+        return
+
+    if response.status in (403, 429):
+        stop_reason = f"Source returned HTTP {response.status}; stopping without retry."
+        print(stop_reason, flush=True)
         return
 
     try:
@@ -64,13 +77,29 @@ def handle_response(response):
         if not request_data:
             return
 
+        if request_data.get("operationName") not in ("GetItems", "GetItem"):
+            return
+        data = response.json()
+        errors = data.get("errors") or []
+        if errors:
+            if any("rate limit" in str(error.get("message", "")).lower()
+                   or "too many" in str(error.get("message", "")).lower()
+                   for error in errors):
+                stop_reason = "Source reported a rate limit; stopping without retry."
+                print(stop_reason, flush=True)
+            # Login-related and persisted-query handshake responses do not
+            # contain catalog data. Let the site's normal UI handle these.
+            return
+
         operation_name = request_data.get(
             "operationName"
         )
 
         if operation_name == "GetItems":
-            data = response.json()
-
+            items = data.get("data", {}).get("organization", {}).get("items")
+            if not isinstance(items, list) or not items:
+                stop_reason = "Source list was empty or invalid; stopping."
+                return
             save_json(
                 BLUEPRINT_LIST_FILE,
                 data,
@@ -86,8 +115,6 @@ def handle_response(response):
 
         if operation_name != "GetItem":
             return
-
-        data = response.json()
 
         item = (
             data.get("data", {})
@@ -147,7 +174,15 @@ def item_already_exists(item_id):
         f"{item_id}.json",
     )
 
-    return os.path.exists(filename)
+    if not os.path.exists(filename):
+        return False
+    try:
+        with open(filename, encoding="utf-8") as file:
+            data = json.load(file)
+        item = data.get("data", {}).get("organization", {}).get("item")
+        return bool(item and str(item.get("id")) == str(item_id) and not data.get("errors"))
+    except (OSError, ValueError, TypeError):
+        return False
 
 
 def page_looks_blocked(page):
@@ -164,12 +199,14 @@ def page_looks_blocked(page):
             "access denied",
             "attention required",
             "performing security verification",
+            "rate limit",
+            "too many requests",
         ]
 
         if "cloudflare" in title:
             return True
 
-        return any(
+        return bool(stop_reason) or any(
             text in body
             for text in suspicious_text
         )
@@ -185,7 +222,7 @@ def wait_for_item(page, item_id):
     )
 
     while time.monotonic() < deadline:
-        if page.is_closed():
+        if page.is_closed() or stop_reason:
             return False
 
         if item_id in captured_item_ids:
@@ -362,9 +399,11 @@ def collect_blueprints(page):
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(
         headless=False
+    ) if not args.profile else playwright.chromium.launch_persistent_context(
+        user_data_dir=args.profile, headless=False
     )
 
-    page = browser.new_page()
+    page = browser.pages[0] if args.profile and browser.pages else browser.new_page()
 
     page.context.on(
         "response",
@@ -384,8 +423,9 @@ with sync_playwright() as playwright:
     )
 
     while (
-        browser.is_connected()
+        not page.is_closed()
         and not blueprint_list_captured
+        and not stop_reason
     ):
         if page.is_closed():
             break
@@ -393,8 +433,8 @@ with sync_playwright() as playwright:
         page.wait_for_timeout(500)
 
     if (
-        browser.is_connected()
-        and not page.is_closed()
+        not page.is_closed()
+        and not stop_reason
         and blueprint_list_captured
     ):
         print()
@@ -408,13 +448,23 @@ with sync_playwright() as playwright:
         page.wait_for_timeout(10000)
 
         collect_blueprints(page)
+        missing = [item["id"] for item in load_blueprints()
+                   if not item_already_exists(item["id"])]
+        if missing and not stop_reason:
+            stop_reason = f"Incomplete refresh: {len(missing)} prints still missing. Saved captures can be resumed."
+            print(stop_reason, flush=True)
 
     print()
     print(
         "Collector finished."
     )
 
-    while browser.is_connected():
+    if args.close_when_done or stop_reason:
+        browser.close()
+        if stop_reason:
+            raise SystemExit(1)
+
+    while not page.is_closed():
         try:
             if page.is_closed():
                 break

@@ -24,6 +24,14 @@
     "totalRecipeUses": 3
   },
   {
+    "id": 3860,
+    "name": "Pain Killer Crafting Component",
+    "kind": "crafting_resource",
+    "grade": "ungraded",
+    "usedByBlueprints": 3,
+    "totalRecipeUses": 3
+  },
+  {
     "id": 3894,
     "name": "Passenger Carrier",
     "kind": "crafting_resource",
@@ -100,40 +108,40 @@
     "name": "Mechanical Airship Framework",
     "kind": "gizmo",
     "grade": "ungraded",
-    "usedByBlueprints": 1,
-    "totalRecipeUses": 1
+    "usedByBlueprints": 4,
+    "totalRecipeUses": 4
   },
   {
     "id": 4375,
     "name": "Mechanical Auto Frame",
     "kind": "gizmo",
     "grade": "ungraded",
-    "usedByBlueprints": 2,
-    "totalRecipeUses": 2
+    "usedByBlueprints": 8,
+    "totalRecipeUses": 8
   },
   {
     "id": 4378,
     "name": "Mechanical Drive",
     "kind": "gizmo",
     "grade": "ungraded",
-    "usedByBlueprints": 3,
-    "totalRecipeUses": 3
+    "usedByBlueprints": 6,
+    "totalRecipeUses": 6
   },
   {
     "id": 4376,
     "name": "Mechanical Engine",
     "kind": "gizmo",
     "grade": "ungraded",
-    "usedByBlueprints": 5,
-    "totalRecipeUses": 5
+    "usedByBlueprints": 19,
+    "totalRecipeUses": 19
   },
   {
     "id": 4379,
     "name": "Mechanical Fuel System",
     "kind": "gizmo",
     "grade": "ungraded",
-    "usedByBlueprints": 5,
-    "totalRecipeUses": 5
+    "usedByBlueprints": 16,
+    "totalRecipeUses": 16
   },
   {
     "id": 4385,
@@ -148,16 +156,24 @@
     "name": "Mechanical Hull",
     "kind": "gizmo",
     "grade": "ungraded",
-    "usedByBlueprints": 2,
-    "totalRecipeUses": 2
+    "usedByBlueprints": 7,
+    "totalRecipeUses": 7
+  },
+  {
+    "id": 3978,
+    "name": "Hooch",
+    "kind": "intoxication_brew",
+    "grade": "ungraded",
+    "usedByBlueprints": 1,
+    "totalRecipeUses": 1
   },
   {
     "id": 3869,
     "name": "Alloy Metal",
     "kind": "metal",
     "grade": "ungraded",
-    "usedByBlueprints": 24,
-    "totalRecipeUses": 24
+    "usedByBlueprints": 25,
+    "totalRecipeUses": 25
   },
   {
     "id": 3870,
@@ -172,8 +188,8 @@
     "name": "Hard Metal",
     "kind": "metal",
     "grade": "ungraded",
-    "usedByBlueprints": 29,
-    "totalRecipeUses": 29
+    "usedByBlueprints": 32,
+    "totalRecipeUses": 32
   },
   {
     "id": 3871,
@@ -308,24 +324,24 @@
     "name": "Combustible Materials",
     "kind": "natural_resource",
     "grade": "ungraded",
-    "usedByBlueprints": 28,
-    "totalRecipeUses": 28
+    "usedByBlueprints": 33,
+    "totalRecipeUses": 33
   },
   {
     "id": 3878,
     "name": "Craftable Stone",
     "kind": "natural_resource",
     "grade": "ungraded",
-    "usedByBlueprints": 19,
-    "totalRecipeUses": 19
+    "usedByBlueprints": 20,
+    "totalRecipeUses": 20
   },
   {
     "id": 3879,
     "name": "High Grade Lumber",
     "kind": "natural_resource",
     "grade": "ungraded",
-    "usedByBlueprints": 35,
-    "totalRecipeUses": 35
+    "usedByBlueprints": 37,
+    "totalRecipeUses": 37
   },
   {
     "id": 3880,
@@ -340,8 +356,8 @@
     "name": "Psionic Crystal",
     "kind": "natural_resource",
     "grade": "ungraded",
-    "usedByBlueprints": 22,
-    "totalRecipeUses": 22
+    "usedByBlueprints": 25,
+    "totalRecipeUses": 25
   },
   {
     "id": 3900,
@@ -404,8 +420,8 @@
     "name": "Infection Material",
     "kind": "produce",
     "grade": "ungraded",
-    "usedByBlueprints": 27,
-    "totalRecipeUses": 27
+    "usedByBlueprints": 28,
+    "totalRecipeUses": 28
   },
   {
     "id": 3852,
@@ -612,8 +628,8 @@
     "name": "Foxglove or Viral Hemlock",
     "kind": "taxonomy",
     "grade": "ungraded",
-    "usedByBlueprints": 2,
-    "totalRecipeUses": 2
+    "usedByBlueprints": 4,
+    "totalRecipeUses": 4
   },
   {
     "id": 3921,
@@ -772,8 +788,8 @@
     "name": "Plastics",
     "kind": "trade_resource",
     "grade": "ungraded",
-    "usedByBlueprints": 23,
-    "totalRecipeUses": 23
+    "usedByBlueprints": 24,
+    "totalRecipeUses": 24
   },
   {
     "id": 3885,
@@ -796,16 +812,16 @@
     "name": "Basic Herb",
     "kind": "unnamed_herb",
     "grade": "ungraded",
-    "usedByBlueprints": 36,
-    "totalRecipeUses": 36
+    "usedByBlueprints": 38,
+    "totalRecipeUses": 38
   },
   {
     "id": 3809,
     "name": "Rare Herb",
     "kind": "unnamed_herb",
     "grade": "ungraded",
-    "usedByBlueprints": 41,
-    "totalRecipeUses": 41
+    "usedByBlueprints": 43,
+    "totalRecipeUses": 43
   },
   {
     "id": 3808,
@@ -820,23 +836,23 @@
     "name": "Basic Scrap",
     "kind": "unnamed_scrap",
     "grade": "ungraded",
-    "usedByBlueprints": 172,
-    "totalRecipeUses": 172
+    "usedByBlueprints": 188,
+    "totalRecipeUses": 188
   },
   {
     "id": 3868,
     "name": "Rare Scrap",
     "kind": "unnamed_scrap",
     "grade": "ungraded",
-    "usedByBlueprints": 81,
-    "totalRecipeUses": 81
+    "usedByBlueprints": 99,
+    "totalRecipeUses": 99
   },
   {
     "id": 3867,
     "name": "Uncommon Scrap",
     "kind": "unnamed_scrap",
     "grade": "ungraded",
-    "usedByBlueprints": 157,
-    "totalRecipeUses": 157
+    "usedByBlueprints": 166,
+    "totalRecipeUses": 166
   }
 ]
