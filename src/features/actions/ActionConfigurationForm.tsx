@@ -1,16 +1,28 @@
+import QuantitySplitButton from '../../components/QuantitySelection/QuantitySplitButton'
 import {alphabeticalOptions} from '../../components/OptionOrder'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import './ActionConfigurationForm.css'
 import InformationPanel from '../../components/InformationPanel/InformationPanel'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { defaultActionConfiguration, visibleActionFields } from './ActionConfiguration'
 import type { ActionConfiguration, ActionDefinition } from './Action'
 import { resolveAction } from './ActionService'
 import { duration } from '../builds/BuildFormatting'
 import SearchablePicker from '../../components/SearchablePicker/SearchablePicker'
 import { ingredientItems, isSelectorId } from '../blueprints/IngredientCatalog'
-export default function ActionConfigurationForm({definition,onAdd,onClose}:{definition:ActionDefinition;onAdd:(option:string,configuration:ActionConfiguration,target?:string,sessionId?:string)=>boolean;onClose:()=>void}) {
+export default function ActionConfigurationForm({definition,onAdd,onClose}:{definition:ActionDefinition;onAdd:(option:string,configuration:ActionConfiguration,target?:string,sessionId?:string,quantity?:number)=>boolean;onClose:()=>void}) {
  const [optionId,setOptionId]=useState(definition.options[0]?.id??''),[configuration,setConfiguration]=useState<ActionConfiguration>(()=>defaultActionConfiguration(definition.options[0])),[sessionId,setSessionId]=useState(''),[error,setError]=useState('')
+ const form=useRef<HTMLFormElement>(null)
+ function validate() {
+  if (!form.current?.reportValidity()) return false
+  try { resolveAction(definition,optionId,configuration,undefined,sessionId); setError(''); return true }
+  catch(error) { setError(error instanceof Error?error.message:'Check your selections.'); return false }
+ }
+ function add(quantity:number) {
+  if (!validate()) return false
+  try { const success=onAdd(optionId,configuration,undefined,sessionId,quantity); if(success)onClose(); return success }
+  catch(error) { setError(error instanceof Error?error.message:'Check your selections.'); return false }
+ }
  const option=definition.options.find(option=>option.id===optionId)!
  let preview=option
  try{preview=resolveAction(definition,optionId,configuration,undefined,sessionId || 'preview').option}catch{/* Show base values until required configuration is complete. */}
@@ -24,7 +36,7 @@ export default function ActionConfigurationForm({definition,onAdd,onClose}:{defi
  {preview.effects.length>0&&<div><h4>Effects</h4>{preview.effects.map((value,index)=><p key={index}>{value}</p>)}</div>}
  </InformationPanel> </>
  return <section data-tour-target="action-configuration" className="build-details action-configuration">
- <form onSubmit={event=>{event.preventDefault();try{resolveAction(definition,optionId,configuration,undefined,sessionId);if(onAdd(optionId,configuration,undefined,sessionId))onClose()}catch(error){setError(error instanceof Error?error.message:'Check your selections.')}}}>
+ <form ref={form} onSubmit={event=>{event.preventDefault();add(1)}}>
  {definition.id.startsWith('procedure-') && <p>{option.requirements.join(' · ')}</p>}
  {definition.options.length>1&&<label>Option<select value={optionId} onChange={event=>{setOptionId(event.target.value);setConfiguration(defaultActionConfiguration(definition.options.find(option=>option.id===event.target.value)!));setSessionId('');setError('')}}>{alphabeticalOptions(definition.options,option=>option.name).map(option=><option key={option.id} value={option.id}>{option.name}</option>)}</select></label>}
  {(visibleActionFields(option).length>0||option.sessionConstraints)&&<InformationPanel title="Configuration">{visibleActionFields(option).map(input=><div className="action-field" key={input.id}>{input.type==='resource'?<SearchablePicker key={optionId+input.id} label={input.label} required={input.required} options={[...ingredientItems.values()].filter(item=>!isSelectorId(item.id)&&(!input.itemIds||input.itemIds.includes(item.id)))} getOptionKey={item=>item.id} getOptionLabel={item=>item.name} onChange={item=>field(input.id,item?.id??'')}/>:input.type==='text'?<SearchInput label={input.label} showLabel inputType="text" showSearchIcon={false} required={input.required} value={String(configuration[input.id]??'')} onValueChange={value=>field(input.id,value)} aria-invalid={error.includes(input.label)||undefined} aria-describedby={error.includes(input.label)?'action-configuration-error':undefined}/>:<label>{input.label}{input.type==='select'?<select aria-invalid={error.includes(input.label)||undefined} aria-describedby={error.includes(input.label)?'action-configuration-error':undefined} required={input.required} value={configuration[input.id]??''} onChange={event=>field(input.id,event.target.value)}><option value="">Select…</option>{alphabeticalOptions(input.choices,choice=>choice.label).map(choice=><option key={choice.value} value={choice.value}>{choice.label}</option>)}</select>:<input aria-invalid={error.includes(input.label)||undefined} aria-describedby={error.includes(input.label)?'action-configuration-error':undefined} required={input.required} type="number" min={input.type==='quantity'?input.min:undefined} max={input.type==='quantity'?input.max:undefined} step={input.type==='quantity'?1:undefined} value={configuration[input.id]??''} onChange={event=>field(input.id,input.type==='quantity'&&event.target.value!==''?Number(event.target.value):event.target.value)}/>}</label>}</div>)}
@@ -32,7 +44,7 @@ export default function ActionConfigurationForm({definition,onAdd,onClose}:{defi
  </InformationPanel>}
  {error&&<p role="alert" id="action-configuration-error">{error}</p>}
  <p data-tour-target="action-costs">Duration: {duration(preview.minutes*60000)} · Mind: {preview.mind} · Resolve: {preview.resolve}</p>
- <button data-tour-target="action-submit" className="primary-button" type="submit">Add to Queue</button>
+ <QuantitySplitButton title="Add to Work Queue" name={definition.name} quantityLabel="Choose action quantity" tourTarget="action-submit" canChoose={validate} onAdd={add}>Add to Queue</QuantitySplitButton>
  <p>Recorded only. This does not change Warehouse inventory or character resources.</p>
  </form>
  <details className="action-queue-details"><summary>Requirements and details</summary><h3>{definition.name}</h3><p>{definition.description}</p><p>{definition.category}{definition.skill&&' · '+definition.skill}</p>{rules}{costs}</details>

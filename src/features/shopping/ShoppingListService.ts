@@ -1,3 +1,4 @@
+import { requireBatchQuantity } from '../batch/BatchQuantity'
 import { ingredientRequirement, concreteIngredients } from '../blueprints/IngredientRequirement'
 import { ingredientItems, isSelectorId } from '../blueprints/IngredientCatalog'
 import { getEconomicResourceDefinitions } from '../../economics/EconomicResourceCatalog'
@@ -119,4 +120,11 @@ export function getResourceCatalog(blueprints: Blueprint[], resources: ResourceE
   }
   for (const resource of resources) if (!isSelectorId(resource.itemId) && !names.has(resource.itemId)) names.set(resource.itemId,'Resource #' + resource.itemId)
   return [...names].filter(([id]) => !isSelectorId(id)).map(([resourceId,name]) => ({resourceId,name})).sort((a,b) => a.name.localeCompare(b.name))
+}
+
+// Retain existing choice requirements and aggregation; publish only the returned
+// complete list, never individual ingredient updates.
+export function addBlueprintComponentCopies(list: ShoppingList, components: CraftingComponent[], quantity: unknown): ShoppingList {
+  const copies = requireBatchQuantity(quantity)
+  return addBlueprintComponents(list, components.map(component => ({ ...component, amount: component.amount * copies })))
 }

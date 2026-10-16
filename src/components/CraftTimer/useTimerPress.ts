@@ -1,4 +1,4 @@
-import { useEffect, useState, type PointerEvent, type MouseEvent } from 'react'
+import { useEffect, useState, type PointerEvent, type MouseEvent, type KeyboardEvent } from 'react'
 import { createTimerPress } from './TimerPress'
 export function useTimerPress(tap: () => void, hold?: () => void) {
   const [press] = useState(() => createTimerPress(() => {}, () => {}))
@@ -13,6 +13,7 @@ export function useTimerPress(tap: () => void, hold?: () => void) {
     onPointerDown: (event: PointerEvent) => { if (hold && event.isPrimary && event.button === 0) press.begin(event.clientX,event.clientY) },
     onPointerMove: (event: PointerEvent) => press.move(event.clientX,event.clientY),
     onPointerUp: () => press.end(), onPointerCancel: () => press.cancel(), onPointerLeave: () => press.cancel(),
+    onKeyDown: (event: KeyboardEvent) => { if (event.key === 'Enter' || event.key === ' ') press.prepareKeyboard() },
     onClick: () => { if (!hold) tap(); else press.click() },
     onContextMenu: (event: MouseEvent) => { if (hold) event.preventDefault() },
   }

@@ -36,7 +36,7 @@ export function enforceActionSession(queue:BuildQueue,execution:ActionExecution)
  if(constraint.sameField&&snapshots.some(s=>s.configuration[constraint.sameField!]!==execution.configuration[constraint.sameField!]))throw new Error('Use the same selection throughout this session.')
 }
 export function addActionActivity(queue:BuildQueue,definition:ActionDefinition,optionId:string,configuration:ActionConfiguration,economics:EconomicsSettings,
- target?:string,sessionId?:string,now=Date.now(),id:string=crypto.randomUUID()):BuildQueue {
+ target?:string,sessionId?:string,now=Date.now(),id:string=crypto.randomUUID(),startWhenEmpty=true):BuildQueue {
  if(queue.some(activity=>activity.id===id))throw new Error('Activity IDs must be unique.')
  const execution=resolveAction(definition,optionId,configuration,target,sessionId);enforceActionSession(queue,execution)
  const option=execution.option
@@ -45,7 +45,7 @@ export function addActionActivity(queue:BuildQueue,definition:ActionDefinition,o
  recipe:{id:1,craftingTimeInMinute:option.minutes,craftingMindCost:option.mind,craftingResolveCost:option.resolve,craftingSkills:definition.skill??null,craftingZone:null,craftingComponents:inputs,craftingFinalProducts:[]},
  economicSnapshot:structuredClone(economics),overrides:{},notes:'',status:'Enqueued',timer:loadCraftTimer(option.minutes,definition.name),createdAt:now}
  const next=[...queue,build]
- return hasActiveQueueEntries(queue)?next:toggleBuildStatus(next,id,now)
+ return !startWhenEmpty||hasActiveQueueEntries(queue)?next:toggleBuildStatus(next,id,now)
 }
 export function isActionExecution(value:unknown):value is ActionExecution {
  try {

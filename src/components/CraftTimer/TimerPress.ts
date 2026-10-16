@@ -12,6 +12,7 @@ export function createTimerPress(tap: () => void, hold: () => void) {
     },
     move(x: number, y: number) { if (active && Math.hypot(x-origin.x,y-origin.y) > 10) cancel() },
     end, cancel,
+    prepareKeyboard() { end(); suppressed = false },
     click() { end(); if (!suppressed) tap(); suppressed = false },
   }
 }

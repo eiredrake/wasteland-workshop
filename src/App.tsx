@@ -14,7 +14,7 @@ import BackButton from './components/BackButton/BackButton'
 import './styles/controls.css'
 import QueueEntry from './features/actions/QueueEntry'
 import WorkHistoryView from './features/builds/WorkHistoryView'
-import { addActionActivity } from './features/actions/ActionService'
+import { enqueueBlueprintBatch, enqueueActionBatch } from './features/builds/BatchQueueService'
 import type { ActionDefinition, ActionConfiguration } from './features/actions/Action'
 import BlueprintReadSettingsView from './features/settings/BlueprintReadSettingsView'
 import { BlueprintReadProvider } from './features/blueprints/BlueprintReadContext'
@@ -39,7 +39,7 @@ import type { BlueprintShoppingProps } from './features/shopping/BlueprintShoppi
 import type { Blueprint } from './features/blueprints/Blueprint'
 import { loadShoppingLists, saveShoppingLists } from './features/shopping/ShoppingListRepository'
 import type { ShoppingListState } from './features/shopping/ShoppingList'
-import { addBlueprintComponents, replaceShoppingList, selectShoppingList } from './features/shopping/ShoppingListService'
+import { addBlueprintComponentCopies, replaceShoppingList, selectShoppingList } from './features/shopping/ShoppingListService'
 
 import BlueprintSearch from './features/blueprints/BlueprintSearch'
 import BlueprintCollectionsView from './features/blueprints/BlueprintCollectionsView'
@@ -60,7 +60,7 @@ import {
 import BuildQueueView from './features/builds/BuildQueueView'
 import BuildStatusBadge from './components/BuildStatusBadge/BuildStatusBadge'
 import { useBuildQueue } from './features/builds/useBuildQueue'
-import { addBuild, enqueueBlueprintBuild, changeBuildTimer, toggleBuildStatus, workingBuild } from './features/builds/BuildQueueService'
+import { addBuild, changeBuildTimer, toggleBuildStatus, workingBuild } from './features/builds/BuildQueueService'
 
 
 import { DefaultCostCalculator } from './economics/DefaultCostCalculator'
@@ -208,15 +208,17 @@ function App() {
     navigateTo('timer')
   }
   const [submitQueueActivity] = useState(() => createQueueSubmissionGuard())
-  const addBlueprintToBuildQueue = (blueprint: Blueprint) => {
-    if (submitQueueActivity(() => buildQueue.apply(queue => enqueueBlueprintBuild(queue, blueprint, economicsSettings)))) {
+  const addBlueprintToBuildQueue = (blueprint: Blueprint, quantity = 1) => {
+    const success = submitQueueActivity(() => buildQueue.apply(queue => enqueueBlueprintBatch(queue, blueprint, economicsSettings, quantity)), `blueprint:${blueprint.id}:${quantity}`)
+    if (success) {
       navigateTo('builds')
-      showToast('Added "' + blueprint.name + '" to the Work Queue.', 'success')
+      showToast(quantity === 1 ? 'Added "' + blueprint.name + '" to the Work Queue.' : `Added ${quantity} ${blueprint.name} activities to Work Queue.`, 'success')
     }
+    return success
   }
-  const addActionToQueue = (definition:ActionDefinition,option:string,configuration:ActionConfiguration,target?:string,session?:string) => {
-    const success=submitQueueActivity(()=>buildQueue.apply(queue=>addActionActivity(queue,definition,option,configuration,economicsSettings,target,session)))
-    if(success){navigateTo('builds');showToast('Added "'+definition.name+'" to the Work Queue.','success')}
+  const addActionToQueue = (definition:ActionDefinition,option:string,configuration:ActionConfiguration,target?:string,session?:string,quantity=1) => {
+    const success=submitQueueActivity(()=>buildQueue.apply(queue=>enqueueActionBatch(queue,definition,option,configuration,economicsSettings,quantity,target,session)), JSON.stringify([definition.id,option,configuration,target,session,quantity]))
+    if(success){navigateTo('builds');showToast(quantity===1?'Added "'+definition.name+'" to the Work Queue.':`Added ${quantity} ${definition.name} activities to Work Queue.`,'success')}
     return success
   }
   const loadBlueprintIntoCraftTimer = (blueprint: Blueprint) => {
@@ -452,7 +454,8 @@ function App() {
     }
   }
 
-  const addComponentsToShoppingList = (blueprint: Blueprint, listId: string): boolean => {
+  const [submitShoppingAddition] = useState(() => createQueueSubmissionGuard())
+  const addComponentsToShoppingList = (blueprint: Blueprint, listId: string, quantity = 1): boolean => submitShoppingAddition(() => {
     const list = shoppingState.lists.find(item => item.id === listId)
     const components = blueprint.itemCraftings?.[0]?.craftingComponents
     if (!list || !components?.length) {
@@ -460,15 +463,15 @@ function App() {
       return false
     }
     try {
-      const next = selectShoppingList(replaceShoppingList(shoppingState, addBlueprintComponents(list, components)), listId)
+      const next = selectShoppingList(replaceShoppingList(shoppingState, addBlueprintComponentCopies(list, components, quantity)), listId)
       if (!updateShoppingState(next)) return false
-      showToast(`Added all components for "${blueprint.name}" to "${list.name}".`, 'success')
+      showToast(quantity === 1 ? `Added all components for "${blueprint.name}" to "${list.name}".` : `Added ingredients for ${quantity} copies of "${blueprint.name}" to "${list.name}".`, 'success')
       return true
     } catch (error) {
       showToast(error instanceof Error ? error.message : 'Components could not be added.', 'error')
       return false
     }
-  }
+  }, JSON.stringify([blueprint.id,listId,quantity]))
 
   const shopping: BlueprintShoppingProps = {
     lists: shoppingState.lists,

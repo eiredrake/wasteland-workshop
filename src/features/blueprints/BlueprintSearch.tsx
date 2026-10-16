@@ -119,7 +119,7 @@ type BlueprintSearchProps = {
   ) => void
   onCraftBlueprint: (blueprint: Blueprint) => void
   buildQueue?: BuildQueue
-  onAddBuild: (blueprint: Blueprint) => void
+  onAddBuild: (blueprint: Blueprint, quantity?: number) => boolean | void
 }
 
 function BlueprintSearch({

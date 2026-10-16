@@ -1,0 +1,12 @@
+:root main .quantity-split { display: inline-flex; align-items: stretch; max-width: 100%; vertical-align: middle; }
+:root main .quantity-split > button:first-child { min-width: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; overflow-wrap: anywhere; touch-action: pan-y; user-select: none; -webkit-touch-callout: none; }
+:root main .quantity-split > .quantity-split-arrow { flex: 0 0 44px; min-width: 44px; padding: .5rem; border-left: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+:root main .quantity-dialog h3 { color: var(--color-rust-light); }
+:root main .quantity-dialog select { display: block; width: 100%; margin-top: .5rem; }
+:root main .quantity-dialog label { display: block; }
+:root main .quantity-split--build { float: right; margin: 0 0 1rem 1rem; }
+:root main .quantity-split--build > .blueprint-build-button { float: none; margin: 0; border-radius: var(--control-radius) 0 0 var(--control-radius); }
+:root main .quantity-split--build > .quantity-split-arrow { background: var(--color-success-tint); color: var(--color-success-text); border-color: var(--color-success); }
+
+:root main .quantity-split--build > .blueprint-build-queued + .quantity-split-arrow { background: var(--color-primary); color: var(--color-text); border-color: var(--color-primary); }
+:root main .quantity-split--build > .blueprint-build-queued + .quantity-split-arrow:hover:not(:disabled) { background: var(--color-primary-hover); border-color: var(--color-primary-hover); }

@@ -101,7 +101,7 @@ function BlueprintCraftTimer({
       type="button"
       className={'blueprint-craft-timer' + (compact ? ' blueprint-craft-timer-compact' : '')}
       {...gesture}
-      onKeyDown={event => { if (onSettings && event.key === 'F2') { event.preventDefault(); onSettings() } }}
+      onKeyDown={event => { gesture.onKeyDown(event); if (onSettings && event.key === 'F2') { event.preventDefault(); onSettings() } }}
       disabled={blocked && !onSettings}
       aria-disabled={blocked || undefined}
       title={blocked ? "Pause the current Activity before starting another." : onSettings ? "Tap to pause/resume. Hold or press F2 for timer settings." : "Create a Build and start crafting now"}

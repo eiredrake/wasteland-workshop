@@ -45,12 +45,12 @@ export function addBuild(queue: BuildQueue, blueprint: Blueprint, economics: Eco
 }
 // Blueprint Build action starts only when the queue is entirely empty.
 export function enqueueBlueprintBuild(queue: BuildQueue, blueprint: Blueprint, economics: EconomicsSettings,
-  now = Date.now(), id: string = crypto.randomUUID()): BuildQueue {
+  now = Date.now(), id: string = crypto.randomUUID(), startWhenEmpty = true): BuildQueue {
   if (isProcedureBlueprint(blueprint)) {
     const definition = procedureAction(blueprint)
-    return addActionActivity(queue, definition, 'perform', blueprint.procedureConfiguration ?? defaultActionConfiguration(definition.options[0]), economics, undefined, undefined, now, id)
+    return addActionActivity(queue, definition, 'perform', blueprint.procedureConfiguration ?? defaultActionConfiguration(definition.options[0]), economics, undefined, undefined, now, id, startWhenEmpty)
   }
-  return addBuild(queue, blueprint, economics, !hasActiveQueueEntries(queue), now, id)
+  return addBuild(queue, blueprint, economics, startWhenEmpty && !hasActiveQueueEntries(queue), now, id)
 }
 export function toggleBuildStatus(queue: BuildQueue, id: string, now = Date.now()): BuildQueue {
   const build = findBuild(queue, id)

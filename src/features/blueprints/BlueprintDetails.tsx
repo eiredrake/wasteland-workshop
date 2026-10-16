@@ -1,3 +1,4 @@
+import QuantitySplitButton from '../../components/QuantitySelection/QuantitySplitButton'
 import { isProcedureBlueprint } from './ProcedureAction'
 import ProcedureQueueEntry from './ProcedureQueueEntry'
 import { hasActiveQueueEntries } from '../builds/BuildQueueService'
@@ -40,7 +41,7 @@ type BlueprintDetailsProps = {
   ) => void
   onCraftBlueprint: (blueprint: Blueprint) => void
   buildQueue?: BuildQueue
-  onAddBuild: (blueprint: Blueprint) => void
+  onAddBuild: (blueprint: Blueprint, quantity?: number) => boolean | void
   onOpenCraftTimer: () => void
 }
 
@@ -258,7 +259,7 @@ function BlueprintDetails({
         skills ||
         specialNotes) && (
         <section className="blueprint-details-card blueprint-mechanics-card">
-          {crafting && <button type="button" data-tour-target="blueprint-build" className={`blueprint-access-status blueprint-build-button${queueHasWork ? ' blueprint-build-queued' : ''}`} onClick={() => onAddBuild(blueprint)}>{queueHasWork ? <span>Add to<br />Queue</span> : 'Build'}</button>}
+          {crafting && <QuantitySplitButton title="Add to Work Queue" name={blueprint.name} quantityLabel="Choose build quantity" className="quantity-split--build" tourTarget="blueprint-build" primaryClassName={`blueprint-access-status blueprint-build-button${queueHasWork ? ' blueprint-build-queued' : ''}`} onAdd={quantity => onAddBuild(blueprint, quantity)}>{queueHasWork ? <span>Add to<br />Queue</span> : 'Build'}</QuantitySplitButton>}
           <div className="blueprint-mechanics-section blueprint-crafting-skill">
             <h3>{procedure ? 'Requirements' : 'Crafting Skill'}</h3>
             <p>{skills}</p>
@@ -382,7 +383,7 @@ function BlueprintDetails({
 
       {!procedure && <BlueprintShoppingAction blueprint={blueprint} shopping={shopping} />}
 
-      {procedure && <ProcedureQueueEntry key={blueprint.id} blueprint={blueprint} onClose={()=>{}} onAdd={configuration=>{onAddBuild({...blueprint,procedureConfiguration:configuration});return true}}/>}
+      {procedure && <ProcedureQueueEntry key={blueprint.id} blueprint={blueprint} onClose={()=>{}} onAdd={(configuration,quantity)=>onAddBuild({...blueprint,procedureConfiguration:configuration},quantity)!==false}/>}
       {!procedure && <>
       <div className="blueprint-details-grid">
         <section className="blueprint-details-card">

@@ -117,3 +117,10 @@ describe('Inline queue timer workflow', () => {
     expect(html).toContain('Enqueued: AA Blade. Tap to move to top and start.')
   })
 })
+
+describe('canceled pointer recovery',()=>{
+ it('allows keyboard activation after cancellation without replaying the canceled pointer click',()=>{
+  vi.useFakeTimers()
+  try{const tap=vi.fn(),hold=vi.fn(),press=createTimerPress(tap,hold);press.begin(0,0);press.cancel();vi.advanceTimersByTime(600);press.click();expect(tap).not.toHaveBeenCalled();expect(hold).not.toHaveBeenCalled();press.prepareKeyboard();press.click();expect(tap).toHaveBeenCalledOnce()}finally{vi.useRealTimers()}
+ })
+})
