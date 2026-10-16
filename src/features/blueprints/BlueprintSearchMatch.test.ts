@@ -35,3 +35,52 @@ describe('shared catalog and collection search', () => {
     expect(blueprint.itemCraftings![0].craftingFinalProducts).toHaveLength(2)
   })
 })
+
+
+describe('description search and operators', () => {
+  const brew = allBlueprints.find(b => b.id === 4403)!
+  it('finds Mind in crafted-output descriptions when absent from the name', () => {
+    expect(brew.name.toLowerCase()).not.toContain('mind')
+    expect(matchesBlueprintSearch(brew, 'mind', [brew.name])).toBe(true)
+    const expected = allBlueprints.filter(b => b.itemCraftings?.some(r => r.craftingFinalProducts.some(p => p.finalProduct.metadata?.mechanics?.toLowerCase().includes('mind'))))
+    expect(expected.length).toBeGreaterThan(1)
+    expect(expected.every(b => matchesBlueprintSearch(b, 'mind', [b.name]))).toBe(true)
+  })
+  it('searches Blueprint descriptions and notes as well as every output', () => {
+    const blueprint = structuredClone(brew)
+    blueprint.metadata!.mechanics = 'Unique description'
+    blueprint.metadata!.notes = 'Special annotation'
+    expect(matchesBlueprintSearch(blueprint, 'unique description', [])).toBe(true)
+    expect(matchesBlueprintSearch(blueprint, 'special annotation', [])).toBe(true)
+  })
+  it('keeps plain text as a contiguous phrase', () => {
+    expect(matchesBlueprintSearch(brew, 'mind brew', [])).toBe(false)
+    expect(matchesBlueprintSearch(brew, 'invigorating brew', [])).toBe(true)
+  })
+  it('AND matches different fields, independently of order', () => {
+    expect(matchesBlueprintSearch(brew, 'Mind+Brew', [])).toBe(true)
+    expect(matchesBlueprintSearch(brew, 'brew + MIND', [])).toBe(true)
+    expect(matchesBlueprintSearch(brew, 'mind+nonexistent', [])).toBe(false)
+  })
+  it('OR accepts either term', () => {
+    expect(matchesBlueprintSearch(brew, 'missing|mind', [])).toBe(true)
+    expect(matchesBlueprintSearch(brew, 'brew|missing', [])).toBe(true)
+    expect(matchesBlueprintSearch(brew, 'missing|absent', [])).toBe(false)
+  })
+  it('minus excludes matching text from any field', () => {
+    expect(matchesBlueprintSearch(brew, 'mind-brew', [])).toBe(false)
+    expect(matchesBlueprintSearch(brew, 'mind-weapon', [])).toBe(true)
+    expect(matchesBlueprintSearch(brew, 'brew-townie', [])).toBe(false)
+  })
+  it('applies AND/NOT before OR and tolerates incomplete typing', () => {
+    expect(matchesBlueprintSearch(brew, 'missing+weapon|mind-banana', [])).toBe(true)
+    expect(matchesBlueprintSearch(brew, 'mind+', [])).toBe(true)
+    expect(matchesBlueprintSearch(brew, '|', [])).toBe(false)
+    expect(matchesBlueprintSearch(brew, 'mind|', [])).toBe(true)
+  })
+  it('quoted phrases preserve literal operators and normalize whitespace', () => {
+    expect(matchesBlueprintSearch(brew, '"box-trap"', ['Box-Trap'])).toBe(true)
+    expect(matchesBlueprintSearch(brew, '"a+b|c"', ['A+B|C'])).toBe(true)
+    expect(matchesBlueprintSearch(brew, 'regain   20 mind', [])).toBe(true)
+  })
+})
