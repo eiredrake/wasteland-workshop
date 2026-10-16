@@ -8,5 +8,5 @@
 :root main .quantity-split--build > .blueprint-build-button { float: none; margin: 0; border-radius: var(--control-radius) 0 0 var(--control-radius); }
 :root main .quantity-split--build > .quantity-split-arrow { background: var(--color-success-tint); color: var(--color-success-text); border-color: var(--color-success); }
 
-:root main .quantity-split--build > .blueprint-build-queued + .quantity-split-arrow { background: var(--color-primary); color: var(--color-text); border-color: var(--color-primary); }
-:root main .quantity-split--build > .blueprint-build-queued + .quantity-split-arrow:hover:not(:disabled) { background: var(--color-primary-hover); border-color: var(--color-primary-hover); }
+:root main .quantity-split--build > .blueprint-build-queued + .quantity-split-arrow { background: var(--color-success-tint); color: var(--color-success-text); border-color: var(--color-success); }
+:root main .quantity-split--build > .blueprint-build-queued + .quantity-split-arrow:hover:not(:disabled) { background: var(--color-success-tint); border-color: var(--color-success); filter:brightness(1.15); }

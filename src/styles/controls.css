@@ -92,9 +92,9 @@
 
 :root main .build-row-heading .build-status { align-self:center; }
 
-/* Queue mode preserves the Blueprint circle and uses the canonical rust palette. */
-:root main .blueprint-build-button.blueprint-build-queued { background:var(--color-primary); color:var(--color-text); border-color:var(--color-primary); white-space:normal; line-height:1.2; }
-:root main .blueprint-build-button.blueprint-build-queued:hover:not(:disabled) { background:var(--color-primary-hover); border-color:var(--color-primary-hover); }
+/* Queue mode retains the positive green Build palette. */
+:root main .blueprint-build-button.blueprint-build-queued { background:var(--color-success-tint); color:var(--color-success-text); border-color:var(--color-success); white-space:normal; line-height:1.2; }
+:root main .blueprint-build-button.blueprint-build-queued:hover:not(:disabled) { background:var(--color-success-tint); border-color:var(--color-success); filter:brightness(1.15); }
 :root main .blueprint-build-button.blueprint-build-queued:active:not(:disabled) { filter:brightness(.95); }
 
 :root main .primary-button.primary-button-cream { color:var(--color-text); }
