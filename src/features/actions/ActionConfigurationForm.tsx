@@ -44,7 +44,7 @@ export default function ActionConfigurationForm({definition,onAdd,onClose}:{defi
  </InformationPanel>}
  {error&&<p role="alert" id="action-configuration-error">{error}</p>}
  <p data-tour-target="action-costs">Duration: {duration(preview.minutes*60000)} · Mind: {preview.mind} · Resolve: {preview.resolve}</p>
- <QuantitySplitButton title="Add to Work Queue" name={definition.name} quantityLabel="Choose action quantity" tourTarget="action-submit" canChoose={validate} onAdd={add}>Add to Queue</QuantitySplitButton>
+ <QuantitySplitButton title="Add to Work Queue" name={definition.name} quantityLabel="Choose action quantity" className="quantity-split--positive" tourTarget="action-submit" canChoose={validate} onAdd={add}>Add to Queue</QuantitySplitButton>
  <p>Recorded only. This does not change Warehouse inventory or character resources.</p>
  </form>
  <details className="action-queue-details"><summary>Requirements and details</summary><h3>{definition.name}</h3><p>{definition.description}</p><p>{definition.category}{definition.skill&&' · '+definition.skill}</p>{rules}{costs}</details>

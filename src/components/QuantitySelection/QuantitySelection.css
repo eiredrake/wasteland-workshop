@@ -10,3 +10,7 @@
 
 :root main .quantity-split--build > .blueprint-build-queued + .quantity-split-arrow { background: var(--color-success-tint); color: var(--color-success-text); border-color: var(--color-success); }
 :root main .quantity-split--build > .blueprint-build-queued + .quantity-split-arrow:hover:not(:disabled) { background: var(--color-success-tint); border-color: var(--color-success); filter:brightness(1.15); }
+
+:root main .quantity-split--positive > button { background: var(--color-success-tint); color: var(--color-success-text); border-color: var(--color-success); }
+:root main .quantity-split--positive > button:hover:not(:disabled) { background: var(--color-success-tint); color: var(--color-success-text); border-color: var(--color-success); filter: brightness(1.15); }
+:root main .quantity-split--positive > button:active:not(:disabled) { filter: brightness(.95); }
