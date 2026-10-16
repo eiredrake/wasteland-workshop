@@ -26,3 +26,14 @@
 @media(max-width: 400px) { .build-card { padding: 0.8rem; } .build-row-heading { gap: 0.4rem; } .build-row-heading .build-status { margin-left: 44px; } }
 
 .build-row-heading .build-name { min-height: 44px; cursor: pointer; text-decoration: underline; text-underline-offset: 0.2em; }
+
+.history-selection-card { display: flex; align-items: flex-start; gap: .65rem; }
+.history-selection-card > details { flex: 1; min-width: 0; }
+.history-selection-card .work-summary { overflow-wrap: anywhere; }
+
+@media (max-width: 650px) {
+ .history-selection-card .work-summary { display: block; }
+ .history-selection-card .work-summary strong { display: block; margin: .4rem 0; }
+ .history-selection-card .work-summary span { display: inline-block; margin-right: .65rem; }
+ .history-selection-card .work-summary time { display: block; margin-top: .4rem; }
+}
