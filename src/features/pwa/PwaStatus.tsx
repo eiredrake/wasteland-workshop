@@ -1,3 +1,4 @@
+import {checkAppUpdate} from './UpdateCheck'
 import {runningInstalledApp,isWorkshopApp} from './InstalledApp'
 import { useEffect, useRef, useState } from 'react'
 import { useRegisterSW } from 'virtual:pwa-register/react'
@@ -46,15 +47,7 @@ export default function PwaStatus({screen,onInstalledChange}:{screen?:'install'|
  },[setReady])
  async function checkForUpdates(){
   setChecking(true);setCheckMessage('')
-  try{
-   const value=registration.current
-   if(!navigator.onLine)throw new Error('Connect to the internet to check for updates. You can keep using the current version offline.')
-   if(!value)throw new Error('App setup is still finishing. Keep this screen open and try again shortly.')
-   await value.update()
-   const worker=value.installing
-   if(worker)await new Promise<void>((resolve,reject)=>{const changed=()=>{if(worker.state==='installed'||worker.state==='activated'){worker.removeEventListener('statechange',changed);resolve()}else if(worker.state==='redundant'){worker.removeEventListener('statechange',changed);reject(new Error('The update could not be downloaded. Your current version is still available.'))}};worker.addEventListener('statechange',changed);changed()})
-   if(!value.waiting)setCheckMessage('No new update is available.')
-  }catch(reason){setCheckMessage(reason instanceof Error?reason.message:'Unable to check for updates. Try again when connected.')}
+  try{setCheckMessage(await checkAppUpdate(registration.current,navigator.onLine))}
   finally{setChecking(false)}
  }
  async function installApp(){
