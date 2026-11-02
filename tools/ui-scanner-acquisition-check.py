@@ -50,10 +50,17 @@ with sync_playwright() as p:
   field.fill('Mercy');expect(acquire).to_be_enabled();field.press('Escape');field.press('Escape');expect(manual).not_to_be_visible();assert len(entries())==2
   assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
   expect(page.get_by_role('button',name='Confirm Image')).not_to_be_visible()
-  # Wanted prints must remain acquirable; Sell prints must keep their status.
+  # Explicit Acquire sets wanted and To Sell prints directly to Acquired.
   page.evaluate('''()=>{const collections=JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'));collections[0].entries.push({blueprintId:4593,status:'to-acquire'},{blueprintId:5234,status:'sell'});localStorage.setItem('wasteland-workshop-blueprint-collections',JSON.stringify(collections))}''')
   page.reload();page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Scan Prints',exact=True).click();expect(page.get_by_role('dialog',name='Loading OCR Library')).not_to_be_visible(timeout=60000)
   scan(['Alert System']);expect(dialog).to_be_visible(timeout=60000);dialog.get_by_role('button',name='Acquire Alert System',exact=True).click();assert {'blueprintId':4593,'status':'acquired'} in entries()
-  scan(['Freeiron Dry Pack']);expect(dialog).to_be_visible(timeout=60000);expect(dialog).to_contain_text('already in the active collection');expect(dialog.get_by_role('button',name='Acquire Freeiron Dry Pack',exact=True)).to_have_count(0);dialog.get_by_role('button',name='Done',exact=True).click();assert {'blueprintId':5234,'status':'sell'} in entries()
+  scan(['Freeiron Dry Pack']);expect(dialog).to_be_visible(timeout=60000);dialog.get_by_role('button',name='Acquire Freeiron Dry Pack',exact=True).click();expect(dialog).not_to_be_visible();assert {'blueprintId':5234,'status':'acquired'} in entries()
+  # Manual-name Acquire must set Acquired from either existing status, too.
+  page.evaluate("""()=>{const collections=JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'));collections[0].entries=collections[0].entries.map(e=>e.blueprintId===4593?{...e,status:'to-acquire'}:e.blueprintId===5234?{...e,status:'sell'}:e);localStorage.setItem('wasteland-workshop-blueprint-collections',JSON.stringify(collections))}""")
+  page.reload();page.get_by_role('button',name='Open menu').click();page.get_by_role('button',name='Scan Prints',exact=True).click();expect(page.get_by_role('dialog',name='Loading OCR Library')).not_to_be_visible(timeout=60000)
+  for item_id,item_name in [(4593,'Alert System'),(5234,'Freeiron Dry Pack')]:
+   before=entries();scan(['Unidentified nonsense']);expect(manual).to_be_visible(timeout=60000);field.fill(item_name);expect(acquire).to_be_enabled();manual.get_by_role('button',name='Cancel',exact=True).click();assert entries()==before
+   scan(['Unidentified nonsense']);expect(manual).to_be_visible(timeout=60000);field.fill(item_name);expect(acquire).to_be_enabled();acquire.click();expect(manual).not_to_be_visible();assert {'blueprintId':item_id,'status':'acquired'} in entries()
+  assert page.evaluate("JSON.parse(localStorage.getItem('wasteland-workshop-blueprint-collections'))[1].entries")==[{'blueprintId':5362,'status':'acquired'}]
   page.close();print('PASS acquisition persistence/cancel/save retry/1-3 shared modal/manual selection/reset at',width,flush=True)
  browser.close()

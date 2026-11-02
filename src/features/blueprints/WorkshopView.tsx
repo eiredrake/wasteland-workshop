@@ -1,3 +1,4 @@
+import {nextBlueprintCollectionStatus,blueprintCollectionStatusLabel} from './BlueprintCollectionService'
 import type { BuildQueue } from '../builds/Build'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import BlueprintName from '../../components/BlueprintName/BlueprintName'
@@ -93,33 +94,7 @@ function formatUpdatedDate(
   ).toLocaleDateString()
 }
 
-function getNextCollectionStatus(
-  currentStatus: BlueprintAccessStatus
-): BlueprintAccessStatus | undefined {
-  if (currentStatus === 'acquired') {
-    return 'to-acquire'
-  }
 
-  if (currentStatus === 'to-acquire') {
-    return 'sell'
-  }
-
-  return undefined
-}
-
-function getStatusLabel(
-  status: BlueprintAccessStatus
-) {
-  if (status === 'acquired') {
-    return 'Acquired'
-  }
-
-  if (status === 'to-acquire') {
-    return 'To Acquire'
-  }
-
-  return 'To Sell'
-}
 
 function WorkshopView({
   warehouse,
@@ -215,7 +190,7 @@ function WorkshopView({
             item.updatedAt
           ),
           item.status,
-          getStatusLabel(
+          blueprintCollectionStatusLabel(
             item.status
           ),
         ]
@@ -246,11 +221,12 @@ function WorkshopView({
             onUpdateCollectionEntry(
               item.blueprint.id,
               item.blueprint.name,
-              getNextCollectionStatus(
+              nextBlueprintCollectionStatus(
                 item.status
               )
             )
           }}
+          aria-label={`${blueprintCollectionStatusLabel(item.status)}: ${item.blueprint.name}. Change status in ${activeCollection.name}`}
           title={`Change status in ${activeCollection.name}`}
         >
           {compact
@@ -261,7 +237,7 @@ function WorkshopView({
                   'to-acquire'
                 ? '★'
                 : '$'
-            : getStatusLabel(
+            : blueprintCollectionStatusLabel(
                 item.status
               )}
         </button>

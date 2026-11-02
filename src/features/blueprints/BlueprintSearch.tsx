@@ -1,3 +1,4 @@
+import {nextBlueprintCollectionStatus,blueprintCollectionStatusLabel} from './BlueprintCollectionService'
 import type { BuildQueue } from '../builds/Build'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import BlueprintName from '../../components/BlueprintName/BlueprintName'
@@ -71,32 +72,6 @@ function getBlueprintStatus(
   )?.status
 }
 
-function getNextStatus(
-  currentStatus:
-    | BlueprintAccessStatus
-    | undefined
-): BlueprintAccessStatus | undefined {
-  if (currentStatus === undefined) {
-    return 'to-acquire'
-  }
-
-  if (currentStatus === 'to-acquire') {
-    return 'acquired'
-  }
-
-  if (currentStatus === 'acquired') {
-    return undefined
-  }
-
-  /*
-   * To Sell cannot be entered from the
-   * Master Catalog. If an existing collection
-   * entry is already To Sell, return it to
-   * Acquired when clicked here.
-   */
-  return 'acquired'
-}
-
 type BlueprintSearchProps = {
   initialBlueprint?: Blueprint
   onBlueprintClosed?:()=>void
@@ -164,7 +139,7 @@ function BlueprintSearch({
       )
 
     const nextStatus =
-      getNextStatus(currentStatus)
+      nextBlueprintCollectionStatus(currentStatus)
 
     onUpdateCollectionEntry(
       blueprint.id,
@@ -196,24 +171,21 @@ function BlueprintSearch({
             activeCollection
           )
 
-        let label = 'Not Acquired'
+        const label = blueprintCollectionStatusLabel(status)
         let className =
           'workshop-status workshop-status-none'
 
         if (status === 'acquired') {
-          label = 'Acquired'
           className =
             'workshop-status workshop-status-acquired'
         }
 
         if (status === 'to-acquire') {
-          label = 'To Acquire'
           className =
             'workshop-status workshop-status-to-acquire'
         }
 
         if (status === 'sell') {
-          label = 'To Sell'
           className =
             'workshop-status workshop-status-sell'
         }
@@ -242,6 +214,7 @@ function BlueprintSearch({
                 blueprint
               )
             }
+            aria-label={`${label}: ${blueprint.name}. Change status in ${activeCollection.name}`}
             title={`Change status in ${activeCollection.name}`}
           >
             {compact ? compactLabel : label}

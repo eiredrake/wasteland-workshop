@@ -58,7 +58,7 @@ export default function ScanPrintsView({activeCollection,onToCollections,onAcqui
   }catch(cause){error=scannerError('UNEXPECTED_ERROR','recognition',cause instanceof Error?cause.message:String(cause));if(mounted.current)showFailure(error)}
   finally{record({type:'SCAN_COMPLETED',stage:error?.stage??'matching',scanId,acquisitionId:image.acquisitionId,sourceType:image.sourceType,status:error?'FAILED':'SUCCESS',error,durationMs:performance.now()-started});busy.current=false;if(mounted.current)setScanning(false)}
  }
- function alreadyOwned(id:number){return activeCollection.entries.some(entry=>entry.blueprintId===id&&(entry.status==='acquired'||entry.status==='sell'))}
+ function alreadyOwned(id:number){return activeCollection.entries.some(entry=>entry.blueprintId===id&&entry.status==='acquired')}
  function acquireMatch(blueprint:CatalogEntry){
   if(alreadyOwned(blueprint.id))return
   if(!result||(result.manual?!masterBlueprints.some(item=>item.id===blueprint.id):!result.matches?.some(item=>item.id===blueprint.id)))return
