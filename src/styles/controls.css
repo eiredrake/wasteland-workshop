@@ -13,6 +13,7 @@
 :root main button[aria-pressed=true]:not(.blueprint-access-status,.workshop-status) { border-color:var(--color-selection); color:var(--color-selection); background:var(--color-warning-tint); }
 :root main :is(.workshop-status,.blueprint-access-status,.build-status,.warehouse-expiration-badge,.blueprint-collection-active-badge,.workshop-filter) { border:1px solid currentColor; border-radius:999px; padding:.3rem .65rem; font-family:inherit; font-size:.75rem; font-weight:700; line-height:1.2; letter-spacing:.04em; text-transform:uppercase; white-space:nowrap; }
 :root main button:is(.workshop-status,.blueprint-access-status,.build-status,.workshop-filter) { min-height:44px; cursor:pointer; }
+:root main button.workshop-status { min-width:44px; }
 :root main :is(.workshop-status-acquired,.blueprint-access-status-acquired,.build-status-working,.build-status-completed,.warehouse-expiration-good) { color:var(--color-success-text); background:var(--color-success-tint); }
 :root main :is(.workshop-status-to-acquire,.blueprint-access-status-to-acquire,.build-status-enqueued,.warehouse-expiration-expiring,.workshop-filter-active) { color:var(--color-selection); background:var(--color-warning-tint); }
 :root main :is(.workshop-status-none,.blueprint-access-status-untracked,.warehouse-expiration-expired,.warehouse-expiration-unknown,.warehouse-expiration-currency) { color:var(--color-neutral); background:var(--color-neutral-tint); }

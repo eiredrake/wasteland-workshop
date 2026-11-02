@@ -1,3 +1,4 @@
+import {nextBlueprintCollectionStatus,blueprintCollectionStatusLabel} from './BlueprintCollectionService'
 import QuantitySplitButton from '../../components/QuantitySelection/QuantitySplitButton'
 import { isProcedureBlueprint } from './ProcedureAction'
 import ProcedureQueueEntry from './ProcedureQueueEntry'
@@ -50,7 +51,6 @@ function BlueprintDetails({
   warehouseError,
   shopping,
   blueprint,
-  mode,
   calculator,
   defaultMarkupPercent,
   activeCollection,
@@ -155,22 +155,7 @@ function BlueprintDetails({
         entry.blueprintId === blueprint.id
     )
 
-    const collectionStatus = (() => {
-      if (!collectionEntry) {
-        return 'Not Acquired'
-      }
-    
-      if (collectionEntry.status === 'acquired') {
-        return 'Acquired'
-      }
-    
-      if (collectionEntry.status === 'to-acquire') {
-        return 'To Acquire'
-      }
-    
-      return 'To Sell'
-    })()
-
+  const collectionStatus = blueprintCollectionStatusLabel(collectionEntry?.status)
 
   const updateCollectionStatus = (
     status:
@@ -185,63 +170,7 @@ function BlueprintDetails({
   }
 
   const cycleCollectionStatus = () => {
-    if (mode === 'catalog') {
-      if (!collectionEntry) {
-        updateCollectionStatus(
-          'to-acquire'
-        )
-        return
-      }
-
-      if (
-        collectionEntry.status ===
-        'to-acquire'
-      ) {
-        updateCollectionStatus(
-          'acquired'
-        )
-        return
-      }
-
-      if (
-        collectionEntry.status ===
-        'acquired'
-      ) {
-        updateCollectionStatus(undefined)
-        return
-      }
-
-      /*
-       * To Sell cannot be entered from the
-       * Master Catalog. An existing To Sell
-       * entry returns to Acquired.
-       */
-      updateCollectionStatus('acquired')
-      return
-    }
-
-    if (!collectionEntry) {
-      updateCollectionStatus('acquired')
-      return
-    }
-
-    if (
-      collectionEntry.status ===
-      'acquired'
-    ) {
-      updateCollectionStatus('to-acquire')
-      return
-    }
-
-    if (
-      collectionEntry.status ===
-      'to-acquire'
-    ) {
-      updateCollectionStatus('sell')
-      return
-    }
-
-    updateCollectionStatus(undefined)
+    updateCollectionStatus(nextBlueprintCollectionStatus(collectionEntry?.status))
   }
 
   return (
@@ -364,6 +293,7 @@ function BlueprintDetails({
                   onClick={
                     cycleCollectionStatus
                   }
+                  aria-label={`${collectionStatus}: ${blueprint.name}. Change status in ${activeCollection.name}`}
                   title={`Change status in ${activeCollection.name}`}
                 >
                   {collectionStatus}
