@@ -77,11 +77,6 @@ describe('Printable procedures', () => {
    expect(()=>enqueueBlueprintBuild([],blueprint,resolveEconomicsSettings())).toThrow('inputs and outputs reviewed')
   }
  })
- it('leaves only the 16 taxonomy-output recipes excluded from the master list', () => {
-  const remaining = allBlueprints.filter(b=>!masterBlueprints.includes(b))
-  expect(remaining).toHaveLength(16)
-  for(const blueprint of remaining)expect(blueprint.itemCraftings?.[0]?.craftingFinalProducts[0]?.finalProduct.kind).toBe('taxonomy')
- })
  it('retains procedure requirements and mechanics in the share print', () => {
   const share = blueprintShareCard(transfusion,new DefaultCostCalculator(resolveEconomicsSettings()))
   expect(share.sections).toContainEqual({label:'Equipment / Consumables',text:'Necrology Station'})

@@ -6,8 +6,6 @@ from playwright.sync_api import sync_playwright,expect
 root=Path(__file__).resolve().parents[1]
 audit=json.loads((root/'docs/audits/issue-38-lineage-after.json').read_text(encoding='utf-8'))
 new_named=[r for r in audit['comparison'] if any(b!='Lineage: Any' for b in r['after'])]
-catalog=json.loads((root/'src/data/wasteland-blueprints.json').read_text(encoding='utf-8'))['blueprints']
-hidden={b['id'] for b in catalog if b.get('itemCraftings') and b['itemCraftings'][0]['craftingFinalProducts'][0]['finalProduct']['kind']=='taxonomy'}
 byid={r['id']:r for r in audit['records']}
 strain=next(r for r in audit['records'] if any(b['type']=='Strain' for b in r['badges']))
 cases=[(r['id'],r['name'],r['after']) for r in new_named]+[(4407,'Hooch',['Lineage: Any']),(5392,'Adrenal Stabilizer Serum Combat Enhancer',['Lineage: Any']),(4403,'Angry Apple Invigorating Brew',['Lineage: Townie']),(strain['id'],strain['name'],['Strain: Iron or Unstable']),(4744,'M.M. Necro-Info Head Jar',[]),(4860,"The Hunter's Secret",[])]
@@ -39,13 +37,6 @@ try:
    for item_id,name,expected in cases:
     nav('Blueprint Catalog');page.get_by_role('searchbox',name='Search blueprints',exact=True).fill(chr(34)+name+chr(34))
     row=page.get_by_role('row').filter(has_text=name)
-    if item_id in hidden:
-     expect(row).to_have_count(0)
-     page.goto(base+f'/#/catalog/{item_id}',wait_until='load')
-     header=page.locator('.blueprint-details-header');badges(header.locator('.blueprint-usage-badge'),expected)
-     header.screenshot(path=str(output/f'details-{item_id}-{width}.png'))
-     assert page.evaluate('localStorage.getItem("wasteland-workshop-blueprint-collections")')==before
-     continue
     expect(row).to_have_count(1);badges(row.locator('.blueprint-usage-badge'),expected)
     if item_id==4419:page.screenshot(path=str(output/f'catalog-slicker-{width}.png'))
     row.get_by_role('cell',name=re.compile('^'+re.escape(name))).click()
@@ -65,7 +56,7 @@ try:
    nav('Blueprint Catalog');context.set_offline(True);page.reload(wait_until='load');page.get_by_role('searchbox',name='Search blueprints',exact=True).fill('Slicker Healing Brew')
    badges(page.locator('.datalist .blueprint-usage-badge'),['Lineage: Townie'])
    assert page.evaluate('localStorage.getItem("wasteland-workshop-blueprint-collections")')==before
-   print(f'{width}px: 8 healing brews, 8 poison Details (existing taxonomy filter preserved), Any, Strain, negatives, both visible Details modes, unchanged collections and offline passed',flush=True)
+   print(f'{width}px: 8 healing brews, 8 poison Catalog/Workshop/Details, Any, Strain, negatives, both visible Details modes, unchanged collections and offline passed',flush=True)
    context.close()
   browser.close()
 finally:
