@@ -47,3 +47,7 @@
   outline: 1px solid var(--color-focus);
   outline-offset: 3px;
 }
+
+.datalist tbody tr.datalist-row-clickable {
+  cursor: pointer;
+}

@@ -1,3 +1,4 @@
+import BlueprintUsageBadges from '../../components/BlueprintUsageBadges/BlueprintUsageBadges'
 import {nextBlueprintCollectionStatus,blueprintCollectionStatusLabel} from './BlueprintCollectionService'
 import QuantitySplitButton from '../../components/QuantitySelection/QuantitySplitButton'
 import { isProcedureBlueprint } from './ProcedureAction'
@@ -182,6 +183,7 @@ function BlueprintDetails({
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m9 10 6-4M9 14l6 4"/></svg>
           Share Print
         </button>
+        <BlueprintUsageBadges blueprint={blueprint}/>
       </header>
 
       {(itemMechanics ||

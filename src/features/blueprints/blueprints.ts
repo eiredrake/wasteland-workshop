@@ -30,10 +30,5 @@ export const allBlueprints: Blueprint[] =
       return false
     }
 
-    const finalProductKind =
-      blueprint.itemCraftings?.[0]
-        ?.craftingFinalProducts?.[0]
-        ?.finalProduct.kind
-
-    return finalProductKind !== 'taxonomy'
+    return true
   })

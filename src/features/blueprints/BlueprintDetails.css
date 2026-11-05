@@ -277,3 +277,5 @@
     font-size: 1rem;
   }
 }
+
+.blueprint-details-header > .blueprint-usage-badges { flex-basis: 100%; margin-top: 0; }
