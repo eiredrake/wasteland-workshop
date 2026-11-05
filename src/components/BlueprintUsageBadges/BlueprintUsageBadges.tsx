@@ -4,5 +4,5 @@ import './BlueprintUsageBadges.css'
 export default function BlueprintUsageBadges({blueprint}:{blueprint:Blueprint}) {
   const restrictions = blueprintUsageRestrictions(blueprint)
   if (!restrictions.length) return null
-  return <span className="blueprint-usage-badges">{restrictions.map(item => <span key={item.type+item.value} className="blueprint-usage-badge" title={item.source}>{item.type}: {item.value}</span>)}</span>
+  return <span className="blueprint-usage-badges">{restrictions.map(item => <span key={item.type+item.value} className="blueprint-usage-badge" title={item.applicability?`${item.applicability==='target'?'Target applicability':item.applicability==='user'?'User applicability':'Lineage applicability'}: ${item.source}`:item.source}>{item.type}: {item.value}</span>)}</span>
 }

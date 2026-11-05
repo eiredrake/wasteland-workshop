@@ -12,6 +12,7 @@ const brew = allBlueprints.find(b=>b.id===4403)!
 function withRequirement(text:string) {
  const blueprint = structuredClone(brew)
  blueprint.itemCraftings![0].craftingFinalProducts[0].finalProduct.metadata!.requirementsToUse = text
+ blueprint.itemCraftings![0].craftingFinalProducts[0].finalProduct.metadata!.mechanics = null
  return blueprint
 }
 describe('compact usage restrictions', () => {
@@ -25,14 +26,14 @@ describe('compact usage restrictions', () => {
   blueprint.metadata = {...blueprint.metadata!,requirementsToUse:'Townie Lineage'}
   expect(blueprintUsageRestrictions(blueprint).map(r=>[r.type,r.value])).toEqual([['Lineage','Townie'],['Strain','Iron or Unstable']])
  })
- it.each(['Any Lineage','Lore: Lineage','Cannot use Townie Lineage','Basic Artisan and Townie Lineage','None','Master Medical','Strain: not Iron'])('does not infer restrictions from %s', text => {
+ it.each(['Lore: Lineage','Cannot use Townie Lineage','Basic Artisan and Townie Lineage','None','Master Medical','Strain: not Iron'])('does not infer restrictions from %s', text => {
   expect(blueprintUsageRestrictions(withRequirement(text))).toEqual([])
  })
- it('does not parse mechanics as restrictions or mutate source data', () => {
+ it('parses mechanics-only applicability without mutating source data', () => {
   const blueprint = withRequirement('None'), before = structuredClone(blueprint)
   blueprint.itemCraftings![0].craftingFinalProducts[0].finalProduct.metadata!.mechanics = 'Townie Lineage only'
   const changed = structuredClone(blueprint)
-  expect(blueprintUsageRestrictions(blueprint)).toEqual([]); expect(blueprint).toEqual(changed)
+  expect(blueprintUsageRestrictions(blueprint)).toMatchObject([{type:'Lineage',value:'Townie',sourceField:'mechanics',applicability:'unspecified'}]); expect(blueprint).toEqual(changed)
   expect(before.itemCraftings![0].craftingFinalProducts[0].finalProduct.metadata!.requirementsToUse).toBe('None')
  })
  it('shows labeled badges and omits unrestricted badge containers', () => {

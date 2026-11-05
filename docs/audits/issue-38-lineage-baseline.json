@@ -1,0 +1,5650 @@
+{
+  "catalogSha256": "9abda8d6a7ae9e12d3ed8074cd7daaa3ee2ee10f5c36c3256680d66e382c21ec",
+  "catalogCount": 655,
+  "summary": {
+    "lineagePrints": 48,
+    "strainPrints": 1,
+    "anyMechanicsOccurrences": 31
+  },
+  "records": [
+    {
+      "id": 6322,
+      "name": "\"Dodge This\" Ramprow (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5756,
+      "name": "\"Members Only\" Rotating Crypto-Lock",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5196,
+      "name": "\"Perfectly Safe\" Radium Rounds",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6347,
+      "name": "\"Rode In On\" Shell (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4671,
+      "name": ".22 Caliber Bone Screws",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4597,
+      "name": ".38 Caliber Privacy Pipes",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5194,
+      "name": ".45 Caliber Lock Pick",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5328,
+      "name": "AA Blade",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5198,
+      "name": "Aberrant Be Good Spike",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5494,
+      "name": "Able Door",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4672,
+      "name": "Accounting Journal Pen",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4805,
+      "name": "Acid Compounds Crafting Component",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4831,
+      "name": "Act of Aristippus",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4821,
+      "name": "Adhesive Crafting Component",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5392,
+      "name": "Adrenal Stabilizer Serum Combat Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 5393,
+          "productName": "Adrenal Stabilizer Serum Combat Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Aberrant Horror and Aberrant Suffering.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4439,
+      "name": "Adrenaline Healing Injection",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Gorger",
+          "source": "Gorger Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4010,
+          "productName": "Adrenaline Healing Injection",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Gorger Lineage",
+          "structuredRequirement": "Gorger Lineage"
+        },
+        {
+          "productId": 4010,
+          "productName": "Adrenaline Healing Injection",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of the Gorger Lineage regain 10 Body. Injected (Can be self injected when in Bleed Out).",
+          "structuredRequirement": "Gorger Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4647,
+      "name": "Al Buquerue's Left Turn",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4593,
+      "name": "Alert System",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4481,
+      "name": "Alleyway Performance Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4052,
+          "productName": "Alleyway Performance Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Knockout and Malicious Discussion.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4811,
+      "name": "Alloy Metal Production",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4673,
+      "name": "Amity Safety Harness",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4447,
+      "name": "Ampheta Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Devoted",
+          "source": "Devoted Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4018,
+          "productName": "Ampheta Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Devoted Lineage",
+          "structuredRequirement": "Devoted Lineage"
+        },
+        {
+          "productId": 4018,
+          "productName": "Ampheta Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Devoted Lineage regain 40 Mind and Upsurge 10 Mind.",
+          "structuredRequirement": "Devoted Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4590,
+      "name": "Anchor Fist Hatchet",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5310,
+      "name": "Anchor Fist Knucks",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4598,
+      "name": "Angry Anchor Armored Harpoon Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6252,
+      "name": "Angry Anchor Battle Barge (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6258,
+      "name": "Angry Anchor Cargo Clipper (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6250,
+      "name": "Angry Anchor Cruiser (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6254,
+      "name": "Angry Anchor Lil Red Corvette (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4674,
+      "name": "Angry Anchor Messy Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4675,
+      "name": "Angry Anchor Officer's Insignia",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4676,
+      "name": "Angry Anchor Rhythmic Generation Hardware",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4582,
+      "name": "Angry Anchor Riot Shield",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4677,
+      "name": "Angry Anchor Securebox Wiring",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6321,
+      "name": "Angry Anchor Ship Charges (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4678,
+      "name": "Angry Anchor Storage",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4569,
+      "name": "Angry Anchor War Hammer",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5200,
+      "name": "Angry Anchor Weapons Cabinet",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6257,
+      "name": "Angry Anchor Windjammer (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4599,
+      "name": "Angry Anchor Work Ship",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4403,
+      "name": "Angry Apple Invigorating Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Townie",
+          "source": "Townie Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3974,
+          "productName": "Angry Apple Invigorating Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Townie Lineage",
+          "structuredRequirement": "Townie Lineage"
+        },
+        {
+          "productId": 3974,
+          "productName": "Angry Apple Invigorating Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Townie Lineage regain 20 Mind.",
+          "structuredRequirement": "Townie Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4679,
+      "name": "Anointment Oil",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5202,
+      "name": "Anomalous Dead Zone",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5926,
+      "name": "Another Tomorrow",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6199,
+      "name": "Anti-Conveyance Missile Equipment (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4680,
+      "name": "Antihistocillin Spinal Spike",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4466,
+      "name": "Antithesis Poison",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4026,
+          "productName": "Antithesis Poison (Applied)",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.childItemClassifications[0].childItem.metadata.mechanics",
+          "text": "Applied. On next attempted Strike, call \"20 Body to Evolved\".",
+          "structuredRequirement": "None"
+        },
+        {
+          "productId": 4037,
+          "productName": "Antithesis Poison (Consumed)",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.childItemClassifications[1].childItem.metadata.mechanics",
+          "text": "Ingested. When consumed, members of the Evolved Lineage take 10 Body Damage.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 5956,
+      "name": "Apocryphal Devotion",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4413,
+      "name": "Arisen Healing Brew",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 3984,
+          "productName": "Arisen Healing Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Applied. Target (Both) of the Devoted Lineage regains 10 Body.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4467,
+      "name": "Arsenic Poison",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4681,
+      "name": "Ashes of the Devoted",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4491,
+      "name": "Auntie Deadeye's Combat Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4062,
+          "productName": "Auntie Deadeye's Combat Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Trick Shot and Equipment Awareness.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4440,
+      "name": "Aura Healing Injection",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Nomad",
+          "source": "Nomad Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4011,
+          "productName": "Aura Healing Injection",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Nomad Lineage",
+          "structuredRequirement": "Nomad Lineage"
+        },
+        {
+          "productId": 4011,
+          "productName": "Aura Healing Injection",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of the Nomad Lineage regain 10 Body. Injected (Can be self injected when in Bleed Out).",
+          "structuredRequirement": "Nomad Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4482,
+      "name": "Backroad Performance Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4053,
+          "productName": "Backroad Performance Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Awareness and Blinding.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 6333,
+      "name": "Bandit's Smokey Screen (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5204,
+      "name": "Barbed Broadheads",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4591,
+      "name": "Barbed Javelin",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4682,
+      "name": "Barbed Pitchfork",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4404,
+      "name": "Barrel Aged Invigorating Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Evolved",
+          "source": "Evolved Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3975,
+          "productName": "Barrel Aged Invigorating Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Evolved Lineage",
+          "structuredRequirement": "Evolved Lineage"
+        },
+        {
+          "productId": 3975,
+          "productName": "Barrel Aged Invigorating Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Evolved Lineage regain 20 Mind.",
+          "structuredRequirement": "Evolved Lineage"
+        }
+      ]
+    },
+    {
+      "id": 6418,
+      "name": "Basic Travel Trade Resource",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4620,
+      "name": "Basic Vibroslug Lockpicking Gun",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5206,
+      "name": "Basket Case Hilt",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4492,
+      "name": "Bastion Safeguard Combat Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4063,
+          "productName": "Bastion Safeguard Combat Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of any Lineage regain up to 2 uses of Shield Master and Mangle.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4414,
+      "name": "Bayful Healing Brew",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 3985,
+          "productName": "Bayful Healing Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Applied. Target (Both) of the Mutant Lineage regain 10 Body. May self-Target.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4570,
+      "name": "BBQ Rib Spearer",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4832,
+      "name": "Benediction of Grace",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4833,
+      "name": "Benediction of Heretical Devotion",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4834,
+      "name": "Benediction of Induction",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4835,
+      "name": "Benediction of Nonestcras",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4836,
+      "name": "Benediction of the Heretic's Masquerade",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4837,
+      "name": "Benediction of the Wailing Abyss",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4468,
+      "name": "Betrayal Poison",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4028,
+          "productName": "Betrayal Poison (Applied)",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.childItemClassifications[0].childItem.metadata.mechanics",
+          "text": "Applied. On next attempted Strike, call \"20 Body to Devoted\".",
+          "structuredRequirement": "None"
+        },
+        {
+          "productId": 4039,
+          "productName": "Betrayal Poison (Consumed)",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.childItemClassifications[1].childItem.metadata.mechanics",
+          "text": "Ingested. When consumed, members of the Devoted Lineage take 10 Body Damage.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4594,
+      "name": "Big Ol Teeth",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6316,
+      "name": "Bigol 'Poon Grenadas (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4510,
+      "name": "Bigol Body Armor",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6326,
+      "name": "Bigol Clunky Tire Chains (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4518,
+      "name": "Bigol Compound Bow",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6268,
+      "name": "Bigol Iron Juggernaut (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4511,
+      "name": "Bigol Overlapping Plates",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4600,
+      "name": "Bigol Personal-Zeppelin",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6260,
+      "name": "Bigol Six by Six (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5318,
+      "name": "Bigol Sledge",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6267,
+      "name": "Bigol Two-Up All Terrain Vehicle (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6264,
+      "name": "Bigol Whip (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6343,
+      "name": "Bigol Zero Point Anchor (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4519,
+      "name": "Billy GOAT Hunting Bow",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4631,
+      "name": "Binding To Discretion",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4652,
+      "name": "Bio Stabilizer Injection System",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4683,
+      "name": "Biomanipulator Claws",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5208,
+      "name": "Biomatter Alignment Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4684,
+      "name": "Bioshare Transfusion System",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5210,
+      "name": "Bishop's Vault Probe",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4421,
+      "name": "Bitter Bite Healing Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Elitariat",
+          "source": "Elitariat Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3992,
+          "productName": "Bitter Bite Healing Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Elitariat Lineage",
+          "structuredRequirement": "Elitariat Lineage"
+        },
+        {
+          "productId": 3992,
+          "productName": "Bitter Bite Healing Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Elitariat Lineage regain 30 Body and 5 Mind.",
+          "structuredRequirement": "Elitariat Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4469,
+      "name": "Bitter Herb Poison",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4029,
+          "productName": "Bitter Herb Poison (Applied)",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.childItemClassifications[0].childItem.metadata.mechanics",
+          "text": "Applied. On next attempted Strike, call \"20 Body to Landsmen\".",
+          "structuredRequirement": "None"
+        },
+        {
+          "productId": 4040,
+          "productName": "Bitter Herb Poison (Consumed)",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.childItemClassifications[1].childItem.metadata.mechanics",
+          "text": "Ingested. When consumed, members of the Landsmen Lineage take 10 Body Damage.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 5212,
+      "name": "Blade Breaker’s Backing",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4838,
+      "name": "Blessing of the Lord Commander's Armory",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4625,
+      "name": "Blood Sealed Pact",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4470,
+      "name": "Bloodless Poison",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4041,
+          "productName": "Bloodless Poison (Consumed)",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.childItemClassifications[1].childItem.metadata.mechanics",
+          "text": "Ingested. When consumed, members of the Gorger Lineage take 10 Body Damage.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 5891,
+      "name": "Bloody Bedlam Bands",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 5892,
+          "productName": "Bloody Bedlam Bands",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Once these collars are placed on two willing Lineage Targets by the user, they activate and a 10 minute timer begins. If one of the Targets enters Bleed Out during this period, they immediately die and lose an Infection and the other Target immediately gains an Infection (if currently below max Infection Pool) and a Fracture. If neither Target enters Bleed Out by the 10 minute mark, or both enter Bleed Out at the same time (due to AOE or similar), both Targets immediately die and gain a Fracture. Both the Fracture and the Infection loss via this item cannot be prevented by any means.",
+          "structuredRequirement": "Basic Criminal Influence (Black Market 1) "
+        }
+      ]
+    },
+    {
+      "id": 5214,
+      "name": "Bloody Handle Wrapping",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4422,
+      "name": "Bloody Healing Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Gorger",
+          "source": "Gorger Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3993,
+          "productName": "Bloody Healing Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Gorger Lineage",
+          "structuredRequirement": "Gorger Lineage"
+        },
+        {
+          "productId": 3993,
+          "productName": "Bloody Healing Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Gorger Lineage regain 30 Body and 5 Mind.",
+          "structuredRequirement": "Gorger Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4685,
+      "name": "Bloody Vestments",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6193,
+      "name": "Blue Can",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4653,
+      "name": "Blue Glowing Byproduct",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4654,
+      "name": "Blue Hue Goo",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5216,
+      "name": "Blunt Tipped Arrowheads",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6287,
+      "name": "Boarding Hooks  (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4686,
+      "name": "Body Unlock Shocking Palms",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4687,
+      "name": "Boo-Boo Rags",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5320,
+      "name": "Bottle Rocket Booster",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4688,
+      "name": "Brain Disorientah",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4648,
+      "name": "Brain Shudder Blade",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5955,
+      "name": "Burn Cycle",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4415,
+      "name": "Burney Healing Brew",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 3986,
+          "productName": "Burney Healing Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Applied. Target (Both) of the Landsman Lineage regain 10 Body. May self-Target.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4695,
+      "name": "C'Mere Psionic Wrist Binds",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4448,
+      "name": "Caffeinated Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Elitariat",
+          "source": "Elitariat Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4019,
+          "productName": "Caffeinated Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Elitariat Lineage",
+          "structuredRequirement": "Elitariat Lineage"
+        },
+        {
+          "productId": 4019,
+          "productName": "Caffeinated Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Elitariat Lineage regain 40 Mind and Upsurge 10 Mind.",
+          "structuredRequirement": "Elitariat Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4483,
+      "name": "Caleh Performance Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4054,
+          "productName": "Caleh Performance Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Avoid and Break.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4423,
+      "name": "Candied-Wrap Healing Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Mutant",
+          "source": "Mutant Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3994,
+          "productName": "Candied-Wrap Healing Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Mutant Lineage",
+          "structuredRequirement": "Mutant Lineage"
+        },
+        {
+          "productId": 3994,
+          "productName": "Candied-Wrap Healing Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Mutant Lineage regain 30 Body and 5 Mind.",
+          "structuredRequirement": "Mutant Lineage"
+        }
+      ]
+    },
+    {
+      "id": 5342,
+      "name": "Candlepin Basher",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4560,
+      "name": "Candlepin Cork-Cored Club",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4522,
+      "name": "Candlepin Flame Belcher",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4689,
+      "name": "Candlepin Medical Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6348,
+      "name": "Candlepin Pyromaniac (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4690,
+      "name": "Candlepin Survival Splint",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4424,
+      "name": "Cart-Fry Healing Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Townie",
+          "source": "Townie Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3995,
+          "productName": "Cart-Fry Healing Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Townie Lineage",
+          "structuredRequirement": "Townie Lineage"
+        },
+        {
+          "productId": 3995,
+          "productName": "Cart-Fry Healing Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Townie Lineage regain 30 Body and 5 Mind.",
+          "structuredRequirement": "Townie Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4460,
+      "name": "Caustic Poison",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4512,
+      "name": "Chainmail Patient Cover",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4493,
+      "name": "Charred Moments Combat Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4064,
+          "productName": "Charred Moments Combat Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Dead Trigger and Rally Call.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4691,
+      "name": "Chemical Survival Test Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4425,
+      "name": "Chop Mix Healing Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Devoted",
+          "source": "Devoted Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3996,
+          "productName": "Chop Mix Healing Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Devoted Lineage",
+          "structuredRequirement": "Devoted Lineage"
+        },
+        {
+          "productId": 3996,
+          "productName": "Chop Mix Healing Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Devoted Lineage regain 30 Body and 5 Mind.",
+          "structuredRequirement": "Devoted Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4692,
+      "name": "Choreo Graphed Robbery Plans",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4605,
+      "name": "Chum Bucket",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4693,
+      "name": "Cilice of Undying Will",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4839,
+      "name": "Clarity of the E4M",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5148,
+      "name": "Claymore Vest Armor",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4694,
+      "name": "Clean Gambling Gear",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5218,
+      "name": "Clive's Barking Tracking Arrow",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4621,
+      "name": "Cloudy Sus Bottle",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4696,
+      "name": "Codex Insignia",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4649,
+      "name": "Collection of Heads",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5220,
+      "name": "Combat Goggles",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5166,
+      "name": "Comfortable Craniotomy Chair",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4520,
+      "name": "Compound Hunting Bow",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4812,
+      "name": "Conductive Metal Production",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4561,
+      "name": "Confessor's Spine",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4822,
+      "name": "Cooking Oil Crafting Component",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4697,
+      "name": "Corpse Key Deathgate",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5924,
+      "name": "Corruption Cutter",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5150,
+      "name": "Counterbalance Rigging",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6218,
+      "name": "Cranial Cleansing",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6189,
+      "name": "Cranial Injection Rounds",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5822,
+      "name": "Crippling Debt Injection",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4698,
+      "name": "Crossroads Guard",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4699,
+      "name": "Crypt Coin",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4610,
+      "name": "Crystal Candy Extract",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4615,
+      "name": "Crystal Candy Inhalant",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4606,
+      "name": "Crystal Candy Snack",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5222,
+      "name": "Crystalline Biological Enhancer",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4521,
+      "name": "Crystalline Focusing Lodestone Bow",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4700,
+      "name": "Crystodyne Regalia",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4562,
+      "name": "Cullingwood Blade",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5372,
+      "name": "Curse-Foiled Headwrapping",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5322,
+      "name": "Cut & Go Fencer",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6119,
+      "name": "Cutting Corners",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4540,
+      "name": "Cyclone Sabers",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4583,
+      "name": "Daline Buckler",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5330,
+      "name": "Daline Cudgel",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4655,
+      "name": "Daline Death Measure Osteotome",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4225,
+          "productName": "Daline Death Measure Osteotome",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "User may Target the corpse of a Lineage that has not yet sunk with a use of Malicious Discussion. Instead of interrogation or intimidation tactics the user should spend the 5 minutes performing a grotesque and brutal brain surgery on the Target corpse. Use of this item will prevent the corpse from sinking until the surgery has concluded. Repeated uses of Malicious Discussion may be used to ask further questions. The corpse sinks as soon as the final question is asked. The Target is unaware of their corpse having been interrogated.",
+          "structuredRequirement": "Malicious Discussion, Lore - Wasteland Science"
+        }
+      ]
+    },
+    {
+      "id": 4541,
+      "name": "Daline Go-With-The-Flow",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4650,
+      "name": "Daline Smart-Trap",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4484,
+      "name": "Dark Syrup Performance Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4055,
+          "productName": "Dark Syrup Performance Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Balance and Takedown.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4701,
+      "name": "Dead and Luvin It Lenses",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4622,
+      "name": "Dead Man's Hand",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4549,
+      "name": "Dead Ringers",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6334,
+      "name": "Dee Four's Caltrop Scatterer (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4550,
+      "name": "Deep Handle Channeling Knife",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5168,
+      "name": "Defensible Position",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4840,
+      "name": "Desecration of False Truths",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4841,
+      "name": "Devotion of the Free Radical",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4841,
+          "productName": "Devotion of the Free Radical",
+          "field": "mechanics",
+          "path": "blueprint.metadata.mechanics",
+          "text": "Upon completion, participants gain Disease - Stage 2 Radiation Rot (or 1 higher if Target already has Radiation Rot at a higher level). In addition they gain \"Upsurge: Reduce Radiation Damage by 5 to a Minimum of 1\" \n\nAfter the ritual, both the target and performer must visit the Public Works and roll a 6-sided die and gain the corresponding Lineage core advantages for 4 hours as well as counting as both your existing Lineage and the rolled Lineage at the same time for the purposes of other effects. Re-roll if you get your own Lineage:\n1 Devoted, 2 Evolved, 3 Gorger, 4 Landsman, 5 Mutant, 6 Townie.  ",
+          "structuredRequirement": "Lore: Faith - Common OR Profession: Saint. User must be Inducted to the Church of Darwin"
+        }
+      ]
+    },
+    {
+      "id": 4702,
+      "name": "Devotion's Backlash Grounding Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6279,
+      "name": "Diesel Power'd Uni-Tire (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4608,
+      "name": "Dinglebob's Clip-on Nipple Rings",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6338,
+      "name": "Dinner Bell Gas Canister (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4703,
+      "name": "Dirt Engineer's Toolkit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5367,
+      "name": "Disresonant Payload",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4529,
+      "name": "Dive Bar",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4704,
+      "name": "Divination Leaves",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6228,
+      "name": "Diving Bell",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4705,
+      "name": "Document Case",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4706,
+      "name": "Don't Pickit Limb Cast",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4707,
+      "name": "Door Repair Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4708,
+      "name": "Double Door",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5224,
+      "name": "Dr. Ottoman Disease Control Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4709,
+      "name": "Dr. Ottoman Doctors Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4710,
+      "name": "Dr. Ottoman Sawbones Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4711,
+      "name": "Dross Harvesting Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5170,
+      "name": "Dungeon",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5226,
+      "name": "Echoed Impact Weapon Weights",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4712,
+      "name": "Echoing Whisper Throat Spike",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4571,
+      "name": "Eclipse Axe",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4713,
+      "name": "Engineer’s Field Journal",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4714,
+      "name": "Entertainer's Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5900,
+      "name": "Esprit de Corps",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5312,
+      "name": "Eye Hook Thumb Rings",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4715,
+      "name": "EZ Code Access",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4626,
+      "name": "Faceless Faceplate",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4716,
+      "name": "Falsi's Ultimate Criminal Killing Explosive Reaction",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5890,
+      "name": "Falsified Papers",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5314,
+      "name": "Faraday Wrapping",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4494,
+      "name": "Fast and the Pugilist Combat Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4065,
+          "productName": "Fast and the Pugilist Combat Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Ground and Pound and Momentum.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4513,
+      "name": "Fast Mover Vest",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5228,
+      "name": "Fat Burning Pungent Lantern",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4717,
+      "name": "Feedback Loop Generator",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4405,
+      "name": "Fermented Grapes Invigorating Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Gorger",
+          "source": "Gorger Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3976,
+          "productName": "Fermented Grapes Invigorating Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Gorger Lineage",
+          "structuredRequirement": "Gorger Lineage"
+        },
+        {
+          "productId": 3976,
+          "productName": "Fermented Grapes Invigorating Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Gorger Lineage regain 20 Mind.",
+          "structuredRequirement": "Gorger Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4718,
+      "name": "Final Passage Pennies",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4485,
+      "name": "Fireside Performance Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4056,
+          "productName": "Fireside Performance Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Enhanced Movement and Salvaging.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4719,
+      "name": "Firestarter Paradigm Grips",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4514,
+      "name": "First Responder's Gear",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5230,
+      "name": "Five Lights",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4720,
+      "name": "Flask of Weasel Pheromones",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4721,
+      "name": "Fleshbound Crystal",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5232,
+      "name": "Flower Scented Paint Rounds",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4722,
+      "name": "Focus Overload Crystal",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4502,
+      "name": "Food for Thought Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Evolved",
+          "source": "Evolved Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4073,
+          "productName": "Food for Thought Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Evolved Lineage",
+          "structuredRequirement": "Evolved Lineage"
+        },
+        {
+          "productId": 4073,
+          "productName": "Food for Thought Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Evolved Lineage regain 60 Mind and Upsurge 20 Mind.",
+          "structuredRequirement": "Evolved Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4530,
+      "name": "Foot Powered Foot Grinder",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4426,
+      "name": "Fortified Healing Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Evolved",
+          "source": "Evolved Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3997,
+          "productName": "Fortified Healing Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Evolved Lineage",
+          "structuredRequirement": "Evolved Lineage"
+        },
+        {
+          "productId": 3997,
+          "productName": "Fortified Healing Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Evolved Lineage regain 30 Body and 5 Mind.",
+          "structuredRequirement": "Evolved Lineage"
+        }
+      ]
+    },
+    {
+      "id": 5358,
+      "name": "Freeiron Chakram",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 5359,
+          "productName": "Freeiron Chakram",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "The damage call for this weapon on a Ranged Attack is 5 <Lineage> Bane. The specific Lineage must be chosen when the weapon is crafted. This blueprint produces 2 identical weapons.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 5234,
+      "name": "Freeiron Dry Pack",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4723,
+      "name": "Freeiron Field Journal",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4584,
+      "name": "Freeiron Guard",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4542,
+      "name": "Freeiron Hawkbill",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5236,
+      "name": "Freeiron Nurse’s Tools",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5238,
+      "name": "Frustrating Tumbler Lock",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5240,
+      "name": "Future Investments Contract",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4724,
+      "name": "G.G. Locksmithing Tools",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4406,
+      "name": "Gadfly Invigorating Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Elitariat",
+          "source": "Elitariat Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3977,
+          "productName": "Gadfly Invigorating Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Elitariat Lineage",
+          "structuredRequirement": "Elitariat Lineage"
+        },
+        {
+          "productId": 3977,
+          "productName": "Gadfly Invigorating Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Elitariat Lineage regain 20 Mind.",
+          "structuredRequirement": "Elitariat Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4572,
+      "name": "Gamma's Jonesin' Shovel",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6382,
+      "name": "Generic Blueprint Reproduction",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4827,
+      "name": "Generic Brew",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4820,
+      "name": "Generic Engineered Items",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4819,
+      "name": "Generic Genre Motorized Item",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4818,
+      "name": "Generic Handheld Item",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4828,
+      "name": "Generic Meal",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4449,
+      "name": "Gerry-Man Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Evolved",
+          "source": "Evolved Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4020,
+          "productName": "Gerry-Man Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Evolved Lineage",
+          "structuredRequirement": "Evolved Lineage"
+        },
+        {
+          "productId": 4020,
+          "productName": "Gerry-Man Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Evolved Lineage regain 40 Mind and Upsurge 10 Mind.",
+          "structuredRequirement": "Evolved Lineage"
+        }
+      ]
+    },
+    {
+      "id": 5894,
+      "name": "Ghost Pipes",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 5893,
+          "productName": "Ghost Pipes",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "A single Gizmo: Bottled Infection may be loaded into this hookah, after which up to 6 willing Lineage Targets may partake of the smoke, taking 1 minute per Target. A Guide should be present to make a die roll, randomly choosing one Target, who regains 1 Infection provided they are not currently at their Max Infection Pool. \n\nAll users have a euphoric hallucinatory experience including confused fragments of the memories of those whose Infection was used in creating the Bottled Infection, and gain 'Upsurge - High as Eagle Balls - Euphoria, Immune to Knockout and Choking Blow'. The hookah may also be used for normal smoking purposes.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4471,
+      "name": "Ghost Town Poison",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4042,
+          "productName": "Ghost Town Poison (Consumed)",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.childItemClassifications[1].childItem.metadata.mechanics",
+          "text": "Ingested. When consumed, members of the Townie Lineage take 10 Body Damage.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 6191,
+      "name": "Give-Em-Flak Trap",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4563,
+      "name": "Glabella Cracker Knife",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4642,
+      "name": "Glass Stiletto",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4656,
+      "name": "Gleaming Red Byproduct",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5242,
+      "name": "Glitter Gulch Buck Shot",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4526,
+      "name": "Glitter Gulch Dartgun",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4531,
+      "name": "Glitter Gulch Prep Station",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4601,
+      "name": "Glitter Gulch Raider-Ride",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6340,
+      "name": "Glitter Gulch Red Fuel (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4725,
+      "name": "Glitter Gulch Shipping Containers",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5158,
+      "name": "Glitter Gulch Shotgun",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5244,
+      "name": "Glitter Shrapnel Lockpicks",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4726,
+      "name": "Glowing Blue Rod Cremation Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5246,
+      "name": "Glowing Green Canister",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5248,
+      "name": "Glue Moon Arrows",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4873,
+      "name": "Go Haul Armored Trailer",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5152,
+      "name": "GOAT Gear",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4727,
+      "name": "GOAT Manacles",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4602,
+      "name": "GOAT Rough-Cycle",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4486,
+      "name": "Gold Label Performance Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4057,
+          "productName": "Gold Label Performance Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Mental Endurance and Interfere.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4657,
+      "name": "Gold-Flecked Byproduct",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5332,
+      "name": "Golden Silence Shiv",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4503,
+      "name": "Gourmand Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Elitariat",
+          "source": "Elitariat Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4074,
+          "productName": "Gourmand Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Elitariat Lineage",
+          "structuredRequirement": "Elitariat Lineage"
+        },
+        {
+          "productId": 4074,
+          "productName": "Gourmand Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Elitariat Lineage regain 60 Mind and Upsurge 20 Mind.",
+          "structuredRequirement": "Elitariat Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4476,
+      "name": "Grave Head Death Brew",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4047,
+          "productName": "Grave Head Death Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Gain 1 Fracture. Silently observe a Target character's post-death scene while out of character. Anything the user observed is gained as in character knowledge. Must get player's consent prior to drinking the brew, must be either used when Target Lineage corpse is within arm's reach or while in a Morgue.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4728,
+      "name": "Gravekeeper's Last Breath",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4441,
+      "name": "Green Fairy Healing Injection",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Elitariat",
+          "source": "Elitariat Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4012,
+          "productName": "Green Fairy Healing Injection",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Elitariat Lineage",
+          "structuredRequirement": "Elitariat Lineage"
+        },
+        {
+          "productId": 4012,
+          "productName": "Green Fairy Healing Injection",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Elitariat Lineage regain 10 Body. Injected (Can be self injected when in Bleed Out).",
+          "structuredRequirement": "Elitariat Lineage"
+        }
+      ]
+    },
+    {
+      "id": 5250,
+      "name": "Green Light Bioform Destabilizer",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4733,
+      "name": "Green Light Cleaver",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4729,
+      "name": "Green Light Frying Pan",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4544,
+      "name": "Green Light Gloves",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4595,
+      "name": "Green Light Grave Trap",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4730,
+      "name": "Green Light Grounding Spikes",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4592,
+      "name": "Green Light Hazardous Core",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4731,
+      "name": "Green Light Jawbone Bag",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4732,
+      "name": "Green Light Religious Motivator",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5252,
+      "name": "Green-Glow Evisceration Spikes",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4431,
+      "name": "Groundswell Hallucinogen Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Townie",
+          "source": "Townie Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4002,
+          "productName": "Groundswell Hallucinogen Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Townie Lineage",
+          "structuredRequirement": "Townie Lineage"
+        },
+        {
+          "productId": 4002,
+          "productName": "Groundswell Hallucinogen Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Townie Lineage become intoxicated and hallucinate for 20 Minutes. Regain 30 Body.",
+          "structuredRequirement": "Townie Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4734,
+      "name": "GTFO Spray Box",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6280,
+      "name": "Guzzoline (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4532,
+      "name": "Hand Cranked Flesh Chipper",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6283,
+      "name": "Hang On Straps (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4814,
+      "name": "Hard Metal Production",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4527,
+      "name": "Harry-Triggered Revolver",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4573,
+      "name": "Harvester Scythe",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4504,
+      "name": "Hawt Pot Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Devoted",
+          "source": "Devoted Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4075,
+          "productName": "Hawt Pot Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Devoted Lineage",
+          "structuredRequirement": "Devoted Lineage"
+        },
+        {
+          "productId": 4075,
+          "productName": "Hawt Pot Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Devoted Lineage regain 60 Mind and Upsurge 20 Mind.",
+          "structuredRequirement": "Devoted Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4427,
+      "name": "Hearty Healing Meal",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 3998,
+          "productName": "Hearty Healing Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of any Lineage regain 20 Body. Upsurge 5 Body.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4505,
+      "name": "Heavily Fried Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Nomad",
+          "source": "Nomad Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4076,
+          "productName": "Heavily Fried Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Nomad Lineage",
+          "structuredRequirement": "Nomad Lineage"
+        },
+        {
+          "productId": 4076,
+          "productName": "Heavily Fried Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Nomad Lineage regain 60 Mind and Upsurge 20 Mind.",
+          "structuredRequirement": "Nomad Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4575,
+      "name": "Heavycraf Ax-i-dent Booster",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4574,
+      "name": "Heavycraf Axe",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5344,
+      "name": "Heavycraf Chainaxe",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4551,
+      "name": "Heavycraf Counterbalance Blade",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4564,
+      "name": "Heavycraf Cutlass",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5160,
+      "name": "Heavycraf Electro Welder",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4545,
+      "name": "Heavycraf Punchers",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4116,
+          "productName": "Heavycraf Punchers",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "This card represents a pair of knucks, which must be used together. When in a Grapple with a Critter, the wielder gains Melee Damage Reduction against attacks from that Critter. \n\nIf a Landsman using these knucks can sustain the grapple for ten minutes on an Apocalypse grade Critter, they may call 'By My Voice, All Landsmen Refresh All Impact Skills'.",
+          "structuredRequirement": "Ground and Pound"
+        }
+      ]
+    },
+    {
+      "id": 5172,
+      "name": "Heavycraf Research Tools",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4543,
+      "name": "Hebar's Glowing Green Hatchets",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6275,
+      "name": "Helscape \"No Ticket\" Zeppelin  (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5164,
+      "name": "Helscape Arbalest",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6329,
+      "name": "Helscape Ballista Turret (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4658,
+      "name": "Helscape Catastrophic Stabilizer",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4659,
+      "name": "Helscape Deathmask",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4627,
+      "name": "Helscape Final Rest Quarrels",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6271,
+      "name": "Helscape Hidden-Burn Airship (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4735,
+      "name": "Helscape Infection Manipulators",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5459,
+      "name": "Helscape Infection Transfusion",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6272,
+      "name": "Helscape Luftbaloon (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4533,
+      "name": "Helscape Mine",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5174,
+      "name": "Helscape Security Sanctuary",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4660,
+      "name": "Helscape Suit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4736,
+      "name": "Hijinks Harness",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4737,
+      "name": "Hold-The-Door Extender",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6224,
+      "name": "Holy Sanctuary",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4407,
+      "name": "Hooch",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 3978,
+          "productName": "Hooch",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of any Lineage become intoxicated for 20 Minutes.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4738,
+      "name": "Hop, Skip, and a Nope Door Mirror",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5254,
+      "name": "Hot-Box Candle",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4442,
+      "name": "Hound's Howl Healing Injection",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Mutant",
+          "source": "Mutant Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4013,
+          "productName": "Hound's Howl Healing Injection",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Mutant Lineage",
+          "structuredRequirement": "Mutant Lineage"
+        },
+        {
+          "productId": 4013,
+          "productName": "Hound's Howl Healing Injection",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Mutant Lineage regain 10 Body. Injected (Can be self injected when in Bleed Out).",
+          "structuredRequirement": "Mutant Lineage"
+        }
+      ]
+    },
+    {
+      "id": 6219,
+      "name": "Hypocritical Oath",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5154,
+      "name": "Incineration Engine",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5256,
+      "name": "Infectious Shackles",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5958,
+      "name": "Infectus Copiam",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 5958,
+          "productName": "Infectus Copiam",
+          "field": "mechanics",
+          "path": "blueprint.metadata.mechanics",
+          "text": "This 15 minute procedure requires at least two willing or Subdued Lineage Targets to be killed without interruption during its process. Performing these Killing Blows will not interrupt the procedure. Successful completion of this procedure creates Gizmo: Bottled Infection. In lieu of two Targets, a single Lineage Target on their last Infection can be sacrificed through this procedure to create the Bottled Infection. Any method used to prevent or reduce loss of Infection on the Target(s) causes this procedure to fail.\n\nCompletion of this procedure causes rank 3 zombies to spawn somewhere on site within the next few hours, at least one per killed Lineage but often more. If a Lineage is permanently killed with this procedure, the game can optionally instead release an Apocalyptic undead threat as the slain character's final walk.",
+          "structuredRequirement": "Master Criminal Influence (Black Market 3), The Living Experiment, Lore: Shady Operations, and Society Membership: The Dead Market"
+        }
+      ]
+    },
+    {
+      "id": 5989,
+      "name": "IOU IED",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4739,
+      "name": "Iron Nail Buckshot Rounds",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4495,
+      "name": "Iron Shadow Combat Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4066,
+          "productName": "Iron Shadow Combat Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Murder and Bleeding Mark.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4740,
+      "name": "Irradiated Crock-O Pot",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4741,
+      "name": "Irradiated Dawn Psionic Dust",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5258,
+      "name": "Johnny's Blue Suede Shoes",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4661,
+      "name": "Lancing Casket",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5757,
+      "name": "Lascarian Paper",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5260,
+      "name": "Last Meal",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5262,
+      "name": "Lawn-Clearing Slugs",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5264,
+      "name": "Legacy Journal",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4450,
+      "name": "Lemony Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Landsman",
+          "source": "Landsman Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4021,
+          "productName": "Lemony Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Landsman Lineage",
+          "structuredRequirement": "Landsman Lineage"
+        },
+        {
+          "productId": 4021,
+          "productName": "Lemony Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Landsman Lineage regain 40 Mind and Upsurge 10 Mind.",
+          "structuredRequirement": "Landsman Lineage"
+        }
+      ]
+    },
+    {
+      "id": 6217,
+      "name": "Life for Death",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4842,
+      "name": "Lighting of the Lanterns",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4416,
+      "name": "Liquorish Healing Brew",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 3987,
+          "productName": "Liquorish Healing Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Applied. Target (Both) of the Elitariat Lineage regain 10 Body. May self-Target.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4638,
+      "name": "Little Drop of Poison",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4742,
+      "name": "Lobe Scarring Tools",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6383,
+      "name": "Local Currency to Trade Note Conversion",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4432,
+      "name": "Long Night Hallucinogen Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Mutant",
+          "source": "Mutant Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4003,
+          "productName": "Long Night Hallucinogen Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Mutant Lineage",
+          "structuredRequirement": "Mutant Lineage"
+        },
+        {
+          "productId": 4003,
+          "productName": "Long Night Hallucinogen Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Mutant Lineage become intoxicated and hallucinate for 20 Minutes. Regain 30 Body.",
+          "structuredRequirement": "Mutant Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4433,
+      "name": "Long Trip Hallucinogen Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Landsman",
+          "source": "Landsman Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4004,
+          "productName": "Long Trip Hallucinogen Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Landsman Lineage",
+          "structuredRequirement": "Landsman Lineage"
+        },
+        {
+          "productId": 4004,
+          "productName": "Long Trip Hallucinogen Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Landsman Lineage become intoxicated and hallucinate for 20 Minutes. Regain 30 Body.",
+          "structuredRequirement": "Landsman Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4472,
+      "name": "Lost Trail Poison",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4043,
+          "productName": "Lost Trail Poison (Consumed)",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.childItemClassifications[1].childItem.metadata.mechanics",
+          "text": "Ingested. When consumed, members of the Nomad Lineage take 10 Body Damage.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4743,
+      "name": "Lucky Poker Chip",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4477,
+      "name": "Luminescensce Liqour",
+      "badges": [
+        {
+          "type": "Strain",
+          "value": "Iron or Unstable",
+          "source": "Strain: Iron or Unstable"
+        }
+      ],
+      "fields": []
+    },
+    {
+      "id": 4744,
+      "name": "M.M. Necro-Info Head Jar",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4314,
+          "productName": "M.M. Necro-Info Head Jar",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "A head may be placed into this jar from any Lineage corpse that has not yet sunk by expending a use of Double Tap. Once contained, the jar may be activated by any user to ask questions of the corpse. One question may be asked per Resolve spent, up to 5 questions or 10 Minutes after activation, at which point the jar is no longer usable. The head will answer all questions honestly, as if interrogated with Malicious Discussion.",
+          "structuredRequirement": "None (but see mechanics)"
+        }
+      ]
+    },
+    {
+      "id": 4451,
+      "name": "Major Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Gorger",
+          "source": "Gorger Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4022,
+          "productName": "Major Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Gorger Lineage",
+          "structuredRequirement": "Gorger Lineage"
+        },
+        {
+          "productId": 4022,
+          "productName": "Major Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Gorger Lineage regain 40 Mind and Upsurge 10 Mind.",
+          "structuredRequirement": "Gorger Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4408,
+      "name": "Malt Invigorating Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Mutant",
+          "source": "Mutant Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3979,
+          "productName": "Malt Invigorating Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Mutant Lineage",
+          "structuredRequirement": "Mutant Lineage"
+        },
+        {
+          "productId": 3979,
+          "productName": "Malt Invigorating Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Mutant Lineage regain 20 Mind.",
+          "structuredRequirement": "Mutant Lineage"
+        }
+      ]
+    },
+    {
+      "id": 6185,
+      "name": "Man-Freeing Crowbar",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4452,
+      "name": "Marek Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Mutant",
+          "source": "Mutant Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4023,
+          "productName": "Marek Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Mutant Lineage",
+          "structuredRequirement": "Mutant Lineage"
+        },
+        {
+          "productId": 4023,
+          "productName": "Marek Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Mutant Lineage regain 40 Mind and Upsurge 10 Mind.",
+          "structuredRequirement": "Mutant Lineage"
+        }
+      ]
+    },
+    {
+      "id": 5266,
+      "name": "Mark of the Almighty",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4745,
+      "name": "Martyr's Lantern",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5268,
+      "name": "Mary Electro Bolt Shellys",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4417,
+      "name": "Mary-Gold Healing Brew",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 3988,
+          "productName": "Mary-Gold Healing Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Applied. Target (Both) of the Evolved Lineage regain 10 Body. May self-Target.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 6417,
+      "name": "Master Travel Trade Resource",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4632,
+      "name": "Master Vibroslug Lockpicking Gun",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6197,
+      "name": "Me Fistos Shoulder Length Vambraces",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4746,
+      "name": "Meatiest Meat Cleaver",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4662,
+      "name": "Meatiest Shield",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4808,
+      "name": "Mechanical Airship Framework",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4806,
+      "name": "Mechanical Auto Frame",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4809,
+      "name": "Mechanical Drive",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4807,
+      "name": "Mechanical Engine",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4810,
+      "name": "Mechanical Fuel System",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4816,
+      "name": "Mechanical Gear System",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4817,
+      "name": "Mechanical Hull",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4747,
+      "name": "Mental Exhaustion Meal Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4748,
+      "name": "Merchant's Monocle",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6226,
+      "name": "Mercy",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4855,
+      "name": "Method Identity Injection",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4639,
+      "name": "Midnight Blue Tea",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5316,
+      "name": "Mind Channel Crystal Hand Wraps",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4453,
+      "name": "Minty Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Nomad",
+          "source": "Nomad Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4024,
+          "productName": "Minty Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Nomad Lineage",
+          "structuredRequirement": "Nomad Lineage"
+        },
+        {
+          "productId": 4024,
+          "productName": "Minty Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Nomad Lineage regain 40 Mind and Upsurge 10 Mind.",
+          "structuredRequirement": "Nomad Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4663,
+      "name": "Miscreation Annihilation Cannon 10",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4643,
+      "name": "Miss Anthrope's Blade",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5346,
+      "name": "Miss Creant's Blade",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4749,
+      "name": "Misused Dentistry Tools",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5270,
+      "name": "Momento Mori Medallion",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4534,
+      "name": "Monolith of Horror",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4443,
+      "name": "Mother's Milk Healing Injection",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Devoted",
+          "source": "Devoted Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4014,
+          "productName": "Mother's Milk Healing Injection",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Devoted Lineage",
+          "structuredRequirement": "Devoted Lineage"
+        },
+        {
+          "productId": 4014,
+          "productName": "Mother's Milk Healing Injection",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Devoted Lineage regain 10 Body. Injected (Can be self injected when in Bleed Out).",
+          "structuredRequirement": "Devoted Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4523,
+      "name": "Motor City Machine Gun",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6318,
+      "name": "Moulen Last Ride Demolitions Kit (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4750,
+      "name": "Moulen Rouge Camouflage",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4751,
+      "name": "Moulen Rude",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4633,
+      "name": "Moulen Ruse Security",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5334,
+      "name": "Moulen Shank",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4552,
+      "name": "Moulen Spring-Loaded Blade",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6263,
+      "name": "Mountain Doom Buggy (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5324,
+      "name": "Mountain Pike",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4524,
+      "name": "Mountain Rifle",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4623,
+      "name": "Mountain Trap Snapper Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4528,
+      "name": "Mountain-Piercing Gun",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5887,
+      "name": "Mourning Veil",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4859,
+      "name": "Murder Dive",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4664,
+      "name": "Murky Black Byproduct",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4553,
+      "name": "Nasty Spiked Handguard",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4752,
+      "name": "Necro Suspension Tools",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4856,
+      "name": "Necrological Transformation Procedure",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4856,
+          "productName": "Necrological Transformation Procedure",
+          "field": "mechanics",
+          "path": "blueprint.metadata.mechanics",
+          "text": "When completed, the Target gains \"Upsurge: Immune to Bane portion of Lineage and Aberrant Bane effects\" and \"Downsurge: Affected by Zombie Bane\". If either Upsurge or Downsurge are lost by any means, both are lost.",
+          "structuredRequirement": "The Living Experiment"
+        }
+      ]
+    },
+    {
+      "id": 4665,
+      "name": "Necrology Assistant Station",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4666,
+      "name": "Necrology Station",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4753,
+      "name": "Necrolytic Serum",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4754,
+      "name": "Necrotic Pallor",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6221,
+      "name": "Nero Extraction",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5937,
+      "name": "Night Terror Draught",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4755,
+      "name": "Nope Nope Nope Sharkskin Vest",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4756,
+      "name": "Nosit Giben Brand Visor",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4585,
+      "name": "O Faithful Bulwark",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4525,
+      "name": "O Faithful R.P.G.",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4757,
+      "name": "O Faithful Security Container",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4758,
+      "name": "O Faithful Vestments",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4603,
+      "name": "O Faithful Wasteland Hauler",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5272,
+      "name": "Oakley's Sure Shot Cartridge",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4759,
+      "name": "Oblivion’s Offering",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4760,
+      "name": "Obsidian Mascas Piercing",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4487,
+      "name": "Oddity Performance Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4058,
+          "productName": "Oddity Performance Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Choking Blow and Stealth.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 6284,
+      "name": "On The Go Patch Kit (Virtual Only)",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 6285,
+          "productName": "On The Go Patch Kit (Virtual Only)",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "During Virtual play, a member of a vehicle's Crew with the Artisan skill may make a field repair check and expend this kit to restore up to half the vehicle's maximum armor. This must be done while the vehicle is not in motion, unless the user is a Nomad or is attached with Gizmo: Hang On Straps.\n\n",
+          "structuredRequirement": "Basic Artisan"
+        }
+      ]
+    },
+    {
+      "id": 4761,
+      "name": "One Last Umph Tape",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4515,
+      "name": "OOPH Bullet Sponge",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6288,
+      "name": "OOPH Frag You Grenadas (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6325,
+      "name": "OOPH Ironside Plating (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5364,
+      "name": "OOPH Room-Trap",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4762,
+      "name": "OOPH Runner Checks",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4516,
+      "name": "OOPH Tactical Armor",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4843,
+      "name": "Opening Up The Pit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4763,
+      "name": "Ossuary Obole",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4764,
+      "name": "Outer Patrol Labor Contract",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5336,
+      "name": "Overdere's One Handed Night-Night Cudgel",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5326,
+      "name": "Overdere's Two Handed War Hammer",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6194,
+      "name": "Overdrive Injection",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4409,
+      "name": "P. BeeR",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 3980,
+          "productName": "P. BeeR",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of any Lineage become intoxicated for 20 minutes.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4823,
+      "name": "Pain Killer Crafting Component",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4857,
+      "name": "Pallor Mortis",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4765,
+      "name": "Palming Finger Tac",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5274,
+      "name": "Paradigm Enhancer",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5176,
+      "name": "Paradigm Print Workshop",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4766,
+      "name": "Paradigm Resonance Wraps",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4767,
+      "name": "Paradigm Thick Encyclo-Book",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4768,
+      "name": "Patchjob Gear Glue",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4769,
+      "name": "Piscis Expulsion Device",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4770,
+      "name": "Pointy Metal Tool",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4535,
+      "name": "Prayer Room",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5957,
+      "name": "Prep Time",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6419,
+      "name": "Proficient Travel Trade Resource",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4628,
+      "name": "Proficient Vibroslug Lockpicking Gun",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4844,
+      "name": "Promise of a Nuclear Home",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5895,
+      "name": "Proprietary Filing System",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4771,
+      "name": "Psionic Amplifier Gauntlets",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4772,
+      "name": "Psionic Focusing Gauntlets",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4667,
+      "name": "Purple Sheened Byproduct",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4237,
+          "productName": "Purple Sheened Byproduct",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. When used, lose 1 Resolve; for the next 10 minutes, the user does not suffer from Lineage Bane effects, is immune to Zone of Mechanics effects involving poisons, toxins, or inhaled hazards, and may use the Stealth Impact skill while within arms reach of at least three Zombies. In addition the user gains \"Counts as a Zombie, One Hour.\" ",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4824,
+      "name": "Radioactive Compounds Crafting Component",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4813,
+      "name": "Radioactive Metal Production",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5855,
+      "name": "Radioactive Room Wipe",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4668,
+      "name": "Raider Bio Tracker",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6187,
+      "name": "Raider Suffering",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4830,
+      "name": "Rare Scrap",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4418,
+      "name": "Reaper's Healing Brew",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 3989,
+          "productName": "Reaper's Healing Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Applied. Target (Both) of the Gorger Lineage regain 10 Body. May self-Target.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4473,
+      "name": "Recession Poison",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4034,
+          "productName": "Recession Poison (Applied)",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.childItemClassifications[0].childItem.metadata.mechanics",
+          "text": "Applied. On next attempted Strike, call \"20 Body to Elitariat\".",
+          "structuredRequirement": "None"
+        },
+        {
+          "productId": 4044,
+          "productName": "Recession Poison (Consumed)",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.childItemClassifications[1].childItem.metadata.mechanics",
+          "text": "Ingested. When consumed, members of the Elitariat 10 Body Damage.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 5178,
+      "name": "Red Alert Repair Station",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4490,
+      "name": "Red Mist Healing Injection",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4061,
+          "productName": "Red Mist Healing Injection",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of any Lineage regain 20 Body, Injected (Can be self injected when in Bleed Out). Causes a Fracture in the user if they do not currently have one.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 6344,
+      "name": "Red X Trauma Seat (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5276,
+      "name": "Religious Indignation",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4536,
+      "name": "Research Center",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5986,
+      "name": "Rewm Bewm",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4616,
+      "name": "Ringleader's Refuge",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4845,
+      "name": "Rite of Dominance",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4846,
+      "name": "Rite of the Chosen Enlightened",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4847,
+      "name": "Ritual of Consecration",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4848,
+      "name": "Ritual of the Critical Reactor",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4428,
+      "name": "Roadside Healing Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Nomad",
+          "source": "Nomad Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3999,
+          "productName": "Roadside Healing Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Nomad Lineage",
+          "structuredRequirement": "Nomad Lineage"
+        },
+        {
+          "productId": 3999,
+          "productName": "Roadside Healing Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Nomad Lineage regain 30 Body and 5 Mind.",
+          "structuredRequirement": "Nomad Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4586,
+      "name": "Rogers' Master Shield",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4576,
+      "name": "Rope-Weighted Pole",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4454,
+      "name": "Rose Coated Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Townie",
+          "source": "Townie Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4025,
+          "productName": "Rose Coated Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Townie Lineage",
+          "structuredRequirement": "Townie Lineage"
+        },
+        {
+          "productId": 4025,
+          "productName": "Rose Coated Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Townie Lineage regain 40 Mind and Upsurge 10 Mind.",
+          "structuredRequirement": "Townie Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4474,
+      "name": "Rotting Corpse Poison",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4045,
+          "productName": "Rotting Corpse Poison (Consumed)",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.childItemClassifications[1].childItem.metadata.mechanics",
+          "text": "Ingested. When consumed, members of the Mutant Lineage take 10 Body Damage.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4611,
+      "name": "Rover Tea",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4181,
+          "productName": "Rover Tea",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of any Lineage regain 30 Body",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4773,
+      "name": "Ruined Star Chart",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4496,
+      "name": "Ruiner Combat Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4067,
+          "productName": "Ruiner Combat Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Death Stalk and Hunter's Mark.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4410,
+      "name": "Rum Runner's Invigorating Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Nomad",
+          "source": "Nomad Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3981,
+          "productName": "Rum Runner's Invigorating Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Nomad Lineage",
+          "structuredRequirement": "Nomad Lineage"
+        },
+        {
+          "productId": 3981,
+          "productName": "Rum Runner's Invigorating Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Nomad Lineage regain 20 Mind.",
+          "structuredRequirement": "Nomad Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4488,
+      "name": "Safe Harbor Performance Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4059,
+          "productName": "Safe Harbor Performance Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Double Tap and First Aid.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4444,
+      "name": "Sagely Healing Injection",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Townie",
+          "source": "Townie Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4015,
+          "productName": "Sagely Healing Injection",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Townie Lineage",
+          "structuredRequirement": "Townie Lineage"
+        },
+        {
+          "productId": 4015,
+          "productName": "Sagely Healing Injection",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Townie Lineage regain 10 Body. Injected (Can be self injected when in Bleed Out).",
+          "structuredRequirement": "Townie Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4478,
+      "name": "Saint John's Recovery Brew",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4049,
+          "productName": "Saint John's Recovery Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested.  Members of any Lineage regain 40 Mind.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4825,
+      "name": "Salty Crafting Component",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4506,
+      "name": "Salty Treat Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Gorger",
+          "source": "Gorger Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4077,
+          "productName": "Salty Treat Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Gorger Lineage",
+          "structuredRequirement": "Gorger Lineage"
+        },
+        {
+          "productId": 4077,
+          "productName": "Salty Treat Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Gorger Lineage regain 60 Mind and Upsurge 20 Mind.",
+          "structuredRequirement": "Gorger Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4774,
+      "name": "Savannah's Light",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4775,
+      "name": "Scales of Ezra",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4776,
+      "name": "Scarlet Insignia of Life Savers",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4634,
+      "name": "Scourge's Terror-Guise",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4777,
+      "name": "Scout's Toolkit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4849,
+      "name": "Scrambled Signals",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5932,
+      "name": "Sedlec Engineering Plans",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 5932,
+          "productName": "Sedlec Engineering Plans",
+          "field": "mechanics",
+          "path": "blueprint.metadata.mechanics",
+          "text": "This procedure can be used at the same time as the crafting of any Necrology item, adding the expenditure of 1 Resolve. For every willing or helpless Lineage killed during the procedure (they can be killed by assistants or by the crafter, for whom the Killing Blow call does not interrupt crafting), the materials needed for the Necrology crafting can be reduced by 1 Grave Flesh, 1 Infection Material, or 1 Imprint Crystal. If Infection loss is prevented for any of the Targets, this procedure fails. \n\nCompletion of this procedure causes rank 3 zombies to spawn somewhere on site within the next few hours, at least one per killed Lineage but often more.",
+          "structuredRequirement": "The Organic Machine & Society Membership: The Dead Market"
+        }
+      ]
+    },
+    {
+      "id": 4778,
+      "name": "Seek The Damned Blade",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4546,
+      "name": "Serrated Bone Knuckles",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4635,
+      "name": "Shadey Columbina Veil",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5953,
+      "name": "Shared Hands",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5278,
+      "name": "Shared Infection Impact Reducer",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5280,
+      "name": "Sharp Pocket Glitter",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4489,
+      "name": "Sharpened Mind Performance Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4060,
+          "productName": "Sharpened Mind Performance Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Scatter Shot and Piercing Strike.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 5282,
+      "name": "SHH SHH SHH Camouflage Netting",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4411,
+      "name": "Shiner Invigorating Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Landsman",
+          "source": "Landsman Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3982,
+          "productName": "Shiner Invigorating Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Landsman Lineage",
+          "structuredRequirement": "Landsman Lineage"
+        },
+        {
+          "productId": 3982,
+          "productName": "Shiner Invigorating Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Landsman Lineage regain 20 Mind.",
+          "structuredRequirement": "Landsman Lineage"
+        }
+      ]
+    },
+    {
+      "id": 5356,
+      "name": "Shiny Ass Shield",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5180,
+      "name": "Ship Yard",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5156,
+      "name": "Shock-Kit Breastplate",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4629,
+      "name": "Shoe Tack",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4779,
+      "name": "Shortest Path Distillation Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4577,
+      "name": "Shredzilla Gear Grinder",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4497,
+      "name": "Silt Step Combat Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4068,
+          "productName": "Silt Step Combat Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Riposte and Agile Movement.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4498,
+      "name": "Skadou Combat Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4069,
+          "productName": "Skadou Combat Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Dead to Rights, Ground Shatter, and Cutthroat.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 5284,
+      "name": "Skin-Grafted Loan Contract",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4554,
+      "name": "Skinner Shank",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4547,
+      "name": "Slappi Knucklehead Lead Weights",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4539,
+      "name": "Slappi Offhand",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5186,
+      "name": "Slappi Revolver",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4644,
+      "name": "Slappi Snap-Trap",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4419,
+      "name": "Slicker Healing Brew",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 3990,
+          "productName": "Slicker Healing Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Applied. Target (Both) of the Townie Lineage regain 10 Body. May self-Target.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4507,
+      "name": "Smaht Fud Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Townie",
+          "source": "Townie Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4078,
+          "productName": "Smaht Fud Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Townie Lineage",
+          "structuredRequirement": "Townie Lineage"
+        },
+        {
+          "productId": 4078,
+          "productName": "Smaht Fud Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Townie Lineage regain 60 Mind and Upsurge 20 Mind.",
+          "structuredRequirement": "Townie Lineage"
+        }
+      ]
+    },
+    {
+      "id": 5286,
+      "name": "Snappable Lock Picks",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5897,
+      "name": "Social Construction Tools",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5954,
+      "name": "Social Distancing",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5930,
+      "name": "Social Life Strengthener",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4815,
+      "name": "Soft Metal Production",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4617,
+      "name": "Solid Sisyphian Stone",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5288,
+      "name": "Sosweet Clay Replica Mold",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4565,
+      "name": "Sosweet Kopis",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4578,
+      "name": "Sosweet Smashstick",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4781,
+      "name": "Spiked Coif",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4579,
+      "name": "Spin to Win",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4434,
+      "name": "Spire Climber Hallucinogen Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Evolved",
+          "source": "Evolved Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4005,
+          "productName": "Spire Climber Hallucinogen Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Evolved Lineage",
+          "structuredRequirement": "Evolved Lineage"
+        },
+        {
+          "productId": 4005,
+          "productName": "Spire Climber Hallucinogen Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Evolved Lineage become intoxicated and hallucinate for 20 Minutes. Regain 30 Body.",
+          "structuredRequirement": "Evolved Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4412,
+      "name": "Spirited Invigorating Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Devoted",
+          "source": "Devoted Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3983,
+          "productName": "Spirited Invigorating Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Devoted Lineage",
+          "structuredRequirement": "Devoted Lineage"
+        },
+        {
+          "productId": 3983,
+          "productName": "Spirited Invigorating Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Devoted Lineage regain 20 Mind.",
+          "structuredRequirement": "Devoted Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4479,
+      "name": "Spiritwalk",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4050,
+          "productName": "Spiritwalk",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of any Lineage are intoxicated and experience hallucinations for 30 minutes.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 5290,
+      "name": "Splintish Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5920,
+      "name": "Spring Loaded Knuckle Blades",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5162,
+      "name": "Springed-Stock Shooter",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4630,
+      "name": "Squirrelly Dual Trigger",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4782,
+      "name": "St. Israfil’s Forge Hammer",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4669,
+      "name": "Stabilized Morgue",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5368,
+      "name": "Stable Unstable Crystal",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4850,
+      "name": "Standing the Peaceful Vigil",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4783,
+      "name": "Star Steel-Braided Garrote",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4508,
+      "name": "Steamer Bag Recovery Meal",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4079,
+          "productName": "Steamer Bag Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of any Lineage regain 50 Mind and Upsurge 20 Mind.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 5338,
+      "name": "Steel Main Gauche 'Blade'",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4587,
+      "name": "Steelpaw Anomaly Absorber",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4784,
+      "name": "Steelpaw Finger Mitts",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4548,
+      "name": "Steelpaw Gauntlets",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4588,
+      "name": "Steelpaw Shield",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4851,
+      "name": "Stepping Beneath Father Night's Shroud",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4596,
+      "name": "Sticky Sap Trap",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5491,
+      "name": "Stock Lock",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4435,
+      "name": "Strangely Chunky Hallucinogen Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Gorger",
+          "source": "Gorger Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4006,
+          "productName": "Strangely Chunky Hallucinogen Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Gorger Lineage",
+          "structuredRequirement": "Gorger Lineage"
+        },
+        {
+          "productId": 4006,
+          "productName": "Strangely Chunky Hallucinogen Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Gorger Lineage becomes intoxicated and hallucinate for 20 Minutes. Regain 30 Body.",
+          "structuredRequirement": "Gorger Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4609,
+      "name": "Street Noble's Cap",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4618,
+      "name": "Street Noble's Ensemble",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4612,
+      "name": "Street Noble's Gloves",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4645,
+      "name": "Striker's Coat",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4785,
+      "name": "Studious Spectacles",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5292,
+      "name": "Sturdy Door",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4786,
+      "name": "Subcutaneous Magnifier",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4566,
+      "name": "Subtle Suggestion Poking Stick",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4613,
+      "name": "Suleiman's Water Pipe",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5182,
+      "name": "Surgical Suite",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5348,
+      "name": "Sweet Release Execution Blade",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6223,
+      "name": "Synthesis of Prognosis",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4430,
+      "name": "Tabernacle Trail Mix",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4787,
+      "name": "Tactical Tether Lines",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4555,
+      "name": "Talon War Sickle",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4509,
+      "name": "Tasty Noms Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Mutant",
+          "source": "Mutant Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4080,
+          "productName": "Tasty Noms Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Mutant Lineage",
+          "structuredRequirement": "Mutant Lineage"
+        },
+        {
+          "productId": 4080,
+          "productName": "Tasty Noms Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Mutant Lineage regain 60 Mind and Upsurge 20 Mind.",
+          "structuredRequirement": "Mutant Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4499,
+      "name": "Tattered Shards Combat Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4070,
+          "productName": "Tattered Shards Combat Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Gimme Your Kicks and Cowards Way Out.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 5294,
+      "name": "Temporary Field Repair Kit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4788,
+      "name": "Tendon Puppet Hooks",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4640,
+      "name": "That Cursed Pitchfork",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4210,
+          "productName": "That Cursed Pitchfork",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "The user may spend 1 Mind and 2 minutes of Active Roleplay turning the corpse of a Lineage or Raider into a single Gizmo: Meaty Bits, destroying the corpse for any other uses. ",
+          "structuredRequirement": "Basic Criminal Influence (Murder Inc 1)"
+        }
+      ]
+    },
+    {
+      "id": 4670,
+      "name": "The 10th Doctor",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4646,
+      "name": "The Big Hate",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4216,
+          "productName": "The Big Hate",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "The user may nominate a single Lineage and expend the Gizmo. The user's next 6 basic Ranged Attacks deal Bane damage to the select Lineage.",
+          "structuredRequirement": "Proficient Criminal Influence (Murder Inc 2)"
+        }
+      ]
+    },
+    {
+      "id": 4556,
+      "name": "The Dark Harvest",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5184,
+      "name": "The Family Living Room",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4580,
+      "name": "The Gallagher",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5987,
+      "name": "The Glass Onion Technique",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6276,
+      "name": "The Holy Roller (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4860,
+      "name": "The Hunter's Secret",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4860,
+          "productName": "The Hunter's Secret",
+          "field": "mechanics",
+          "path": "blueprint.metadata.mechanics",
+          "text": "Limit 5 participants per Lineage Target. This Procedure that extends the Gorger Lineage advantage to all participants. When the Procedure is completed call \"Upsurge: Gain Basic Gorger Lineage Advantage.\" Gorgers affected instead regain 2 Body per Minute but may not enter a feeding frenzy.",
+          "structuredRequirement": "Basic Criminal Influence (Murder Inc 1)"
+        }
+      ]
+    },
+    {
+      "id": 4624,
+      "name": "The Lamentful Puzzle Box",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4789,
+      "name": "The Lucky Hat",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4641,
+      "name": "The Many Faced Mask",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4790,
+      "name": "The Only List That Matters",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5350,
+      "name": "The Overlook Special",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4791,
+      "name": "The Parting Gift",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4792,
+      "name": "The Perfect Dose",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4852,
+      "name": "The Pre-Show Ritual",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4636,
+      "name": "The Room Where It Happens",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4793,
+      "name": "The Royal Flush",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4794,
+      "name": "The Second Smile Gripping Gloves",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4795,
+      "name": "The Whore-Door",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5190,
+      "name": "Thempire Tanto",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5352,
+      "name": "Thempire Tenderizer",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4619,
+      "name": "Thempire’s More Civilized Weapon",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5370,
+      "name": "Third Eye Blinding Bomb",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4436,
+      "name": "Thujone Hallucinogen Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Elitariat",
+          "source": "Elitariat Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4007,
+          "productName": "Thujone Hallucinogen Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Elitariat Lineage",
+          "structuredRequirement": "Elitariat Lineage"
+        },
+        {
+          "productId": 4007,
+          "productName": "Thujone Hallucinogen Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Elitariat Lineage become intoxicated and hallucinate for 20 Minutes. Regain 30 Body.",
+          "structuredRequirement": "Elitariat Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4402,
+      "name": "Tongue Scorcher Recovery Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Landsman",
+          "source": "Landsman Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 3973,
+          "productName": "Tongue Scorcher Recovery Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Landsman Lineage",
+          "structuredRequirement": "Landsman Lineage"
+        },
+        {
+          "productId": 3973,
+          "productName": "Tongue Scorcher Recovery Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Landsman Lineage regain 60 Mind and Upsurge 20 Mind.",
+          "structuredRequirement": "Landsman Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4796,
+      "name": "Tools of the Savior's Broken Mind",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5360,
+      "name": "Toothpiq Barb-Wire Bolas",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4558,
+      "name": "Toothpiq Barbed Pigsticker",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4651,
+      "name": "Toothpiq Box-Trap",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4567,
+      "name": "Toothpiq Chopper",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4557,
+      "name": "Toothpiq Cutter",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5340,
+      "name": "Toothpiq Jagged Ulu",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 5341,
+          "productName": "Toothpiq Jagged Ulu",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "When using the Dead Trigger Impact Skill with this weapon, the user may change the call to 'Dead Trigger <Lineage>' to heal as per Dead Trigger against the named Lineage during the skill duration when attacking with this weapon.",
+          "structuredRequirement": "Dead Trigger"
+        }
+      ]
+    },
+    {
+      "id": 4797,
+      "name": "Toothpiq Lockpick Shards",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5354,
+      "name": "Toothpiq Serrated Hook Sword",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5362,
+      "name": "Toothpiq Throwing Spike",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4559,
+      "name": "Toothpiq Tridagger",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5296,
+      "name": "Top End Doctor Contracts",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6330,
+      "name": "Tow Hookers (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6384,
+      "name": "Trade Note to Local Currency Conversion",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4607,
+      "name": "Trained Mouse Thief",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4437,
+      "name": "Transcendent Hallucinogen Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Devoted",
+          "source": "Devoted Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4008,
+          "productName": "Transcendent Hallucinogen Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Devoted Lineage",
+          "structuredRequirement": "Devoted Lineage"
+        },
+        {
+          "productId": 4008,
+          "productName": "Transcendent Hallucinogen Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Devoted Lineage become intoxicated and hallucinate for 20 Minutes. Regain 30 Body.",
+          "structuredRequirement": "Devoted Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4798,
+      "name": "Transfusion Pack",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4475,
+      "name": "Transgressive Poison",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4637,
+      "name": "Trap Checker",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4537,
+      "name": "Triage Area",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4538,
+      "name": "Trophy Room",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4438,
+      "name": "Turned Herb Hallucinogen Brew",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Nomad",
+          "source": "Nomad Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4009,
+          "productName": "Turned Herb Hallucinogen Brew",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Nomad Lineage",
+          "structuredRequirement": "Nomad Lineage"
+        },
+        {
+          "productId": 4009,
+          "productName": "Turned Herb Hallucinogen Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of the Nomad Lineage become intoxicated and hallucinate for 20 Minutes. Regain 30 Body.",
+          "structuredRequirement": "Nomad Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4853,
+      "name": "Turning of the Seasons' Wheel",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5988,
+      "name": "Turning the Key of Memories",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4568,
+      "name": "Twin Sparking Rods",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4581,
+      "name": "Two Handed Nuclear Sledge",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4500,
+      "name": "Uncle Ember's Combat Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4071,
+          "productName": "Uncle Ember's Combat Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Never Here and The a la Menthe.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 4429,
+      "name": "Uncle Jenkin's Healing Meal",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Landsman",
+          "source": "Landsman Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4000,
+          "productName": "Uncle Jenkin's Healing Meal",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Landsman Lineage",
+          "structuredRequirement": "Landsman Lineage"
+        },
+        {
+          "productId": 4000,
+          "productName": "Uncle Jenkin's Healing Meal",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Landsman Lineage regain 30 Body and 5 Mind.",
+          "structuredRequirement": "Landsman Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4480,
+      "name": "Uncle Todd's Healing Brew",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4051,
+          "productName": "Uncle Todd's Healing Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Ingested. Members of any Lineage regain 40 Body.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4829,
+      "name": "Uncommon Scrap",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 6337,
+      "name": "Unimportant Parts (Virtual Only)",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4799,
+      "name": "Up-My-Sleeve Palming Pocket",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4800,
+      "name": "Vaguely Trustworthy Map Set",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4801,
+      "name": "Vault Pickers Thieves Suit",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4858,
+      "name": "Videbit Mortis",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4826,
+      "name": "Vinegar Crafting Component",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4802,
+      "name": "Violent Display Mask",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4854,
+      "name": "Voice of the Sponsor",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5298,
+      "name": "Walker's Imprint Isolation Shackles",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4420,
+      "name": "Wandering Healing Brew",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 3991,
+          "productName": "Wandering Healing Brew",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Applied. Target (Both) of the Nomad Lineage regain 10 Body. May self-Target.",
+          "structuredRequirement": "None"
+        }
+      ]
+    },
+    {
+      "id": 4803,
+      "name": "Wastelands Own Pain Reduction Spike",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5928,
+      "name": "Watchmaker's Snuff",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5188,
+      "name": "We All Lift Together",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5300,
+      "name": "Whippy's Yokay Fine Gun",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5302,
+      "name": "Whispered Secrets Necro Vial",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5192,
+      "name": "Whodidin Padlock Shackles",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5922,
+      "name": "Widow's Payload",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4445,
+      "name": "Wild Rose Healing Injection",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Evolved",
+          "source": "Evolved Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4016,
+          "productName": "Wild Rose Healing Injection",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Evolved Lineage",
+          "structuredRequirement": "Evolved Lineage"
+        },
+        {
+          "productId": 4016,
+          "productName": "Wild Rose Healing Injection",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Evolved Lineage regain 10 Body. Injected (Can be self injected when in Bleed Out).",
+          "structuredRequirement": "Evolved Lineage"
+        }
+      ]
+    },
+    {
+      "id": 4446,
+      "name": "Wildfire Healing Injection",
+      "badges": [
+        {
+          "type": "Lineage",
+          "value": "Landsman",
+          "source": "Landsman Lineage"
+        }
+      ],
+      "fields": [
+        {
+          "productId": 4017,
+          "productName": "Wildfire Healing Injection",
+          "field": "requirementsToUse",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.requirementsToUse",
+          "text": "Landsman Lineage",
+          "structuredRequirement": "Landsman Lineage"
+        },
+        {
+          "productId": 4017,
+          "productName": "Wildfire Healing Injection",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Members of the Landsman Lineage regain 10 Body. Injected (Can be self injected when in Bleed Out).",
+          "structuredRequirement": "Landsman Lineage"
+        }
+      ]
+    },
+    {
+      "id": 5304,
+      "name": "Wildwind Machete",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4804,
+      "name": "Wildwind Stalker's Cloak",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4589,
+      "name": "Wildwind Throwing Knife",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4517,
+      "name": "Wrathful Robes",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4614,
+      "name": "Wrist Mounted Palm Spike",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4501,
+      "name": "Y.C. Vapor's Combat Enhancer",
+      "badges": [],
+      "fields": [
+        {
+          "productId": 4072,
+          "productName": "Y.C. Vapor's Combat Enhancer",
+          "field": "mechanics",
+          "path": "itemCraftings[0].craftingFinalProducts[0].finalProduct.metadata.mechanics",
+          "text": "Injected. Members of any Lineage regain up to 2 uses of Drag Handle and I've Seen Worse.",
+          "structuredRequirement": "Requires User To Have Expended Levels of the Appropriate Skill"
+        }
+      ]
+    },
+    {
+      "id": 5306,
+      "name": "Yeetus Completus Excape Cloud",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 5308,
+      "name": "You-Hokay Binoculars",
+      "badges": [],
+      "fields": []
+    },
+    {
+      "id": 4604,
+      "name": "Zeppelin Tow Cabin",
+      "badges": [],
+      "fields": []
+    }
+  ]
+}
