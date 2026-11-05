@@ -123,7 +123,9 @@ Reproduce the after audit with `node tools/audit-lineage.mjs after`. The tool re
 
 No ownership cycles, collection persistence, queue/timer logic, shopping/warehouse/pricing, export/import or source catalog data was changed. No production deployment is authorized. Physical-device verification remains separate from emulated browser checks.
 
-## Accepted taxonomy visibility limitation
+## Accepted taxonomy visibility limitation (historical)
+
+Superseded by the subsequent taxonomy work order: see [Taxonomy Blueprint eligibility](TAXONOMY_BLUEPRINT_ELIGIBILITY.md). The filter was removed in TEST 0.0.39; the following records the original issue #38 staging decision.
 
 The existing master catalog deliberately excludes 16 taxonomy-output recipes, including all of the poisons audited here. The user explicitly requested preserving that filter pending a later taxonomy project. No catalog filtering was changed. Parser/unit and direct Blueprint Details checks cover every poison. Existing catalog/Workshop rows continue to show badges for visible prints; hidden taxonomy recipes remain hidden even when present in a saved collection. This is an accepted existing visibility limitation, not an unrecognized lineage or a new restriction. Direct catalog detail routes use the full catalog and can display their badges.
 

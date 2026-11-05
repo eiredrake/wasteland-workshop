@@ -18,3 +18,5 @@ This is a catalog visibility change only. Existing recipe snapshots retain all c
 This supersedes the accepted taxonomy visibility limitation documented in the earlier issue #38 audit; that report describes the previous staging state.
 
 Staging deployment verification is recorded below. Production deployment is not authorized.
+
+Deployed and verified at https://workshop-test.foundationsrpg.org as TEST 0.0.39 (app 1.0.6). The deployed 390px check queued all 16 recipes, saved notes and reloaded successfully. Production container version remains 1.0.6 / testVersion 0.0.0 and was not replaced. Implementation commit: ce312fe. Included in draft PR #39.
