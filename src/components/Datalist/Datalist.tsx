@@ -326,6 +326,7 @@ function Datalist<T>({
             sortedItems.map((item) => (
               <tr
                 key={getRowKey(item)}
+                className={onRowClick || renderDetails ? 'datalist-row-clickable' : undefined}
                 onClick={() =>
                   handleRowClick(item)
                 }
